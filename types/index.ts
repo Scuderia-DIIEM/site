@@ -1,0 +1,60 @@
+export interface Product {
+  id: string
+  title: string
+  description: string
+  image?: string
+  icon?: string
+  features?: string[]
+  link?: string
+  colorAccent?: string
+}
+
+export interface Feature {
+  id: string
+  title: string
+  description: string
+  icon: string
+  stat?: string
+  colorAccent?: string
+}
+
+export interface GalleryImage {
+  id?: string
+  src: string
+  alt: string
+  title?: string
+  description?: string
+  caption?: string
+}
+
+export interface Testimonial {
+  id: string
+  quote: string
+  author: string
+  role: string
+}
+
+export interface NewsItem {
+  id: string
+  title: string
+  date: string
+  excerpt: string
+  link?: string
+}
+
+export interface Race {
+  id: string
+  name: string
+  date: string
+  location: string
+  result?: string
+  status: 'upcoming' | 'completed'
+}
+
+export interface TeamMember {
+  id: number
+  name: string
+  role: string
+  image: string
+}
+

@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom animations for complex effects */
+@keyframes speed-lines {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-accent text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg;
+  }
+  .btn-secondary {
+    @apply px-6 py-3 bg-primary text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-primary-variant;
+  }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
