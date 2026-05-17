@@ -4,11 +4,11 @@ import Image from 'next/image'
 
 const stats = [
   { label: 'Anni di Attività', value: '5+', icon: '📅' },
-  { label: 'Competizioni', value: '1', icon: '🏁' },
+  //{ label: 'Competizioni', value: '1', icon: '🏁' },
   { label: 'Progetti Completati', value: '10+', icon: '🚀' },
   { label: 'Tecnologie Sviluppate', value: '5+', icon: '⚙️' },
   { label: 'Innovazioni', value: '3', icon: '💡' },
-  { label: 'Membri Team', value: '50+', icon: '👥' }
+  { label: 'Membri Team', value: '50+', icon: '👥' }                                                      
 ]
 
 export default function About() {
@@ -58,7 +58,7 @@ export default function About() {
               La Nostra Storia
             </h3>
             <p className="text-lg text-gray-200 leading-relaxed">
-              Scuderia DIIEM nasce dalla passione per il motorsport e l'innovazione tecnologica. 
+              Scuderia DIIEM nasce dalla passione per il mondo sottomarino e l'innovazione tecnologica. 
               Il nostro team combina l'eccellenza ingegneristica con la determinazione competitiva 
               per raggiungere risultati straordinari sia in pista che nello sviluppo tecnologico.
             </p>
