@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface GalleryImage {
   src: string
@@ -8,6 +9,7 @@ interface GalleryImage {
   title?: string
   description?: string
   caption?: string
+  articleSlug?: string
 }
 
 interface GalleryProps {
@@ -19,29 +21,33 @@ const defaultImages: GalleryImage[] = [
     src: '/render/arm.png',
     alt: 'Progetto Scuderia DIIEM',
     title: 'Progettazione CAD',
-    description: 'Il team di Scuderia DIIEM al lavoro su progetti innovativi che combinano eccellenza ingegneristica e passione per il motorsport.',
-    caption: 'Il nostro team al lavoro'
+    description: 'Il progetto CAD è il primo passo di ogni dispositivo. Qui iniziamo a definire forma, meccanica e dettagli costruttivi con estrema precisione.',
+    caption: 'Il design non è solo come qualcosa appare o si percepisce. Il design è come funziona.',
+    articleSlug: 'project-CAD'
   },
   {
     src: '/imgs/text-logo.jpg',
     alt: 'Scuderia DIIEM',
     title: 'Brand Identity',
     description: 'La nostra identità visiva riflette i valori di innovazione, precisione e competitività che guidano ogni nostro progetto.',
-    caption: 'Brand identity'
+    caption: 'Brand identity',
+    articleSlug: 'project-brand-identity'
   },
   {
     src: '/imgs/logo.jpg',
     alt: 'Sviluppo progetti',
     title: 'Innovazione in Azione',
     description: 'Sviluppiamo tecnologie all\'avanguardia per operazioni marine e sistemi di racing, portando l\'innovazione dall\'ambiente racing a quello marino.',
-    caption: 'Innovazione in azione'
+    caption: 'Innovazione in azione',
+    articleSlug: 'project-innovation-action'
   },
   {
     src: '/imgs/text-logo.jpg',
     alt: 'Tecnologia avanzata',
     title: 'Eccellenza Tecnica',
     description: 'Ogni progetto rappresenta un impegno verso l\'eccellenza tecnica e la ricerca di soluzioni innovative per le sfide più complesse.',
-    caption: 'Eccellenza tecnica'
+    caption: 'Eccellenza tecnica',
+    articleSlug: 'project-technical-excellence'
   }
 ]
 
@@ -263,6 +269,14 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
                     </p>
                   )}
                 </div>
+
+                {currentImage.articleSlug && (
+                  <div className="mt-6">
+                    <Link href={`/projects/${currentImage.articleSlug}`} className="inline-flex items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/20 hover:bg-secondary transition-colors duration-300">
+                      Continua a leggere
+                    </Link>
+                  </div>
+                )}
 
                 {/* Thumbnail Navigation */}
                 <div className="mt-6">

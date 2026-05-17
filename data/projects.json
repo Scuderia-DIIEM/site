@@ -1,10 +1,150 @@
 [
   {
-    "id": "project-1",
-    "slug": "project-1",
-    "title": "Progetto Dimostrativo 1",
-    "excerpt": "Breve descrizione del primo progetto.",
+    "id": "project-CAD",
+    "slug": "project-CAD",
+    "title": "Progettazione CAD",
+    "excerpt": "Tutti i dispositivi che stiamo costruendo sono stati progettati con CAD.",
     "date": "2026-05-17",
-    "content": "Questo è un contenuto di esempio per il primo progetto. Sostituisci con il contenuto reale quando pronto."
+    "authors": ["Giulia Rossi", "Marco Bianchi"],
+    "heroImage": {
+      "src": "/render/arm.png",
+      "alt": "Immagine di copertina del progetto CAD",
+      "width": 400,
+      "height": 130,
+      "align": "left",
+      "show": false
+    },
+    "blocks": [
+      {
+        "type": "text",
+        "content": "Il progetto CAD è il primo passo di ogni dispositivo. Qui iniziamo a definire forma, meccanica e dettagli costruttivi con estrema precisione."
+      },
+      {
+        "type": "text",
+        "content": "In pratica, il CAD permette di trasformare un’idea in un modello tridimensionale preciso. Questo significa che ogni componente può essere progettato nei minimi dettagli: dimensioni, forma, spessori, fori, incastri, tolleranze e modalità di assemblaggio. Prima di passare alla fase di produzione, possiamo quindi osservare il dispositivo da ogni angolazione, correggere eventuali errori e capire se le varie parti sono compatibili tra loro. \n\n"
+      },
+      {
+        "type": "image",
+        "src": "/render/cad1.png",
+        "alt": "Esempio di progetto CAD",
+        "caption": "Schermata CAD del nostro ROV.",
+        "width": 900,
+        "align": "center"
+      },
+      {
+        "type": "text",
+        "content": " Uno dei principali vantaggi della progettazione CAD è la possibilità di ridurre tempi e costi di sviluppo. Senza un modello digitale, molti problemi verrebbero scoperti solo dopo aver realizzato fisicamente il pezzo, con conseguente spreco di materiale e necessità di rifare il lavoro. Con il CAD, invece, possiamo simulare e verificare il progetto in anticipo, migliorandolo progressivamente fino a ottenere una soluzione più efficiente e funzionale."
+      },
+      {
+        "type": "text",
+        "content": "Nel nostro caso, la progettazione CAD ci aiuta a sviluppare tutti i dispositivi che stiamo costruendo perché ci permette di passare da una semplice idea a un progetto concreto e realizzabile. Ogni elemento può essere studiato in relazione agli altri, valutando ingombri, movimenti, punti di fissaggio e possibili interferenze. Questo è particolarmente importante quando si lavora su dispositivi composti da più parti, dove anche un piccolo errore di misura può compromettere il funzionamento dell’intero sistema."
+      },
+      {
+        "type": "text",
+        "content": "Inoltre, il CAD facilita la comunicazione all’interno del gruppo di lavoro. Un modello 3D è molto più chiaro di una descrizione a parole: permette a tutti di vedere esattamente come sarà fatto il dispositivo, quali modifiche sono necessarie e come procedere nella costruzione. Il progetto digitale può anche essere utilizzato per generare file destinati alla stampa 3D, al taglio laser, alla fresatura CNC o ad altri processi di fabbricazione."
+      }
+    ]
+  },
+  {
+    "id": "project-brand-identity",
+    "slug": "project-brand-identity",
+    "title": "Brand Identity DIIEM",
+    "excerpt": "Il nostro approccio al design visivo e all’identità del brand.",
+    "date": "2026-05-20",
+    "authors": ["Luca Verdi"],
+    "heroImage": {
+      "src": "/imgs/text-logo.jpg",
+      "alt": "Brand Identity DIIEM",
+      "width": 680,
+      "height": 300,
+      "align": "center",
+      "show": false
+    },
+    "blocks": [
+      {
+        "type": "text",
+        "content": "La brand identity di Scuderia DIIEM nasce dall’unione tra tecnologia, dinamismo e affidabilità. Ogni elemento grafico è studiato per comunicare la forza e l’eleganza del nostro team."
+      },
+      {
+        "type": "image",
+        "src": "/imgs/text-logo.jpg",
+        "alt": "Logo DIIEM",
+        "caption": "Esempio di brand identity per il team.",
+        "width": 900,
+        "align": "center"
+      },
+      {
+        "type": "text",
+        "content": "Usiamo colori distintivi e iconografie chiare per rendere ogni progetto immediatamente riconoscibile. La brand identity è il primo biglietto da visita per i nostri partner e clienti."
+      }
+    ]
+  },
+  {
+    "id": "project-innovation-action",
+    "slug": "project-innovation-action",
+    "title": "Innovazione in Azione",
+    "excerpt": "Come portiamo l’innovazione dal racing all’ambiente marino.",
+    "date": "2026-05-22",
+    "authors": ["Sara Neri", "Matteo Russo"],
+    "heroImage": {
+      "src": "/imgs/logo.jpg",
+      "alt": "Innovazione in azione",
+      "width": 680,
+      "height": 300,
+      "align": "center",
+      "show": true
+    },
+    "blocks": [
+      {
+        "type": "text",
+        "content": "In Scuderia DIIEM l’innovazione non è solo un concetto, ma un processo costante che appliciamo a ogni fase di sviluppo dei nostri progetti."
+      },
+      {
+        "type": "image",
+        "src": "/imgs/logo.jpg",
+        "alt": "Innovazione tecnologica",
+        "caption": "Un progetto che unisce racing e tecnologia marina.",
+        "width": 720,
+        "align": "center"
+      },
+      {
+        "type": "text",
+        "content": "Ogni nuova soluzione nasce dalla collaborazione tra ingegneri, designer e specialisti di prodotto, per garantire performance elevate e risultati concreti."
+      }
+    ]
+  },
+  {
+    "id": "project-technical-excellence",
+    "slug": "project-technical-excellence",
+    "title": "Eccellenza Tecnica",
+    "excerpt": "L’impegno per soluzioni tecniche affidabili e performanti.",
+    "date": "2026-05-24",
+    "authors": ["Francesca Lotti"],
+    "heroImage": {
+      "src": "/imgs/text-logo.jpg",
+      "alt": "Eccellenza tecnica",
+      "width": 680,
+      "height": 300,
+      "align": "center",
+      "show": true
+    },
+    "blocks": [
+      {
+        "type": "text",
+        "content": "La nostra eccellenza tecnica si basa su rigore, test e attenzione ai dettagli. Ogni progetto è validato per resistere alle condizioni più estreme."
+      },
+      {
+        "type": "image",
+        "src": "/imgs/text-logo.jpg",
+        "alt": "Tecnologia avanzata",
+        "caption": "Dettaglio di un progetto tecnico avanzato.",
+        "width": 720,
+        "align": "center"
+      },
+      {
+        "type": "text",
+        "content": "Dalla scelta dei materiali all’assemblaggio, puntiamo a standard elevati per offrire prodotti che uniscono funzionalità, stabilità e design."
+      }
+    ]
   }
 ]

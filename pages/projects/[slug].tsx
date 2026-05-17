@@ -1,14 +1,75 @@
+import React from 'react'
 import Head from 'next/head'
 import Header from '../../components/Layout/Header'
 import Footer from '../../components/Layout/Footer'
 import { useRouter } from 'next/router'
 import projects from '@/data/projects.json'
+import { ProjectArticle, ProjectBlock } from '@/types'
 
 export default function ProjectDetail() {
   const router = useRouter()
   const { slug } = router.query
 
-  const project = projects.find((p: any) => p.slug === slug)
+  const project = (projects as ProjectArticle[]).find((p) => p.slug === slug)
+
+  const getHeroData = (heroImage?: string | { src: string; alt?: string; caption?: string; width?: number; height?: number; align?: 'left' | 'center' | 'right'; show?: boolean; className?: string }) => {
+    if (!heroImage) return null
+    if (typeof heroImage === 'string') {
+      return {
+        src: heroImage,
+        alt: project?.title ?? '',
+        width: undefined,
+        height: 256,
+        align: 'center' as 'center',
+        show: true,
+        className: undefined,
+      }
+    }
+    if (heroImage.show === false) return null
+    return {
+      show: heroImage.show ?? true,
+      ...heroImage,
+    }
+  }
+
+  const renderBlock = (block: ProjectBlock, index: number) => {
+    if (block.type === 'text') {
+      return (
+        <p key={index} className="mb-6 leading-8 text-gray-700">
+          {block.content}
+        </p>
+      )
+    }
+    if (block.type === 'image') {
+      const imgStyle: React.CSSProperties = {}
+      if (block.width) imgStyle.width = block.width
+      if (block.height) imgStyle.height = block.height
+
+      const alignmentClass = block.align === 'right'
+        ? 'ml-auto'
+        : block.align === 'left'
+          ? 'mr-auto'
+          : 'mx-auto'
+
+      const wrapperStyle: React.CSSProperties = {}
+      if (block.width) wrapperStyle.width = block.width
+
+      return (
+        <div key={index} className={`mb-10 ${alignmentClass}`} style={wrapperStyle}>
+          <div className="overflow-hidden rounded-3xl border border-gray-200 shadow-sm">
+            <img
+              src={block.src}
+              alt={block.alt}
+              className={`${block.className ?? ''} ${block.width ? '' : 'w-full'} h-auto object-cover`}
+              style={imgStyle}
+            />
+          </div>
+          {block.caption && <p className="mt-3 text-sm text-gray-500">{block.caption}</p>}
+        </div>
+      )
+    }
+    return null
+  }
 
   if (!project) {
     return (
@@ -38,9 +99,40 @@ export default function ProjectDetail() {
           <div className="max-w-4xl mx-auto px-4">
             <h1 className="text-3xl font-bold text-primary mb-4">{project.title}</h1>
             <p className="text-sm text-gray-400 mb-6">{project.date}</p>
+            {project.heroImage && (() => {
+              const hero = getHeroData(project.heroImage)
+              if (!hero) return null
+              const alignmentClass = hero.align === 'right'
+                ? 'ml-auto'
+                : hero.align === 'left'
+                  ? 'mr-auto'
+                  : 'mx-auto'
+              const style: React.CSSProperties = {}
+              if (hero.width) style.width = hero.width
+              if (hero.height) style.height = hero.height
+
+              return (
+                <div className={`mb-8 overflow-hidden rounded-3xl border border-gray-200 shadow-sm ${alignmentClass}`} style={{ maxWidth: hero.width ?? '100%' }}>
+                  <img
+                    src={hero.src}
+                    alt={hero.alt ?? project.title}
+                    className={`${hero.className ?? ''} w-full object-cover`}
+                    style={style}
+                  />
+                  {hero.caption && <p className="px-4 py-3 text-sm text-gray-500">{hero.caption}</p>}
+                </div>
+              )
+            })()}
             <div className="prose max-w-none text-gray-700">
-              <p>{project.content}</p>
+              {project.blocks.map((block, index) => renderBlock(block, index))}
             </div>
+            {project.authors && project.authors.length > 0 && (
+              <div className="mt-12 border-t border-gray-200 pt-6">
+                <p className="text-sm text-gray-500">
+                  {project.authors.length > 1 ? 'Autori' : 'Autore'}: {project.authors.join(', ')}
+                </p>
+              </div>
+            )}
           </div>
         </main>
 

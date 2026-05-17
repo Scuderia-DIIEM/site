@@ -18,6 +18,41 @@ export interface Feature {
   colorAccent?: string
 }
 
+export type ProjectBlock =
+  | { type: 'text'; content: string }
+  | {
+      type: 'image'
+      src: string
+      alt: string
+      caption?: string
+      width?: number
+      height?: number
+      align?: 'left' | 'center' | 'right'
+      className?: string
+    }
+
+export interface HeroImage {
+  src: string
+  alt?: string
+  caption?: string
+  width?: number
+  height?: number
+  align?: 'left' | 'center' | 'right'
+  show?: boolean
+  className?: string
+}
+
+export interface ProjectArticle {
+  id: string
+  slug: string
+  title: string
+  excerpt: string
+  date: string
+  authors?: string[]
+  heroImage?: string | HeroImage
+  blocks: ProjectBlock[]
+}
+
 export interface GalleryImage {
   id?: string
   src: string
