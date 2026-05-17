@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Scuderia DIIEM - Eccellenza nel Racing</title>
+        <title>Scuderia DIIEM</title>
         <meta 
           name="description" 
           content="Scuderia DIIEM: eccellenza nel racing italiano. Scopri i nostri prodotti innovativi, risultati sportivi e tecnologie all'avanguardia per operazioni marine e motorsport." 
@@ -31,14 +31,14 @@ export default function Home() {
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Scuderia DIIEM - Eccellenza nel Racing" />
-        <meta property="og:description" content="Eccellenza nel Racing | Spingendo i Limiti | Innovazione Ingegneristica" />
+        <meta property="og:title" content="Scuderia DIIEM" />
+        <meta property="og:description" content="Scuderia DIIEM: scopri i nostri progetti innovativi e tecnologie all'avanguardia per operazioni marine." />
         <meta property="og:locale" content="it_IT" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Scuderia DIIEM - Eccellenza nel Racing" />
-        <meta name="twitter:description" content="Eccellenza nel Racing | Spingendo i Limiti | Innovazione Ingegneristica" />
+        <meta name="twitter:title" content="Scuderia DIIEM" />
+        <meta name="twitter:description" content="Scuderia DIIEM: scopri i nostri progetti innovativi e tecnologie all'avanguardia per operazioni marine." />
         
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -87,7 +87,7 @@ export default function Footer() {
                 </p>
               </div>
               <p className="text-gray-300 mb-4 max-w-md">
-                Eccellenza nel Racing | Spingendo i Limiti | Innovazione Ingegneristica
+                Innovazione Ingegneristica | Spingendo i Limiti 
               </p>
               <div className="flex items-center space-x-4">
                 <span className="text-sm text-gray-400">Seguici su:</span>

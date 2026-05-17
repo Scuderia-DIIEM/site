@@ -16,9 +16,9 @@ interface GalleryProps {
 
 const defaultImages: GalleryImage[] = [
   {
-    src: '/imgs/logo.jpg',
+    src: '/render/arm.png',
     alt: 'Progetto Scuderia DIIEM',
-    title: 'Il Nostro Team',
+    title: 'Progettazione CAD',
     description: 'Il team di Scuderia DIIEM al lavoro su progetti innovativi che combinano eccellenza ingegneristica e passione per il motorsport.',
     caption: 'Il nostro team al lavoro'
   },
@@ -133,7 +133,7 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
             I Nostri Progetti
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Scopri i nostri lavori e le nostre realizzazioni
+            La base dei nostri prodotti
           </p>
         </motion.div>
 

@@ -60,7 +60,7 @@ export default function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.8 }}
                     >
-                        Eccellenza nel Racing | Spingendo i Limiti | Innovazione Ingegneristica
+                        Innovazione Ingegneristica | Spingendo i Limiti 
                     </motion.p>
 
                     <motion.div
@@ -70,7 +70,7 @@ export default function Hero() {
                         transition={{ delay: 0.6, duration: 0.8 }}
                     >
                         <Button href="#gallery" variant="primary">
-                            Segui il Nostro Viaggio
+                            Scopri il Nostro Progetto
                         </Button>
                         <Button href="#contact" variant="secondary">
                             Diventa Sponsor

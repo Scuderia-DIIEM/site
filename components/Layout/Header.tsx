@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -15,12 +16,15 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const router = useRouter()
+  const isHome = router.pathname === '/'
+
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'Chi Siamo', href: '#about' },
-    { label: 'Team', href: '#team' },
+    { label: 'Team', href: isHome ? '#team' : '/team' },
     { label: 'Prodotti', href: '#products' },
-    { label: 'Progetti', href: '#gallery' },
+    { label: 'Progetti', href: '/projects' },
     { label: 'Gare', href: '#racing' },
     { label: 'Contatti', href: '#contact' },
   ]
@@ -29,7 +33,7 @@ export default function Header() {
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
         ? 'bg-primary/95 backdrop-blur-md shadow-lg'
-        : 'bg-transparent'
+        : 'bg-primary'
         }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
