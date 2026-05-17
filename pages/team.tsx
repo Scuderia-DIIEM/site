@@ -72,7 +72,7 @@ export default function TeamPage() {
         <Header />
 
         <main>
-          <section className="py-12 bg-primary">
+          <section className="pt-28 pb-12 bg-primary">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <motion.div
                 className="text-center"
@@ -146,11 +146,11 @@ export default function TeamPage() {
           onClose={() => setSelectedMember(null)}
           title={selectedMember?.name || ''}
         >
-          <div className="flex flex-col md:flex-row gap-6">
-            {/* Immagine */}
+          <div className="flex flex-col md:flex-row items-start gap-6">
+            {/* Immagine e breve info */}
             {selectedMember && (
-              <div className="md:w-1/3">
-                <div className="relative w-full aspect-square rounded-lg overflow-hidden">
+              <div className="w-full md:w-1/4 flex-shrink-0">
+                <div className="relative w-full aspect-square rounded-lg overflow-hidden border border-gray-100">
                   <Image
                     src={selectedMember.image}
                     alt={selectedMember.name}
@@ -158,32 +158,26 @@ export default function TeamPage() {
                     className="object-cover"
                   />
                 </div>
+                <div className="mt-3">
+                  <p className="text-sm text-gray-700 font-semibold">{selectedMember.role}</p>
+                  {(selectedMember as any).yearsActive && (
+                    <p className="text-xs text-gray-500 mt-1">Periodo di attività: {(selectedMember as any).yearsActive}</p>
+                  )}
+                </div>
               </div>
             )}
 
-            {/* Informazioni e Contatti */}
-            <div className="md:w-2/3">
+            {/* Informazioni e Contatti principali */}
+            <div className="w-full md:flex-1">
               {selectedMember && (
-                <>
-                  <p className="text-lg text-gray-600 mb-6 font-semibold">
-                    {selectedMember.role}
-                  </p>
-                  {(selectedMember as any).yearsActive && (
-                    <p className="text-sm text-gray-500 mb-6">
-                      Periodo di attività: {(selectedMember as any).yearsActive}
-                    </p>
-                  )}
+                <div className="px-1 md:px-4">
+                  <h4 className="text-lg font-bold text-primary mb-3">Contatti</h4>
 
-                  {/* Contatti */}
-                  <div className="space-y-4">
-                    <h4 className="text-xl font-bold text-primary mb-4">
-                      Contatti
-                    </h4>
-
+                  <div className="grid grid-cols-1 gap-3">
                     {/* Email */}
                     {selectedMember.email && (
-                      <div className="flex items-center gap-3">
-                        <span className="text-primary font-semibold">📧</span>
+                      <div className="flex items-start gap-3">
+                        <span className="mt-1 text-primary">📧</span>
                         <a
                           href={`mailto:${selectedMember.email}`}
                           className="text-blue-600 hover:underline break-all"
@@ -195,8 +189,8 @@ export default function TeamPage() {
 
                     {/* Telefono */}
                     {(selectedMember as any).phone && (
-                      <div className="flex items-center gap-3">
-                        <span className="text-primary font-semibold">📱</span>
+                      <div className="flex items-start gap-3">
+                        <span className="mt-1 text-primary">📱</span>
                         <a
                           href={`tel:${(selectedMember as any).phone}`}
                           className="text-blue-600 hover:underline"
@@ -208,8 +202,8 @@ export default function TeamPage() {
 
                     {/* LinkedIn */}
                     {(selectedMember as any).linkedin && (
-                      <div className="flex items-center gap-3">
-                        <span className="text-primary font-semibold">💼</span>
+                      <div className="flex items-start gap-3">
+                        <span className="mt-1 text-primary">💼</span>
                         <a
                           href={(selectedMember as any).linkedin}
                           target="_blank"
@@ -223,8 +217,8 @@ export default function TeamPage() {
 
                     {/* Instagram */}
                     {(selectedMember as any).instagram && (
-                      <div className="flex items-center gap-3">
-                        <span className="text-primary font-semibold">📸</span>
+                      <div className="flex items-start gap-3">
+                        <span className="mt-1 text-primary">📸</span>
                         <a
                           href={(selectedMember as any).instagram}
                           target="_blank"
@@ -241,12 +235,10 @@ export default function TeamPage() {
                       !(selectedMember as any).phone &&
                       !(selectedMember as any).linkedin &&
                       !(selectedMember as any).instagram && (
-                        <p className="text-gray-500 italic">
-                          Nessun contatto disponibile
-                        </p>
+                        <p className="text-gray-500 italic">Nessun contatto disponibile</p>
                       )}
                   </div>
-                </>
+                </div>
               )}
             </div>
           </div>

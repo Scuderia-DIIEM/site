@@ -18,7 +18,7 @@ export default function Header() {
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'Chi Siamo', href: '#about' },
-    { label: 'Team', href: '/team' },
+    { label: 'Team', href: '#team' },
     { label: 'Prodotti', href: '#products' },
     { label: 'Progetti', href: '#gallery' },
     { label: 'Gare', href: '#racing' },
@@ -47,8 +47,8 @@ export default function Header() {
               <Image
                 src="/imgs/SDR3_bianco.png"
                 alt="Scuderia DIIEM Logo"
-                width={70}
-                height={70}
+                width={86}
+                height={86}
                 className="object-contain"
               />
             </motion.div>
