@@ -66,7 +66,7 @@ export default function Features() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-display">
-            I Nostri Punti di Forza
+            I Nostri Partner
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Cosa ci distingue nel mondo del racing e della tecnologia
