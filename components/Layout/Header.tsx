@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -15,9 +16,9 @@ export default function Header() {
   }, [])
 
   const navItems = [
-    { label: 'Home', href: '#home' },
+    { label: 'Home', href: '/' },
     { label: 'Chi Siamo', href: '#about' },
-    { label: 'Team', href: '#team' },
+    { label: 'Team', href: '/team' },
     { label: 'Prodotti', href: '#products' },
     { label: 'Progetti', href: '#gallery' },
     { label: 'Gare', href: '#racing' },
@@ -37,35 +38,36 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logos */}
-          <motion.a
-            href="#home"
-            className="flex items-center space-x-4"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Image
-              src="/imgs/SDR3_bianco.png"
-              alt="Scuderia DIIEM Logo"
-              width={70}
-              height={70}
-              className="object-contain"
-            />
-          </motion.a>
+          <Link href="/">
+            <motion.div
+              className="flex items-center space-x-4 cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Image
+                src="/imgs/SDR3_bianco.png"
+                alt="Scuderia DIIEM Logo"
+                width={70}
+                height={70}
+                className="object-contain"
+              />
+            </motion.div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
-              <motion.a
-                key={item.href}
-                href={item.href}
-                className="text-white hover:text-accent transition-colors duration-300 font-medium"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -2 }}
-              >
-                {item.label}
-              </motion.a>
+              <Link key={item.href} href={item.href}>
+                <motion.span
+                  className="text-white hover:text-accent transition-colors duration-300 font-medium cursor-pointer"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -2 }}
+                >
+                  {item.label}
+                </motion.span>
+              </Link>
             ))}
           </div>
 
@@ -102,14 +104,14 @@ export default function Header() {
             exit={{ opacity: 0, height: 0 }}
           >
             {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="block text-white hover:text-accent transition-colors duration-300 py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.label}
-              </a>
+              <Link key={item.href} href={item.href}>
+                <span
+                  className="block text-white hover:text-accent transition-colors duration-300 py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </span>
+              </Link>
             ))}
           </motion.div>
         )}

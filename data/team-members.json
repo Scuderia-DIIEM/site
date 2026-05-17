@@ -3,19 +3,25 @@
     "id": 1,
     "name": "Membro Team 1",
     "role": "Ruolo / Posizione",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/DSCF7641.JPG",
+    "email": "membro1@example.com",
+    "phone": "+39 123 456 7890",
+    "linkedin": "https://linkedin.com",
+    "instagram": "https://instagram.com"
   },
   {
     "id": 2,
     "name": "Membro Team 2",
     "role": "Ruolo / Posizione",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/DSCF7641.JPG",
+    "email": "membro2@example.com"
   },
   {
     "id": 3,
     "name": "Membro Team 3",
     "role": "Ruolo / Posizione",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/DSCF7641.JPG",
+    "phone": "+39 987 654 3210"
   },
   {
     "id": 4,

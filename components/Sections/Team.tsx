@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import teamMembersData from '@/data/team-members.json'
+import Modal from '@/components/UI/Modal'
 
 // Array dei membri del team dal JSON
 const teamMembers = Array.isArray(teamMembersData) ? teamMembersData : []
@@ -33,17 +35,19 @@ function useColumnsPerRow() {
 interface TeamMemberCardProps {
   member: typeof teamMembers[0]
   index: number
+  onSelect: (member: typeof teamMembers[0]) => void
 }
 
-function TeamMemberCard({ member, index }: TeamMemberCardProps) {
+function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
   return (
     <motion.div
-      className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+      className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 cursor-pointer"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
       whileHover={{ y: -8 }}
+      onClick={() => onSelect(member)}
     >
       {/* Immagine del membro */}
       <div className="relative w-full aspect-square overflow-hidden bg-gray-100">
@@ -77,23 +81,15 @@ function TeamMemberCard({ member, index }: TeamMemberCardProps) {
 export default function Team() {
   const columnsPerRow = useColumnsPerRow()
   const [visibleRows, setVisibleRows] = useState(1) // Mostra inizialmente solo la prima riga
+  const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null)
 
   const totalRows = Math.ceil(teamMembers.length / columnsPerRow)
   const visibleCount = visibleRows * columnsPerRow
   const visibleMembers = teamMembers.slice(0, visibleCount)
   const hasMore = visibleRows < totalRows
-  const showAllVisible = visibleRows >= totalRows
 
   const handleShowMore = () => {
     setVisibleRows(prev => Math.min(prev + 1, totalRows))
-  }
-
-  const handleShowAll = () => {
-    setVisibleRows(totalRows)
-  }
-
-  const handleShowLess = () => {
-    setVisibleRows(1)
   }
 
   return (
@@ -121,6 +117,7 @@ export default function Team() {
               key={member.id}
               member={member}
               index={index}
+              onSelect={setSelectedMember}
             />
           ))}
         </div>
@@ -128,30 +125,126 @@ export default function Team() {
         {/* Pulsanti di controllo */}
         <div className="text-center mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center">
           {hasMore && (
-            <>
-              <button
-                onClick={handleShowMore}
-                className="px-8 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-caramel hover:shadow-lg transition-all duration-300"
-              >
-                Mostra altro
-              </button>
-              <button
-                onClick={handleShowAll}
-                className="px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-variant hover:shadow-lg transition-all duration-300"
-              >
-                Mostra tutti
-              </button>
-            </>
-          )}
-          {showAllVisible && visibleRows > 1 && (
             <button
-              onClick={handleShowLess}
-              className="px-8 py-3 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 hover:shadow-lg transition-all duration-300"
+              onClick={handleShowMore}
+              className="px-8 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-caramel hover:shadow-lg transition-all duration-300"
             >
-              Mostra meno
+              Mostra altro
             </button>
           )}
+          <Link href="/team">
+            <button className="px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-variant hover:shadow-lg transition-all duration-300">
+              Mostra tutti
+            </button>
+          </Link>
         </div>
+
+        {/* Modal per i dettagli del membro */}
+        <Modal
+          isOpen={selectedMember !== null}
+          onClose={() => setSelectedMember(null)}
+          title={selectedMember?.name || ''}
+        >
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Immagine */}
+            {selectedMember && (
+              <div className="md:w-1/3">
+                <div className="relative w-full aspect-square rounded-lg overflow-hidden">
+                  <Image
+                    src={selectedMember.image}
+                    alt={selectedMember.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Informazioni e Contatti */}
+            <div className="md:w-2/3">
+              {selectedMember && (
+                <>
+                  <p className="text-lg text-gray-600 mb-6 font-semibold">
+                    {selectedMember.role}
+                  </p>
+
+                  {/* Contatti */}
+                  <div className="space-y-4">
+                    <h4 className="text-xl font-bold text-primary mb-4">
+                      Contatti
+                    </h4>
+
+                    {/* Email */}
+                    {selectedMember.email && (
+                      <div className="flex items-center gap-3">
+                        <span className="text-primary font-semibold">📧</span>
+                        <a
+                          href={`mailto:${selectedMember.email}`}
+                          className="text-blue-600 hover:underline break-all"
+                        >
+                          {selectedMember.email}
+                        </a>
+                      </div>
+                    )}
+
+                    {/* Telefono */}
+                    {(selectedMember as any).phone && (
+                      <div className="flex items-center gap-3">
+                        <span className="text-primary font-semibold">📱</span>
+                        <a
+                          href={`tel:${(selectedMember as any).phone}`}
+                          className="text-blue-600 hover:underline"
+                        >
+                          {(selectedMember as any).phone}
+                        </a>
+                      </div>
+                    )}
+
+                    {/* LinkedIn */}
+                    {(selectedMember as any).linkedin && (
+                      <div className="flex items-center gap-3">
+                        <span className="text-primary font-semibold">💼</span>
+                        <a
+                          href={(selectedMember as any).linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          LinkedIn
+                        </a>
+                      </div>
+                    )}
+
+                    {/* Instagram */}
+                    {(selectedMember as any).instagram && (
+                      <div className="flex items-center gap-3">
+                        <span className="text-primary font-semibold">📸</span>
+                        <a
+                          href={(selectedMember as any).instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          Instagram
+                        </a>
+                      </div>
+                    )}
+
+                    {/* Messaggio se non ci sono contatti */}
+                    {!selectedMember.email &&
+                      !(selectedMember as any).phone &&
+                      !(selectedMember as any).linkedin &&
+                      !(selectedMember as any).instagram && (
+                        <p className="text-gray-500 italic">
+                          Nessun contatto disponibile
+                        </p>
+                      )}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </Modal>
       </div>
     </section>
   )
