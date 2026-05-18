@@ -17,6 +17,187 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Light / Dark base colors and overrides */
+@layer base {
+  :root {
+    --bg: #ffffff;
+    --text: #0f172a;
+    --card-bg: #ffffff;
+    --card-text: #0f172a;
+    --card-variant-bg: #112844;
+  }
+
+  .dark {
+    --bg: #071425; /* page background in dark */
+    --text: #eef6ff; /* main text in dark */
+    --card-bg: #0e2940; /* darker blue for cards */
+    --card-text: #e6eef8; /* card text color */
+    --card-variant-bg: #112844; /* variant for accented cards */
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  /* Utility card classes to use across the site */
+  .card {
+    background-color: var(--card-bg);
+    color: var(--card-text);
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  .card-variant {
+    background-color: var(--card-variant-bg);
+    color: var(--card-text);
+  }
+
+  .dark .card {
+    background-color: #0a1c39;
+    color: #eef6ff;
+  }
+
+  .dark .card-variant {
+    background-color: #071425;
+    color: #eef6ff;
+  }
+
+  .dark {
+    color: #eef6ff;
+  }
+
+  .dark .bg-white,
+  .dark .bg-gray-50,
+  .dark .bg-gray-100,
+  .dark .bg-gray-200,
+  .dark .bg-slate-50,
+  .dark .bg-slate-100,
+  .dark .bg-slate-200,
+  .dark .bg-zinc-100,
+  .dark .bg-stone-50,
+  .dark .bg-stone-100 {
+    background-color: var(--card-bg) !important;
+    color: var(--card-text) !important;
+  }
+
+  .dark .from-white {
+    --tw-gradient-from: #0e2940 !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(14,41,64,0)) !important;
+  }
+
+  .dark .to-white {
+    --tw-gradient-to: #0e2940 !important;
+  }
+
+  .dark .via-white {
+    --tw-gradient-stops: var(--tw-gradient-from), #0e2940, var(--tw-gradient-to, rgba(14,41,64,0)) !important;
+  }
+
+  .dark .from-gray-50,
+  .dark .from-slate-50,
+  .dark .from-zinc-50,
+  .dark .from-stone-50 {
+    --tw-gradient-from: #071425 !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(7,20,37,0)) !important;
+  }
+
+  .dark .to-gray-50,
+  .dark .to-slate-50,
+  .dark .to-zinc-50,
+  .dark .to-stone-50 {
+    --tw-gradient-to: #071425 !important;
+  }
+
+  .dark .via-gray-50,
+  .dark .via-slate-50,
+  .dark .via-zinc-50,
+  .dark .via-stone-50 {
+    --tw-gradient-stops: var(--tw-gradient-from), #071425, var(--tw-gradient-to, rgba(7,20,37,0)) !important;
+  }
+
+  .dark :is(h1,h2,h3,h4,h5,h6,p,span,li,a,button,label,strong,em,small,blockquote,dt,dd) {
+    color: #ffffff !important;
+  }
+
+  .dark .text-accent,
+  .dark .hover\:text-accent:hover,
+  .dark .text-secondary,
+  .dark .text-caramel,
+  .dark .fill-accent,
+  .dark .stroke-accent {
+    color: #f4792b !important;
+    fill: #f4792b !important;
+    stroke: #f4792b !important;
+  }
+
+  .dark .bg-accent,
+  .dark .hover\:bg-accent:hover,
+  .dark .bg-accent\/10,
+  .dark .bg-accent\/90 {
+    background-color: #f4792b !important;
+  }
+
+  /* Ensure headings using text-primary stay readable in dark mode */
+  .dark .text-primary {
+    color: var(--text) !important;
+  }
+
+  /* Handle fractional bg-white utilities (bg-white/10 etc.) in dark mode */
+  .dark [class*="bg-white/"] {
+    background-color: rgba(255,255,255,0.06) !important;
+  }
+  .dark [class*="bg-white/20"] {
+    background-color: rgba(255,255,255,0.16) !important;
+  }
+  .dark [class*="bg-white/80"] {
+    background-color: rgba(255,255,255,0.28) !important;
+  }
+  /* Improve readability for common gray text utilities in dark mode */
+  .dark .text-gray-600 { color: #c9d8ea !important; }
+  .dark .text-gray-500 { color: #b7c7df !important; }
+  .dark .text-gray-400 { color: #9fb3cc !important; }
+  .dark .text-gray-900 { color: var(--text) !important; }
+  .dark .text-gray-800 { color: #f0f6ff !important; }
+  .dark .text-slate-900 { color: var(--text) !important; }
+  .dark .text-slate-800 { color: #f0f6ff !important; }
+  .dark .text-slate-700 { color: #f0f6ff !important; }
+  .dark .text-slate-600 { color: #c9d8ea !important; }
+  .dark .text-slate-500 { color: #b7c7df !important; }
+  .dark .text-slate-400 { color: #9fb3cc !important; }
+  .dark .border-slate-200,
+  .dark .border-slate-100,
+  .dark .border-slate-300 { border-color: rgba(255,255,255,0.12) !important; }
+
+  /* Force article text to pure white in dark mode for project listings */
+  .dark .project-article,
+  .dark .project-article h2,
+  .dark .project-article p,
+  .dark .project-article span,
+  .dark .project-article div {
+    color: #ffffff !important;
+  }
+
+  /* Specific overrides for commonly used gray classes inside project articles */
+  .dark .project-article .text-gray-900,
+  .dark .project-article .text-gray-800,
+  .dark .project-article .text-gray-600,
+  .dark .project-article .text-gray-500,
+  .dark .project-article .text-gray-400 {
+    color: #ffffff !important;
+  }
+
+  /* Force all text inside project articles to white in dark mode (highest specificity) */
+  .dark .project-article * {
+    color: #ffffff !important;
+  }
+
+  .dark .project-article .text-accent,
+  .dark .project-article .hover\:text-accent:hover {
+    color: #f4792b !important;
+  }
+}
+
 /* Custom component styles */
 @layer components {
   .btn-primary {

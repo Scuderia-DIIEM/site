@@ -57,8 +57,8 @@ export default function ProjectsPage() {
                   onClick={() => setViewMode('grid')}
                   className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                     viewMode === 'grid'
-                      ? 'bg-white text-slate-900 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
+                      ? 'bg-white/80 text-slate-900 shadow-sm dark:bg-white/20 dark:text-white'
+                      : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
                   }`}
                 >
                   Pannelli
@@ -68,8 +68,8 @@ export default function ProjectsPage() {
                   onClick={() => setViewMode('list')}
                   className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                     viewMode === 'list'
-                      ? 'bg-white text-slate-900 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
+                      ? 'bg-white/80 text-slate-900 shadow-sm dark:bg-white/20 dark:text-white'
+                      : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
                   }`}
                 >
                   Lista
@@ -99,7 +99,7 @@ export default function ProjectsPage() {
                             </div>
                           )}
                           <div className="p-4">
-                            <h2 className="text-xl font-semibold text-gray-900 mb-2">{p.title}</h2>
+                            <h2 className="text-xl font-semibold text-accent mb-2">{p.title}</h2>
                             {p.authors && p.authors.length > 0 && (
                               <p className="text-sm text-gray-500 mb-2">{p.authors.length > 1 ? 'Autori' : 'Autore'}: {p.authors.join(', ')}</p>
                             )}
@@ -132,7 +132,7 @@ export default function ProjectsPage() {
                             )}
                             <div className="min-w-0 flex-1">
                               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                                <h2 className="text-lg font-semibold text-gray-900 truncate">{p.title}</h2>
+                                <h2 className="text-lg font-semibold text-accent truncate">{p.title}</h2>
                                 <p className="text-xs text-gray-400">{p.date}</p>
                               </div>
                               {p.authors && p.authors.length > 0 && (

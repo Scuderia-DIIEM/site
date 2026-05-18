@@ -7,6 +7,30 @@ import { useRouter } from 'next/router'
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [theme, setTheme] = useState<'dark' | 'light'>('light')
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem('theme')
+    if (savedTheme === 'dark' || savedTheme === 'light') {
+      setTheme(savedTheme)
+    } else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark')
+    }
+  }, [])
+
+  useEffect(() => {
+    const root = document.documentElement
+    if (theme === 'dark') {
+      root.classList.add('dark')
+    } else {
+      root.classList.remove('dark')
+    }
+    window.localStorage.setItem('theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme((current) => (current === 'dark' ? 'light' : 'dark'))
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,20 +83,30 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <Link key={item.href} href={item.href}>
-                <motion.span
-                  className="text-white hover:text-accent transition-colors duration-300 font-medium cursor-pointer"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -2 }}
-                >
-                  {item.label}
-                </motion.span>
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center space-x-4">
+            <div className="flex items-center space-x-8">
+              {navItems.map((item, index) => (
+                <Link key={item.href} href={item.href}>
+                  <motion.span
+                    className="text-white hover:text-accent transition-colors duration-300 font-medium cursor-pointer"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -2 }}
+                  >
+                    {item.label}
+                  </motion.span>
+                </Link>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="rounded-full border border-white/30 bg-white/10 px-3 py-2 text-white transition hover:bg-white/20"
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+            >
+              {theme === 'dark' ? '🔆' : '🌙'}
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -117,6 +151,17 @@ export default function Header() {
                 </span>
               </Link>
             ))}
+            <button
+              type="button"
+              className="w-full rounded-full border border-white/30 bg-white/10 px-4 py-3 text-white transition hover:bg-white/20"
+              onClick={() => {
+                toggleTheme()
+                setIsMobileMenuOpen(false)
+              }}
+              aria-label="Toggle dark mode"
+            >
+              {theme === 'dark' ? 'Passa alla modalità chiara' : 'Passa alla modalità scura'}
+            </button>
           </motion.div>
         )}
       </nav>
