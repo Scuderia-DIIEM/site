@@ -66,7 +66,7 @@ export default function TeamPage() {
     ? teamMembers
     : veterans
 
-  const activeTitle = activeSection === 'current' ? 'Team Attuale' : 'Founder'
+  const activeTitle = activeSection === 'current' ? 'Team Attuale' : 'Founders'
 
   return (
     <>
