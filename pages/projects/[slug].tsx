@@ -41,9 +41,10 @@ export default function ProjectDetail() {
       )
     }
     if (block.type === 'image') {
-      const imgStyle: React.CSSProperties = {}
-      if (block.width) imgStyle.width = block.width
-      if (block.height) imgStyle.height = block.height
+      const imgStyle: React.CSSProperties = {
+        width: '100%',
+        height: block.height ? `${block.height}px` : 'auto',
+      }
 
       const alignmentClass = block.align === 'right'
         ? 'ml-auto'
@@ -51,8 +52,10 @@ export default function ProjectDetail() {
           ? 'mr-auto'
           : 'mx-auto'
 
-      const wrapperStyle: React.CSSProperties = {}
-      if (block.width) wrapperStyle.width = block.width
+      const wrapperStyle: React.CSSProperties = {
+        width: '100%',
+        maxWidth: block.width ? `${block.width}px` : '100%',
+      }
 
       return (
         <div key={index} className={`mb-10 ${alignmentClass}`} style={wrapperStyle}>

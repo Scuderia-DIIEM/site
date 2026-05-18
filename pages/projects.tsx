@@ -41,21 +41,22 @@ export default function ProjectsPage() {
             <h1 className="text-4xl font-bold text-primary mb-6 font-display">Progetti</h1>
             <p className="text-gray-600 mb-4">Raccolta di articoli e progetti. Clicca un elemento per aprire il dettaglio.</p>
 
-            <div className="mb-6 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
-              <label className="block">
+            <div className="mb-6 flex items-center gap-3">
+              <label className="min-w-0 flex-1">
                 <span className="sr-only">Cerca progetti</span>
                 <input
                   value={searchTerm}
                   onChange={(event) => setSearchTerm(event.target.value)}
-                  placeholder="Cerca per titolo, autore o data"
+                  placeholder="Cerca"
                   className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </label>
-              <div className="inline-flex rounded-full bg-slate-100 p-1">
+
+              <div className="shrink-0 inline-flex rounded-full bg-slate-100 p-1">
                 <button
                   type="button"
                   onClick={() => setViewMode('grid')}
-                  className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  className={`rounded-full px-3 py-2 text-xs sm:px-4 sm:text-sm font-semibold transition ${
                     viewMode === 'grid'
                       ? 'bg-white/80 text-slate-900 shadow-sm dark:bg-white/20 dark:text-white'
                       : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
@@ -66,7 +67,7 @@ export default function ProjectsPage() {
                 <button
                   type="button"
                   onClick={() => setViewMode('list')}
-                  className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  className={`rounded-full px-3 py-2 text-xs sm:px-4 sm:text-sm font-semibold transition ${
                     viewMode === 'list'
                       ? 'bg-white/80 text-slate-900 shadow-sm dark:bg-white/20 dark:text-white'
                       : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
@@ -120,9 +121,9 @@ export default function ProjectsPage() {
                           href={`/projects/${p.slug}`}
                           className="block bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200"
                         >
-                          <div className="p-3 sm:flex sm:items-center sm:gap-4">
+                          <div className="flex items-center gap-3 p-3">
                             {heroSrc && (
-                              <div className="mb-3 sm:mb-0 sm:w-24 sm:h-16 overflow-hidden rounded-xl bg-slate-100">
+                              <div className="h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:w-24">
                                 <img
                                   src={heroSrc}
                                   alt={typeof p.heroImage === 'string' ? p.title : p.heroImage?.alt ?? p.title}
