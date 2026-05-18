@@ -45,7 +45,7 @@ export default function Products() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="mb-3 text-3xl font-bold text-primary sm:text-4xl md:text-5xl font-display">
-            I Nostri Prodotti
+            I Nostri Dispositivi
           </h2>
           <p className="mx-auto max-w-2xl text-sm text-gray-600 sm:text-lg">
             Tecnologie innovative in sviluppo per il futuro delle operazioni marine

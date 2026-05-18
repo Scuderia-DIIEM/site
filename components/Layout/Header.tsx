@@ -45,9 +45,9 @@ export default function Header() {
 
   const navItems = [
     { label: 'Home', href: '/' },
+    { label: 'Dispositivi', href: '/#products' },
     { label: 'Chi Siamo', href: '/#about' },
     { label: 'Team', href: isHome ? '#team' : '/team' },
-    { label: 'Prodotti', href: '/#products' },
     { label: 'Progetti', href: '/projects' },
     { label: 'Gare', href: '/#racing' },
     { label: 'Contatti', href: '/#contact' },

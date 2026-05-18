@@ -48,13 +48,13 @@ export default function Home() {
         
         <main>
           <Hero />
-          <Gallery />
           <Products />
-          <Features />
+          <Gallery />
           <About />
+          <Features />
           <Team />
           <Racing />
-          <Testimonials />
+          {/* <Testimonials /> */}
           <News />
           <Contact />
         </main>
