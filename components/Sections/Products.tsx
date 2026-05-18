@@ -6,21 +6,21 @@ const products = [
   {
     title: 'ROV',
     subtitle: 'Veicolo Subacqueo Guidato da Remoto',
-    description: 'Il nostro ROV è composto da un core centrale che contiene tutta l\'elettronica: due convertitori 48V-12V, 6 ESC per i thruster, sensori di temperatura, umidità, pressione, infiltrazione d\'acqua e IMU, una camera, un Raspberry Pi 5, un dissipatore e una pompa per il dissipatore. Il telaio, progettato da noi, è completamente stampato in 3D. Utilizziamo 6 thruster per manovrare il ROV su tutti gli assi, garantendo un controllo preciso e completo. Sull\'anteriore sono presenti due luci LED che illuminano la vista della camera posta nel dome del core. Sui lati, integrati tra i thruster e il core, ci sono i volumi di galleggiamento. Dietro il tappo del core sono presenti i cavi che entrano nei motori e il cordone con energia ed informazione che arriva alla ground station. Il veicolo è controllato attraverso la ground station con un controller Xbox.',
+    description: 'Il nostro ROV è composto da un core centrale che contiene tutta l\'elettronica: due convertitori 48V-12V, 6 ESC per i thruster, sensori di temperatura, umidità, pressione, infiltrazione d\'acqua e IMU, una camera, un Raspberry Pi 5, un dissipatore e una pompa per il dissipatore. \n Il telaio, progettato da noi, è completamente stampato in 3D. \n Utilizziamo 6 thruster per manovrare il ROV su tutti gli assi, garantendo un controllo preciso e completo.\n Sull\'anteriore sono presenti due luci LED che illuminano la vista della camera posta nel dome del core. Sui lati, integrati tra i thruster e il core, ci sono i volumi di galleggiamento.\n Dietro il tappo del core sono presenti i cavi che entrano nei motori e il cordone con energia ed informazione che arriva alla ground station.\n Il veicolo è controllato attraverso la ground station con un controller Xbox.',
     image: '/imgs/logo.jpg',
     accentColor: 'primary'
   },
   {
     title: 'Float',
     subtitle: 'Boa di Misurazione',
-    description: 'Il Float è una boa che viene trasportata dal ROV in un punto della piscina. Una volta messa in posizione, parte una routine che la fa immergere fino al fondale. Il sensore di pressione ricava la profondità e, una volta riemersa, manda le informazioni acquisite alla ground station tramite antenne.',
+    description: 'Il Float è una boa che viene trasportata dal ROV in un punto della piscina.\n Una volta messa in posizione, parte una routine che la fa immergere fino al fondale.\n Il sensore di pressione ricava la profondità e, una volta riemersa, manda le informazioni acquisite alla ground station tramite antenne.',
     image: '/imgs/text-logo.jpg',
     accentColor: 'accent'
   },
   {
     title: 'Ground Station',
     subtitle: 'Stazione di Controllo',
-    description: 'Valigetta di controllo con cavo Ethernet, schermo e tastiera per interfaccia grafica e comunicazione con il ROV. Al suo interno è presente un Raspberry Pi 5 che gestisce il sistema di controllo e la comunicazione con i dispositivi subacquei.',
+    description: 'Valigetta di controllo con cavo Ethernet, schermo e tastiera per interfaccia grafica e comunicazione con il ROV.\n Al suo interno è presente un Raspberry Pi 5 che gestisce il sistema di controllo e la comunicazione con i dispositivi subacquei.',
     image: '/imgs/logo.jpg',
     accentColor: 'deep-space'
   },
