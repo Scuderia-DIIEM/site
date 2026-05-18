@@ -101,17 +101,17 @@ export default function TeamPage() {
           <section className="py-12 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="mb-8 flex flex-col items-center gap-5 sm:mb-10">
-                <div className="inline-flex rounded-full bg-slate-100 p-1 shadow-inner dark:bg-white/10">
+                <div className="toggle-group">
                   <button
                     type="button"
                     onClick={() => {
                       setActiveSection('current')
                       setSelectedMember(null)
                     }}
-                    className={`rounded-full px-5 py-2 text-sm font-semibold transition sm:px-6 ${
+                    className={`toggle-button px-5 py-2 text-sm sm:px-6 ${
                       activeSection === 'current'
-                        ? 'bg-accent text-white shadow-sm'
-                        : 'text-slate-700 hover:text-accent dark:text-slate-300 dark:hover:text-white'
+                        ? 'toggle-button-active'
+                        : 'toggle-button-inactive'
                     }`}
                   >
                     Team Attuale
@@ -123,10 +123,10 @@ export default function TeamPage() {
                       setActiveSection('founders')
                       setSelectedMember(null)
                     }}
-                    className={`rounded-full px-5 py-2 text-sm font-semibold transition sm:px-6 ${
+                    className={`toggle-button px-5 py-2 text-sm sm:px-6 ${
                       activeSection === 'founders'
-                        ? 'bg-accent text-white shadow-sm'
-                        : 'text-slate-700 hover:text-accent dark:text-slate-300 dark:hover:text-white'
+                        ? 'toggle-button-active'
+                        : 'toggle-button-inactive'
                     }`}
                   >
                     Founders

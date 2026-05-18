@@ -52,14 +52,14 @@ export default function ProjectsPage() {
                 />
               </label>
 
-              <div className="shrink-0 inline-flex rounded-full bg-slate-100 p-1 shadow-inner dark:bg-white/10">
+              <div className="toggle-group shrink-0">
                 <button
                   type="button"
                   onClick={() => setViewMode('grid')}
-                  className={`rounded-full px-3 py-2 text-xs font-semibold transition sm:px-4 sm:text-sm ${
+                  className={`toggle-button px-3 py-2 text-xs sm:px-4 sm:text-sm ${
                     viewMode === 'grid'
-                      ? 'bg-accent text-white shadow-sm'
-                      : 'text-slate-700 hover:text-accent dark:text-slate-300 dark:hover:text-white'
+                      ? 'toggle-button-active'
+                      : 'toggle-button-inactive'
                   }`}
                 >
                   Pannelli
@@ -67,10 +67,10 @@ export default function ProjectsPage() {
                 <button
                   type="button"
                   onClick={() => setViewMode('list')}
-                  className={`rounded-full px-3 py-2 text-xs font-semibold transition sm:px-4 sm:text-sm ${
+                  className={`toggle-button px-3 py-2 text-xs sm:px-4 sm:text-sm ${
                     viewMode === 'list'
-                      ? 'bg-accent text-white shadow-sm'
-                      : 'text-slate-700 hover:text-accent dark:text-slate-300 dark:hover:text-white'
+                      ? 'toggle-button-active'
+                      : 'toggle-button-inactive'
                   }`}
                 >
                   Lista

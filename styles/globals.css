@@ -206,6 +206,40 @@ html {
   .btn-secondary {
     @apply px-6 py-3 bg-primary text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-primary-variant;
   }
+  .toggle-group {
+  @apply inline-flex rounded-full bg-slate-100 p-1 shadow-inner;
+}
+
+.dark .toggle-group {
+  background-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+.toggle-button {
+  @apply rounded-full font-semibold transition;
+  color: #000000 !important;
+}
+
+.toggle-button-active {
+  background-color: #f4792b !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.15);
+}
+
+.toggle-button-inactive {
+  color: #000000 !important;
+}
+
+.toggle-button-inactive:hover {
+  color: #f4792b !important;
+}
+
+.dark .toggle-button-inactive {
+  color: #cbd5e1 !important;
+}
+
+.dark .toggle-button-inactive:hover {
+  color: #ffffff !important;
+}
 }
 
 /* Accessibility: Respect reduced motion preference */
