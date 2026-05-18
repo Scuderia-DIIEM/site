@@ -11,7 +11,7 @@ export default function Hero() {
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
                 {/* Water particle effects */}
-                <WaterParticles particleCount={200} />
+                <WaterParticles particleCount={100} />
                 <MantaAnimation />
                 <motion.div
                     className="absolute top-20 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl"

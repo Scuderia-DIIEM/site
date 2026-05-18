@@ -3,16 +3,15 @@ import { motion } from 'framer-motion'
 
 type Manta = {
   id: number
-  size: number
-  startX: string
-  startY: string
+  sizeClass: string
+  left: string
+  top: string
   opacity: number
   duration: number
   delay: number
   xPath: number[]
   yPath: number[]
   rotatePath: number[]
-  scalePath: number[]
 }
 
 const MANTA_IMAGE = '/imgs/MantaSDR3_bianco.png'
@@ -22,8 +21,8 @@ function randomBetween(min: number, max: number) {
   return min + Math.random() * (max - min)
 }
 
-function createPath(points: number, range: number) {
-  return Array.from({ length: points }, () => randomBetween(-range, range))
+function randomFrom<T>(items: T[]) {
+  return items[Math.floor(Math.random() * items.length)]
 }
 
 export default function MantaAnimation() {
@@ -31,75 +30,90 @@ export default function MantaAnimation() {
     const mantaCount = 5
 
     return Array.from({ length: mantaCount }, (_, index) => {
-      const size = randomBetween(60, 160)
-      const duration = randomBetween(18, 36)
-      const delay = randomBetween(0, 8)
+      const isLeftSide = index % 2 === 0
 
-      const xPath = createPath(7, 200)
-      const yPath = createPath(7, 140)
+      /**
+       * IMPORTANTISSIMO:
+       * evitiamo la fascia centrale della hero, dove stanno titolo e pulsanti.
+       * Le mante partono prevalentemente dai lati.
+       */
+      const left = isLeftSide
+        ? `${randomBetween(-5, 22)}%`
+        : `${randomBetween(78, 105)}%`
 
-      xPath.push(xPath[0])
-      yPath.push(yPath[0])
+      const top = randomFrom([
+        `${randomBetween(8, 28)}%`,
+        `${randomBetween(68, 88)}%`,
+      ])
 
-      const rotatePath = [
-        randomBetween(-12, 12),
-        randomBetween(-18, 18),
-        randomBetween(-10, 10),
-        randomBetween(-16, 16),
-        randomBetween(-8, 8),
-        randomBetween(-14, 14),
-        randomBetween(-12, 12),
-      ]
-
-      rotatePath.push(rotatePath[0])
-
-      const scalePath = [
-        1,
-        randomBetween(0.94, 1.06),
-        randomBetween(0.96, 1.08),
-        randomBetween(0.94, 1.04),
-        randomBetween(0.97, 1.07),
-        1,
-      ]
-
-      scalePath.push(scalePath[0])
+      const xDirection = isLeftSide ? 1 : -1
 
       return {
         id: index,
-        size,
-        startX: `${randomBetween(5, 95)}%`,
-        startY: `${randomBetween(8, 85)}%`,
-        opacity: randomBetween(0.25, 0.65),
-        duration,
-        delay,
-        xPath,
-        yPath,
-        rotatePath,
-        scalePath,
+
+        /**
+         * Mobile: 70-110px circa
+         * Tablet: 110-170px circa
+         * Desktop: 150-240px circa
+         */
+        sizeClass: randomFrom([
+          'w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] lg:w-[70px] lg:h-[70px]',
+          'w-[65px] h-[65px] sm:w-[65px] sm:h-[65px] lg:w-[80px] lg:h-[80px]',
+          'w-[80px] h-[80px] sm:w-[70px] sm:h-[70px] lg:w-[100px] lg:h-[100px]',
+        ]),
+
+        left,
+        top,
+        opacity: randomBetween(0.22, 0.5),
+        duration: randomBetween(22, 42),
+        delay: randomBetween(0, 8),
+
+        /**
+         * Movimento laterale:
+         * non attraversa violentemente il centro.
+         */
+        xPath: [
+          0,
+          xDirection * randomBetween(30, 80),
+          xDirection * randomBetween(10, 55),
+          xDirection * randomBetween(40, 95),
+          0,
+        ],
+
+        yPath: [
+          0,
+          randomBetween(-35, 35),
+          randomBetween(-55, 55),
+          randomBetween(-30, 45),
+          0,
+        ],
+
+        rotatePath: [
+          randomBetween(-10, 10),
+          randomBetween(-18, 18),
+          randomBetween(-8, 8),
+          randomBetween(-15, 15),
+          randomBetween(-10, 10),
+        ],
       }
     })
   }, [])
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
       {mantas.map((manta) => (
         <motion.div
           key={manta.id}
-          className="absolute"
+          className={`absolute ${manta.sizeClass}`}
           style={{
-            width: `${manta.size}px`,
-            height: `${manta.size}px`,
-            left: manta.startX,
-            top: manta.startY,
-            marginLeft: `-${manta.size / 2}px`,
-            marginTop: `-${manta.size / 2}px`,
+            left: manta.left,
+            top: manta.top,
             opacity: manta.opacity,
           }}
           animate={{
             x: manta.xPath,
             y: manta.yPath,
             rotate: manta.rotatePath,
-            scale: manta.scalePath,
           }}
           transition={{
             duration: manta.duration,
@@ -110,11 +124,10 @@ export default function MantaAnimation() {
           }}
         >
           <motion.div
+            className="h-full w-full"
             style={{
-              width: '100%',
-              height: '100%',
               filter:
-                'drop-shadow(0 0 20px rgba(255, 255, 255, 0.35)) brightness(1.25)',
+                'drop-shadow(0 0 18px rgba(255,255,255,0.3)) brightness(1.2)',
               transformOrigin: 'center 60%',
             }}
             animate={{
@@ -150,16 +163,10 @@ export default function MantaAnimation() {
       ))}
 
       <motion.div
-        className="absolute"
-        style={{
-          bottom: '40px',
-          right: '40px',
-          width: '200px',
-          height: 'auto',
-        }}
+        className="absolute bottom-6 right-6 hidden h-auto w-[120px] opacity-70 sm:block lg:w-[200px]"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{
-          opacity: [0.7, 0.9, 0.7],
+          opacity: [0.45, 0.7, 0.45],
           scale: [1, 1.02, 1],
         }}
         transition={{
@@ -171,9 +178,9 @@ export default function MantaAnimation() {
         <img
           src={ROMA_TRE_LOGO}
           alt="Roma Tre"
-          className="h-auto w-full object-contain opacity-80"
+          className="h-auto w-full object-contain"
           style={{
-            filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.3))',
+            filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.25))',
           }}
         />
       </motion.div>
