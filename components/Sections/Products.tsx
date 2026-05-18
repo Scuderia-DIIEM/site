@@ -7,7 +7,7 @@ const products = [
     title: 'ROV',
     subtitle: 'Veicolo Subacqueo Guidato da Remoto',
     description: 'Il nostro ROV è composto da un core centrale che contiene tutta l\'elettronica: due convertitori 48V-12V, 6 ESC per i thruster, sensori di temperatura, umidità, pressione, infiltrazione d\'acqua e IMU, una camera, un Raspberry Pi 5, un dissipatore e una pompa per il dissipatore. \n Il telaio, progettato da noi, è completamente stampato in 3D. \n Utilizziamo 6 thruster per manovrare il ROV su tutti gli assi, garantendo un controllo preciso e completo.\n Sull\'anteriore sono presenti due luci LED che illuminano la vista della camera posta nel dome del core. Sui lati, integrati tra i thruster e il core, ci sono i volumi di galleggiamento.\n Dietro il tappo del core sono presenti i cavi che entrano nei motori e il cordone con energia ed informazione che arriva alla ground station.\n Il veicolo è controllato attraverso la ground station con un controller Xbox.',
-    image: '/render/rov.png',
+    image: '/render/rov1.png',
     accentColor: 'primary'
   },
   {
