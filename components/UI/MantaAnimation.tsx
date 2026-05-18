@@ -64,9 +64,9 @@ export default function MantaAnimation() {
 
         left,
         top,
-        opacity: randomBetween(0.22, 0.5),
+        opacity: randomBetween(0.2, 0.4),
         duration: randomBetween(22, 42),
-        delay: randomBetween(0, 8),
+        delay: randomBetween(0, 4),
 
         /**
          * Movimento laterale:
