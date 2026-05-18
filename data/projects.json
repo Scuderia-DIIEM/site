@@ -46,30 +46,30 @@
     ]
   },
   {
-    "id": "project-brand-identity",
-    "slug": "project-brand-identity",
-    "title": "Brand Identity DIIEM",
-    "excerpt": "Il nostro approccio al design visivo e all’identità del brand.",
+    "id": "project-pcb",
+    "slug": "project-pcb",
+    "title": "Progettazione PCB",
+    "excerpt": "La nostra approccio alla progettazione dei circuiti stampati.",
     "date": "2026-05-20",
     "authors": ["Luca Verdi"],
     "heroImage": {
-      "src": "/imgs/text-logo.jpg",
-      "alt": "Brand Identity DIIEM",
+      "src": "/render/pcb.png",
+      "alt": "Progettazione PCB",
       "width": 680,
       "height": 300,
       "align": "center",
-      "show": false
+      "show": true
     },
     "blocks": [
       {
         "type": "text",
-        "content": "La brand identity di Scuderia DIIEM nasce dall’unione tra tecnologia, dinamismo e affidabilità. Ogni elemento grafico è studiato per comunicare la forza e l’eleganza del nostro team."
+        "content": "La progettazione PCB di Scuderia DIIEM nasce dall’unione tra innovazione, precisione e affidabilità. Ogni circuito è studiato per garantire prestazioni ottimali e durata prolungata."
       },
       {
         "type": "image",
-        "src": "/imgs/text-logo.jpg",
+        "src": "",
         "alt": "Logo DIIEM",
-        "caption": "Esempio di brand identity per il team.",
+        "caption": "Esempio di progettazione PCB per il team.",
         "width": 900,
         "align": "center"
       },

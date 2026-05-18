@@ -26,12 +26,12 @@ const defaultImages: GalleryImage[] = [
     articleSlug: 'project-CAD'
   },
   {
-    src: '/imgs/text-logo.jpg',
+    src: '/render/pcb.png',
     alt: 'Scuderia DIIEM',
-    title: 'Brand Identity',
-    description: 'La nostra identità visiva riflette i valori di innovazione, precisione e competitività che guidano ogni nostro progetto.',
-    caption: 'Brand identity',
-    articleSlug: 'project-brand-identity'
+    title: 'Progettazione PCB',
+    description: 'La nostra approccio alla progettazione dei circuiti stampati.',
+    caption: 'Progettazione PCB',
+    articleSlug: 'project-pcb'
   },
   {
     src: '/imgs/logo.jpg',
