@@ -30,7 +30,7 @@ const defaultImages: GalleryImage[] = [
     alt: 'Scuderia DIIEM',
     title: 'Progettazione PCB',
     description: 'La nostra approccio alla progettazione dei circuiti stampati.',
-    caption: 'Progettazione PCB',
+    caption: 'Good design is as little design as possible.',
     articleSlug: 'project-pcb'
   },
   {
