@@ -45,12 +45,12 @@ export default function Header() {
 
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'Chi Siamo', href: '#about' },
+    { label: 'Chi Siamo', href: '/#about' },
     { label: 'Team', href: isHome ? '#team' : '/team' },
-    { label: 'Prodotti', href: '#products' },
+    { label: 'Prodotti', href: '/#products' },
     { label: 'Progetti', href: '/projects' },
-    { label: 'Gare', href: '#racing' },
-    { label: 'Contatti', href: '#contact' },
+    { label: 'Gare', href: '/#racing' },
+    { label: 'Contatti', href: '/#contact' },
   ]
 
   return (
