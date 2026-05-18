@@ -60,6 +60,13 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
 
 export default function TeamPage() {
   const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null)
+  const [activeSection, setActiveSection] = useState<'current' | 'founders'>('current')
+
+  const activeMembers = activeSection === 'current'
+    ? teamMembers
+    : veterans
+
+  const activeTitle = activeSection === 'current' ? 'Team Attuale' : 'Founder'
 
   return (
     <>
@@ -93,49 +100,69 @@ export default function TeamPage() {
 
           <section className="py-12 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {/* Sezione Team Members */}
-              <div className="mb-16">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 font-display">
-                  Team Attuale
-                </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-3 sm:gap-4">
-                  {teamMembers.map((member, index) => (
-                    <TeamMemberCard
-                      key={member.id}
-                      member={member}
-                      index={index}
-                      onSelect={setSelectedMember}
-                    />
-                  ))}
+              <div className="mb-8 flex flex-col items-center gap-5 sm:mb-10">
+                <div className="inline-flex rounded-full bg-slate-100 p-1 shadow-inner dark:bg-white/10">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveSection('current')
+                      setSelectedMember(null)
+                    }}
+                    className={`rounded-full px-5 py-2 text-sm font-semibold transition sm:px-6 ${
+                      activeSection === 'current'
+                        ? 'bg-accent text-white shadow-sm'
+                        : 'text-slate-700 hover:text-accent dark:text-slate-300 dark:hover:text-white'
+                    }`}
+                  >
+                    Team Attuale
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveSection('founders')
+                      setSelectedMember(null)
+                    }}
+                    className={`rounded-full px-5 py-2 text-sm font-semibold transition sm:px-6 ${
+                      activeSection === 'founders'
+                        ? 'bg-accent text-white shadow-sm'
+                        : 'text-slate-700 hover:text-accent dark:text-slate-300 dark:hover:text-white'
+                    }`}
+                  >
+                    Founders
+                  </button>
                 </div>
               </div>
 
-              {/* Sezione Veterani */}
-              {veterans.length > 0 && (
-                <div>
-                  <motion.div
-                    className="mt-12 pt-12 border-t-2 border-gray-200"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <h2 className="text-2xl font-bold text-gray-800 mb-6 font-display">
-                      I Nostri Founders
-                    </h2>
-                  </motion.div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-3 sm:gap-4">
-                    {veterans.map((veteran, index) => (
+              <motion.div
+                key={activeSection}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+              >
+                <h2 className="mb-6 text-2xl font-bold text-gray-900 font-display">
+                  {activeTitle}
+                </h2>
+
+                {activeMembers.length > 0 ? (
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6">
+                    {activeMembers.map((member, index) => (
                       <TeamMemberCard
-                        key={`veteran-${veteran.id}`}
-                        member={veteran as typeof teamMembers[0]}
+                        key={`${activeSection}-${member.id}`}
+                        member={member as typeof teamMembers[0]}
                         index={index}
                         onSelect={setSelectedMember}
                       />
                     ))}
                   </div>
-                </div>
-              )}
+                ) : (
+                  <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 px-6 py-12 text-center">
+                    <p className="text-sm text-gray-500">
+                      Nessun membro disponibile in questa sezione.
+                    </p>
+                  </div>
+                )}
+              </motion.div>
             </div>
           </section>
         </main>
