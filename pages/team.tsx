@@ -121,7 +121,7 @@ export default function TeamPage() {
                     transition={{ duration: 0.6 }}
                   >
                     <h2 className="text-2xl font-bold text-gray-800 mb-6 font-display">
-                      I Nostri Veterani
+                      I Nostri Founders
                     </h2>
                   </motion.div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-3 sm:gap-4">

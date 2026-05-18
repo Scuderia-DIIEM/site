@@ -1,10 +1,10 @@
 [
   {
     "id": 1,
-    "name": "Veterano 1",
+    "name": "Founder 1",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG",
-    "email": "veterano1@example.com",
+    "email": "founder1@example.com",
     "phone": "+39 111 222 3333",
     "linkedin": "https://linkedin.com",
     "instagram": "https://instagram.com",
@@ -12,15 +12,15 @@
   },
   {
     "id": 2,
-    "name": "Veterano 2",
+    "name": "Founder 2",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG",
-    "email": "veterano2@example.com",
+    "email": "founder2@example.com",
     "yearsActive": "2021-2023"
   },
   {
     "id": 3,
-    "name": "Veterano 3",
+    "name": "Founder 3",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG",
     "phone": "+39 444 555 6666",
@@ -28,14 +28,14 @@
   },
   {
     "id": 4,
-    "name": "Veterano 4",
+    "name": "Founder 4",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG",
     "yearsActive": "2022-2024"
   },
   {
     "id": 5,
-    "name": "Veterano 5",
+    "name": "Founder 5",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG",
     "yearsActive": "2020-2023"
