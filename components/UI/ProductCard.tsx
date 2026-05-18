@@ -80,10 +80,10 @@ export default function ProductCard({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.6, delay }}
-        className="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-[500px]"
+        className="group relative flex h-[270px] flex-col overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-2xl sm:h-[420px] lg:h-[500px]"
       >
         {/* Image Container */}
-        <div className="relative h-64 overflow-hidden flex-shrink-0">
+        <div className="relative h-28 flex-shrink-0 overflow-hidden sm:h-48 lg:h-64">
           <Image
             src={image}
             alt={title}
@@ -102,8 +102,8 @@ export default function ProductCard({
         </div>
 
         {/* Content */}
-        <div className="p-6 flex flex-col flex-1 min-h-0 relative">
-          <h3 className="text-2xl font-bold text-primary mb-3 font-display group-hover:text-accent transition-colors duration-300 flex-shrink-0">
+        <div className="relative flex min-h-0 flex-1 flex-col p-3 sm:p-5 lg:p-6">
+          <h3 className="mb-2 flex-shrink-0 text-sm font-bold leading-tight text-primary transition-colors duration-300 group-hover:text-accent sm:mb-3 sm:text-xl lg:text-2xl font-display">
             {title}
           </h3>
           <div className="flex-1 flex flex-col min-h-0">
@@ -121,7 +121,7 @@ export default function ProductCard({
             </p>
             <p 
               ref={descriptionRef}
-              className="text-gray-600 leading-relaxed line-clamp-3"
+              className="line-clamp-3 text-xs leading-snug text-gray-600 sm:text-sm sm:leading-relaxed lg:text-base"
             >
               {description}
             </p>
@@ -132,12 +132,12 @@ export default function ProductCard({
                 e.stopPropagation()
                 setIsModalOpen(true)
               }}
-              className="absolute bottom-4 right-4 p-2 text-accent hover:text-caramel hover:bg-accent/10 rounded-full transition-all duration-200 group/icon"
+              className="absolute bottom-2 right-2 rounded-full p-1.5 text-accent transition-all duration-200 hover:bg-accent/10 hover:text-caramel sm:bottom-4 sm:right-4 sm:p-2 group/icon"
               aria-label="Mostra altro"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
+                className="h-4 w-4 sm:h-6 sm:w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

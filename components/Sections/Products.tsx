@@ -35,24 +35,24 @@ const products = [
 
 export default function Products() {
   return (
-    <section id="products" className="py-20 bg-white">
+    <section id="products" className="bg-white py-10 sm:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
+          className="mb-8 text-center sm:mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-display">
+          <h2 className="mb-3 text-3xl font-bold text-primary sm:text-4xl md:text-5xl font-display">
             I Nostri Prodotti
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-sm text-gray-600 sm:text-lg">
             Tecnologie innovative in sviluppo per il futuro delle operazioni marine
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
           {products.map((product, index) => (
             <ProductCard
               key={product.title}
