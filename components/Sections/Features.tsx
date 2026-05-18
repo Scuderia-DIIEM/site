@@ -1,62 +1,70 @@
 import React from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
-interface Feature {
+interface Partner {
   title: string
   description: string
-  icon: string
-  stat?: string
+  logo: string
+  link: string
+  role: string
   accentColor: string
 }
 
-const features: Feature[] = [
+const partners: Partner[] = [
   {
-    title: 'Eccellenza nei Risultati',
-    description: 'Track record di successi con vittorie, record e prestazioni di alto livello in competizioni nazionali e internazionali.',
-    icon: '🏆',
-    stat: '15+ Vittorie',
+    title: 'Arduino',
+    description: 'Partner tecnologico per sensori e sistemi di controllo avanzati.',
+    logo: '/imgs/arduino.png',
+    link: 'https://www.arduino.cc',
+    role: 'Partner Tecnologico',
     accentColor: 'accent'
   },
   {
-    title: 'Ingegneria all\'Avanguardia',
-    description: 'Innovazioni tecniche e attrezzature di ultima generazione per massimizzare le prestazioni e l\'affidabilità.',
-    icon: '⚙️',
-    stat: '100% Innovazione',
-    accentColor: 'caramel'
+    title: 'Ansys',
+    description: 'Fornitore di software per simulazione e analisi ingegneristica, supportando la progettazione dei nostri veicoli.',
+    logo: '/imgs/ansys.png',
+    link: 'https://www.ansys.com',
+    role: 'Partner Tecnologico',
+    accentColor: 'accent'
   },
   {
-    title: 'Squadra Esperta',
-    description: 'Team di professionisti dedicati con anni di esperienza nel motorsport e nella tecnologia avanzata.',
-    icon: '👥',
-    stat: '50+ Membri',
+    title: 'Futura Elettronica',
+    description: 'Fornitore di componenti elettrici',
+    logo: '/imgs/futuraelettronica.png',
+    link: 'https://futuranet.it/',
+    role: 'Partner Tecnologico',
+    accentColor: 'accent'
+  },
+  {
+    title: 'CNR-INM',
+    description: 'Partner tecnico per la ricerca e test.',
+    logo: '/imgs/cnr.png',
+    link: 'https://www.inm.cnr.it/',
+    role: 'Partner Tecnico',
+    accentColor: 'accent'
+  },
+  {
+    title: 'MediaSprint',
+    description: 'Media partner per la comunicazione e la visibilità del team.',
+    logo: '/imgs/RomaTre_marchio_bianco.png',
+    link: 'https://www.mediasprint.com',
+    role: 'Partner Media',
+    accentColor: 'accent'
+  },
+  {
+    title: 'CircuitPro',
+    description: 'Fornitore di componenti meccanici e consulenza ingegneristica.',
+    logo: '/imgs/text-logo.jpg',
+    link: 'https://www.circuitpro.com',
+    role: 'Partner Meccanico',
     accentColor: 'primary'
-  },
-  {
-    title: 'Innovazione nel Racing',
-    description: 'Focus costante su ricerca e sviluppo per portare nuove soluzioni tecniche e competitive nel mondo delle corse.',
-    icon: '💡',
-    stat: 'R&D Continuo',
-    accentColor: 'accent'
-  },
-  {
-    title: 'Tecnologia Marina',
-    description: 'Sviluppo di sistemi avanzati per operazioni subacquee e monitoraggio ambientale marino.',
-    icon: '🌊',
-    stat: '4 Prodotti',
-    accentColor: 'deep-space'
-  },
-  {
-    title: 'Comunità e Partnership',
-    description: 'Coinvolgimento attivo della comunità motorsport e collaborazioni strategiche con partner tecnologici.',
-    icon: '🤝',
-    stat: '20+ Partner',
-    accentColor: 'caramel'
   }
 ]
 
 export default function Features() {
   return (
-    <section id="features" className="py-20 bg-gradient-to-b from-gray-50 to-white">
+    <section id="partners" className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -69,41 +77,57 @@ export default function Features() {
             I Nostri Partner
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Cosa ci distingue nel mondo del racing e della tecnologia
+            Aziende che collaborano con noi e sostengono il nostro progetto.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
+          {partners.map((partner, index) => (
+            <motion.a
+              key={partner.title}
+              href={partner.link}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 group"
+              className="group block bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 no-underline"
             >
-              <div className="text-5xl mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-bold text-primary mb-3 font-display group-hover:text-accent transition-colors duration-300">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
-                {feature.description}
-              </p>
-              {feature.stat && (
-                <div 
-                  className="text-2xl font-bold mt-4"
-                  style={{ 
-                    color: feature.accentColor === 'accent' ? '#f4792b' :
-                           feature.accentColor === 'caramel' ? '#b86432' :
-                           feature.accentColor === 'primary' ? '#012245' :
-                           feature.accentColor === 'deep-space' ? '#202d42' : '#f4792b'
-                  }}
-                >
-                  {feature.stat}
+              <div className="mb-4 flex h-16 items-center justify-start rounded-2xl bg-slate-100 p-3">
+                <div className="w-36 flex items-center">
+                  <Image
+                    src={partner.logo}
+                    alt={`${partner.title} logo`}
+                    width={120}
+                    height={40}
+                    className="object-contain"
+                  />
                 </div>
-              )}
-            </motion.div>
+              </div>
+              <div className="flex items-center justify-between gap-4 mb-3">
+                <h3 className="text-xl font-bold text-primary font-display group-hover:text-accent transition-colors duration-300">
+                  {partner.title}
+                </h3>
+                <span className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                  {partner.role}
+                </span>
+              </div>
+              <p className="text-gray-600 mb-4 leading-relaxed">
+                {partner.description}
+              </p>
+              <div 
+                className="text-sm font-semibold"
+                style={{ 
+                  color: partner.accentColor === 'accent' ? '#f4792b' :
+                         partner.accentColor === 'caramel' ? '#b86432' :
+                         partner.accentColor === 'primary' ? '#012245' :
+                         partner.accentColor === 'deep-space' ? '#202d42' : '#f4792b'
+                }}
+              >
+                Visita il sito
+              </div>
+            </motion.a>
           ))}
         </div>
       </div>

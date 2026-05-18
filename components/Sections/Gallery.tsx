@@ -154,8 +154,8 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
         >
           {/* Modern Slideshow Container */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Image Container - Takes 2 columns on large screens */}
-            <div className="lg:col-span-2 relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl group">
+            {/* Image Container - hidden on mobile, shown on large screens */}
+            <div className="hidden lg:block lg:col-span-2 relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl group">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentIndex}
@@ -280,7 +280,6 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
 
                 {/* Thumbnail Navigation */}
                 <div className="mt-6">
-                  <p className="text-sm text-gray-300 mb-3 font-medium">Altre Immagini</p>
                   <div className="grid grid-cols-4 gap-2">
                     {images.map((image, index) => (
                       <button
