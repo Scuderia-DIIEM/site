@@ -34,7 +34,7 @@ const defaultImages: GalleryImage[] = [
     articleSlug: 'project-pcb'
   },
   {
-    src: '/imgs/logo.jpg',
+    src: '/render/float1.png',
     alt: 'Sviluppo progetti',
     title: 'Innovazione in Azione',
     description: 'Sviluppiamo tecnologie all\'avanguardia per operazioni marine e sistemi di racing, portando l\'innovazione dall\'ambiente racing a quello marino.',
@@ -42,7 +42,7 @@ const defaultImages: GalleryImage[] = [
     articleSlug: 'project-innovation-action'
   },
   {
-    src: '/imgs/text-logo.jpg',
+    src: '/render/rov2.png',
     alt: 'Tecnologia avanzata',
     title: 'Eccellenza Tecnica',
     description: 'Ogni progetto rappresenta un impegno verso l\'eccellenza tecnica e la ricerca di soluzioni innovative per le sfide più complesse.',

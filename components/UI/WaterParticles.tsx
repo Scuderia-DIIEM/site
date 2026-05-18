@@ -45,8 +45,8 @@ function WaterParticles({
 
     // Generate particles with random properties
     // Distribute delays evenly across the max duration to ensure continuous flow
-    const maxDuration = 20
-    const spawnOffset = 100 // Distance below viewport to spawn particles
+    const maxDuration = 8
+    const spawnOffset = 40 // Distance below viewport to spawn particles
     
     // Pre-calculate common values
     const endY = useMemo(() => -viewportHeight - 200, [viewportHeight])
