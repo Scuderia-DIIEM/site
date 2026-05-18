@@ -80,7 +80,7 @@ export default function About() {
 
         {/* Statistics Grid */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
+          className="flex flex-wrap justify-center gap-6"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -93,7 +93,7 @@ export default function About() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 text-center hover:bg-white/20 transition-all duration-300"
+              className="w-[200px] bg-white/10 backdrop-blur-md rounded-xl p-6 text-center hover:bg-white/20 transition-all duration-300"
             >
               <div className="text-4xl mb-3">{stat.icon}</div>
               <div className="text-3xl font-bold text-accent mb-2 font-display">
