@@ -3,12 +3,12 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 const stats = [
-  { label: 'Anni di Attività', value: '5+', icon: '📅' },
+  { label: 'Anni di Attività', value: '3+', icon: '📅' },
+    { label: 'Membri Team', value: '50+', icon: '👥' },
   //{ label: 'Competizioni', value: '1', icon: '🏁' },
-  { label: 'Progetti Completati', value: '10+', icon: '🚀' },
-  { label: 'Tecnologie Sviluppate', value: '5+', icon: '⚙️' },
-  { label: 'Innovazioni', value: '3', icon: '💡' },
-  { label: 'Membri Team', value: '50+', icon: '👥' }                                                      
+  { label: 'Eventi svolti', value: '5', icon: '🚀' }
+  //{ label: 'Tecnologie Sviluppate', value: '5+', icon: '⚙️' },
+  //{ label: 'Innovazioni', value: '3', icon: '💡' }
 ]
 
 export default function About() {

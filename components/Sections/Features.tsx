@@ -47,7 +47,7 @@ const partners: Partner[] = [
   {
     title: 'MediaSprint',
     description: 'Media partner per la comunicazione e la visibilità del team.',
-    logo: '/imgs/RomaTre_marchio_bianco.png',
+    logo: '/imgs/RomaTre_marchio_blu.png',
     link: 'https://www.mediasprint.com',
     role: 'Partner Media',
     accentColor: 'accent'
