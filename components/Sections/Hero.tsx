@@ -70,7 +70,7 @@ export default function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6, duration: 0.8 }}
                     >
-                        <Button href="#gallery" variant="primary">
+                        <Button href="#products" variant="primary">
                             Scopri il Nostro Progetto
                         </Button>
                         <Button href="#contact" variant="secondary">

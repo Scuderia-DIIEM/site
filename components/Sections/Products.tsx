@@ -35,7 +35,7 @@ const products = [
 
 export default function Products() {
   return (
-    <section id="products" className="scroll-mt-10 bg-white py-10 sm:py-16 lg:py-20">
+    <section id="products" className="scroll-mt-20 bg-white py-10 sm:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="mb-8 text-center sm:mb-12 lg:mb-16"
