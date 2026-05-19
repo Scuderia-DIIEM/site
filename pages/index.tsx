@@ -49,8 +49,8 @@ export default function Home() {
         <main>
           <Hero />
           <Products />
-          <Gallery />
           <About />
+          <Gallery />
           <Features />
           <Team />
           <Racing />
