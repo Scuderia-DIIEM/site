@@ -48,7 +48,7 @@ export default function Header() {
     { label: 'Dispositivi', href: '/#products' },
     { label: 'Chi Siamo', href: '/#about' },
     { label: 'Team', href: isHome ? '#team' : '/team' },
-    { label: 'Progetti', href: '/projects' },
+    { label: 'Progetti', href: '/#gallery' },
     { label: 'Gare', href: '/#racing' },
     { label: 'Contatti', href: '/#contact' },
   ]

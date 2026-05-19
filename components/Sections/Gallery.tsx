@@ -126,7 +126,7 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
   const currentImage = images[currentIndex]
 
   return (
-    <section id="gallery" className="py-20 bg-gradient-to-b from-white to-gray-50">
+    <section id="gallery" className="scroll-mt-5 py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12"
@@ -138,9 +138,11 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-display">
             I Nostri Progetti
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            La base dei nostri prodotti
-          </p>
+          <div className="mt-6">
+                    <Link href={`/projects`} className="inline-flex items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/20 hover:bg-secondary transition-colors duration-300">
+                      Scopri tutti i nostri progetti
+                    </Link>
+                  </div>
         </motion.div>
 
         <div
