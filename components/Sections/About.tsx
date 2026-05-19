@@ -1,6 +1,9 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
+import Button from '../UI/Button'
+
 
 const stats = [
   { label: 'Anni di Attività', value: '3+', icon: '📅' },
@@ -30,7 +33,7 @@ export default function About() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 text-center items-center mb-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -45,6 +48,10 @@ export default function About() {
                 className="object-cover"
               />
             </div>
+            <Button href="/structure" variant="primary"
+              className="mt-6">
+                  Scopri la nostra struttura
+              </Button>
           </motion.div>
 
           <motion.div
@@ -52,27 +59,25 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-6"
+            className="space-y-6 text-left"
           >
             <h3 className="text-3xl font-bold font-display text-accent">
               La Nostra Storia
             </h3>
             <p className="text-lg text-gray-200 leading-relaxed">
-              Scuderia DIIEM nasce dalla passione per il mondo sottomarino e l'innovazione tecnologica. 
-              Il nostro team combina l'eccellenza ingegneristica con la determinazione competitiva 
-              per raggiungere risultati straordinari sia in pista che nello sviluppo tecnologico.
+              La "SDR3 Robotic", scuderia del dipartimento DIIEM dell'Università Roma Tre, nasce dalla passione di un gruppo di studenti per l'ingegneria e il mondo marino.
+              Il nostro team vede collaborare giovani studenti  di ingegneria per la creazione di un R.O.V. sottomarino.
             </p>
             <p className="text-lg text-gray-200 leading-relaxed">
-              Oltre al racing, sviluppiamo tecnologie avanzate per operazioni marine, includendo 
-              ROV, sistemi di monitoraggio e stazioni di controllo, portando l'innovazione 
-              dall'ambiente racing a quello marino.
+              La nostra squadra è molto eterogenea, composta da studenti di ingegneria meccanica, elettronica e gestionale. 
+            </p>
+             <p className="text-lg text-gray-200 leading-relaxed">
+              Ai fini della competizione abbiamo simulato una struttura aziendale, con un CEO, un CTO ed altri ruoli che si occupano di aspetti specifici del progetto, come la gestione dei social media, la ricerca di sponsor e la progettazione tecnica.
             </p>
             <div className="pt-4">
               <h4 className="text-xl font-bold mb-3 text-accent">La Nostra Missione</h4>
               <p className="text-gray-200">
-                Spingere i limiti delle prestazioni e dell'innovazione dentro e fuori dalla pista, 
-                creando soluzioni tecnologiche all'avanguardia e raggiungendo l'eccellenza in ogni 
-                competizione.
+                L'biettivo principale è di partecipare alla MATE ROV competition ma contemporaneamente siamo impegnati nella ricerca e nello sviluppo nell'ambito subacqueo, la creazione di dispositivi in grado di salvaguardare l'ambiente marino ed infine la crescita personale simulando per la prima volta nel mondo del lavoro.
               </p>
             </div>
           </motion.div>

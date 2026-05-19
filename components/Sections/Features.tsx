@@ -13,6 +13,14 @@ interface Partner {
 
 const partners: Partner[] = [
   {
+    title: 'Università degli Studi Roma Tre',
+    description: 'La nostra casa accademica, che ci supporta con risorse e laboratori.',
+    logo: '/imgs/RomaTre_marchio_blu.png',
+    link: 'https://ingegneriaindustrialeelettronicameccanica.uniroma3.it/',
+    role: 'Partner Accademico',
+    accentColor: 'accent'
+  },
+  {
     title: 'Arduino',
     description: 'Partner tecnologico per sensori e sistemi di controllo avanzati.',
     logo: '/imgs/arduino.png',
@@ -42,14 +50,6 @@ const partners: Partner[] = [
     logo: '/imgs/cnr.png',
     link: 'https://www.inm.cnr.it/',
     role: 'Partner Tecnico',
-    accentColor: 'accent'
-  },
-  {
-    title: 'MediaSprint',
-    description: 'Media partner per la comunicazione e la visibilità del team.',
-    logo: '/imgs/RomaTre_marchio_blu.png',
-    link: 'https://www.mediasprint.com',
-    role: 'Partner Media',
     accentColor: 'accent'
   },
   {
@@ -95,7 +95,7 @@ export default function Features() {
               className="group block bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 no-underline"
             >
               <div className="mb-4 flex h-16 items-center justify-start rounded-2xl bg-slate-100 p-3">
-                <div className="w-36 flex items-center">
+                <div className="w-full max-w-20 flex items-center">
                   <Image
                     src={partner.logo}
                     alt={`${partner.title} logo`}

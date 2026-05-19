@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import Button from '../UI/Button'
 
 interface GalleryImage {
   src: string
@@ -138,11 +139,10 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-display">
             I Nostri Progetti
           </h2>
-          <div className="mt-6">
-                    <Link href={`/projects`} className="inline-flex items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/20 hover:bg-secondary transition-colors duration-300">
-                      Scopri tutti i nostri progetti
-                    </Link>
-                  </div>
+          <Button href="/projects" variant="primary"
+            className="mt-6">
+                Scopri i nostri progetti
+            </Button>
         </motion.div>
 
         <div
