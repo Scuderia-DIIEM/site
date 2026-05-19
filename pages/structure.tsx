@@ -103,7 +103,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Comunicati e storytelling",
       "Supporto agli eventi",
     ],
-    colorClass: "bg-emerald-100 text-slate-950",
+    colorClass: "bg-emerald-100 text-slate-950 dark:bg-emerald-500/30 dark:text-white",
     activeClass: "ring-emerald-400",
   },
   operations: {
@@ -118,7 +118,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Supporto logistico",
       "Gestione interna del lavoro",
     ],
-    colorClass: "bg-cyan-100 text-slate-950",
+    colorClass: "bg-cyan-100 text-slate-950 dark:bg-cyan-500/30 dark:text-white",
     activeClass: "ring-cyan-400",
   },
   rov: {
@@ -133,7 +133,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Test in ambiente acquatico",
       "Ottimizzazione funzionale",
     ],
-    colorClass: "bg-orange-100 text-slate-950",
+    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/30 dark:text-white",
     activeClass: "ring-orange-400",
   },
   float: {
@@ -148,7 +148,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Interfaccia con il sistema ROV",
       "Validazione sperimentale",
     ],
-    colorClass: "bg-orange-100 text-slate-950",
+    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/30 dark:text-white",
     activeClass: "ring-orange-400",
   },
   arm: {
@@ -163,7 +163,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Attuazione e controllo",
       "Test di presa e movimento",
     ],
-    colorClass: "bg-orange-100 text-slate-950",
+    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/30 dark:text-white",
     activeClass: "ring-orange-400",
   },
   gs: {
@@ -178,7 +178,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Comunicazione con il veicolo",
       "Supporto agli operatori",
     ],
-    colorClass: "bg-orange-100 text-slate-950",
+    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/30 dark:text-white",
     activeClass: "ring-orange-400",
   },
   electronics: {
@@ -193,7 +193,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Alimentazione",
       "Sensori e acquisizione dati",
     ],
-    colorClass: "bg-red-100 text-slate-950",
+    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/30 dark:text-white",
     activeClass: "ring-red-400",
   },
   software: {
@@ -208,7 +208,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Interfacce operative",
       "Automazione e logiche di sistema",
     ],
-    colorClass: "bg-red-100 text-slate-950",
+    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/30 dark:text-white",
     activeClass: "ring-red-400",
   },
   cad: {
@@ -223,7 +223,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Disegni tecnici",
       "Preparazione alla fabbricazione",
     ],
-    colorClass: "bg-red-100 text-slate-950",
+    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/30 dark:text-white",
     activeClass: "ring-red-400",
   },
   special: {
@@ -238,7 +238,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Prototipazione avanzata",
       "Supporto ai reparti tecnici",
     ],
-    colorClass: "bg-red-100 text-slate-950",
+    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/30 dark:text-white",
     activeClass: "ring-red-400",
   },
 };
@@ -290,7 +290,7 @@ function DepartmentCard({
 }) {
   return (
     <motion.div
-      className="rounded-3xl border border-white/10 bg-white/10 p-4 shadow-2xl backdrop-blur-md sm:p-5"
+      className="structure-blue-card rounded-3xl border border-white/10 !bg-[#012245] p-4 text-white shadow-xl backdrop-blur-md dark:border-white/10 dark:!bg-[#012245] dark:text-white dark:shadow-2xl sm:p-5"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -325,11 +325,53 @@ export default function StructurePage() {
         />
       </Head>
 
-      <div className="min-h-screen bg-white dark:bg-[#071425]">
+      <style jsx global>{`
+        .structure-page {
+          background-color: #ffffff !important;
+          color: #0f172a !important;
+        }
+
+        .structure-page main,
+        .structure-page .structure-section {
+          background-color: #ffffff !important;
+          color: #0f172a !important;
+        }
+
+        .structure-page .structure-title {
+          color: #012245 !important;
+        }
+
+        .structure-page .structure-description {
+          color: #334155 !important;
+        }
+
+        .structure-page .structure-blue-card,
+        .structure-page .structure-blue-card *:not(.text-accent) {
+          color: #ffffff !important;
+        }
+
+        .dark .structure-page {
+          background-color: #012245 !important;
+          color: #ffffff !important;
+        }
+
+        .dark .structure-page main,
+        .dark .structure-page .structure-section {
+          background-color: #012245 !important;
+          color: #ffffff !important;
+        }
+
+        .dark .structure-page .structure-title,
+        .dark .structure-page .structure-description {
+          color: #ffffff !important;
+        }
+      `}</style>
+
+      <div className="structure-page min-h-screen !bg-white text-slate-950 dark:!bg-primary dark:text-white">
         <Header />
 
         <main>
-          <section className="bg-primary pt-28 pb-12 text-white">
+          <section className="structure-section !bg-white pt-28 pb-12 text-slate-950 dark:!bg-primary dark:text-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <motion.div
                 className="text-center"
@@ -340,10 +382,10 @@ export default function StructurePage() {
                 <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-accent">
                   Organizzazione interna
                 </p>
-                <h1 className="font-display text-4xl font-black md:text-5xl">
+                <h1 className="structure-title font-display text-4xl font-black md:text-5xl">
                   Struttura aziendale
                 </h1>
-                <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-white/85 sm:text-lg">
+                <p className="structure-description mx-auto mt-4 max-w-3xl text-base leading-relaxed sm:text-lg">
                   La Scuderia DIIEM è organizzata in aree operative e tecniche
                   che collaborano tra loro: direzione strategica, comunicazione,
                   gestione interna e sviluppo tecnologico dei progetti.
@@ -352,10 +394,10 @@ export default function StructurePage() {
             </div>
           </section>
 
-          <section className="bg-primary pb-16 text-white">
+          <section className="structure-section !bg-white pb-16 text-slate-950 dark:!bg-primary dark:text-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <motion.div
-                className="rounded-[2rem] border border-white/10 bg-[#09213b]/70 p-4 shadow-2xl backdrop-blur-md sm:p-6 lg:p-8"
+                className="structure-blue-card rounded-[2rem] border border-white/10 !bg-[#012245] p-4 shadow-xl backdrop-blur-md dark:border-white/10 dark:!bg-[#003366] dark:shadow-2xl sm:p-6 lg:p-8"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -377,13 +419,13 @@ export default function StructurePage() {
                   </motion.div>
                 </div>
 
-                <div className="mx-auto my-6 h-10 w-px bg-accent/70" />
+                <div className="mx-auto my-6 h-10 w-px bg-accent/80" />
 
                 {/* Aree principali */}
                 <div className="grid gap-5 lg:grid-cols-[1fr_1fr_1.75fr]">
                   <DepartmentCard
-                    title="Marketing e comunicazione"
-                    subtitle=""
+                    title="CMO"
+                    subtitle="Marketing e comunicazione"
                   >
                     <div className="space-y-4">
                       <NodeButton
@@ -391,7 +433,7 @@ export default function StructurePage() {
                         selectedId={selectedId}
                         onSelect={setSelectedId}
                       />
-                      <div className="h-6 w-px bg-white/25 ml-8" />
+                      <div className="ml-8 h-6 w-px bg-white/25" />
                       <NodeButton
                         id="marketing"
                         selectedId={selectedId}
@@ -401,14 +443,14 @@ export default function StructurePage() {
                     </div>
                   </DepartmentCard>
 
-                  <DepartmentCard title="Gestione operativa" subtitle="">
+                  <DepartmentCard title="COO" subtitle="Gestione operativa">
                     <div className="space-y-4">
                       <NodeButton
                         id="coo"
                         selectedId={selectedId}
                         onSelect={setSelectedId}
                       />
-                      <div className="h-6 w-px bg-white/25 ml-8" />
+                      <div className="ml-8 h-6 w-px bg-white/25" />
                       <NodeButton
                         id="operations"
                         selectedId={selectedId}
@@ -419,8 +461,8 @@ export default function StructurePage() {
                   </DepartmentCard>
 
                   <DepartmentCard
-                    title="Tecnologia, progetti e aree specialistiche"
-                    subtitle=""
+                    title="CTO"
+                    subtitle="Tecnologia, progetti e aree specialistiche"
                   >
                     <div className="space-y-5">
                       <NodeButton
@@ -431,7 +473,7 @@ export default function StructurePage() {
 
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div>
-                          <div className="mb-3 rounded-full bg-white/10 px-4 py-2 text-center text-xs font-black uppercase tracking-wide text-white">
+                          <div className="mb-3 rounded-full border border-white/10 !bg-white/10 px-4 py-2 text-center text-xs font-black uppercase tracking-wide text-white shadow-sm dark:border-white/10 dark:!bg-white/10 dark:text-white">
                             Progetti
                           </div>
                           <div className="space-y-3">
@@ -448,7 +490,7 @@ export default function StructurePage() {
                         </div>
 
                         <div>
-                          <div className="mb-3 rounded-full bg-white/10 px-4 py-2 text-center text-xs font-black uppercase tracking-wide text-white">
+                          <div className="mb-3 rounded-full border border-white/10 !bg-white/10 px-4 py-2 text-center text-xs font-black uppercase tracking-wide text-white shadow-sm dark:border-white/10 dark:!bg-white/10 dark:text-white">
                             Aree tecniche
                           </div>
                           <div className="space-y-3">
@@ -477,7 +519,7 @@ export default function StructurePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 }}
               >
-                <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur-md">
+                <div className="structure-blue-card rounded-3xl border border-white/10 !bg-[#012245] p-6 text-white shadow-xl backdrop-blur-md dark:border-white/10 dark:!bg-[#003366] dark:text-white">
                   <p className="text-sm font-bold uppercase tracking-[0.2em] text-accent">
                     Elemento selezionato
                   </p>
@@ -503,7 +545,7 @@ export default function StructurePage() {
                   </AnimatePresence>
                 </div>
 
-                <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur-md">
+                <div className="structure-blue-card rounded-3xl border border-white/10 !bg-[#012245] p-6 text-white shadow-xl backdrop-blur-md dark:border-white/10 dark:!bg-[#003366] dark:text-white">
                   <h3 className="font-display text-2xl font-black text-white">
                     Responsabilità principali
                   </h3>
@@ -519,7 +561,7 @@ export default function StructurePage() {
                       {selectedNode.responsibilities.map((item) => (
                         <li
                           key={item}
-                          className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white/85"
+                          className="rounded-2xl border border-white/10 !bg-white/10 px-4 py-3 text-sm text-white/85 shadow-sm dark:border-white/10 dark:!bg-white/10 dark:text-white/85"
                         >
                           <span className="mr-2 text-accent">•</span>
                           {item}
