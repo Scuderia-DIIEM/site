@@ -106,6 +106,21 @@ const nodes: Record<NodeId, OrgNode> = {
     colorClass: "bg-emerald-100 text-slate-950 dark:bg-emerald-500/30 dark:text-white",
     activeClass: "ring-emerald-400",
   },
+  photo: {
+    id: "photo",
+    title: "Photo",
+    subtitle: "Fotografia e video",
+    description:
+      "Area dedicata alla produzione di contenuti visivi, fotografie e video per la comunicazione della Scuderia.",
+    responsibilities: [
+      "Contenuti social",
+      "Grafiche",
+      "Materiali promozionali",
+      "Supporto agli eventi",
+    ],
+    colorClass: "bg-emerald-100 text-slate-950 dark:bg-emerald-500/30 dark:text-white",
+    activeClass: "ring-emerald-400",
+  },
   operations: {
     id: "operations",
     title: "Operations",
@@ -419,7 +434,7 @@ export default function StructurePage() {
                   </motion.div>
                 </div>
 
-                <div className="mx-auto my-6 h-10 w-px bg-accent/80" />
+                <div className="mx-auto my-6 h-10 w-0.5 bg-accent/80" />
 
                 {/* Aree principali */}
                 <div className="grid gap-5 lg:grid-cols-[1fr_1fr_1.75fr]">
@@ -433,9 +448,16 @@ export default function StructurePage() {
                         selectedId={selectedId}
                         onSelect={setSelectedId}
                       />
-                      <div className="ml-8 h-6 w-px bg-white/25" />
+                      <div className="ml-8 h-6 w-0.5 bg-white/25" />
                       <NodeButton
                         id="marketing"
+                        selectedId={selectedId}
+                        onSelect={setSelectedId}
+                        compact
+                      />
+                      <div className="ml-8 h-6 w-0.5 bg-white/25" />
+                      <NodeButton
+                        id="photo"
                         selectedId={selectedId}
                         onSelect={setSelectedId}
                         compact
@@ -450,7 +472,7 @@ export default function StructurePage() {
                         selectedId={selectedId}
                         onSelect={setSelectedId}
                       />
-                      <div className="ml-8 h-6 w-px bg-white/25" />
+                      <div className="ml-8 h-6 w-0.5 bg-white/25" />
                       <NodeButton
                         id="operations"
                         selectedId={selectedId}
