@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Head from "next/head";
 import Header from "../components/Layout/Header";
@@ -104,7 +104,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Comunicati e storytelling",
       "Supporto agli eventi",
     ],
-    colorClass: "bg-emerald-100 text-slate-950 dark:bg-emerald-500/30 dark:text-white",
+    colorClass: "bg-emerald-100 text-slate-950 dark:bg-emerald-500/50 dark:text-white",
     activeClass: "ring-emerald-400",
   },
   photo: {
@@ -119,7 +119,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Materiali promozionali",
       "Supporto agli eventi",
     ],
-    colorClass: "bg-emerald-100 text-slate-950 dark:bg-emerald-500/30 dark:text-white",
+    colorClass: "bg-emerald-100 text-slate-950 dark:bg-emerald-500/50 dark:text-white",
     activeClass: "ring-emerald-400",
   },
   operations: {
@@ -134,7 +134,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Supporto logistico",
       "Gestione interna del lavoro",
     ],
-    colorClass: "bg-cyan-100 text-slate-950 dark:bg-cyan-500/30 dark:text-white",
+    colorClass: "bg-cyan-100 text-slate-950 dark:bg-cyan-500/50 dark:text-white",
     activeClass: "ring-cyan-400",
   },
   rov: {
@@ -149,7 +149,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Test in ambiente acquatico",
       "Ottimizzazione funzionale",
     ],
-    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/30 dark:text-white",
+    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/50 dark:text-white",
     activeClass: "ring-orange-400",
   },
   float: {
@@ -164,7 +164,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Interfaccia con il sistema ROV",
       "Validazione sperimentale",
     ],
-    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/30 dark:text-white",
+    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/50 dark:text-white",
     activeClass: "ring-orange-400",
   },
   arm: {
@@ -179,7 +179,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Attuazione e controllo",
       "Test di presa e movimento",
     ],
-    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/30 dark:text-white",
+    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/50 dark:text-white",
     activeClass: "ring-orange-400",
   },
   gs: {
@@ -194,7 +194,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Comunicazione con il veicolo",
       "Supporto agli operatori",
     ],
-    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/30 dark:text-white",
+    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-500/50 dark:text-white",
     activeClass: "ring-orange-400",
   },
   electronics: {
@@ -209,7 +209,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Alimentazione",
       "Sensori e acquisizione dati",
     ],
-    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/30 dark:text-white",
+    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/50 dark:text-white",
     activeClass: "ring-red-400",
   },
   software: {
@@ -224,7 +224,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Interfacce operative",
       "Automazione e logiche di sistema",
     ],
-    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/30 dark:text-white",
+    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/50 dark:text-white",
     activeClass: "ring-red-400",
   },
   cad: {
@@ -239,7 +239,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Disegni tecnici",
       "Preparazione alla fabbricazione",
     ],
-    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/30 dark:text-white",
+    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/50 dark:text-white",
     activeClass: "ring-red-400",
   },
   special: {
@@ -254,7 +254,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Prototipazione avanzata",
       "Supporto ai reparti tecnici",
     ],
-    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/30 dark:text-white",
+    colorClass: "bg-red-100 text-slate-950 dark:bg-red-500/50 dark:text-white",
     activeClass: "ring-red-400",
   },
 };
@@ -323,7 +323,25 @@ function DepartmentCard({
 
 export default function StructurePage() {
   const [selectedId, setSelectedId] = useState<NodeId>("ceo");
+  const detailsRef = useRef<HTMLDivElement | null>(null);
+
   const selectedNode = nodes[selectedId];
+
+  const handleNodeClick = (nodeId: NodeId) => {
+  setSelectedId(nodeId);
+
+  setTimeout(() => {
+    if (!detailsRef.current) return;
+
+    const rect = detailsRef.current.getBoundingClientRect();
+    const absoluteTop = rect.top + window.scrollY;
+
+    window.scrollTo({
+      top: absoluteTop - window.innerHeight + rect.height + 40,
+      behavior: "smooth",
+    });
+  }, 100);
+};
 
   const projectIds = useMemo<NodeId[]>(() => ["rov", "float", "arm", "gs"], []);
   const technicalIds = useMemo<NodeId[]>(
@@ -430,7 +448,7 @@ export default function StructurePage() {
                     <NodeButton
                       id="ceo"
                       selectedId={selectedId}
-                      onSelect={setSelectedId}
+                      onSelect={handleNodeClick}
                     />
                   </motion.div>
                 </div>
@@ -447,20 +465,20 @@ export default function StructurePage() {
                       <NodeButton
                         id="cmo"
                         selectedId={selectedId}
-                        onSelect={setSelectedId}
+                        onSelect={handleNodeClick}
                       />
                       <div className="ml-8 h-6 w-0.5 bg-white/25" />
                       <NodeButton
                         id="marketing"
                         selectedId={selectedId}
-                        onSelect={setSelectedId}
+                        onSelect={handleNodeClick}
                         compact
                       />
                       <div className="ml-8 h-6 w-0.5 bg-white/25" />
                       <NodeButton
                         id="photo"
                         selectedId={selectedId}
-                        onSelect={setSelectedId}
+                        onSelect={handleNodeClick}
                         compact
                       />
                     </div>
@@ -471,13 +489,13 @@ export default function StructurePage() {
                       <NodeButton
                         id="coo"
                         selectedId={selectedId}
-                        onSelect={setSelectedId}
+                        onSelect={handleNodeClick}
                       />
                       <div className="ml-8 h-6 w-0.5 bg-white/25" />
                       <NodeButton
                         id="operations"
                         selectedId={selectedId}
-                        onSelect={setSelectedId}
+                        onSelect={handleNodeClick}
                         compact
                       />
                     </div>
@@ -491,7 +509,7 @@ export default function StructurePage() {
                       <NodeButton
                         id="cto"
                         selectedId={selectedId}
-                        onSelect={setSelectedId}
+                        onSelect={handleNodeClick}
                       />
 
                       <div className="grid gap-4 sm:grid-cols-2">
@@ -505,7 +523,7 @@ export default function StructurePage() {
                                 key={id}
                                 id={id}
                                 selectedId={selectedId}
-                                onSelect={setSelectedId}
+                                onSelect={handleNodeClick}
                                 compact
                               />
                             ))}
@@ -522,7 +540,7 @@ export default function StructurePage() {
                                 key={id}
                                 id={id}
                                 selectedId={selectedId}
-                                onSelect={setSelectedId}
+                                onSelect={handleNodeClick}
                                 compact
                               />
                             ))}
@@ -542,7 +560,10 @@ export default function StructurePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 }}
               >
-                <div className="structure-blue-card rounded-3xl border border-white/10 !bg-[#012245] p-6 text-white shadow-xl backdrop-blur-md dark:border-white/10 dark:!bg-[#003366] dark:text-white">
+                <div
+                  ref={detailsRef}
+                  className="structure-blue-card scroll-mt-28 rounded-3xl border border-white/10 !bg-[#012245] p-6 text-white shadow-xl backdrop-blur-md dark:border-white/10 dark:!bg-[#003366] dark:text-white"
+                >
                   <p className="text-sm font-bold uppercase tracking-[0.2em] text-accent">
                     Elemento selezionato
                   </p>
