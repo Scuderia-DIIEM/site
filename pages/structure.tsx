@@ -10,6 +10,7 @@ type NodeId =
   | "coo"
   | "cto"
   | "marketing"
+  | "photo"
   | "operations"
   | "rov"
   | "float"
