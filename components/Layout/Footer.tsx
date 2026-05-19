@@ -1,17 +1,21 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
+  const router = useRouter()
+  const isHome = router.pathname === '/'
   const navLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'Chi Siamo', href: '#about' },
-    { label: 'Prodotti', href: '#products' },
-    { label: 'Progetti', href: '#gallery' },
-    { label: 'Gare', href: '#racing' },
-    { label: 'Contatti', href: '#contact' }
+    { label: 'Home', href: '/' },
+    { label: 'Dispositivi', href: '/#products' },
+    { label: 'Chi Siamo', href: '/#about' },
+    { label: 'Team', href: isHome ? '#team' : '/team' },
+    { label: 'Progetti', href: isHome ? '#gallery' : '/projects' },
+    { label: 'Struttura', href: '/structure' },
+    { label: 'Contatti', href: '/#contact' }
   ]
 
   const socialLinks = [
@@ -47,9 +51,9 @@ export default function Footer() {
   return (
     <footer className="bg-deep-space text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_max-content] mb-8">
           {/* Logo and Description */}
-          <div className="md:col-span-2">
+          <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -107,10 +111,12 @@ export default function Footer() {
             </motion.div>
           </div>
 
+                  {/* Navigation and Contacts */}
+        <div className="space-y-8">
           {/* Navigation */}
           <div>
             <motion.h3
-              className="font-bold mb-4 text-accent"
+              className="font-bold text-xl mb-4 text-accent"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -118,8 +124,9 @@ export default function Footer() {
             >
               Navigazione
             </motion.h3>
+
             <motion.ul
-              className="space-y-2"
+              className="flex flex-wrap gap-x-8 gap-y-3"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -141,33 +148,38 @@ export default function Footer() {
           {/* Contact Info */}
           <div>
             <motion.h3
-              className="font-bold mb-4 text-accent"
+              className="font-bold text-xl mb-4 text-accent"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
             >
               Contatti
             </motion.h3>
+
             <motion.div
-              className="space-y-2 text-sm text-gray-300"
+              className="flex flex-wrap gap-x-8 gap-y-3 text-gray-300"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
             >
-              <div>
-                <a href="mailto:info@scuderiadiiem.com" className="hover:text-accent transition-colors">
-                  info@scuderiadiiem.com
-                </a>
-              </div>
-              <div>
-                <a href="mailto:sponsorship@scuderiadiiem.com" className="hover:text-accent transition-colors">
-                  sponsorship@scuderiadiiem.com
-                </a>
-              </div>
+              <a
+                href="mailto:info@scuderiadiiem.com"
+                className="hover:text-accent transition-colors"
+              >
+                info@scuderiadiiem.com
+              </a>
+
+              <a
+                href="mailto:sponsorship@scuderiadiiem.com"
+                className="hover:text-accent transition-colors"
+              >
+                sponsorship@scuderiadiiem.com
+              </a>
             </motion.div>
           </div>
+        </div>
         </div>
 
         {/* Copyright */}
