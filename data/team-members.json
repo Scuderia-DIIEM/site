@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Stefano Pio Onorati",
     "role": "CEO",
-    "image": "/photos/onorati.JPG",
+    "image": "/photos/onorati.png",
     "email": "ste.onorati1@stud.uniroma3.it",
     "phone": "+39 123 456 7890",
     "linkedin": "https://linkedin.com"
@@ -12,7 +12,7 @@
     "id": 2,
     "name": "Jacopo Evangelisti",
     "role": "CTO - Maratoneta",
-    "image": "/photos/evangelisti.jpg",
+    "image": "/photos/evangelisti.png",
     "email": "jac.evangelisti@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
   },
