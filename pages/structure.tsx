@@ -440,8 +440,8 @@ export default function StructurePage() {
                 {/* Aree principali */}
                 <div className="grid gap-5 lg:grid-cols-[1fr_1fr_1.75fr]">
                   <DepartmentCard
-                    title="CMO"
-                    subtitle="Marketing e comunicazione"
+                    title="Marketing e comunicazione"
+                    subtitle=""
                   >
                     <div className="space-y-4">
                       <NodeButton
@@ -466,7 +466,7 @@ export default function StructurePage() {
                     </div>
                   </DepartmentCard>
 
-                  <DepartmentCard title="COO" subtitle="Gestione operativa">
+                  <DepartmentCard title="Gestione operativa" subtitle="">
                     <div className="space-y-4">
                       <NodeButton
                         id="coo"
@@ -484,8 +484,8 @@ export default function StructurePage() {
                   </DepartmentCard>
 
                   <DepartmentCard
-                    title="CTO"
-                    subtitle="Tecnologia, progetti e aree specialistiche"
+                    title="Tecnologia, progetti e aree specialistiche"
+                    subtitle=""
                   >
                     <div className="space-y-5">
                       <NodeButton
