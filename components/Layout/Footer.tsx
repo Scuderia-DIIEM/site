@@ -62,7 +62,7 @@ export default function Footer() {
             >
               <div className="flex items-center space-x-3 mb-4">
                 <Image
-                  src="/imgs/logo.jpg"
+                  src="/imgs/MantaSDR3_bianco.png"
                   alt="Scuderia DIIEM Logo"
                   width={50}
                   height={50}
@@ -90,9 +90,14 @@ export default function Footer() {
                   Industriale, Elettronica e Meccanica
                 </p>
               </div>
-              <p className="text-gray-300 mb-4 max-w-md">
-                Innovazione Ingegneristica | Spingendo i Limiti 
-              </p>
+              <a
+              href="https://www.google.com/maps/search/?api=1&query=Via%20Vito%20Volterra%2C%2062%2C%2000146%20Roma%20RM"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 transition-colors hover:text-accent"
+            >
+              Via Vito Volterra, 62, 00146 Roma RM
+            </a>
               <div className="flex items-center space-x-4">
                 <span className="text-sm text-gray-400">Seguici su:</span>
                 {socialLinks.map((social) => (
@@ -101,7 +106,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-300 hover:text-accent transition-colors"
+                    className="text-gray-300 py-5 hover:text-accent transition-colors"
                     aria-label={social.name}
                   >
                     {social.icon}
@@ -165,17 +170,17 @@ export default function Footer() {
               transition={{ duration: 0.6, delay: 0.25 }}
             >
               <a
-                href="mailto:info@scuderiadiiem.com"
+                href="mailto:scuderia.diiem@uniroma3.it"
                 className="hover:text-accent transition-colors"
               >
-                info@scuderiadiiem.com
+                scuderia.diiem@uniroma3.it
               </a>
 
               <a
-                href="mailto:sponsorship@scuderiadiiem.com"
+                href="mailto:nicolapio.belfiore@uniroma3.it"
                 className="hover:text-accent transition-colors"
               >
-                sponsorship@scuderiadiiem.com
+                nicolapio.belfiore@uniroma3.it
               </a>
             </motion.div>
           </div>
