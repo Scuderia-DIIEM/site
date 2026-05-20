@@ -12,15 +12,31 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
+  e.preventDefault()
+  setIsSubmitting(true)
+
+  try {
+    const response = await fetch('https://formspree.io/f/xykvejga', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+
+    if (response.ok) {
       alert('Messaggio inviato con successo!')
       setFormData({ name: '', email: '', subject: '', message: '' })
-    }, 1000)
+    } else {
+      alert('Errore durante l’invio del messaggio.')
+    }
+  } catch (error) {
+    alert('Errore di connessione. Riprova più tardi.')
+  } finally {
+    setIsSubmitting(false)
   }
+}
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
