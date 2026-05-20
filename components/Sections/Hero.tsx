@@ -73,7 +73,7 @@ export default function Hero() {
                         <Button href="#products" variant="primary">
                             Scopri il Nostro Progetto
                         </Button>
-                        <Button href="#contact" variant="secondary">
+                        <Button href="#contact" variant="secondary" className='btn-dark-outline'>
                             Diventa Sponsor
                         </Button>
                     </motion.div>

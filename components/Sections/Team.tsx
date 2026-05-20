@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import teamMembersData from '@/data/team-members.json'
 import Modal from '@/components/UI/Modal'
+import Button from '../UI/Button'
 
 // Array dei membri del team dal JSON
 const teamMembers = Array.isArray(teamMembersData) ? teamMembersData : []
@@ -123,21 +124,21 @@ export default function Team() {
         </div>
 
         {/* Pulsanti di controllo */}
-        <div className="text-center mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center">
-          {hasMore && (
-            <button
-              onClick={handleShowMore}
-              className="px-8 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-caramel hover:shadow-lg transition-all duration-300"
-            >
-              Mostra altro
-            </button>
-          )}
-          <Link href="/team">
-            <button className="px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-variant hover:shadow-lg transition-all duration-300">
-              Mostra tutti
-            </button>
-          </Link>
-        </div>
+        <motion.div
+            className="flex flex-col mt-12 sm:flex-row gap-4 justify-center items-center mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+        >
+            {hasMore && (
+                <Button variant="primary" onClick={handleShowMore}>
+                    Mostra altro
+                </Button>
+            )}
+            <Button href="/team" variant="secondary" className='btn-dark-outline'>
+                Mostra tutti
+            </Button>
+        </motion.div>
 
         {/* Modal per i dettagli del membro */}
         <Modal

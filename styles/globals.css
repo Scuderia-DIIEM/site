@@ -286,6 +286,17 @@ html {
 .dark .team-card-role {
   color: #cbd5e1 !important;
 }
+
+.btn-dark-outline {
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+
+
+
+.dark .btn-dark-outline:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.25);
+}
 }
 
 /* Accessibility: Respect reduced motion preference */
