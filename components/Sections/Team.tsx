@@ -41,7 +41,7 @@ interface TeamMemberCardProps {
 function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
   return (
     <motion.div
-      className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 cursor-pointer"
+      className="team-card group relative cursor-pointer"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -73,7 +73,7 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
       </div>
 
       {/* Accento decorativo */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-purple-500 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-orange-500 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </motion.div>
   )
 }

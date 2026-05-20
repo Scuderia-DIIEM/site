@@ -240,6 +240,52 @@ html {
 .dark .toggle-button-inactive:hover {
   color: #ffffff !important;
 }
+.team-card {
+  @apply overflow-hidden rounded-lg border bg-white shadow-sm transition-all duration-300;
+  border-color: #e5e7eb;
+  color: #0f172a !important;
+}
+
+.team-card:hover {
+  @apply shadow-md;
+}
+
+.team-card-image {
+  @apply relative w-full aspect-square overflow-hidden;
+  background-color: #f3f4f6 !important;
+}
+
+.team-card-title {
+  color: #0f172a !important;
+}
+
+.team-card-role {
+  color: #475569 !important;
+}
+
+.dark .team-card {
+  background-color: #112844 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: #eef6ff !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.dark .team-card:hover {
+  background-color: #123456 !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.50);
+}
+
+.dark .team-card-image {
+  background-color: #071425 !important;
+}
+
+.dark .team-card-title {
+  color: #ffffff !important;
+}
+
+.dark .team-card-role {
+  color: #cbd5e1 !important;
+}
 }
 
 /* Accessibility: Respect reduced motion preference */

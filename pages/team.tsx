@@ -21,7 +21,7 @@ interface TeamMemberCardProps {
 function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
   return (
     <motion.div
-      className="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 cursor-pointer"
+      className="team-card group relative cursor-pointer"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -30,7 +30,7 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
       onClick={() => onSelect(member)}
     >
       {/* Immagine del membro */}
-      <div className="relative w-full aspect-square overflow-hidden bg-gray-100">
+      <div className="team-card-image">
         <Image
           src={member.image}
           alt={member.name}
@@ -44,16 +44,16 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
 
       {/* Informazioni del membro */}
       <div className="p-2 sm:p-3">
-        <h3 className="text-xs sm:text-sm font-bold text-gray-900 mb-0.5 font-display group-hover:text-primary transition-colors duration-300 line-clamp-2">
+        <h3 className="team-card-title mb-0.5 line-clamp-2 font-display text-xs font-bold transition-colors duration-300 group-hover:text-primary sm:text-sm dark:group-hover:text-accent">
           {member.name}
         </h3>
-        <p className="text-xs text-gray-600 line-clamp-2">
+        <p className="team-card-role line-clamp-2 text-xs">
           {member.role}
         </p>
       </div>
 
       {/* Accento decorativo */}
-      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-purple-500 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-orange-500 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </motion.div>
   )
 }
@@ -177,7 +177,7 @@ export default function TeamPage() {
             {/* Immagine e breve info */}
             {selectedMember && (
               <div className="w-full md:w-1/4 flex-shrink-0">
-                <div className="relative w-full aspect-square rounded-lg overflow-hidden border border-gray-100">
+                <div className="relative w-full aspect-square overflow-hidden rounded-lg border border-gray-100 bg-gray-100 dark:border-white/10 dark:bg-[#071425]">
                   <Image
                     src={selectedMember.image}
                     alt={selectedMember.name}
