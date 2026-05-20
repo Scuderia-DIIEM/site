@@ -69,7 +69,7 @@ export default function About() {
               Il nostro team vede collaborare giovani studenti  di ingegneria per la creazione di un R.O.V. sottomarino.
             </p>
             <p className="text-lg text-gray-200 leading-relaxed">
-              La nostra squadra è molto eterogenea, composta da studenti di ingegneria meccanica, elettronica e gestionale. 
+              La nostra squadra è molto eterogenea, composta da studenti di ingegneria meccanica, elettronica e biomedica. 
             </p>
              <p className="text-lg text-gray-200 leading-relaxed">
               Ai fini della competizione abbiamo simulato una struttura aziendale, con un CEO, un CTO ed altri ruoli che si occupano di aspetti specifici del progetto, come la gestione dei social media, la ricerca di sponsor e la progettazione tecnica.

@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Stefano Pio Onorati",
     "role": "CEO",
-    "image": "/photos/onorati.png",
+    "image": "/photos/onorati.jpeg",
     "email": "ste.onorati1@stud.uniroma3.it",
     "phone": "+39 123 456 7890",
     "linkedin": "https://linkedin.com"
@@ -12,7 +12,7 @@
     "id": 2,
     "name": "Jacopo Evangelisti",
     "role": "CTO - Maratoneta",
-    "image": "/photos/evangelisti.png",
+    "image": "/photos/evangelisti.jpeg",
     "email": "jac.evangelisti@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
   },
@@ -20,7 +20,7 @@
     "id": 3,
     "name": "Alice Moro",
     "role": "CMO",
-    "image": "/photos/moro.png",
+    "image": "/photos/moro.jpeg",
     "email": "ali.moro@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
   },
@@ -28,7 +28,7 @@
     "id": 4,
     "name": "Mirko Agostinelli",
     "role": "Project Manager ROV",
-    "image": "/photos/agostinelli.png",
+    "image": "/photos/agostinelli.jpeg",
     "email": "mir.agostinelli@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
   },
@@ -36,7 +36,7 @@
     "id": 5,
     "name": "Riccardo Nisi",
     "role": "Project Manager ARM",
-    "image": "/photos/nisi.png",
+    "image": "/photos/nisi.jpeg",
     "email": "ric.nisi@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
   },
@@ -44,7 +44,7 @@
     "id": 6,
     "name": "Matteo Febbi",
     "role": "Project Manager FLOAT",
-    "image": "/photos/febbi.png",
+    "image": "/photos/febbi.jpeg",
     "email": "mat.febbi@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
   },
@@ -52,7 +52,7 @@
     "id": 7,
     "name": "Luca Maria Massucci",
     "role": "Head of Research&Assembly",
-    "image": "/photos/massucci.png",
+    "image": "/photos/massucci.jpeg",
     "email": "luc.massucci@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
   },
@@ -60,7 +60,7 @@
     "id": 8,
     "name": "Umberto Tepedino",
     "role": "Head of CAD&Design",
-    "image": "/photos/tepedino.png",
+    "image": "/photos/tepedino.jpeg",
     "email": "umb.tepedino@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
   },
@@ -68,7 +68,7 @@
     "id": 9,
     "name": "Gianluca Pizzuti",
     "role": "Head of Elettrical&Software",
-    "image": "/photos/pizzuti.png",
+    "image": "/photos/pizzuti.jpeg",
     "email": "gian.pizzuti@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
   },
