@@ -186,6 +186,9 @@ export default function Footer() {
           </div>
         </div>
         </div>
+        <p className="text-sm text-center transition-colors mt-8 my-4">
+          Developed with 🤍 by Jacopo Evangelisti
+        </p>
 
         {/* Copyright */}
         <motion.div
@@ -197,9 +200,9 @@ export default function Footer() {
         >
           <p>© {currentYear} Scuderia DIIEM. Tutti i diritti riservati.</p>
           <p className="mt-2">
-            <a href="#" className="hover:text-accent transition-colors">Privacy Policy</a>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" target="_blank" className="hover:text-accent transition-colors">Privacy Policy</a>
             {' | '}
-            <a href="#" className="hover:text-accent transition-colors">Termini di Utilizzo</a>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" target="_blank" className="hover:text-accent transition-colors">Termini di Utilizzo</a>
           </p>
         </motion.div>
       </div>

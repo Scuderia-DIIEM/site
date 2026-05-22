@@ -21,7 +21,7 @@ const products = [
     title: 'Ground Station',
     subtitle: 'Stazione di Controllo',
     description: 'Valigetta di controllo con cavo Ethernet, schermo e tastiera per interfaccia grafica e comunicazione con il ROV.\n Al suo interno è presente un Raspberry Pi 5 che gestisce il sistema di controllo e la comunicazione con i dispositivi subacquei.',
-    image: '/imgs/logo.jpg',
+    image: '/render/gs.png',
     accentColor: 'deep-space'
   },
   {
