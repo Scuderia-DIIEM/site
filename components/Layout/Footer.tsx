@@ -85,10 +85,12 @@ export default function Footer() {
                     className="object-contain"
                   />
                 </a>
-                <p className="text-sm text-gray-300">
-                  Dipartimento di Ingegneria<br />
-                  Industriale, Elettronica e Meccanica
-                </p>
+                <a href="https://ingegneriaindustrialeelettronicameccanica.uniroma3.it/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                  <p className="text-sm text-gray-300">
+                    Dipartimento di Ingegneria<br />
+                    Industriale, Elettronica e Meccanica
+                  </p>
+                </a>  
               </div>
               <a
               href="https://www.google.com/maps/search/?api=1&query=Via%20Vito%20Volterra%2C%2062%2C%2000146%20Roma%20RM"
@@ -198,11 +200,11 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <p>© {currentYear} Scuderia DIIEM. Tutti i diritti riservati.</p>
+          <p>© {currentYear} Scuderia DIIEM. Tutti i diritti riservati. C.F./P.I. n. 04400441004</p>
           <p className="mt-2">
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" target="_blank" className="hover:text-accent transition-colors">Privacy Policy</a>
+            <a href="/privacy-policy" className="hover:text-accent transition-colors">Privacy Policy</a>
             {' | '}
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" target="_blank" className="hover:text-accent transition-colors">Termini di Utilizzo</a>
+            <a href="/terms-of-use" className="hover:text-accent transition-colors">Termini di Utilizzo</a>
           </p>
         </motion.div>
       </div>
