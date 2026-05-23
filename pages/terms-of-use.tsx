@@ -5,77 +5,83 @@ import Footer from '../components/Layout/Footer'
 
 const sections = [
   {
-    title: '1. Oggetto',
+    title: '1. Oggetto delle Note Legali',
     body: [
-      'I presenti Termini di Utilizzo regolano l’accesso e l’uso del sito web della Scuderia DIIEM.',
-      'Navigando sul sito, l’utente accetta di utilizzare i contenuti e i servizi disponibili in modo corretto, lecito e rispettoso delle finalità informative, divulgative e istituzionali del progetto.',
+      'Le presenti Note Legali disciplinano l’accesso e l’utilizzo del sito web della Scuderia DIIEM, progetto universitario afferente all’Università degli Studi Roma Tre.',
+      'Il sito ha finalità informative, divulgative, formative e promozionali relative alle attività, ai progetti, agli eventi, alle competizioni e alle iniziative della Scuderia DIIEM.',
+      'La navigazione sul sito comporta l’accettazione delle presenti condizioni di utilizzo.',
     ],
   },
   {
-    title: '2. Contenuti del sito',
+    title: '2. Finalità del sito',
     body: [
-      'Il sito presenta informazioni relative alla Scuderia DIIEM, ai suoi progetti, al team, alle attività, agli eventi, alle gare e alle iniziative collegate.',
-      'I contenuti sono forniti a scopo informativo e possono essere aggiornati, modificati o rimossi in qualsiasi momento.',
-      'Non viene garantita l’assenza assoluta di errori, refusi, imprecisioni tecniche o informazioni non aggiornate.',
+      'Il sito fornisce informazioni sulle attività della Scuderia DIIEM, sui progetti sviluppati dal team, sulla struttura organizzativa, sui membri, sulle collaborazioni, sugli eventi e sulle iniziative di carattere universitario, tecnologico e divulgativo.',
+      'Le informazioni pubblicate hanno carattere generale e informativo. Esse non costituiscono un’offerta contrattuale, né una garanzia di disponibilità, continuità o completezza delle attività descritte.',
+      'La Scuderia DIIEM si riserva il diritto di aggiornare, modificare, integrare o rimuovere contenuti e pagine del sito in qualsiasi momento.',
     ],
   },
   {
-    title: '3. Proprietà intellettuale',
+    title: '3. Proprietà dei contenuti',
     body: [
-      'Testi, immagini, loghi, grafiche, layout, componenti visivi, materiali progettuali e contenuti pubblicati sul sito appartengono alla Scuderia DIIEM o ai rispettivi titolari, salvo diversa indicazione.',
-      'È vietata la riproduzione, distribuzione, modifica o utilizzo dei contenuti per finalità commerciali senza autorizzazione scritta.',
-      'È consentita la condivisione dei contenuti del sito tramite link, purché non vengano alterati il significato, l’attribuzione o il contesto originario.',
+      'Salvo diversa indicazione, testi, immagini, fotografie, grafiche, loghi, video, rendering, documenti, layout, codice, materiali multimediali e ogni altro contenuto presente sul sito appartengono alla Scuderia DIIEM, all’Università degli Studi Roma Tre o ai rispettivi titolari che ne abbiano autorizzato l’utilizzo.',
+      'Tali contenuti sono protetti dalla normativa applicabile in materia di diritto d’autore, proprietà intellettuale e proprietà industriale.',
+      'È vietata la riproduzione, distribuzione, modifica, pubblicazione, trasmissione o utilizzo dei contenuti per finalità commerciali senza preventiva autorizzazione scritta.',
     ],
   },
   {
-    title: '4. Uso consentito',
+    title: '4. Uso consentito dei contenuti',
     body: [
-      'L’utente si impegna a non utilizzare il sito per finalità illecite, fraudolente, dannose o contrarie al corretto funzionamento del servizio.',
-      'È vietato tentare di accedere ad aree non autorizzate, interferire con la sicurezza del sito, inviare codice malevolo o utilizzare strumenti automatizzati in modo abusivo.',
+      'È consentita la consultazione del sito per finalità personali, informative, didattiche, divulgative o non commerciali.',
+      'L’eventuale citazione o condivisione di contenuti è consentita nei limiti previsti dalla legge, purché venga indicata la fonte e non venga alterato il significato originario dei materiali.',
+      'Eventuali note di copyright, indicazioni sugli autori, riferimenti alla fonte o informazioni di attribuzione devono essere mantenuti e correttamente riportati.',
     ],
   },
   {
-    title: '5. Link esterni e servizi di terze parti',
+    title: '5. Marchi, loghi e denominazioni',
     body: [
-      'Il sito può contenere collegamenti a siti esterni, piattaforme social, mappe, contenuti incorporati o servizi gestiti da terzi.',
-      'La Scuderia DIIEM non è responsabile per contenuti, disponibilità, sicurezza, informative privacy o condizioni d’uso di siti e servizi esterni.',
-      'L’accesso a piattaforme di terze parti avviene sotto la responsabilità dell’utente e secondo le regole stabilite dai rispettivi fornitori.',
+      'Il nome Scuderia DIIEM, il logo, gli elementi grafici identificativi e gli eventuali marchi collegati al progetto non possono essere utilizzati senza autorizzazione.',
+      'Eventuali marchi, loghi, denominazioni, immagini o segni distintivi di terzi presenti sul sito appartengono ai rispettivi proprietari.',
+      'L’eventuale presenza di marchi o loghi di terzi ha finalità descrittiva, informativa, istituzionale o di collaborazione e non implica necessariamente approvazione, sponsorizzazione o affiliazione, salvo diversa indicazione.',
     ],
   },
   {
-    title: '6. Form di contatto e comunicazioni',
+    title: '6. Uso corretto del sito',
     body: [
-      'L’utente può contattare la Scuderia DIIEM tramite email o moduli eventualmente presenti sul sito.',
-      'L’invio di messaggi non comporta automaticamente l’instaurazione di rapporti contrattuali, collaborazioni, sponsorizzazioni o altri impegni formali.',
-      'La Scuderia DIIEM si riserva di rispondere alle richieste ricevute secondo disponibilità, pertinenza e priorità organizzative.',
+      'L’utente si impegna a utilizzare il sito in modo corretto, lecito e rispettoso.',
+      'Sono vietati accessi abusivi al sito, ai sistemi informatici o alle aree non pubbliche, nonché alterazione, cancellazione, falsificazione o modifica dei contenuti pubblicati.',
+      'Sono inoltre vietati l’utilizzo del sito per finalità illecite, fraudolente, dannose o non autorizzate, la raccolta automatizzata di dati senza autorizzazione e l’utilizzo di indirizzi email, recapiti o dati pubblicati sul sito per spam, marketing non autorizzato o comunicazioni massive non richieste.',
     ],
   },
   {
-    title: '7. Limitazione di responsabilità',
+    title: '7. Accuratezza delle informazioni',
     body: [
-      'Il sito è fornito “così com’è”, senza garanzia di continuità, disponibilità permanente o assenza di errori tecnici.',
-      'La Scuderia DIIEM non risponde di eventuali danni diretti o indiretti derivanti dall’uso del sito, dall’impossibilità di accedervi, dall’affidamento su informazioni non aggiornate o dall’interazione con servizi esterni.',
+      'Scuderia DIIEM si impegna a pubblicare informazioni corrette, aggiornate e coerenti con le proprie attività.',
+      'Tuttavia, i contenuti del sito possono contenere errori, imprecisioni, omissioni o informazioni non aggiornate.',
+      'Scuderia DIIEM si riserva il diritto di modificare, aggiornare, integrare o rimuovere contenuti, pagine, materiali e funzionalità del sito in qualsiasi momento, senza obbligo di preavviso.',
     ],
   },
   {
-    title: '8. Modifiche al sito e ai termini',
+    title: '8. Limitazione di responsabilità',
     body: [
-      'La Scuderia DIIEM può modificare in qualsiasi momento contenuti, struttura, funzionalità e presenti Termini di Utilizzo.',
-      'Le modifiche saranno efficaci dalla pubblicazione sul sito, salvo diversa indicazione.',
+      'Il sito e i suoi contenuti sono forniti “così come sono”, per finalità informative e divulgative.',
+      'Scuderia DIIEM non garantisce che il sito sia sempre disponibile, privo di errori, compatibile con tutti i dispositivi, privo di interruzioni, virus o altri componenti dannosi.',
+      'Nei limiti consentiti dalla legge, Scuderia DIIEM non potrà essere ritenuta responsabile per danni diretti o indiretti derivanti dall’accesso al sito, dall’utilizzo delle informazioni pubblicate, dall’impossibilità di accedere alle pagine o dall’interazione con funzionalità e servizi esterni collegati.',
     ],
   },
   {
-    title: '9. Privacy',
+    title: '9. Link esterni e materiali scaricabili',
     body: [
-      'Il trattamento dei dati personali è disciplinato dalla Privacy Policy pubblicata sul sito.',
-      'L’utente è invitato a consultare la Privacy Policy per conoscere finalità, modalità di trattamento, servizi di terze parti e diritti esercitabili.',
+      'Il sito può contenere link verso siti, piattaforme o servizi esterni, inclusi siti istituzionali, social network, mappe, partner, sponsor o altri soggetti terzi.',
+      'Tali collegamenti sono forniti come servizio all’utente. La presenza di un link esterno non implica approvazione, garanzia o assunzione di responsabilità da parte di Scuderia DIIEM rispetto ai contenuti, ai servizi, alla correttezza, alla completezza o alla sicurezza del sito collegato.',
+      'Eventuali materiali scaricabili dal sito sono forniti per finalità informative, divulgative o didattiche. L’utente è tenuto a verificarne l’idoneità rispetto alle proprie esigenze e a rispettare eventuali diritti di proprietà intellettuale applicabili.',
     ],
   },
   {
-    title: '10. Contatti',
+    title: '10. Social media e aggiornamenti delle Note Legali',
     body: [
-      'Per domande relative ai presenti Termini di Utilizzo è possibile scrivere a info@scuderiadiiem.com.',
-      'Sede indicativa: Via Vito Volterra, 62, 00146 Roma RM.',
+      'La Scuderia DIIEM può utilizzare canali social per comunicare attività, eventi, progetti, risultati e contenuti divulgativi. Gli utenti che interagiscono con tali canali sono invitati a mantenere un comportamento corretto, rispettoso e pertinente.',
+      'Non sono ammessi contenuti offensivi, discriminatori, diffamatori, violenti, promozionali non autorizzati, spam, materiali che violino la privacy di terzi o contenuti che violino diritti d’autore, marchi o altri diritti di terzi.',
+      'La Scuderia DIIEM si riserva, ove consentito dalle piattaforme utilizzate, di rimuovere commenti o contenuti non conformi a tali principi e di segnalare eventuali comportamenti abusivi. Le presenti Note Legali possono essere aggiornate in qualsiasi momento; le modifiche saranno pubblicate su questa pagina e saranno efficaci dalla data di pubblicazione.',
     ],
   },
 ]
@@ -91,11 +97,11 @@ export default function TermsOfUsePage() {
         />
       </Head>
 
-      <div className="min-h-screen bg-white text-slate-950 dark:bg-primary dark:text-white">
+      <div className="min-h-screen bg-white text-slate-950 dark:bg-white dark:text-white">
         <Header />
 
         <main className="pt-28 pb-20">
-          <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <section className="mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#112844] dark:shadow-[0_12px_30px_rgba(0,0,0,0.35)] sm:p-8">
               <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-accent">
                 Condizioni
@@ -106,16 +112,13 @@ export default function TermsOfUsePage() {
               <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-base">
                 Ultimo aggiornamento: 23 maggio 2026
               </p>
-              <p className="mt-4 text-base leading-relaxed text-slate-700 dark:text-slate-200">
-                Questa pagina definisce le condizioni generali per l’accesso e l’utilizzo del sito della Scuderia DIIEM.
-              </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-2">
               {sections.map((section) => (
                 <section
                   key={section.title}
-                  className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#112844] dark:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
+                  className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#112840]/95 dark:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
                 >
                   <h2 className="font-display text-2xl font-bold text-primary dark:text-white">
                     {section.title}
@@ -134,9 +137,8 @@ export default function TermsOfUsePage() {
               ))}
             </div>
 
-            <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-relaxed text-amber-900 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-100">
-              Nota: questo documento è un modello generale. Se il sito viene usato per attività commerciali, raccolta strutturata di dati, sponsor, newsletter o servizi evoluti, è opportuno farlo verificare da un professionista.
-            </div>
+            <div className="legal-warning-box">
+              <strong>Nota:</strong> le presenti Note Legali disciplinano l’utilizzo del sito web di Scuderia DIIEM e dei contenuti pubblicati al suo interno. Per eventuali aspetti istituzionali, regolamentari o amministrativi riferibili all’Università degli Studi Roma Tre, si rinvia alla documentazione ufficiale dell’Ateneo. Le presenti condizioni potranno essere aggiornate in qualsiasi momento in caso di modifiche al sito, ai contenuti o alle modalità di utilizzo dei servizi collegati.            </div>
           </section>
         </main>
 

@@ -116,7 +116,7 @@ html {
     --tw-gradient-stops: var(--tw-gradient-from), #071425, var(--tw-gradient-to, rgba(7,20,37,0)) !important;
   }
 
-  .dark :is(h1,h2,h3,h4,h5,h6,p,span,li,a,button,label,strong,em,small,blockquote,dt,dd) {
+  .dark :is(h1,h2,h3,h4,h5,h6,p,span,li,a,button,label,em,small,blockquote,dt,dd) {
     color: #ffffff !important;
   }
 
@@ -291,11 +291,27 @@ html {
   transition: box-shadow 200ms ease, border-color 200ms ease;
 }
 
-
-
 .dark .btn-dark-outline:hover {
   border-color: rgba(255, 255, 255, 0.55);
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.25);
+}
+
+/* --------------------------------------------------------------------- */
+.legal-warning-box {
+  margin-top: 2rem;
+  border-radius: 1rem;
+  border: 1.5px solid #fadf73;
+  background-color: #ffeea9;
+  padding: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: #78350f !important;
+}
+
+.dark .legal-warning-box {
+  border-color: rgba(251, 191, 36, 0.35) !important;
+  background-color: rgba(251, 191, 36, 0.25) !important;
+  color: #fadf73 !important;
 }
 }
 
