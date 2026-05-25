@@ -19,17 +19,17 @@ export default function About() {
     <section id="about" className="scroll-mt-10 py-20 bg-gradient-to-b from-primary via-deep-space to-primary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-display">
+          <h2 className="text-4xl md:text-5xl font-bold mb-2 font-display">
             Chi Siamo
           </h2>
-          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-            La storia di Scuderia DIIEM e la nostra missione
+          <p className="mx-auto max-w-2xl text-sm text-gray-200 sm:text-lg">
+            La storia della Scuderia DIIEM e la nostra missione
           </p>
         </motion.div>
 
@@ -59,7 +59,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-6 text-left"
+            className="space-y-2 text-left"
           >
             <h3 className="text-3xl font-bold font-display text-accent">
               La Nostra Storia
@@ -77,7 +77,7 @@ export default function About() {
             <div className="pt-4">
               <h4 className="text-xl font-bold mb-3 text-accent">La Nostra Missione</h4>
               <p className="text-gray-200">
-                L'biettivo principale è di partecipare alla MATE ROV competition ma contemporaneamente siamo impegnati nella ricerca e nello sviluppo nell'ambito subacqueo, la creazione di dispositivi in grado di salvaguardare l'ambiente marino ed infine la crescita personale simulando per la prima volta nel mondo del lavoro.
+                L'obiettivo principale è di partecipare alla MATE ROV competition ma contemporaneamente siamo impegnati nella ricerca e nello sviluppo nell'ambito subacqueo, la creazione di dispositivi in grado di salvaguardare l'ambiente marino ed infine la crescita personale simulando per la prima volta nel mondo del lavoro.
               </p>
             </div>
           </motion.div>
