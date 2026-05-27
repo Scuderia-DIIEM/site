@@ -5,18 +5,18 @@ import AddToCalendarButton from '../UI/AddToCalendarButton'
 
 export default function Racing() {
   const upcomingRace = {
-    date: '2026-06-25',
-    name: 'MATE ROV Competition',
-    location: 'Memorial University Newfoundland, Canada',
-    dateRange: '25-27 Giugno 2026'
+    date: '2026-06-04',
+    name: 'Open Night & Day Roma Tre',
+    location: 'Rettorato | Via Ostiense, 133',
+    dateRange: '4 Giugno 2026'
   }
 
 
   return (
-    <section id="racing" className="scroll-mt-10 py-20 bg-gradient-to-b from-white to-gray-50">
+    <section id="racing" className="scroll-mt-10 py-5 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -26,7 +26,7 @@ export default function Racing() {
             Competizioni - Eventi
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            La nostra prima competizione internazionale ci aspetta in Canada
+            Il rov in azione dal vivo durante gli eventi a cui partecipiamo
           </p>
         </motion.div>
 
@@ -69,8 +69,8 @@ export default function Racing() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                 >
-                  <span className="inline-block bg-accent/90 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 backdrop-blur-sm">
-                    Prossima Competizione
+                  <span className="inline-block bg-accent/90 text-white px-4 py-2 rounded-full text-lg font-semibold mb-4 backdrop-blur-sm">
+                    Prossimo Evento
                   </span>
                   <h3 className="text-3xl md:text-4xl font-bold mb-4 font-display">
                     {upcomingRace.name}
@@ -80,14 +80,14 @@ export default function Racing() {
                       <span className="text-2xl">📅</span>
                       <div>
                         <div className="text-lg font-semibold">{upcomingRace.dateRange}</div>
-                        <div className="text-gray-300 text-sm">2026</div>
+                        <div className="text-gray-300 text-sm">17:00 - 23:00</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">📍</span>
                       <div>
                         <div className="text-lg font-semibold">{upcomingRace.location}</div>
-                        <div className="text-gray-300 text-sm">Newfoundland, Canada</div>
+                        <div className="text-gray-300 text-sm">Roma, Italia</div>
                       </div>
                     </div>
                   </div>
@@ -98,8 +98,7 @@ export default function Racing() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.3 }}
                   >
-                    La nostra prima competizione internazionale rappresenta un traguardo importante
-                    nel nostro percorso di crescita e innovazione tecnologica.
+                     Il nuovo appuntamento pubblico inedito dell’Ateneo che unisce due delle nostre iniziative più amate, Roma Tre Open Night e Orientarsi a Roma Tre.
                   </motion.div>
                 </motion.div>
               </div>
@@ -113,42 +112,7 @@ export default function Racing() {
                 transition={{ duration: 0.5 }}
                 whileHover={{ scale: 1.05 }}
               >
-                <Image
-                  src="/imgs/Newfoundland-locator-Labrador-Canada.webp"
-                  alt="Newfoundland, Canada Location Map"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                {/* Overlay gradient for better text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-
-                {/* Pulsing location marker */}
-                <motion.a
-                  href="https://www.google.com/maps/place/Memorial+University+of+Newfoundland/@47.5716578,-52.7358801,15.66z/data=!4m6!3m5!1s0x4b0ca38ed8abfb89:0x6b5a08da64519740!8m2!3d47.5741117!4d-52.7352094!16zL20vMDIyanI1?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute top-[44.5%] left-[91.5%] transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.8, 1, 0.8],
-                  }}
-                  whileHover={{
-                    scale: 1.3,
-                    transition: { duration: 0.2 },
-                  }}
-                  whileTap={{
-                    scale: 0.9,
-                    transition: { duration: 0.1 },
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <div className="w-4 h-4 bg-accent rounded-full border-2 border-white shadow-lg" />
-                </motion.a>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2971.299764779733!2d12.477101811543157!3d41.86489657112331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13258a8135684311%3A0x604773dbf65ce5c4!2sVia%20Ostiense%2C%20133%2C%2000154%20Roma%20RM!5e0!3m2!1sit!2sit!4v1779901333511!5m2!1sit!2sit" width="600" height="450" style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                
               </motion.div>
             </div>
 
@@ -169,9 +133,9 @@ export default function Racing() {
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
         >
-          <p className="text-gray-500 italic">
+          {/*<p className="text-gray-500 italic">
             Questa sarà la nostra prima competizione ufficiale. Seguici per aggiornamenti sul nostro percorso!
-          </p>
+          </p>*/}
         </motion.div>
       </div>
     </section>
