@@ -13,7 +13,7 @@ export default function Racing() {
 
 
   return (
-    <section id="racing" className="scroll-mt-10 py-5 bg-gradient-to-b from-white to-gray-50">
+    <section id="racing" className="scroll-mt-20 py-5 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12"
@@ -98,7 +98,12 @@ export default function Racing() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.3 }}
                   >
-                     Il nuovo appuntamento pubblico inedito dell’Ateneo che unisce due delle nostre iniziative più amate, Roma Tre Open Night e Orientarsi a Roma Tre.
+                    <p className="mb-4">
+                      Il nuovo appuntamento pubblico inedito dell’Ateneo che unisce due delle nostre iniziative più amate, Roma Tre Open Night e Orientarsi a Roma Tre.
+                    </p>
+                    <p>
+                      Scopri di più sull'evento qui: <a href="https://www.uniroma3.it/ateneo/cerimonie-istituzionali/open-night-and-day-roma-tre-2026/" target="_blank" className="text-accent hover:underline">Open Night and Day Roma Tre</a>
+                    </p>
                   </motion.div>
                 </motion.div>
               </div>
