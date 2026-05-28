@@ -23,7 +23,7 @@ export default function Racing() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-display">
-            Competizioni - Eventi
+            Eventi
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Il rov in azione dal vivo durante gli eventi a cui partecipiamo
