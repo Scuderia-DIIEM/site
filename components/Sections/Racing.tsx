@@ -110,17 +110,26 @@ export default function Racing() {
 
               {/* Right side - Map */}
               <motion.div
-                className="relative h-64 lg:h-full min-h-[300px] rounded-xl overflow-hidden shadow-xl"
+                className="relative h-64 min-h-[300px] overflow-hidden rounded-xl shadow-xl lg:h-full"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
                 whileHover={{ scale: 1.05 }}
               >
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2971.299764779733!2d12.477101811543157!3d41.86489657112331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13258a8135684311%3A0x604773dbf65ce5c4!2sVia%20Ostiense%2C%20133%2C%2000154%20Roma%20RM!5e0!3m2!1sit!2sit!4v1779901333511!5m2!1sit!2sit" width="600" height="450" style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                
+                <iframe
+                  title="Mappa Scuderia DIIEM"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2971.299764779733!2d12.477101811543157!3d41.86489657112331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13258a8135684311%3A0x604773dbf65ce5c4!2sVia%20Ostiense%2C%20133%2C%2000154%20Roma%20RM!5e0!3m2!1sit!2sit!4v1779901333511!5m2!1sit!2sit"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="absolute inset-0 h-full w-full"
+                />
               </motion.div>
             </div>
-
             {/* Shine effect on hover */}
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"

@@ -51,20 +51,12 @@ const partners: Partner[] = [
     link: 'https://www.inm.cnr.it/',
     role: 'Partner Tecnico',
     accentColor: 'accent'
-  },
-  {
-    title: 'CircuitPro',
-    description: 'Fornitore di componenti meccanici e consulenza ingegneristica.',
-    logo: '/imgs/text-logo.jpg',
-    link: 'https://www.circuitpro.com',
-    role: 'Partner Meccanico',
-    accentColor: 'primary'
   }
 ]
 
 export default function Features() {
   return (
-    <section id="partners" className="py-20 bg-gradient-to-b from-gray-50 to-white">
+    <section id="partners" className="py-20 bg-white from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -92,9 +84,9 @@ export default function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group block bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 no-underline"
+              className="group block rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 no-underline bg-gradient-to-br from-white to-gray/20"
             >
-              <div className="mb-4 flex h-16 items-center justify-start rounded-2xl bg-slate-100 p-3">
+              <div className="mb-4 flex h-16 bc-white items-center justify-start rounded-2xl bg-gradient-to-r from-slate-100 to-slate-200 dark:bg-gradient-to-br from-white to-gray-50 p-3">
                 <div className="w-full max-w-20 flex items-center">
                   <Image
                     src={partner.logo}
