@@ -78,9 +78,20 @@ export default function Racing() {
                   <div className="space-y-3 mb-6">
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">📅</span>
-                      <div>
-                        <div className="text-lg font-semibold">{upcomingRace.dateRange}</div>
-                        <div className="text-gray-300 text-sm">17:00 - 23:00</div>
+                      <div className="relative grid grid-cols-2 items-center align-items-left">
+                        <div>
+                          <div className="text-lg font-semibold">{upcomingRace.dateRange}</div>
+                          <div className="text-gray-300 text-sm">17:00 - 23:00</div>
+                        </div>
+                        <div className="mt-2">
+                          <AddToCalendarButton
+                            eventName={upcomingRace.name}
+                            description={`Partecipa all'evento ${upcomingRace.name} con Scuderia DIIEM!`}
+                            location={upcomingRace.location}
+                            startTime={`${upcomingRace.date}T17:00:00`}
+                            endTime={`${upcomingRace.date}T23:00:00`}
+                          />
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
