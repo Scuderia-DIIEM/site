@@ -7,7 +7,7 @@ export default function Racing() {
   const upcomingRace = {
     date: '2026-06-04',
     name: 'Open Night & Day Roma Tre',
-    location: 'Via Ostiense, 133',
+    location: 'Rettorato | Via Ostiense, 133',
     dateRange: '4 Giugno 2026'
   }
 
