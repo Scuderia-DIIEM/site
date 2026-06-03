@@ -23,32 +23,32 @@ const defaultImages: GalleryImage[] = [
     alt: 'Progetto Scuderia DIIEM',
     title: 'Progettazione CAD',
     description: 'Il progetto CAD è il primo passo di ogni dispositivo. Qui iniziamo a definire forma, meccanica e dettagli costruttivi con estrema precisione.',
-    caption: 'Il design non è solo come qualcosa appare o si percepisce. Il design è come funziona.',
+    caption: 'Il design non è solo come qualcosa appare o si percepisce. Il design è come funziona',
     articleSlug: 'project-CAD'
   },
   {
-    src: '/render/pcb.png',
-    alt: 'Scuderia DIIEM',
-    title: 'Progettazione PCB',
-    description: 'La nostra approccio alla progettazione dei circuiti stampati.',
-    caption: 'Good design is as little design as possible.',
-    articleSlug: 'project-pcb'
+    src: '/imgs/projects/h2o0.png',
+    alt: 'Sensore rilevamento perdite d’acqua',
+    title: 'Sensore rilevamento perdite d’acqua',
+    description: 'Progettazione metodologica di un sensore conduttivo per il rilevamento di infiltrazioni d’acqua in un ROV.',
+    caption: 'Prevenire è progettare',
+    articleSlug: 'project-h2oleaks'
   },
   {
-    src: '/render/float1.png',
-    alt: 'Sviluppo progetti',
-    title: 'Innovazione in Azione',
-    description: 'Sviluppiamo tecnologie all\'avanguardia per operazioni marine e sistemi di racing, portando l\'innovazione dall\'ambiente racing a quello marino.',
-    caption: 'Innovazione in azione',
-    articleSlug: 'project-innovation-action'
+    src: '/imgs/projects/shunt1.png',
+    alt: 'Consumo elettrico di un ROV',
+    title: 'Consumo elettrico di un ROV',
+    description: 'Caratterizzazione sperimentale dell’assorbimento elettrico di un ROV mediante misure con shunt.',
+    caption: 'Misurare per innovare',
+    articleSlug: 'project-shunt'
   },
   {
-    src: '/render/rov2.png',
-    alt: 'Tecnologia avanzata',
-    title: 'Eccellenza Tecnica',
-    description: 'Ogni progetto rappresenta un impegno verso l\'eccellenza tecnica e la ricerca di soluzioni innovative per le sfide più complesse.',
-    caption: 'Eccellenza tecnica',
-    articleSlug: 'project-technical-excellence'
+    src: '/render/arm1.png',
+    alt: 'Progettazione Arm',
+    title: 'Progettazione Arm',
+    description: 'Sviluppo e integrazione meccatronica di un braccio robotico per ROV.',
+    caption: 'Dall’idea al movimento',
+    articleSlug: 'project-arm'
   }
 ]
 
