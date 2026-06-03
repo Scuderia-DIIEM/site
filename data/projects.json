@@ -45,16 +45,78 @@
       }
     ]
   },
-  {
-    "id": "project-pcb",
-    "slug": "project-pcb",
-    "title": "Progettazione PCB",
-    "excerpt": "La nostra approccio alla progettazione dei circuiti stampati.",
-    "date": "2026-05-20",
-    "authors": ["Luca Verdi"],
+
+
+
+    {
+    "id": "project-h2oleaks",
+    "slug": "project-h2oleaks",
+    "title": "Sensore rilevamento perdite d’acqua",
+    "excerpt": "Progettazione metodologica di un sensore conduttivo per il rilevamento di infiltrazioni d’acqua in un ROV.",
+    "date": "2026-05-15",
+    "authors": ["Vittoria Cerquaglia"],
     "heroImage": {
-      "src": "/render/pcb.png",
-      "alt": "Progettazione PCB",
+      "src": "/imgs/projects/h2o0.png",
+      "alt": "Rilevamento perdite d’acqua",
+      "width": 680,
+      "height": 300,
+      "align": "center",
+      "show": false
+    },
+    "blocks": [
+      {
+        "type": "text",
+        "content": "La protezione dell’elettronica di bordo rappresenta uno degli aspetti più critici nella progettazione di un ROV, poiché l’ambiente operativo subacqueo espone il sistema al rischio di infiltrazioni d’acqua, cortocircuiti e malfunzionamenti improvvisi. In questo contesto, lo sviluppo di un sensore di rilevamento acqua assume un ruolo fondamentale come dispositivo di sicurezza preventiva, capace di segnalare tempestivamente l’ingresso di liquido all’interno del compartimento contenente l’elettronica."
+      },
+      {
+        "type": "text",
+        "content": "La metodologia adottata si basa su un principio di rilevamento conduttivo. Tale approccio sfrutta la capacità dell’acqua, o più in generale di un liquido contenente anche minime quantità di ioni, di creare un percorso elettrico tra due elettrodi. In condizioni di asciutto, gli elettrodi risultano elettricamente isolati; quando invece entrano in contatto con un liquido, si genera un collegamento resistivo che modifica il potenziale applicato all’ingresso del circuito di controllo. Questo metodo è particolarmente adatto per applicazioni di monitoraggio ambientale interno, poiché non richiede sensori complessi e può essere implementato con componenti elettronici di base."
+      },
+      {
+        "type": "image",
+        "src": "/imgs/projects/h2o1.png",
+        "alt": "Sensore rilevamento perdite d’acqua",
+        "caption": "Circuito per il sensore saldato su millefori.",
+        "width": 720,
+        "align": "center"
+      },
+      {
+        "type": "text",
+        "content": "Il cuore del circuito è costituito da un amplificatore operazionale configurato come comparatore di tensione. La funzione del comparatore è confrontare la tensione presente sul terminale non invertente, collegato al sensore a due elettrodi, con una tensione di riferimento applicata al terminale invertente. La soglia di riferimento viene generata mediante un partitore resistivo alimentato a 5 V. La scelta di una soglia stabile è un passaggio importante, perché definisce il punto di commutazione tra lo stato normale e lo stato di allarme. In assenza di liquido, il circuito mantiene l’uscita dell’operazionale a livello alto, alimentando il LED e indicando che il sistema è attivo e asciutto. In presenza d’acqua, la variazione del potenziale sugli elettrodi porta la tensione d’ingresso sotto la soglia, causando la commutazione dell’uscita a livello basso e lo spegnimento del LED."
+      },
+      {
+        "type": "image",
+        "src": "/imgs/projects/h2o.png",
+        "alt": "Schema elettrico del sensore rilevamento perdite d’acqua",
+        "caption": "Schema elettrico del sensore rilevamento perdite d’acqua.",
+        "width": 720,
+        "align": "center"
+      },
+      {
+        "type": "text",
+        "content": "Un ulteriore elemento rilevante è l’introduzione di un condensatore da 1 µF in parallelo alla resistenza del partitore di riferimento. Questo componente svolge una funzione di filtraggio, riducendo l’effetto di disturbi elettromagnetici e transitori di alimentazione. In un ROV, infatti, la presenza di motori, convertitori di potenza e cablaggi può generare rumore elettrico capace di provocare false commutazioni. L’inserimento del filtro consente quindi di migliorare la stabilità del circuito e aumentare l’affidabilità della misura."
+      },
+      {
+        "type": "text",
+        "content": "Nel complesso, la metodologia descritta dimostra come un sensore di sicurezza possa essere progettato combinando semplicità circuitale, sensibilità elevata e logica fail-safe. La scelta di mantenere il LED acceso in condizioni normali consente infatti di rilevare indirettamente anche eventuali guasti o interruzioni del sistema: lo spegnimento del LED non segnala soltanto la presenza d’acqua, ma più in generale una condizione anomala."
+      }
+    ]
+  },
+
+
+
+
+  
+  {
+    "id": "project-shunt",
+    "slug": "project-shunt",
+    "title": "Consumo elettrico di un ROV",
+    "excerpt": "Caratterizzazione sperimentale dell’assorbimento elettrico di un ROV mediante misure con shunt.",
+    "date": "2026-05-06",
+    "authors": ["Gabriele Anselmi", "Alessio Di Girolamo"],
+    "heroImage": {
+      "src": "/imgs/projects/shunt1.png",
+      "alt": "Progettazione shunt",
       "width": 680,
       "height": 300,
       "align": "center",
@@ -63,32 +125,55 @@
     "blocks": [
       {
         "type": "text",
-        "content": "La progettazione PCB di Scuderia DIIEM nasce dall’unione tra innovazione, precisione e affidabilità. Ogni circuito è studiato per garantire prestazioni ottimali e durata prolungata."
+        "content": "La caratterizzazione elettrica di un veicolo subacqueo a controllo remoto rappresenta una fase essenziale nel processo di progettazione e validazione dell’architettura di potenza. In particolare, nei sistemi ROV, l’assorbimento di corrente non dipende esclusivamente dalle specifiche nominali dei singoli attuatori, ma varia in funzione della configurazione reale del veicolo, delle condizioni operative, del carico idrodinamico e dell’interazione tra motori, elettronica di controllo e sistemi di alimentazione."
+      },
+      {
+        "type": "text",
+        "content": "L’approccio adottato si basa sull’impiego di resistori shunt a bassa resistenza, inseriti a monte del sistema di alimentazione. Lo shunt consente di stimare la corrente assorbita dal veicolo attraverso la misura della caduta di tensione ai suoi capi. Tale scelta metodologica è particolarmente adatta per applicazioni di potenza, poiché permette una misura indiretta della corrente senza interrompere in modo significativo il funzionamento del circuito. L’utilizzo di due differenti shunt, con caratteristiche nominali diverse, ha inoltre permesso di confrontare la coerenza delle misure ottenute e di aumentare l’affidabilità della procedura sperimentale."
+      },
+      {
+        "type": "text",
+        "content": "Le prove sono state eseguite con il ROV immerso in acqua, condizione fondamentale per riprodurre il più fedelmente possibile l’ambiente operativo reale. Questa scelta è metodologicamente rilevante, poiché i motori subacquei lavorano in modo diverso rispetto a una prova in aria: la resistenza del fluido, il regime di rotazione e il carico applicato alle eliche influenzano direttamente la corrente assorbita. La misura in immersione consente quindi di evitare una sottostima o una sovrastima del comportamento elettrico del sistema."
+      },
+      {
+        "type": "text",
+        "content": "Durante le prove, il ROV è stato fatto operare in diverse configurazioni, distinguendo tra funzionamento con motori attivi, funzionamento con più motori simultaneamente e condizione di riposo. La configurazione con quattro motori alla massima potenza è stata utilizzata come scenario controllato per valutare l’assorbimento sotto carico, mentre la prova con sei motori è stata introdotta per indagare un’anomalia funzionale, rappresentata dal riavvio del Raspberry Pi di bordo. Questo passaggio evidenzia un aspetto importante della metodologia: la misura non è stata limitata alla sola verifica del consumo medio, ma è stata orientata anche all’individuazione di possibili criticità dinamiche del sistema di alimentazione."
       },
       {
         "type": "image",
-        "src": "",
+        "src": "/imgs/projects/shunt2.png",
         "alt": "Logo DIIEM",
-        "caption": "Esempio di progettazione PCB per il team.",
+        "caption": "Current draw vs ESC PWM Input Value.",
         "width": 900,
         "align": "center"
       },
       {
         "type": "text",
-        "content": "Usiamo colori distintivi e iconografie chiare per rendere ogni progetto immediatamente riconoscibile. La brand identity è il primo biglietto da visita per i nostri partner e clienti."
+        "content": "Per migliorare la qualità dell’analisi, le misure sono state effettuate sia con multimetro sia con oscilloscopio. Il multimetro ha fornito una valutazione del valore medio o quasi stazionario della grandezza elettrica, mentre l’oscilloscopio è stato impiegato per osservare eventuali transienti rapidi dovuti alla natura induttiva dei motori. L’analisi della banda passante dello strumento ha consentito di definire il limite temporale minimo dei fenomeni osservabili, introducendo così un criterio sperimentale per interpretare l’assenza di transienti rilevati."
+      },
+      {
+        "type": "text",
+        "content": "Infine, la misura in condizione di riposo ha permesso di separare il contributo della sola elettronica di bordo da quello dovuto agli attuatori. Questa distinzione è fondamentale per una corretta progettazione dei convertitori di potenza, dei sensori di corrente e delle protezioni elettriche. Il metodo seguito, dunque, non si limita alla raccolta di valori numerici, ma costruisce un quadro sperimentale completo, utile per validare il dimensionamento elettrico del ROV e guidare eventuali revisioni progettuali."
       }
     ]
   },
+
+
+
+
+
+
+
   {
-    "id": "project-innovation-action",
-    "slug": "project-innovation-action",
-    "title": "Innovazione in Azione",
-    "excerpt": "Come portiamo l’innovazione dal racing all’ambiente marino.",
-    "date": "2026-05-22",
-    "authors": ["Sara Neri", "Matteo Russo"],
+    "id": "project-arm",
+    "slug": "project-arm",
+    "title": "Progettazione Arm",
+    "excerpt": "Sviluppo e integrazione meccatronica di un braccio robotico per ROV.",
+    "date": "2026-04-25",
+    "authors": ["Nisi Riccardo", "Iannaccone Federico", "Salinas Giacomo", "Grossi Arianna", "Grando Chiara", "Margagnoni Francesco"],
     "heroImage": {
-      "src": "/imgs/logo.jpg",
-      "alt": "Innovazione in azione",
+      "src": "/imgs/projects/arm0.png",
+      "alt": "arm",
       "width": 680,
       "height": 300,
       "align": "center",
@@ -97,53 +182,31 @@
     "blocks": [
       {
         "type": "text",
-        "content": "In Scuderia DIIEM l’innovazione non è solo un concetto, ma un processo costante che appliciamo a ogni fase di sviluppo dei nostri progetti."
+        "content": "La progettazione di un braccio robotico per un ROV rappresenta una fase particolarmente delicata nello sviluppo di un sistema subacqueo, poiché richiede l’integrazione coordinata di componenti meccanici, attuatori elettrici, sistemi di trasmissione del moto, cablaggi di potenza ed elettronica di controllo."
+      },
+      {
+        "type": "text",
+        "content": "La prima fase metodologica ha riguardato la modellazione CAD tramite Autodesk Fusion 360. L’utilizzo di un ambiente di progettazione tridimensionale ha permesso di valutare preventivamente ingombri, accoppiamenti, tolleranze e interferenze tra componenti, riducendo il rischio di errori nella successiva fase di prototipazione tramite stampa 3D."
+      },
+      {
+        "type": "text",
+        "content": "Particolare attenzione è stata dedicata al sistema di attuazione dell’end-effector, ovvero dell’elemento terminale di presa. Sono state analizzate due soluzioni differenti. La prima prevedeva l’utilizzo di un servomotore IP68 con trasmissione a 90 gradi tramite ruote coniche e pignone-cremagliera. Questa configurazione presentava il vantaggio di collocare la meccanica al di sotto della parte rotante del braccio, ma introduceva anche criticità legate alla complessità costruttiva e alla possibile fragilità di componenti stampati in FDM. La seconda soluzione, basata su motore Nema17, vite ACME e chiocciola, risulta invece più semplice, scalabile e meccanicamente più controllabile. La conversione del moto rotatorio in moto lineare consente infatti di ottenere una chiusura progressiva della pinza, con possibilità di aumentare la coppia tramite riduttori planetari."
       },
       {
         "type": "image",
-        "src": "/imgs/logo.jpg",
-        "alt": "Innovazione tecnologica",
-        "caption": "Un progetto che unisce racing e tecnologia marina.",
+        "src": "/imgs/projects/arm1.png",
+        "alt": "arm",
+        "caption": "Dettaglio di un progetto meccatronico.",
         "width": 720,
         "align": "center"
       },
       {
         "type": "text",
-        "content": "Ogni nuova soluzione nasce dalla collaborazione tra ingegneri, designer e specialisti di prodotto, per garantire performance elevate e risultati concreti."
-      }
-    ]
-  },
-  {
-    "id": "project-technical-excellence",
-    "slug": "project-technical-excellence",
-    "title": "Eccellenza Tecnica",
-    "excerpt": "L’impegno per soluzioni tecniche affidabili e performanti.",
-    "date": "2026-05-24",
-    "authors": ["Francesca Lotti"],
-    "heroImage": {
-      "src": "/imgs/text-logo.jpg",
-      "alt": "Eccellenza tecnica",
-      "width": 680,
-      "height": 300,
-      "align": "center",
-      "show": true
-    },
-    "blocks": [
-      {
-        "type": "text",
-        "content": "La nostra eccellenza tecnica si basa su rigore, test e attenzione ai dettagli. Ogni progetto è validato per resistere alle condizioni più estreme."
-      },
-      {
-        "type": "image",
-        "src": "/imgs/text-logo.jpg",
-        "alt": "Tecnologia avanzata",
-        "caption": "Dettaglio di un progetto tecnico avanzato.",
-        "width": 720,
-        "align": "center"
+        "content": "Per quanto riguarda l'impermeabilizzazione dei motori, la tecnica prevista è il resin potting, cioè l’incapsulamento dei componenti sensibili mediante resina. A supporto di questa attività è stata progettata una camera iperbarica dedicata, utile per testare la resistenza all’acqua e l’isolamento galvanico degli avvolgimenti statorici."
       },
       {
         "type": "text",
-        "content": "Dalla scelta dei materiali all’assemblaggio, puntiamo a standard elevati per offrire prodotti che uniscono funzionalità, stabilità e design."
+        "content": "Infine, la misura in condizione di riposo ha permesso di separare il contributo della sola elettronica di bordo da quello dovuto agli attuatori. Questa distinzione è fondamentale per una corretta progettazione dei convertitori di potenza, dei sensori di corrente e delle protezioni elettriche. Il metodo seguito, dunque, non si limita alla raccolta di valori numerici, ma costruisce un quadro sperimentale completo, utile per validare il dimensionamento elettrico del ROV e guidare eventuali revisioni progettuali."
       }
     ]
   }
