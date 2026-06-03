@@ -104,7 +104,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Comunicati e storytelling",
       "Supporto agli eventi",
     ],
-    colorClass: "bg-emerald-100 text-slate-950 dark:bg-emerald-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-emerald-600 to-emerald-800 text-white",
     activeClass: "ring-emerald-400",
   },
   photo: {
@@ -119,7 +119,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Materiali promozionali",
       "Supporto agli eventi",
     ],
-    colorClass: "bg-emerald-100 text-slate-950 dark:bg-emerald-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-emerald-600 to-emerald-800 text-white",
     activeClass: "ring-emerald-400",
   },
   operations: {
@@ -134,7 +134,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Supporto logistico",
       "Gestione interna del lavoro",
     ],
-    colorClass: "bg-cyan-100 text-slate-950 dark:bg-cyan-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-cyan-600 to-cyan-800 text-white",
     activeClass: "ring-cyan-400",
   },
   rov: {
@@ -149,7 +149,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Test in ambiente acquatico",
       "Ottimizzazione funzionale",
     ],
-    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-orange-600 to-orange-800 text-white",
     activeClass: "ring-orange-400",
   },
   float: {
@@ -164,7 +164,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Interfaccia con il sistema ROV",
       "Validazione sperimentale",
     ],
-    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-orange-600 to-orange-800 text-white",
     activeClass: "ring-orange-400",
   },
   arm: {
@@ -179,7 +179,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Attuazione e controllo",
       "Test di presa e movimento",
     ],
-    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-orange-600 to-orange-800 text-white",
     activeClass: "ring-orange-400",
   },
   gs: {
@@ -194,7 +194,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Comunicazione con il veicolo",
       "Supporto agli operatori",
     ],
-    colorClass: "bg-orange-100 text-slate-950 dark:bg-orange-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-orange-600 to-orange-800 text-white",
     activeClass: "ring-orange-400",
   },
   electronics: {
@@ -209,7 +209,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Alimentazione",
       "Sensori e acquisizione dati",
     ],
-    colorClass: "bg-red-100 text-slate-950 dark:bg-red-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-red-600 to-red-800 text-white",
     activeClass: "ring-red-400",
   },
   software: {
@@ -224,7 +224,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Interfacce operative",
       "Automazione e logiche di sistema",
     ],
-    colorClass: "bg-red-100 text-slate-950 dark:bg-red-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-red-600 to-red-800 text-white",
     activeClass: "ring-red-400",
   },
   cad: {
@@ -239,7 +239,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Disegni tecnici",
       "Preparazione alla fabbricazione",
     ],
-    colorClass: "bg-red-100 text-slate-950 dark:bg-red-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-red-600 to-red-800 text-white",
     activeClass: "ring-red-400",
   },
   special: {
@@ -254,7 +254,7 @@ const nodes: Record<NodeId, OrgNode> = {
       "Prototipazione avanzata",
       "Supporto ai reparti tecnici",
     ],
-    colorClass: "bg-red-100 text-slate-950 dark:bg-red-700 dark:text-white",
+    colorClass: "bg-gradient-to-br from-red-600 to-red-800 text-white",
     activeClass: "ring-red-400",
   },
 };
