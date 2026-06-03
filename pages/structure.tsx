@@ -306,7 +306,7 @@ function DepartmentCard({
 }) {
   return (
     <motion.div
-      className="structure-blue-card rounded-3xl border border-white/10 !bg-[#012245] p-4 text-white shadow-xl backdrop-blur-md dark:border-white/10 dark:!bg-[#012245] dark:text-white dark:shadow-2xl sm:p-5"
+      className="structure-blue-card rounded-3xl border border-white/10 !bg-[#012245] p-4 text-white shadow-xl dark:border-white/10 dark:!bg-[#012245] dark:text-white dark:shadow-2xl sm:p-5"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -431,7 +431,7 @@ export default function StructurePage() {
           <section className="structure-section !bg-white pb-16 text-slate-950 dark:!bg-primary dark:text-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <motion.div
-                className="structure-blue-card rounded-[2rem] border border-white/10 !bg-[#012245] p-4 shadow-xl backdrop-blur-md dark:border-white/10 dark:!bg-[#003366] dark:shadow-2xl sm:p-6 lg:p-8"
+                className="structure-blue-card rounded-[2rem] border border-white/10 !bg-[#012245] p-4 shadow-xl dark:border-white/10 dark:!bg-[#003366] dark:shadow-2xl sm:p-6 lg:p-8"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
