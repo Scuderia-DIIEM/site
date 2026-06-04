@@ -242,17 +242,15 @@ export default function TeamPage() {
                       </div>
                     )}
 
-                    {/* Instagram */}
-                    {(selectedMember as any).instagram && (
+                    {/* Mail 2 */}
+                    {(selectedMember as any).email2 && (
                       <div className="flex items-start gap-3">
-                        <span className="mt-1 text-primary">📸</span>
+                        <span className="mt-1 text-primary">✉️</span>
                         <a
-                          href={(selectedMember as any).instagram}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:underline"
+                          href={`mailto:${(selectedMember as any).email2}`}
+                          className="text-blue-600 hover:underline break-all"
                         >
-                          Instagram
+                          {(selectedMember as any).email2}
                         </a>
                       </div>
                     )}
@@ -261,7 +259,7 @@ export default function TeamPage() {
                     {!selectedMember.email &&
                       !(selectedMember as any).phone &&
                       !(selectedMember as any).linkedin &&
-                      !(selectedMember as any).instagram && (
+                      !(selectedMember as any).email2 && (
                         <p className="text-gray-500 italic">Nessun contatto disponibile</p>
                       )}
                   </div>

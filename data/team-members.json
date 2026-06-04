@@ -67,7 +67,7 @@
   {
     "id": 9,
     "name": "Gianluca Pizzuti",
-    "role": "Head of Elettrical&Software",
+    "role": "Head of Electrical&Software",
     "image": "/photos/pizzuti.jpeg",
     "email": "gian.pizzuti@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -103,155 +103,187 @@
   {
     "id": 14,
     "name": "Alessio Belli",
-    "role": "Team Elettrical&Software",
+    "role": "Team Electrical&Software",
     "image": "/photos/14.png"
   },
   {
     "id": 15,
     "name": "Vittoria Cerquaglia",
-    "role": "Team Elettrical&Software",
-    "image": "/photos/15.png"
+    "role": "Team Electrical&Software",
+    "email": "vit.cerquaglia@stud.uniroma3.it",
+    "image": "/photos/18.png"
   },
   {
     "id": 16,
     "name": "Elia Cimaroli",
-    "role": "Team ARM",
+    "role": "Team CAD&Design",
+    "email": "ale.ciminello@stud.uniroma3.it",
+    "linkedin": "www.linkedin.com/in/alessandro-ciminello-16985437a",
     "image": "/photos/16.png"
   },
   {
     "id": 17,
-    "name": "Massimiliano Cristilli",
+    "name": "Alessandro Ciminello",
     "role": "Ruolo / Posizione",
     "image": "/photos/17.png"
   },
   {
     "id": 18,
-    "name": "Chiara D'antonio",
+    "name": "Massimiliano Cristilli",
     "role": "Ruolo / Posizione",
-    "image": "/photos/18.png"
+    "image": "/photos/15.png"
   },
   {
     "id": 19,
-    "name": "Alessio Di Girolamo",
-    "role": "Ruolo / Posizione",
+    "name": "Chiara D'antonio",
+    "role": "Team FLOAT",
+    "email": "chi.dantonio@stud.uniroma3.it",
+    "email2": "cdantonio03@gmail.com",
     "image": "/photos/19.png"
   },
   {
     "id": 20,
-    "name": "Teresa Ferrocino",
+    "name": "Alessio Di Girolamo",
     "role": "Ruolo / Posizione",
     "image": "/photos/20.png"
   },
   {
     "id": 21,
-    "name": "Chiara Grando",
+    "name": "Teresa Ferrocino",
     "role": "Ruolo / Posizione",
     "image": "/photos/21.png"
   },
   {
     "id": 22,
-    "name": "Arianna Grossi",
-    "role": "Ruolo / Posizione",
-    "image": "/photos/22.png"
+    "name": "Chiara Grando",
+    "role": "Team ARM",
+    "image": "/photos/grando.jpeg",
+    "email": "chi.grando@stud.uniroma3.it",
+    "linkedin": "https://www.linkedin.com/in/chiara-grando-921236339?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   },
   {
     "id": 23,
+    "name": "Arianna Grossi",
+    "role": "Team ARM",
+    "email": "ari.grossi1@stud.uniroma3.it",
+    "email2": "grossiariannaa@gmail.com",
+    "image": "/photos/23.png"
+  },
+  {
+    "id": 24,
     "name": "Federico Iannaccone",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 24,
+    "id": 25,
     "name": "Vincenzo Kuka",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 25,
+    "id": 26,
     "name": "Francesco Laudadio",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 26,
-    "name": "Michela Lissandrello",
-    "role": "Ruolo / Posizione",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
     "id": 27,
-    "name": "Francesco Margagnoni",
-    "role": "Ruolo / Posizione",
-    "image": "/photos/DSCF7641.JPG"
+    "name": "Michela Lissandrello",
+    "role": "Team Research&Assembly",
+    "email": "mic.lissandrello@stud.uniroma3.it",
+    "image": "/photos/lissandrello.png"
   },
   {
     "id": 28,
+    "name": "Francesco Margagnoni",
+    "role": "Team ARM",
+    "email": "fra.margagnoni@stud.uniroma3.it",
+    "email2": "francescomargagnoni79@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/francesco-margagnoni-419890392?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    "image": "/photos/margagnoni.jpeg"
+  },
+  {
+    "id": 29,
     "name": "Carmelo Nicolò",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 29,
+    "id": 30,
+    "name": "Valerio Orlandini",
+    "role": "Team Research&Assembly",
+    "email": "val.orlandini@stud.uniroma3.it",
+    "email2": "vale.orlandini1@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/valerio-orlandini-a5286137a?trk=contact-info",
+    "image": "/photos/DSCF7641.JPG"
+  },
+  {
+    "id": 31,
     "name": "Andra Pelliccia",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 30,
-    "name": "Riccardo Pimentel",
-    "role": "Ruolo / Posizione",
+    "id": 32,
+    "name": "Riccardo De Fonseca Pimentel",
+    "role": "Team Research&Assembly",
+    "email": "ric.defonsecapiment@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 31,
+    "id": 33,
     "name": "Lorenzo Piumelli",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 32,
+    "id": 34,
     "name": "Stefano Reynaud Bersanino",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 33,
+    "id": 35,
     "name": "Domitilla Ricci",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 34,
+    "id": 36,
     "name": "Malika Romanova",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 35,
+    "id": 37,
     "name": "Giacomo Salinas",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 36,
+    "id": 38,
     "name": "Matteo Traversa",
-    "role": "Ruolo / Posizione",
+    "role": "Electrical&Software",
+    "email": "mat.traversa@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 37,
+    "id": 39,
     "name": "Luca Trevisan",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 38,
+    "id": 40,
     "name": "Francesco Venanzi",
-    "role": "Ruolo / Posizione",
+    "role": "Team CAD&Design",
+    "email": "fra.venanzi1@stud.uniroma3.it",
+    "linkedin": "www.linkedin.com/in/francesco-venanzi-608a0a3b9",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 39,
+    "id": 41,
     "name": "Angelo Zelli",
     "role": "Ruolo / Posizione",
     "image": "/photos/DSCF7641.JPG"
