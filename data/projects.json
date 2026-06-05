@@ -3,9 +3,9 @@
     "id": "project-CAD",
     "slug": "project-CAD",
     "title": "Progettazione CAD",
-    "excerpt": "Tutti i dispositivi che stiamo costruendo sono stati progettati con CAD.",
-    "date": "2026-05-17",
-    "authors": ["Giulia Rossi", "Marco Bianchi"],
+    "excerpt": "Il progetto CAD è il primo passo di ogni dispositivo. Qui iniziamo a definire forma, meccanica e dettagli costruttivi con estrema precisione.",
+    "date": "2026-06-05",
+    "authors": ["Umberto Tepedino"],
     "heroImage": {
       "src": "/render/arm.png",
       "alt": "Immagine di copertina del progetto CAD",
@@ -17,11 +17,11 @@
     "blocks": [
       {
         "type": "text",
-        "content": "Il progetto CAD è il primo passo di ogni dispositivo. Qui iniziamo a definire forma, meccanica e dettagli costruttivi con estrema precisione."
+        "content": "La progettazione CAD è uno dei passi più importanti per lo sviluppo di un prodotto: questa ci permette di definire la geometria e i dettagli costruttivi del pezzo con estrema precisione e, tramite la costruzione di un assieme, verificare che tutti i componenti possano accoppiarsi meccanicamente in modo corretto. "
       },
       {
         "type": "text",
-        "content": "In pratica, il CAD permette di trasformare un’idea in un modello tridimensionale preciso. Questo significa che ogni componente può essere progettato nei minimi dettagli: dimensioni, forma, spessori, fori, incastri, tolleranze e modalità di assemblaggio. Prima di passare alla fase di produzione, possiamo quindi osservare il dispositivo da ogni angolazione, correggere eventuali errori e capire se le varie parti sono compatibili tra loro. \n\n"
+        "content": "Per il nostro progetto, si usano programmi di disegno CAD in 3D: si procede con un modello di massima che concretizza e ad aiuta a visualizzare meglio l’idea su cui si sta lavorando; successivamente si adatta il modello in funzione delle osservazioni mosse e si prevedono eventuali sistemi di fissaggio; infine, si procede con una messa in tavola con quote per agevolare future consultazioni circa le dimensioni di elemento. \n\n"
       },
       {
         "type": "image",
@@ -33,15 +33,15 @@
       },
       {
         "type": "text",
-        "content": " Uno dei principali vantaggi della progettazione CAD è la possibilità di ridurre tempi e costi di sviluppo. Senza un modello digitale, molti problemi verrebbero scoperti solo dopo aver realizzato fisicamente il pezzo, con conseguente spreco di materiale e necessità di rifare il lavoro. Con il CAD, invece, possiamo simulare e verificare il progetto in anticipo, migliorandolo progressivamente fino a ottenere una soluzione più efficiente e funzionale."
+        "content": "Il nostro ROV è completamente stampato tramite tecnologia FDM, quindi in fase di progettazione si presta particolare attenzione per evitare geometrie che possano complicare il processo di stampa, creare strutture che necessitano supporti di difficile rimozione e, soprattutto, garantire un’adeguata resistenza meccaniche lungo le direzioni più sollecitate. "
       },
       {
         "type": "text",
-        "content": "Nel nostro caso, la progettazione CAD ci aiuta a sviluppare tutti i dispositivi che stiamo costruendo perché ci permette di passare da una semplice idea a un progetto concreto e realizzabile. Ogni elemento può essere studiato in relazione agli altri, valutando ingombri, movimenti, punti di fissaggio e possibili interferenze. Questo è particolarmente importante quando si lavora su dispositivi composti da più parti, dove anche un piccolo errore di misura può compromettere il funzionamento dell’intero sistema."
+        "content": "Inoltre, ci concentriamo anche sulla modularità al fine di poter non solo garantire una più facile sostituzione di un componente viziato ma anche la possibilità di aggiungere dispositivi esterni come il nostro ARM."
       },
       {
         "type": "text",
-        "content": "Inoltre, il CAD facilita la comunicazione all’interno del gruppo di lavoro. Un modello 3D è molto più chiaro di una descrizione a parole: permette a tutti di vedere esattamente come sarà fatto il dispositivo, quali modifiche sono necessarie e come procedere nella costruzione. Il progetto digitale può anche essere utilizzato per generare file destinati alla stampa 3D, al taglio laser, alla fresatura CNC o ad altri processi di fabbricazione."
+        "content": "La progettazione CAD della Scuderia spazia dal disegno del telaio, a supporti per hardware esterni (es. elettronica) fino ad anche la realizzazione dei nostri gadget."
       }
     ]
   },
