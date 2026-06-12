@@ -75,10 +75,10 @@
   {
     "id": 10,
     "name": "Gabriele Anselmi",
-    "role": "Team ROV",
-    "image": "/photos/10.png",
+    "role": "Team Electrical&Software",
+    "image": "/photos/anselmi.jpeg",
     "email": "gab.anselmi@stud.uniroma3.it",
-    "linkedin": "https://linkedin.com"
+    "linkedin": "https://www.linkedin.com/in/gabriele-anselmi-ab627434a?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   },
   {
     "id": 11,
@@ -92,7 +92,9 @@
     "id": 12,
     "name": "Nicolò Azzella",
     "role": "Team FLOAT",
-    "image": "/photos/12.png"
+    "image": "/photos/azzella.jpg",
+    "email": "Nic.azzella@stud.uniroma3.it",
+    "email2": "N1k0t3sla@gmail.com"
   },
   {
     "id": 13,

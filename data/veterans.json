@@ -37,5 +37,23 @@
     "linkedin": "https://www.linkedin.com/in/marzio-milo-di-villagrazia-52a695147/",
     "image": "/photos/villagrazia.jpeg",
     "yearsActive": "2023-2024 / 2024-2025"
+  },
+  {
+    "id": 5,
+    "name": "Edoardo Tortoriello",
+    "role": "Team Electrical&Software",
+    "image": "/photos/21.png",
+    "email": "edo.tortoriello@stud.uniroma3.it",
+    "yearsActive" : "2023-2024"
+  },
+  {
+    "id": 6,
+    "name": "Antonio Maria Dispotico",
+    "role": "Team Ground Station",
+    "image": "/photos/dispotico.jpeg",
+    "email": "ant.dispotico@stud.uniroma3.it",
+    "email2": "toniodispot@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/antoniodispotico",
+    "yearsActive": "2024-2025"
   }
 ]
