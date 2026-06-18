@@ -5,10 +5,10 @@ import AddToCalendarButton from '../UI/AddToCalendarButton'
 
 export default function Racing() {
   const upcomingRace = {
-    date: '2026-06-04',
-    name: 'Open Night & Day Roma Tre',
-    location: 'Rettorato | Via Ostiense 133',
-    dateRange: '4 Giugno 2026'
+    date: '2026-10-23,25',
+    name: 'Maker Faire Rome 2026',
+    location: 'Gazometro | Via del Commercio 9-11',
+    dateRange: '23-25 Ottobre 2026'
   }
 
 
@@ -81,15 +81,15 @@ export default function Racing() {
                       <div className="relative grid grid-cols-2 items-center align-items-left">
                         <div>
                           <div className="text-lg font-semibold">{upcomingRace.dateRange}</div>
-                          <div className="text-gray-300 text-sm">17:00 - 23:00</div>
+                          <div className="text-gray-300 text-sm">10:00 - 17:00</div>
                         </div>
                         <div className="mt-2">
                           <AddToCalendarButton
                             eventName={upcomingRace.name}
                             description={`Partecipa all'evento ${upcomingRace.name} con Scuderia DIIEM!`}
                             location={upcomingRace.location}
-                            startTime={`${upcomingRace.date}T17:00:00`}
-                            endTime={`${upcomingRace.date}T23:00:00`}
+                            startTime={`${upcomingRace.date}T10:00:00`}
+                            endTime={`${upcomingRace.date}T17:00:00`}
                           />
                         </div>
                       </div>
@@ -98,7 +98,7 @@ export default function Racing() {
                       <span className="text-2xl">📍</span>
                       <div>
                         <div className="text-lg font-semibold">{upcomingRace.location}</div>
-                        <div className="text-gray-300 text-sm">Roma, Italia</div>
+                        <div className="text-gray-300 text-sm">00154 Roma, Italia</div>
                       </div>
                     </div>
                   </div>
@@ -110,10 +110,10 @@ export default function Racing() {
                     transition={{ delay: 0.3 }}
                   >
                     <p className="mb-4">
-                      Il nuovo appuntamento pubblico inedito dell’Ateneo che unisce due delle nostre iniziative più amate, Roma Tre Open Night e Orientarsi a Roma Tre.
+                      Ogni anno, Roma diventa il cuore pulsante dell’innovazione europea: maker, ricercatori, startup, scuole, imprese e semplici curiosi si ritrovano per toccare con mano tecnologie che ancora non esistevano ieri, e immaginare insieme quelle di domani.
                     </p>
                     <p>
-                      Scopri di più sull'evento qui: <a href="https://www.uniroma3.it/ateneo/cerimonie-istituzionali/open-night-and-day-roma-tre-2026/" target="_blank" className="text-accent hover:underline">Open Night and Day Roma Tre</a>
+                      Scopri di più sull'evento qui: <a href="https://makerfairerome.eu/" target="_blank" className="text-accent hover:underline">Maker Faire Rome 2026</a>
                     </p>
                   </motion.div>
                 </motion.div>
@@ -130,7 +130,7 @@ export default function Racing() {
               >
                 <iframe
                   title="Mappa Scuderia DIIEM"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2971.299764779733!2d12.477101811543157!3d41.86489657112331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13258a8135684311%3A0x604773dbf65ce5c4!2sVia%20Ostiense%2C%20133%2C%2000154%20Roma%20RM!5e0!3m2!1sit!2sit!4v1779901333511!5m2!1sit!2sit"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2971.084473229994!2d12.472128111543384!3d41.86952897112281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13258a82836bb899%3A0x724542ca2b483aa0!2sVia%20del%20Commercio%2C%209%2F11%2C%2000154%20Roma%20RM!5e0!3m2!1sit!2sit!4v1781768437369!5m2!1sit!2sit"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
