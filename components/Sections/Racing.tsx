@@ -5,7 +5,8 @@ import AddToCalendarButton from '../UI/AddToCalendarButton'
 
 export default function Racing() {
   const upcomingRace = {
-    date: '2026-10-23,25',
+    startDate: '2026-10-23',
+    endDate: '2026-10-25',
     name: 'Maker Faire Rome 2026',
     location: 'Gazometro | Via del Commercio 9-11',
     dateRange: '23-25 Ottobre 2026'
@@ -88,8 +89,8 @@ export default function Racing() {
                             eventName={upcomingRace.name}
                             description={`Partecipa all'evento ${upcomingRace.name} con Scuderia DIIEM!`}
                             location={upcomingRace.location}
-                            startTime={`${upcomingRace.date}T10:00:00`}
-                            endTime={`${upcomingRace.date}T17:00:00`}
+                            startTime={`${upcomingRace.startDate}T10:00:00`}
+                            endTime={`${upcomingRace.endDate}T17:00:00`}
                           />
                         </div>
                       </div>
