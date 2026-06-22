@@ -1,0 +1,46 @@
+{
+  "id": "project-arm",
+  "slug": "project-arm",
+  "title": "Progettazione Arm",
+  "excerpt": "Sviluppo e integrazione meccatronica di un braccio robotico per ROV.",
+  "date": "2026-04-25",
+  "authors": ["Nisi Riccardo", "Iannaccone Federico", "Salinas Giacomo", "Grossi Arianna", "Grando Chiara", "Margagnoni Francesco"],
+  "heroImage": {
+    "src": "/imgs/projects/arm0.png",
+    "alt": "arm",
+    "width": 680,
+    "height": 300,
+    "align": "center",
+    "show": true
+  },
+  "blocks": [
+    {
+      "type": "text",
+      "content": "La progettazione di un braccio robotico per un ROV rappresenta una fase particolarmente delicata nello sviluppo di un sistema subacqueo, poiché richiede l’integrazione coordinata di componenti meccanici, attuatori elettrici, sistemi di trasmissione del moto, cablaggi di potenza ed elettronica di controllo."
+    },
+    {
+      "type": "text",
+      "content": "La prima fase metodologica ha riguardato la modellazione CAD tramite Autodesk Fusion 360. L’utilizzo di un ambiente di progettazione tridimensionale ha permesso di valutare preventivamente ingombri, accoppiamenti, tolleranze e interferenze tra componenti, riducendo il rischio di errori nella successiva fase di prototipazione tramite stampa 3D."
+    },
+    {
+      "type": "text",
+      "content": "Particolare attenzione è stata dedicata al sistema di attuazione dell’end-effector, ovvero dell’elemento terminale di presa. Sono state analizzate due soluzioni differenti. La prima prevedeva l’utilizzo di un servomotore IP68 con trasmissione a 90 gradi tramite ruote coniche e pignone-cremagliera. Questa configurazione presentava il vantaggio di collocare la meccanica al di sotto della parte rotante del braccio, ma introduceva anche criticità legate alla complessità costruttiva e alla possibile fragilità di componenti stampati in FDM. La seconda soluzione, basata su motore Nema17, vite ACME e chiocciola, risulta invece più semplice, scalabile e meccanicamente più controllabile. La conversione del moto rotatorio in moto lineare consente infatti di ottenere una chiusura progressiva della pinza, con possibilità di aumentare la coppia tramite riduttori planetari."
+    },
+    {
+      "type": "image",
+      "src": "/imgs/projects/arm1.png",
+      "alt": "arm",
+      "caption": "Dettaglio di un progetto meccatronico.",
+      "width": 720,
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "content": "Per quanto riguarda l'impermeabilizzazione dei motori, la tecnica prevista è il resin potting, cioè l’incapsulamento dei componenti sensibili mediante resina. A supporto di questa attività è stata progettata una camera iperbarica dedicata, utile per testare la resistenza all’acqua e l’isolamento galvanico degli avvolgimenti statorici."
+    },
+    {
+      "type": "text",
+      "content": "Infine, la misura in condizione di riposo ha permesso di separare il contributo della sola elettronica di bordo da quello dovuto agli attuatori. Questa distinzione è fondamentale per una corretta progettazione dei convertitori di potenza, dei sensori di corrente e delle protezioni elettriche. Il metodo seguito, dunque, non si limita alla raccolta di valori numerici, ma costruisce un quadro sperimentale completo, utile per validare il dimensionamento elettrico del ROV e guidare eventuali revisioni progettuali."
+    }
+  ]
+}

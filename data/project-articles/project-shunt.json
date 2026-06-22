@@ -1,0 +1,46 @@
+{
+  "id": "project-shunt",
+  "slug": "project-shunt",
+  "title": "Consumo elettrico di un ROV",
+  "excerpt": "Caratterizzazione sperimentale dell’assorbimento elettrico di un ROV mediante misure con shunt.",
+  "date": "2026-05-06",
+  "authors": ["Gabriele Anselmi", "Alessio Di Girolamo"],
+  "heroImage": {
+    "src": "/imgs/projects/shunt1.png",
+    "alt": "Progettazione shunt",
+    "width": 680,
+    "height": 300,
+    "align": "center",
+    "show": true
+  },
+  "blocks": [
+    {
+      "type": "text",
+      "content": "La caratterizzazione elettrica di un veicolo subacqueo a controllo remoto rappresenta una fase essenziale nel processo di progettazione e validazione dell’architettura di potenza. In particolare, nei sistemi ROV, l’assorbimento di corrente non dipende esclusivamente dalle specifiche nominali dei singoli attuatori, ma varia in funzione della configurazione reale del veicolo, delle condizioni operative, del carico idrodinamico e dell’interazione tra motori, elettronica di controllo e sistemi di alimentazione."
+    },
+    {
+      "type": "text",
+      "content": "L’approccio adottato si basa sull’impiego di resistori shunt a bassa resistenza, inseriti a monte del sistema di alimentazione. Lo shunt consente di stimare la corrente assorbita dal veicolo attraverso la misura della caduta di tensione ai suoi capi. Tale scelta metodologica è particolarmente adatta per applicazioni di potenza, poiché permette una misura indiretta della corrente senza interrompere in modo significativo il funzionamento del circuito. L’utilizzo di due differenti shunt, con caratteristiche nominali diverse, ha inoltre permesso di confrontare la coerenza delle misure ottenute e di aumentare l’affidabilità della procedura sperimentale."
+    },
+    {
+      "type": "text",
+      "content": "Le prove sono state eseguite con il ROV immerso in acqua, condizione fondamentale per riprodurre il più fedelmente possibile l’ambiente operativo reale. Questa scelta è metodologicamente rilevante, poiché nei motori subacquei l’assorbimento varia in base al carico idrodinamico e all’interazione con il fluido."
+    },
+    {
+      "type": "image",
+      "src": "/imgs/projects/shunt2.png",
+      "alt": "Logo DIIEM",
+      "caption": "Current draw vs ESC PWM Input Value.",
+      "width": 900,
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "content": "Per migliorare la qualità dell’analisi, le misure sono state effettuate sia con multimetro sia con oscilloscopio. Il multimetro ha fornito una valutazione del valore medio o quasi stazionario della grandezza elettrica, mentre l’oscilloscopio è stato impiegato per osservare eventuali transienti rapidi dovuti alla natura induttiva dei motori. L’analisi della banda passante dello strumento ha consentito di definire il limite temporale minimo dei fenomeni osservabili, introducendo così un criterio sperimentale per interpretare l’assenza di transienti rilevati."
+    },
+    {
+      "type": "text",
+      "content": "Infine, la misura in condizione di riposo ha permesso di separare il contributo della sola elettronica di bordo da quello dovuto agli attuatori. Questa distinzione è fondamentale per una corretta progettazione dei convertitori di potenza, dei sensori di corrente e delle protezioni elettriche. Il metodo seguito, dunque, non si limita alla raccolta di valori numerici, ma costruisce un quadro sperimentale completo, utile per validare il dimensionamento elettrico del ROV e guidare eventuali revisioni progettuali."
+    }
+  ]
+}

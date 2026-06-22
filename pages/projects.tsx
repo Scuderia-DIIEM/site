@@ -3,14 +3,18 @@ import Head from 'next/head'
 import Header from '../components/Layout/Header'
 import Footer from '../components/Layout/Footer'
 import Link from 'next/link'
-import projects from '@/data/projects.json'
 import { ProjectArticle } from '@/types'
+import { loadAllProjectArticles } from '@/lib/project-articles'
 import { motion } from 'framer-motion'
 
-export default function ProjectsPage() {
+interface ProjectsPageProps {
+  projects: ProjectArticle[]
+}
+
+export default function ProjectsPage({ projects }: ProjectsPageProps) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [searchTerm, setSearchTerm] = useState('')
-  const projectList = projects as ProjectArticle[]
+  const projectList = projects
 
   const filteredProjects = projectList.filter((project) => {
     const search = searchTerm.trim().toLowerCase()
@@ -200,4 +204,13 @@ export default function ProjectsPage() {
       </div>
     </>
   )
+}
+
+export async function getStaticProps() {
+  const projects = await loadAllProjectArticles()
+  return {
+    props: {
+      projects,
+    },
+  }
 }

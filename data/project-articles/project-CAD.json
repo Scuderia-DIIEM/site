@@ -1,0 +1,46 @@
+{
+  "id": "project-CAD",
+  "slug": "project-CAD",
+  "title": "Progettazione CAD",
+  "excerpt": "Il progetto CAD è il primo passo di ogni dispositivo. Qui iniziamo a definire forma, meccanica e dettagli costruttivi con estrema precisione.",
+  "date": "2026-06-05",
+  "authors": ["Umberto Tepedino"],
+  "heroImage": {
+    "src": "/render/arm.png",
+    "alt": "Immagine di copertina del progetto CAD",
+    "width": 400,
+    "height": 130,
+    "align": "left",
+    "show": false
+  },
+  "blocks": [
+    {
+      "type": "text",
+      "content": "La progettazione CAD è uno dei passi più importanti per lo sviluppo di un prodotto: questa ci permette di definire la geometria e i dettagli costruttivi del pezzo con estrema precisione e, tramite la costruzione di un assieme, verificare che tutti i componenti possano accoppiarsi meccanicamente in modo corretto. "
+    },
+    {
+      "type": "text",
+      "content": "Per il nostro progetto, si usano programmi di disegno CAD in 3D: si procede con un modello di massima che concretizza e ad aiuta a visualizzare meglio l’idea su cui si sta lavorando; successivamente si adatta il modello in funzione delle osservazioni mosse e si prevedono eventuali sistemi di fissaggio; infine, si procede con una messa in tavola con quote per agevolare future consultazioni circa le dimensioni di elemento. \n\n"
+    },
+    {
+      "type": "image",
+      "src": "/render/cad1.png",
+      "alt": "Esempio di progetto CAD",
+      "caption": "Schermata CAD del nostro ROV.",
+      "width": 900,
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "content": "Il nostro ROV è completamente stampato tramite tecnologia FDM, quindi in fase di progettazione si presta particolare attenzione per evitare geometrie che possano complicare il processo di stampa, creare strutture che necessitano supporti di difficile rimozione e, soprattutto, garantire un’adeguata resistenza meccaniche lungo le direzioni più sollecitate. "
+    },
+    {
+      "type": "text",
+      "content": "Inoltre, ci concentriamo anche sulla modularità al fine di poter non solo garantire una più facile sostituzione di un componente viziato ma anche la possibilità di aggiungere dispositivi esterni come il nostro ARM."
+    },
+    {
+      "type": "text",
+      "content": "La progettazione CAD della Scuderia spazia dal disegno del telaio, a supporti per hardware esterni (es. elettronica) fino ad anche la realizzazione dei nostri gadget."
+    }
+  ]
+}

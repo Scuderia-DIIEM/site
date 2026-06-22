@@ -1,0 +1,54 @@
+{
+  "id": "project-h2oleaks",
+  "slug": "project-h2oleaks",
+  "title": "Sensore rilevamento perdite d’acqua",
+  "excerpt": "Progettazione metodologica di un sensore conduttivo per il rilevamento di infiltrazioni d’acqua in un ROV.",
+  "date": "2026-05-15",
+  "authors": ["Vittoria Cerquaglia"],
+  "heroImage": {
+    "src": "/imgs/projects/h2o0.png",
+    "alt": "Rilevamento perdite d’acqua",
+    "width": 680,
+    "height": 300,
+    "align": "center",
+    "show": false
+  },
+  "blocks": [
+    {
+      "type": "text",
+      "content": "La protezione dell’elettronica di bordo rappresenta uno degli aspetti più critici nella progettazione di un ROV, poiché l’ambiente operativo subacqueo espone il sistema al rischio di infiltrazioni d’acqua, cortocircuiti e malfunzionamenti improvvisi. In questo contesto, lo sviluppo di un sensore di rilevamento acqua assume un ruolo fondamentale come dispositivo di sicurezza preventiva, capace di segnalare tempestivamente l’ingresso di liquido all’interno del compartimento contenente l’elettronica."
+    },
+    {
+      "type": "text",
+      "content": "La metodologia adottata si basa su un principio di rilevamento conduttivo. Tale approccio sfrutta la capacità dell’acqua, o più in generale di un liquido contenente anche minime quantità di ioni, di creare un percorso elettrico tra due elettrodi. In condizioni di asciutto, gli elettrodi risultano elettricamente isolati; quando invece entrano in contatto con un liquido, si genera un collegamento resistivo che modifica il potenziale applicato all’ingresso del circuito di controllo. Questo metodo è particolarmente adatto per applicazioni di monitoraggio ambientale interno, poiché non richiede sensori complessi e può essere implementato con componenti elettronici di base."
+    },
+    {
+      "type": "image",
+      "src": "/imgs/projects/h2o1.png",
+      "alt": "Sensore rilevamento perdite d’acqua",
+      "caption": "Circuito per il sensore saldato su millefori.",
+      "width": 720,
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "content": "Il cuore del circuito è costituito da un amplificatore operazionale configurato come comparatore di tensione. La funzione del comparatore è confrontare la tensione presente sul terminale non invertente, collegato al sensore a due elettrodi, con una tensione di riferimento applicata al terminale invertente. La soglia di riferimento viene generata mediante un partitore resistivo alimentato a 5 V. La scelta di una soglia stabile è un passaggio importante, perché definisce il punto di commutazione tra lo stato normale e lo stato di allarme. In assenza di liquido, il circuito mantiene l’uscita dell’operazionale a livello alto, alimentando il LED e indicando che il sistema è attivo e asciutto. In presenza d’acqua, la variazione del potenziale sugli elettrodi porta la tensione d’ingresso sotto la soglia, causando la commutazione dell’uscita a livello basso e lo spegnimento del LED."
+    },
+    {
+      "type": "image",
+      "src": "/imgs/projects/h2o.png",
+      "alt": "Schema elettrico del sensore rilevamento perdite d’acqua",
+      "caption": "Schema elettrico del sensore rilevamento perdite d’acqua.",
+      "width": 720,
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "content": "Un ulteriore elemento rilevante è l’introduzione di un condensatore da 1 µF in parallelo alla resistenza del partitore di riferimento. Questo componente svolge una funzione di filtraggio, riducendo l’effetto di disturbi elettromagnetici e transitori di alimentazione. In un ROV, infatti, la presenza di motori, convertitori di potenza e cablaggi può generare rumore elettrico capace di provocare false commutazioni. L’inserimento del filtro consente quindi di migliorare la stabilità del circuito e aumentare l’affidabilità della misura."
+    },
+    {
+      "type": "text",
+      "content": "Nel complesso, la metodologia descrive come un sensore di sicurezza possa essere progettato combinando semplicità circuitale, sensibilità elevata e logica fail-safe. La scelta di mantenere il LED acceso in condizioni normali consente infatti di rilevare indirettamente anche eventuali guasti o interruzioni del sistema: lo spegnimento del LED non segnala soltanto la presenza d’acqua, ma più in generale una condizione anomala."
+    }
+  ]
+}

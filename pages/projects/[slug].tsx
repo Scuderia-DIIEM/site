@@ -2,15 +2,14 @@ import React from 'react'
 import Head from 'next/head'
 import Header from '../../components/Layout/Header'
 import Footer from '../../components/Layout/Footer'
-import { useRouter } from 'next/router'
-import projects from '@/data/projects.json'
 import { ProjectArticle, ProjectBlock } from '@/types'
+import { loadAllProjectArticles, loadProjectArticleBySlug } from '@/lib/project-articles'
 
-export default function ProjectDetail() {
-  const router = useRouter()
-  const { slug } = router.query
+interface ProjectDetailProps {
+  project: ProjectArticle
+}
 
-  const project = (projects as ProjectArticle[]).find((p) => p.slug === slug)
+export default function ProjectDetail({ project }: ProjectDetailProps) {
 
   const getHeroData = (heroImage?: string | { src: string; alt?: string; caption?: string; width?: number; height?: number; align?: 'left' | 'center' | 'right'; show?: boolean; className?: string }) => {
     if (!heroImage) return null
@@ -143,4 +142,31 @@ export default function ProjectDetail() {
       </div>
     </>
   )
+}
+
+export async function getStaticPaths() {
+  const projects = await loadAllProjectArticles()
+
+  return {
+    paths: projects.map((project) => ({
+      params: { slug: project.slug },
+    })),
+    fallback: false,
+  }
+}
+
+export async function getStaticProps({ params }: { params: { slug: string } }) {
+  const project = await loadProjectArticleBySlug(params.slug)
+
+  if (!project) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: {
+      project,
+    },
+  }
 }
