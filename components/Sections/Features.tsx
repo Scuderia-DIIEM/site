@@ -5,7 +5,8 @@ import { motion } from 'framer-motion'
 interface Partner {
   title: string
   description: string
-  logo: string
+  logoLight: string
+  logoDark: string
   link: string
   role: string
   accentColor: string
@@ -15,7 +16,8 @@ const partners: Partner[] = [
   {
     title: 'Università degli Studi Roma Tre',
     description: 'La nostra casa accademica, che ci supporta con risorse e laboratori.',
-    logo: '/imgs/RomaTre_marchio_blu.png',
+    logoLight: '/imgs/RomaTre_marchio_blu.png',
+    logoDark: '/imgs/RomaTre_marchio_bianco.png',
     link: 'https://ingegneriaindustrialeelettronicameccanica.uniroma3.it/',
     role: 'Partner Accademico',
     accentColor: 'accent'
@@ -23,31 +25,44 @@ const partners: Partner[] = [
   {
     title: 'Arduino',
     description: 'Partner tecnologico per sensori e sistemi di controllo avanzati.',
-    logo: '/imgs/arduino.png',
+    logoLight: '/imgs/arduino.png',
+    logoDark: '/imgs/arduino.png',
     link: 'https://www.arduino.cc',
     role: 'Partner Tecnologico',
     accentColor: 'accent'
   },
   {
+    title: 'Sagest',
+    description: 'Fornitore di componenti elettronici e soluzioni per la prototipazione.',
+    logoLight: '/imgs/sagest.png',
+    logoDark: '/imgs/sagest_dark.png',
+    link: 'https://www.sagest.org',
+    role: 'Supplier Tecnico',
+    accentColor: 'accent'
+  },
+  {
     title: 'Ansys',
     description: 'Fornitore di software per simulazione e analisi ingegneristica, supportando la progettazione dei nostri veicoli.',
-    logo: '/imgs/ansys.png',
+    logoLight: '/imgs/ansys.png',
+    logoDark: '/imgs/ansys.png',
     link: 'https://www.ansys.com',
     role: 'Partner Tecnologico',
     accentColor: 'accent'
   },
   {
     title: 'Futura Elettronica',
-    description: 'Fornitore di componenti elettrici',
-    logo: '/imgs/futuraelettronica.png',
+    description: 'Fornitore di componentistica elettronica e soluzioni per la prototipazione, supportando lo sviluppo dei nostri sistemi.',
+    logoLight: '/imgs/futuraelettronica.png',
+    logoDark: '/imgs/futuraelettronica.png',
     link: 'https://futuranet.it/',
-    role: 'Partner Tecnologico',
+    role: 'Supplier Tecnico',
     accentColor: 'accent'
   },
   {
     title: 'CNR-INM',
     description: 'Partner tecnico per la ricerca e test.',
-    logo: '/imgs/cnr.png',
+    logoLight: '/imgs/cnr.png',
+    logoDark: '/imgs/cnr_dark.png',
     link: 'https://www.inm.cnr.it/',
     role: 'Partner Tecnico',
     accentColor: 'accent'
@@ -84,16 +99,23 @@ export default function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group block rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 no-underline bg-gradient-to-br from-white to-gray/20"
+              className="group block rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 no-underline bg-gradient-to-br from-white to-gray/200 dark:from-card-bg dark:to-card-variant-bg"
             >
-              <div className="mb-4 flex h-16 bc-white items-center justify-start rounded-2xl bg-gradient-to-r from-slate-100 to-slate-200 dark:bg-gradient-to-br from-white to-gray-50 p-3">
-                <div className="w-full max-w-20 flex items-center">
+              <div className="mb-4 flex h-16 items-center justify-center rounded-2xl bg-gradient-to-r from-slate-100 to-slate-200 dark:from-sky-900 dark:to-sky-900 p-3">
+                <div className="flex h-full w-full max-w-[160px] items-center justify-center">
                   <Image
-                    src={partner.logo}
+                    src={partner.logoLight}
                     alt={`${partner.title} logo`}
-                    width={120}
-                    height={40}
-                    className="object-contain"
+                    width={160}
+                    height={48}
+                    className="block h-12 w-auto object-contain dark:hidden"
+                  />
+                  <Image
+                    src={partner.logoDark}
+                    alt={`${partner.title} logo`}
+                    width={160}
+                    height={48}
+                    className="hidden h-12 w-auto object-contain dark:block"
                   />
                 </div>
               </div>

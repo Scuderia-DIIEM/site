@@ -32,7 +32,7 @@ html {
     --text: #eef6ff; /* main text in dark */
     --card-bg: #0e2940; /* darker blue for cards */
     --card-text: #e6eef8; /* card text color */
-    --card-variant-bg: #112844; /* variant for accented cards */
+    --card-variant-bg: #16365d; /* variant for accented cards */
   }
 
   body {
@@ -82,7 +82,7 @@ html {
   }
 
   .dark .from-white {
-    --tw-gradient-from: #0e2940 !important;
+    --tw-gradient-from: #143754 !important;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(14,41,64,0)) !important;
   }
 
