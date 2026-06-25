@@ -61,8 +61,8 @@ const partners: Partner[] = [
   {
     title: 'CNR-INM',
     description: 'Partner tecnico per la ricerca e test.',
-    logoLight: '/imgs/cnr.png',
-    logoDark: '/imgs/cnr_dark.png',
+    logoLight: '/imgs/inm.png',
+    logoDark: '/imgs/inm_dark.png',
     link: 'https://www.inm.cnr.it/',
     role: 'Partner Tecnico',
     accentColor: 'accent'
@@ -102,7 +102,7 @@ export default function Features() {
               className="group block rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 no-underline bg-gradient-to-br from-white to-gray/200 dark:from-card-bg dark:to-card-variant-bg"
             >
               <div className="mb-4 flex h-16 items-center justify-center rounded-2xl bg-gradient-to-r from-slate-100 to-slate-200 dark:from-sky-900 dark:to-sky-900 p-3">
-                <div className="flex h-full w-full max-w-[160px] items-center justify-center">
+                <div className="flex h-full w-full max-w-[250px] items-center justify-center">
                   <Image
                     src={partner.logoLight}
                     alt={`${partner.title} logo`}
