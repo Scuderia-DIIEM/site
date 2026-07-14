@@ -227,6 +227,19 @@ export default function TeamPage() {
                       </div>
                     )}
 
+                    {/* Mail 2 */}
+                    {(selectedMember as any).email2 && (
+                      <div className="flex items-start gap-3">
+                        <span className="mt-1 text-primary">✉️</span>
+                        <a
+                          href={`mailto:${(selectedMember as any).email2}`}
+                          className="text-blue-600 hover:underline break-all"
+                        >
+                          {(selectedMember as any).email2}
+                        </a>
+                      </div>
+                    )}
+
                     {/* LinkedIn */}
                     {(selectedMember as any).linkedin && (
                       <div className="flex items-start gap-3">
@@ -238,19 +251,6 @@ export default function TeamPage() {
                           className="text-blue-600 hover:underline"
                         >
                           LinkedIn
-                        </a>
-                      </div>
-                    )}
-
-                    {/* Mail 2 */}
-                    {(selectedMember as any).email2 && (
-                      <div className="flex items-start gap-3">
-                        <span className="mt-1 text-primary">✉️</span>
-                        <a
-                          href={`mailto:${(selectedMember as any).email2}`}
-                          className="text-blue-600 hover:underline break-all"
-                        >
-                          {(selectedMember as any).email2}
                         </a>
                       </div>
                     )}

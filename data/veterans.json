@@ -55,5 +55,15 @@
     "email2": "toniodispot@gmail.com",
     "linkedin": "https://www.linkedin.com/in/antoniodispotico",
     "yearsActive": "2024-2025"
+  },
+  {
+    "id": 7,
+    "name": "Davide Camponeschi",
+    "role": "CTO",
+    "image": "/photos/camponeschi.png",
+    "email": "dav.camponeschi1@stud.uniroma3.it",
+    "email2": "davidecamponeschi@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/davide-camponeschi-3639b73a3/",
+    "yearsActive": "2023-2025"
   }
 ]
