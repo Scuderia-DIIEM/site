@@ -51,8 +51,8 @@ export default function Home() {
           <Products />
           <About />
           <Gallery />
-          <Features />
           <Team />
+          <Features />
           <Racing />
           {/* <Testimonials /> */}
           <News />

@@ -94,7 +94,7 @@ export default function Team() {
   }
 
   return (
-    <section id="team" className="scroll-mt-20 py-20 bg-white">
+    <section id="team" className="team-section scroll-mt-20 py-20 bg-gradient-to-b from-primary via-deep-space to-primary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12 md:mb-16"
@@ -103,10 +103,10 @@ export default function Team() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-display">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-display">
             Il Nostro Team
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-200 max-w-2xl mx-auto">
             Conosci le persone che rendono possibile tutto questo
           </p>
         </motion.div>

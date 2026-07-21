@@ -250,6 +250,10 @@ html {
   @apply shadow-md;
 }
 
+.team-section .team-card {
+  border: 0 !important;
+}
+
 .team-card-image {
   @apply relative w-full aspect-square overflow-hidden;
   background-color: #f3f4f6 !important;

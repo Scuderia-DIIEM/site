@@ -12,9 +12,9 @@ export default function Footer() {
     { label: 'Home', href: '/' },
     { label: 'Dispositivi', href: '/#products' },
     { label: 'Chi Siamo', href: '/#about' },
-    { label: 'Team', href: isHome ? '#team' : '/team' },
     { label: 'Progetti', href: isHome ? '#gallery' : '/projects' },
-    { label: 'Struttura', href: '/structure' },
+    { label: 'Team', href: isHome ? '#team' : '/team' },
+    { label: 'Eventi', href: '/#racing' },
     { label: 'Contatti', href: '/#contact' }
   ]
 
