@@ -88,7 +88,7 @@ export default function Contact() {
                   <div className="flex items-start space-x-4">
                     <div className="text-accent py-2 text-xl">🤝</div>
                     <div>
-                      <div className="font-semibold py-2 mb-1">Professore Coorinatore</div>
+                      <div className="font-semibold py-2 mb-1">Professore Coordinatore</div>
                       <p className="text-gray-200">Prof. Nicola Pio Belfiore</p>
                       <a href="mailto:nicolapio.belfiore@uniroma3.it" className="text-gray-200 hover:text-accent transition-colors">
                         nicolapio.belfiore@uniroma3.it
