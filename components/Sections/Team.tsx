@@ -79,15 +79,56 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
   )
 }
 
+type RoleFilter = 'all' | 'rov' | 'float' | 'arm' | 'electronics-informatics' | 'cad-design' | 'research-assembly'
+
+const roleFilters: Array<{ id: RoleFilter; label: string }> = [
+  { id: 'all', label: 'Tutti' },
+  { id: 'rov', label: 'ROV' },
+  { id: 'float', label: 'FLOAT' },
+  { id: 'arm', label: 'ARM' },
+  { id: 'electronics-informatics', label: 'Electronics&Informatics' },
+  { id: 'cad-design', label: 'CAD&Design' },
+  { id: 'research-assembly', label: 'Research&Assembly' },
+]
+
+function normalizeRoleKey(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]/g, '')
+}
+
+function getMemberRoleGroup(team?: string): RoleFilter {
+  const normalizedRole = normalizeRoleKey(team ?? '')
+
+  if (normalizedRole.includes('rov')) return 'rov'
+  if (normalizedRole.includes('float')) return 'float'
+  if (normalizedRole.includes('arm')) return 'arm'
+  if (normalizedRole.includes('electrical') || normalizedRole.includes('software') || normalizedRole.includes('electronics') || normalizedRole.includes('informatics')) return 'electronics-informatics'
+  if (normalizedRole.includes('cad') || normalizedRole.includes('design')) return 'cad-design'
+  if (normalizedRole.includes('research') || normalizedRole.includes('assembly')) return 'research-assembly'
+
+  return 'all'
+}
+
 export default function Team() {
   const columnsPerRow = useColumnsPerRow()
   const [visibleRows, setVisibleRows] = useState(1) // Mostra inizialmente solo la prima riga
   const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null)
+  const [selectedRole, setSelectedRole] = useState<RoleFilter>('all')
 
-  const totalRows = Math.ceil(teamMembers.length / columnsPerRow)
+  const filteredMembers = teamMembers.filter(
+    (member) => selectedRole === 'all' || getMemberRoleGroup(member.team) === selectedRole
+  )
+
+  const totalRows = Math.ceil(filteredMembers.length / columnsPerRow)
   const visibleCount = visibleRows * columnsPerRow
-  const visibleMembers = teamMembers.slice(0, visibleCount)
+  const visibleMembers = filteredMembers.slice(0, visibleCount)
   const hasMore = visibleRows < totalRows
+
+  useEffect(() => {
+    setVisibleRows(1)
+  }, [selectedRole])
 
   const handleShowMore = () => {
     setVisibleRows(prev => Math.min(prev + 1, totalRows))
@@ -111,17 +152,40 @@ export default function Team() {
           </p>
         </motion.div>
 
-        {/* Griglia dei membri */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8">
-          {visibleMembers.map((member, index) => (
-            <TeamMemberCard
-              key={member.id}
-              member={member}
-              index={index}
-              onSelect={setSelectedMember}
-            />
+        <div className="mb-8 flex flex-wrap justify-center gap-2">
+          {roleFilters.map((filter) => (
+            <button
+              key={filter.id}
+              type="button"
+              onClick={() => setSelectedRole(filter.id)}
+              className={`rounded-full px-4 py-2 text-xs font-medium transition-colors sm:text-sm ${
+                selectedRole === filter.id
+                  ? 'bg-white text-primary shadow-sm'
+                  : 'border border-white/25 bg-transparent text-white/80 hover:border-white/60 hover:text-white'
+              }`}
+            >
+              {filter.label}
+            </button>
           ))}
         </div>
+
+        {/* Griglia dei membri */}
+        {visibleMembers.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8">
+            {visibleMembers.map((member, index) => (
+              <TeamMemberCard
+                key={member.id}
+                member={member}
+                index={index}
+                onSelect={setSelectedMember}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-white/20 bg-white/5 px-6 py-12 text-center text-white/70">
+            Nessun membro disponibile per questo filtro.
+          </div>
+        )}
 
         {/* Pulsanti di controllo */}
         <motion.div
@@ -146,17 +210,20 @@ export default function Team() {
           onClose={() => setSelectedMember(null)}
           title={selectedMember?.name || ''}
         >
-          <div className="flex flex-col md:flex-row gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-6">
             {/* Immagine */}
             {selectedMember && (
-              <div className="md:w-1/3">
-                <div className="relative w-full aspect-square rounded-lg overflow-hidden">
-                  <Image
-                    src={selectedMember.image}
-                    alt={selectedMember.name}
-                    fill
-                    className="object-cover"
-                  />
+              <div className="md:w-1/3 self-center">
+                <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-gray-100">
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image
+                      src={selectedMember.image}
+                      alt={selectedMember.name}
+                      fill
+                      className="object-cover object-center"
+                      style={{ objectPosition: 'center center' }}
+                    />
+                  </div>
                 </div>
               </div>
             )}
@@ -165,8 +232,11 @@ export default function Team() {
             <div className="md:w-2/3">
               {selectedMember && (
                 <>
-                  <p className="text-lg text-gray-600 mb-6 font-semibold">
+                  <p className="text-lg text-gray-600 font-semibold">
                     {selectedMember.role}
+                  </p>
+                  <p className="text-lg text-gray-600 mb-6 font-semibold">
+                    {selectedMember.team}
                   </p>
 
                   {/* Contatti */}

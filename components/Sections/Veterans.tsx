@@ -169,13 +169,16 @@ export default function Veterans() {
             {/* Immagine */}
             {selectedVeteran && (
               <div className="md:w-1/3">
-                <div className="relative w-full aspect-square rounded-lg overflow-hidden">
-                  <Image
-                    src={selectedVeteran.image}
-                    alt={selectedVeteran.name}
-                    fill
-                    className="object-cover"
-                  />
+                <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-gray-100">
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image
+                      src={selectedVeteran.image}
+                      alt={selectedVeteran.name}
+                      fill
+                      className="object-cover object-center"
+                      style={{ objectPosition: 'center center' }}
+                    />
+                  </div>
                 </div>
               </div>
             )}

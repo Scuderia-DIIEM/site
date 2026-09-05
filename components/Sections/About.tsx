@@ -7,7 +7,7 @@ import Button from '../UI/Button'
 
 const stats = [
   { label: 'Anni di Attività', value: '3+', icon: '📅' },
-    { label: 'Membri Team', value: '50+', icon: '👥' },
+    { label: 'Membri Team', value: '30+', icon: '👥' },
   //{ label: 'Competizioni', value: '1', icon: '🏁' },
   { label: 'Eventi svolti', value: '5', icon: '🚀' }
   //{ label: 'Tecnologie Sviluppate', value: '5+', icon: '⚙️' },

@@ -12,6 +12,38 @@ import Modal from '@/components/UI/Modal'
 const teamMembers = Array.isArray(teamMembersData) ? teamMembersData : []
 const veterans = Array.isArray(veteransData) ? veteransData : []
 
+type RoleFilter = 'all' | 'rov' | 'float' | 'arm' | 'electronics-informatics' | 'cad-design' | 'research-assembly'
+
+const roleFilters: Array<{ id: RoleFilter; label: string }> = [
+  { id: 'all', label: 'Tutti' },
+  { id: 'rov', label: 'ROV' },
+  { id: 'float', label: 'FLOAT' },
+  { id: 'arm', label: 'ARM' },
+  { id: 'electronics-informatics', label: 'Electronics&Informatics' },
+  { id: 'cad-design', label: 'CAD&Design' },
+  { id: 'research-assembly', label: 'Research&Assembly' },
+]
+
+function normalizeRoleKey(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]/g, '')
+}
+
+function getMemberRoleGroup(team?: string): RoleFilter {
+  const normalizedRole = normalizeRoleKey(team ?? '')
+
+  if (normalizedRole.includes('rov')) return 'rov'
+  if (normalizedRole.includes('float')) return 'float'
+  if (normalizedRole.includes('arm')) return 'arm'
+  if (normalizedRole.includes('electrical') || normalizedRole.includes('software') || normalizedRole.includes('electronics') || normalizedRole.includes('informatics')) return 'electronics-informatics'
+  if (normalizedRole.includes('cad') || normalizedRole.includes('design')) return 'cad-design'
+  if (normalizedRole.includes('research') || normalizedRole.includes('assembly')) return 'research-assembly'
+
+  return 'all'
+}
+
 interface TeamMemberCardProps {
   member: typeof teamMembers[0]
   index: number
@@ -61,10 +93,18 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
 export default function TeamPage() {
   const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null)
   const [activeSection, setActiveSection] = useState<'current' | 'founders'>('current')
+  const [selectedRole, setSelectedRole] = useState<RoleFilter>('all')
 
   const activeMembers = activeSection === 'current'
     ? teamMembers
     : veterans
+
+  const filteredMembers = activeSection === 'current'
+    ? activeMembers.filter((member) => {
+        const team = (member as { team?: string }).team ?? ''
+        return selectedRole === 'all' || getMemberRoleGroup(team) === selectedRole
+      })
+    : activeMembers
 
   const activeTitle = activeSection === 'current' ? 'Team Attuale' : 'Founders'
 
@@ -106,6 +146,7 @@ export default function TeamPage() {
                     type="button"
                     onClick={() => {
                       setActiveSection('current')
+                      setSelectedRole('all')
                       setSelectedMember(null)
                     }}
                     className={`toggle-button px-5 py-2 text-sm sm:px-6 ${
@@ -121,6 +162,7 @@ export default function TeamPage() {
                     type="button"
                     onClick={() => {
                       setActiveSection('founders')
+                      setSelectedRole('all')
                       setSelectedMember(null)
                     }}
                     className={`toggle-button px-5 py-2 text-sm sm:px-6 ${
@@ -132,6 +174,25 @@ export default function TeamPage() {
                     Founders
                   </button>
                 </div>
+
+                {activeSection === 'current' && (
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {roleFilters.map((filter) => (
+                      <button
+                        key={filter.id}
+                        type="button"
+                        onClick={() => setSelectedRole(filter.id)}
+                        className={`rounded-full px-4 py-2 text-xs font-medium transition-colors sm:text-sm ${
+                          selectedRole === filter.id
+                            ? 'bg-primary text-white shadow-sm'
+                            : 'border border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary'
+                        }`}
+                      >
+                        {filter.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <motion.div
@@ -144,9 +205,9 @@ export default function TeamPage() {
                   {activeTitle}
                 </h2>
 
-                {activeMembers.length > 0 ? (
+                {filteredMembers.length > 0 ? (
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6">
-                    {activeMembers.map((member, index) => (
+                    {filteredMembers.map((member, index) => (
                       <TeamMemberCard
                         key={`${activeSection}-${member.id}`}
                         member={member as typeof teamMembers[0]}
@@ -158,7 +219,7 @@ export default function TeamPage() {
                 ) : (
                   <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 px-6 py-12 text-center">
                     <p className="text-sm text-gray-500">
-                      Nessun membro disponibile in questa sezione.
+                      Nessun membro disponibile per questo filtro.
                     </p>
                   </div>
                 )}
@@ -173,20 +234,22 @@ export default function TeamPage() {
           onClose={() => setSelectedMember(null)}
           title={selectedMember?.name || ''}
         >
-          <div className="flex flex-col md:flex-row items-start gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-6">
             {/* Immagine e breve info */}
             {selectedMember && (
-              <div className="w-full md:w-1/4 flex-shrink-0">
-                <div className="relative w-full aspect-square overflow-hidden rounded-lg border border-gray-100 bg-gray-100 dark:border-white/10 dark:bg-[#071425]">
-                  <Image
-                    src={selectedMember.image}
-                    alt={selectedMember.name}
-                    fill
-                    className="object-cover"
-                  />
+              <div className="w-full md:w-1/4 flex-shrink-0 self-center">
+                <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-gray-100 dark:border-white/10 dark:bg-[#071425]">
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image
+                      src={selectedMember.image}
+                      alt={selectedMember.name}
+                      fill
+                      className="object-cover object-center"
+                      style={{ objectPosition: 'center center' }}
+                    />
+                  </div>
                 </div>
                 <div className="mt-3">
-                  <p className="text-sm text-gray-700 font-semibold">{selectedMember.role}</p>
                   {(selectedMember as any).yearsActive && (
                     <p className="text-xs text-gray-500 mt-1">Periodo di attività: {(selectedMember as any).yearsActive}</p>
                   )}
@@ -198,6 +261,12 @@ export default function TeamPage() {
             <div className="w-full md:flex-1">
               {selectedMember && (
                 <div className="px-1 md:px-4">
+                  <p className="text-lg text-gray-600 font-semibold">
+                    {selectedMember.role}
+                  </p>
+                  <p className="text-lg text-gray-600 mb-4 font-semibold">
+                    {selectedMember.team}
+                  </p>
                   <h4 className="text-lg font-bold text-primary mb-3">Contatti</h4>
 
                   <div className="grid grid-cols-1 gap-3">

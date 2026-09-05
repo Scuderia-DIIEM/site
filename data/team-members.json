@@ -3,6 +3,7 @@
     "id": 1,
     "name": "Stefano Pio Onorati",
     "role": "CEO",
+    "team": "Leadership",
     "image": "/photos/onorati.jpeg",
     "email": "ste.onorati1@stud.uniroma3.it",
     "phone": "+39 123 456 7890",
@@ -12,6 +13,7 @@
     "id": 2,
     "name": "Jacopo Evangelisti",
     "role": "CTO",
+    "team": "Leadership",
     "image": "/photos/evangelisti.jpeg",
     "email": "jac.evangelisti@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -20,6 +22,7 @@
     "id": 3,
     "name": "Alice Moro",
     "role": "CMO",
+    "team": "Leadership",
     "image": "/photos/moro.jpeg",
     "email": "ali.moro@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -27,7 +30,8 @@
   {
     "id": 4,
     "name": "Mirko Agostinelli",
-    "role": "Project Manager ROV",
+    "role": "Project Manager",
+    "team": "ROV",
     "image": "/photos/agostinelli.jpeg",
     "email": "mir.agostinelli@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -35,7 +39,8 @@
   {
     "id": 5,
     "name": "Riccardo Nisi",
-    "role": "Project Manager ARM",
+    "role": "Project Manager",
+    "team": "ARM",
     "image": "/photos/nisi.jpeg",
     "email": "ric.nisi@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -43,7 +48,8 @@
   {
     "id": 6,
     "name": "Matteo Febbi",
-    "role": "Project Manager FLOAT",
+    "role": "Project Manager",
+    "team": "FLOAT",
     "image": "/photos/febbi.jpeg",
     "email": "mat.febbi@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -51,7 +57,8 @@
   {
     "id": 7,
     "name": "Luca Maria Massucci",
-    "role": "Head of Research&Assembly",
+    "role": "Head of",
+    "team": "Research&Assembly",
     "image": "/photos/massucci.jpeg",
     "email": "luc.massucci@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -59,7 +66,8 @@
   {
     "id": 8,
     "name": "Umberto Tepedino",
-    "role": "Head of CAD&Design",
+    "role": "Head of",
+    "team": "CAD&Design",
     "image": "/photos/tepedino.jpeg",
     "email": "umb.tepedino@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -67,7 +75,8 @@
   {
     "id": 9,
     "name": "Gianluca Pizzuti",
-    "role": "Head of Electrical&Software",
+    "role": "Head of",
+    "team": "Electronics&Informatics",
     "image": "/photos/pizzuti.jpeg",
     "email": "gian.pizzuti@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -75,7 +84,8 @@
   {
     "id": 10,
     "name": "Gabriele Anselmi",
-    "role": "Team Electrical&Software",
+    "role": "Team Member",
+    "team": "Electronics&Informatics",
     "image": "/photos/anselmi.jpeg",
     "email": "gab.anselmi@stud.uniroma3.it",
     "linkedin": "https://www.linkedin.com/in/gabriele-anselmi-ab627434a?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
@@ -83,7 +93,8 @@
   {
     "id": 11,
     "name": "Nicolò Arena",
-    "role": "Team Research&Assembly",
+    "role": "Team Member",
+    "team": "Research&Assembly",
     "image": "/photos/arena.jpeg",
     "email": "nic.arena1@stud.uniroma3.it",
     "linkedin": "https://www.linkedin.com/in/nicolò-arena-25a345311?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
@@ -91,7 +102,8 @@
   {
     "id": 12,
     "name": "Nicolò Azzella",
-    "role": "Team FLOAT",
+    "role": "Team Member",
+    "team": "FLOAT",
     "image": "/photos/azzella.jpg",
     "email": "Nic.azzella@stud.uniroma3.it",
     "email2": "N1k0t3sla@gmail.com"
@@ -99,195 +111,203 @@
   {
     "id": 13,
     "name": "Flavio Bacci",
-    "role": "Team CAD&Design",
+    "role": "Team Member",
+    "team": "CAD&Design",
     "image": "/photos/13.png"
   },
   {
     "id": 14,
-    "name": "Alessio Belli",
-    "role": "Team Electrical&Software",
-    "image": "/photos/14.png"
-  },
-  {
-    "id": 15,
     "name": "Vittoria Cerquaglia",
-    "role": "Team Electrical&Software",
+    "role": "Team Member",
+    "team": "Electronics&Informatics",
     "email": "vit.cerquaglia@stud.uniroma3.it",
     "image": "/photos/cerquaglia.jpeg"
   },
   {
-    "id": 16,
+    "id": 15,
     "name": "Elia Cimaroli",
-    "role": "Team CAD&Design",
+    "role": "Team Member",
+    "team": "CAD&Design",
     "email": "ale.ciminello@stud.uniroma3.it",
     "linkedin": "www.linkedin.com/in/alessandro-ciminello-16985437a",
     "image": "/photos/16.png"
   },
   {
-    "id": 17,
+    "id": 16,
     "name": "Alessandro Ciminello",
-    "role": "Ruolo / Posizione",
+    "role": "Team Member",
+    "team": "CAD&Design",
     "image": "/photos/17.png"
   },
   {
-    "id": 18,
+    "id": 17,
     "name": "Massimiliano Cristilli",
-    "role": "Ruolo / Posizione",
+    "role": "Team Member",
+    "team": "Research&Assembly",
     "image": "/photos/15.png"
   },
   {
-    "id": 19,
+    "id": 18,
     "name": "Chiara D'antonio",
-    "role": "Team FLOAT",
+    "role": "Team Member",
+    "team": "FLOAT",
     "email": "chi.dantonio@stud.uniroma3.it",
     "email2": "cdantonio03@gmail.com",
     "image": "/photos/19.png"
   },
   {
-    "id": 20,
+    "id": 19,
     "name": "Alessio Di Girolamo",
-    "role": "Ruolo / Posizione",
+    "role": "Team Member",
+    "team": "ROV",
     "image": "/photos/20.png"
   },
   {
-    "id": 21,
+    "id": 20,
     "name": "Teresa Ferrocino",
-    "role": "Ruolo / Posizione",
+    "role": "Team Member",
+    "team": "Research&Assembly",
     "image": "/photos/21.png"
   },
   {
-    "id": 22,
+    "id": 21,
     "name": "Chiara Grando",
-    "role": "Team ARM",
+    "role": "Team Member",
+    "team": "ARM",
     "image": "/photos/grando.jpeg",
     "email": "chi.grando@stud.uniroma3.it",
     "linkedin": "https://www.linkedin.com/in/chiara-grando-921236339?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   },
   {
-    "id": 23,
+    "id": 22,
     "name": "Arianna Grossi",
-    "role": "Team ARM",
+    "role": "Team Member",
+    "team": "ARM",
     "email": "ari.grossi1@stud.uniroma3.it",
     "email2": "grossiariannaa@gmail.com",
     "image": "/photos/23.png"
   },
   {
-    "id": 24,
+    "id": 23,
     "name": "Federico Iannaccone",
-    "role": "Ruolo / Posizione",
+    "role": "Team Member",
+    "team": "CAD&Design",
+    "image": "/photos/DSCF7641.JPG"
+  },
+  {
+    "id": 24,
+    "name": "Francesco Laudadio",
+    "role": "Team Member",
+    "team": "ROV",
     "image": "/photos/DSCF7641.JPG"
   },
   {
     "id": 25,
-    "name": "Vincenzo Kuka",
-    "role": "Ruolo / Posizione",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 26,
-    "name": "Francesco Laudadio",
-    "role": "Ruolo / Posizione",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 27,
     "name": "Michela Lissandrello",
-    "role": "Team Research&Assembly",
+    "role": "Team Member",
+    "team": "Research&Assembly",
     "email": "mic.lissandrello@stud.uniroma3.it",
     "image": "/photos/lissandrello.png"
   },
   {
-    "id": 28,
+    "id": 26,
     "name": "Francesco Margagnoni",
-    "role": "Team ARM",
+    "role": "Team Member",
+    "team": "ARM",
     "email": "fra.margagnoni@stud.uniroma3.it",
     "email2": "francescomargagnoni79@gmail.com",
     "linkedin": "https://www.linkedin.com/in/francesco-margagnoni-419890392?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
     "image": "/photos/margagnoni.jpeg"
   },
   {
-    "id": 29,
+    "id": 27,
     "name": "Carmelo Nicolò",
-    "role": "Ruolo / Posizione",
+    "role": "Team Member",
+    "team": "ROV",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 30,
+    "id": 28,
     "name": "Valerio Orlandini",
-    "role": "Team Research&Assembly",
+    "role": "Team Member",
+    "team": "Research&Assembly",
     "email": "val.orlandini@stud.uniroma3.it",
     "email2": "vale.orlandini1@gmail.com",
     "linkedin": "https://www.linkedin.com/in/valerio-orlandini-a5286137a?trk=contact-info",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 31,
+    "id": 29,
     "name": "Andra Pelliccia",
-    "role": "Ruolo / Posizione",
+    "role": "Team Member",
+    "team": "Research&Assembly",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 32,
+    "id": 30,
     "name": "Riccardo De Fonseca Pimentel",
-    "role": "Team Research&Assembly",
+    "role": "Team Member",
+    "team": "Research&Assembly",
     "email": "ric.defonsecapiment@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 33,
+    "id": 31,
     "name": "Lorenzo Piumelli",
-    "role": "Ruolo / Posizione",
+    "role": "Team Member",
+    "team": "CAD&Design",
+    "image": "/photos/DSCF7641.JPG"
+  },
+  {
+    "id": 32,
+    "name": "Stefano Reynaud Bersanino",
+    "role": "Team Member",
+    "team": "ROV",
+    "image": "/photos/DSCF7641.JPG"
+  },
+  {
+    "id": 33,
+    "name": "Malika Romanova",
+    "role": "Team Member",
+    "team": "CAD&Design",
     "image": "/photos/DSCF7641.JPG"
   },
   {
     "id": 34,
-    "name": "Stefano Reynaud Bersanino",
-    "role": "Ruolo / Posizione",
+    "name": "Giacomo Salinas",
+    "role": "Team Member",
+    "team": "ROV",
     "image": "/photos/DSCF7641.JPG"
   },
   {
     "id": 35,
-    "name": "Domitilla Ricci",
-    "role": "Ruolo / Posizione",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 36,
-    "name": "Malika Romanova",
-    "role": "Ruolo / Posizione",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 37,
-    "name": "Giacomo Salinas",
-    "role": "Ruolo / Posizione",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 38,
     "name": "Matteo Traversa",
-    "role": "Electrical&Software",
+    "role": "Team Member",
+    "team": "Electronics&Informatics",
     "email": "mat.traversa@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 39,
+    "id": 36,
     "name": "Luca Trevisan",
-    "role": "Ruolo / Posizione",
+    "role": "Team Member",
+    "team": "CAD&Design",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 40,
+    "id": 37,
     "name": "Francesco Venanzi",
-    "role": "Team CAD&Design",
+    "role": "Team Member",
+    "team": "CAD&Design",
     "email": "fra.venanzi1@stud.uniroma3.it",
     "linkedin": "www.linkedin.com/in/francesco-venanzi-608a0a3b9",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 41,
+    "id": 38,
     "name": "Angelo Zelli",
-    "role": "Ruolo / Posizione",
+    "role": "Team Member",
+    "team": "Electronics&Informatics",
     "image": "/photos/DSCF7641.JPG"
   }
 ]
