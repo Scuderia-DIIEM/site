@@ -125,29 +125,20 @@
   },
   {
     "id": 15,
-    "name": "Elia Cimaroli",
-    "role": "Team Member",
-    "team": "CAD&Design",
-    "email": "ale.ciminello@stud.uniroma3.it",
-    "linkedin": "www.linkedin.com/in/alessandro-ciminello-16985437a",
-    "image": "/photos/16.png"
-  },
-  {
-    "id": 16,
     "name": "Alessandro Ciminello",
     "role": "Team Member",
     "team": "CAD&Design",
     "image": "/photos/17.png"
   },
   {
-    "id": 17,
+    "id": 16,
     "name": "Massimiliano Cristilli",
     "role": "Team Member",
     "team": "Research&Assembly",
     "image": "/photos/15.png"
   },
   {
-    "id": 18,
+    "id": 17,
     "name": "Chiara D'antonio",
     "role": "Team Member",
     "team": "FLOAT",
@@ -156,21 +147,21 @@
     "image": "/photos/19.png"
   },
   {
-    "id": 19,
+    "id": 18,
     "name": "Alessio Di Girolamo",
     "role": "Team Member",
     "team": "ROV",
     "image": "/photos/20.png"
   },
   {
-    "id": 20,
+    "id": 19,
     "name": "Teresa Ferrocino",
     "role": "Team Member",
     "team": "Research&Assembly",
     "image": "/photos/21.png"
   },
   {
-    "id": 21,
+    "id": 20,
     "name": "Chiara Grando",
     "role": "Team Member",
     "team": "ARM",
@@ -179,7 +170,7 @@
     "linkedin": "https://www.linkedin.com/in/chiara-grando-921236339?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   },
   {
-    "id": 22,
+    "id": 21,
     "name": "Arianna Grossi",
     "role": "Team Member",
     "team": "ARM",
@@ -188,21 +179,21 @@
     "image": "/photos/23.png"
   },
   {
-    "id": 23,
+    "id": 22,
     "name": "Federico Iannaccone",
     "role": "Team Member",
     "team": "CAD&Design",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 24,
+    "id": 23,
     "name": "Francesco Laudadio",
     "role": "Team Member",
     "team": "ROV",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 25,
+    "id": 24,
     "name": "Michela Lissandrello",
     "role": "Team Member",
     "team": "Research&Assembly",
@@ -210,7 +201,7 @@
     "image": "/photos/lissandrello.png"
   },
   {
-    "id": 26,
+    "id": 25,
     "name": "Francesco Margagnoni",
     "role": "Team Member",
     "team": "ARM",
@@ -220,14 +211,14 @@
     "image": "/photos/margagnoni.jpeg"
   },
   {
-    "id": 27,
+    "id": 26,
     "name": "Carmelo Nicolò",
     "role": "Team Member",
     "team": "ROV",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 28,
+    "id": 27,
     "name": "Valerio Orlandini",
     "role": "Team Member",
     "team": "Research&Assembly",
@@ -237,14 +228,14 @@
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 29,
+    "id": 28,
     "name": "Andra Pelliccia",
     "role": "Team Member",
     "team": "Research&Assembly",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 30,
+    "id": 29,
     "name": "Riccardo De Fonseca Pimentel",
     "role": "Team Member",
     "team": "Research&Assembly",
@@ -252,35 +243,14 @@
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 31,
+    "id": 30,
     "name": "Lorenzo Piumelli",
     "role": "Team Member",
     "team": "CAD&Design",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 32,
-    "name": "Stefano Reynaud Bersanino",
-    "role": "Team Member",
-    "team": "ROV",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 33,
-    "name": "Malika Romanova",
-    "role": "Team Member",
-    "team": "CAD&Design",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 34,
-    "name": "Giacomo Salinas",
-    "role": "Team Member",
-    "team": "ROV",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 35,
+    "id": 31,
     "name": "Matteo Traversa",
     "role": "Team Member",
     "team": "Electronics&Informatics",
@@ -288,14 +258,14 @@
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 36,
+    "id": 32,
     "name": "Luca Trevisan",
     "role": "Team Member",
     "team": "CAD&Design",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 37,
+    "id": 33,
     "name": "Francesco Venanzi",
     "role": "Team Member",
     "team": "CAD&Design",
@@ -304,7 +274,7 @@
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 38,
+    "id": 34,
     "name": "Angelo Zelli",
     "role": "Team Member",
     "team": "Electronics&Informatics",
