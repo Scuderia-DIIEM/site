@@ -68,9 +68,11 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
         <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1 font-display group-hover:text-primary transition-colors duration-300">
           {member.name}
         </h3>
-        <p className="text-sm md:text-base text-gray-600">
-          {member.role}
-        </p>
+        <div className="flex flex-wrap items-center gap-x-2 text-sm md:text-base text-gray-600">
+          <span>{member.role}</span>
+          {/*<span aria-hidden="true">|</span>*/}
+          <span>{member.team}</span>
+        </div>
       </div>
 
       {/* Accento decorativo */}
