@@ -7,6 +7,7 @@ import Footer from '../components/Layout/Footer'
 import teamMembersData from '@/data/team-members.json'
 import veteransData from '@/data/veterans.json'
 import Modal from '@/components/UI/Modal'
+import MemberSkills from '@/components/UI/MemberSkills'
 
 // Array dei membri del team e dei veterani dal JSON
 const teamMembers = Array.isArray(teamMembersData) ? teamMembersData : []
@@ -72,6 +73,7 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
         />
         {/* Overlay gradient al hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <MemberSkills skills={(member as { skills?: string[] }).skills} limit={4} preview />
       </div>
 
       {/* Informazioni del membro */}
@@ -236,10 +238,10 @@ export default function TeamPage() {
           onClose={() => setSelectedMember(null)}
           title={selectedMember?.name || ''}
         >
-          <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="member-modal-body flex flex-col md:flex-row items-center gap-6">
             {/* Immagine e breve info */}
             {selectedMember && (
-              <div className="w-full md:w-1/4 flex-shrink-0 self-center">
+              <div className="member-modal-photo w-full flex-shrink-0 self-center">
                 <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-gray-100 dark:border-white/10 dark:bg-[#071425]">
                   <div className="relative aspect-square w-full overflow-hidden">
                     <Image
@@ -260,15 +262,22 @@ export default function TeamPage() {
             )}
 
             {/* Informazioni e Contatti principali */}
-            <div className="w-full md:flex-1">
+            <div className="member-modal-info w-full">
               {selectedMember && (
                 <div className="px-1 md:px-4">
-                  <p className="text-lg text-gray-600 font-semibold">
-                    {selectedMember.role}
-                  </p>
-                  <p className="text-lg text-gray-600 mb-4 font-semibold">
-                    {selectedMember.team}
-                  </p>
+                  <div className="member-modal-heading-row">
+                    <div>
+                      <p className="text-lg text-gray-600 font-semibold">
+                        {selectedMember.role}
+                      </p>
+                      <p className="text-lg text-gray-600 mb-4 font-semibold">
+                        {selectedMember.team}
+                      </p>
+                    </div>
+                    <MemberSkills
+                      skills={(selectedMember as { skills?: string[] }).skills}
+                    />
+                  </div>
                   <h4 className="text-lg font-bold text-primary mb-3">Contatti</h4>
 
                   <div className="grid grid-cols-1 gap-3">

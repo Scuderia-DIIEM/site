@@ -74,7 +74,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
               </div>
 
               {/* Content */}
-              <div className="px-6 py-4 overflow-y-auto flex-1">
+              <div className="modal-scroll-content px-6 py-4 overflow-y-auto overflow-x-hidden flex-1">
                 {children}
               </div>
             </motion.div>

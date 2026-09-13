@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import teamMembersData from '@/data/team-members.json'
 import Modal from '@/components/UI/Modal'
+import MemberSkills from '@/components/UI/MemberSkills'
 import Button from '../UI/Button'
 
 // Array dei membri del team dal JSON
@@ -61,6 +62,7 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
         />
         {/* Overlay gradient al hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <MemberSkills skills={(member as { skills?: string[] }).skills} limit={4} preview />
       </div>
 
       {/* Informazioni del membro */}
@@ -212,10 +214,10 @@ export default function Team() {
           onClose={() => setSelectedMember(null)}
           title={selectedMember?.name || ''}
         >
-          <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="member-modal-body flex flex-col md:flex-row items-center gap-6">
             {/* Immagine */}
             {selectedMember && (
-              <div className="md:w-1/3 self-center">
+              <div className="member-modal-photo self-center">
                 <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-gray-100">
                   <div className="relative aspect-square w-full overflow-hidden">
                     <Image
@@ -231,15 +233,22 @@ export default function Team() {
             )}
 
             {/* Informazioni e Contatti */}
-            <div className="md:w-2/3">
+            <div className="member-modal-info">
               {selectedMember && (
                 <>
-                  <p className="text-lg text-gray-600 font-semibold">
-                    {selectedMember.role}
-                  </p>
-                  <p className="text-lg text-gray-600 mb-6 font-semibold">
-                    {selectedMember.team}
-                  </p>
+                  <div className="member-modal-heading-row">
+                    <div>
+                      <p className="text-lg text-gray-600 font-semibold">
+                        {selectedMember.role}
+                      </p>
+                      <p className="text-lg text-gray-600 mb-6 font-semibold">
+                        {selectedMember.team}
+                      </p>
+                    </div>
+                    <MemberSkills
+                      skills={(selectedMember as { skills?: string[] }).skills}
+                    />
+                  </div>
 
                   {/* Contatti */}
                   <div className="space-y-4">

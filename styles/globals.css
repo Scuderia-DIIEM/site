@@ -259,6 +259,150 @@ html {
   background-color: #f3f4f6 !important;
 }
 
+.member-skills {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.member-skills-preview {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  z-index: 2;
+  justify-content: center;
+  opacity: 0.5;
+  transition: opacity 200ms ease;
+}
+
+.team-card:hover .member-skills-preview {
+  opacity: 0.95;
+}
+
+.member-skills-preview .member-skill {
+  background: rgba(7, 20, 37, 0.58);
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+}
+
+.member-modal-body {
+  display: grid !important;
+  grid-template-columns: minmax(9rem, 0.85fr) minmax(0, 1.5fr);
+  align-items: start !important;
+  gap: 1.5rem !important;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.member-modal-photo,
+.member-modal-info {
+  min-width: 0;
+  width: auto !important;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.member-modal-heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.modal-scroll-content {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.member-modal-heading-row .member-skills {
+  display: grid;
+  grid-template-columns: repeat(4, 2rem);
+  gap: 0.55rem;
+  justify-content: end;
+}
+
+.member-skill {
+  position: relative;
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(244, 121, 43, 0.55);
+  border-radius: 0.45rem;
+  background: rgba(244, 120, 43, 0.25);
+  color: #d85e14;
+  cursor: help;
+}
+
+.member-skill img {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+}
+
+.member-skill-fallback {
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.member-skill-tooltip {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  z-index: 20;
+  width: max-content;
+  max-width: 14rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 0.35rem;
+  background: rgba(244, 120, 43, 0.25);
+  color: #d85e14;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -0.25rem);
+  transition: opacity 150ms ease, transform 150ms ease;
+  white-space: normal;
+}
+
+.member-skill:hover .member-skill-tooltip,
+.member-skill:focus-visible .member-skill-tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.dark .member-skill {
+  border-color: rgba(244, 121, 43, 0.7);
+  background: rgba(244, 120, 43, 0.392);
+  color: #ff9a5c;
+}
+
+@media (max-width: 767px) {
+  .member-modal-body {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .member-modal-photo,
+  .member-modal-info {
+    width: 100% !important;
+  }
+
+  .member-modal-heading-row {
+    gap: 0.75rem;
+  }
+}
+
 .team-card-title {
   color: #0f172a !important;
 }
