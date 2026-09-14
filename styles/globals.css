@@ -359,6 +359,9 @@ html {
   top: calc(100% + 0.5rem);
   left: 50%;
   z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
   width: max-content;
   max-width: 14rem;
   padding: 0.35rem 0.55rem;
@@ -373,6 +376,17 @@ html {
   transform: translate(-50%, -0.25rem);
   transition: opacity 150ms ease, transform 150ms ease;
   white-space: normal;
+  text-align: left;
+}
+
+.member-skill-tooltip strong {
+  font-size: 0.75rem;
+}
+
+.member-skill-tooltip span:last-child {
+  font-size: 0.65rem;
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 .member-skill:hover .member-skill-tooltip,
