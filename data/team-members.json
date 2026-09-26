@@ -4,7 +4,7 @@
     "name": "Stefano Pio Onorati",
     "role": "CEO",
     "team": "Leadership",
-    "skills": ["corso-sicurezza", "manutenzione", "stampante-3d", "stampante-resina"],
+    "skills": ["", ""],
     "image": "/photos/onorati.jpeg",
     "email": "ste.onorati1@stud.uniroma3.it",
     "phone": "+39 123 456 7890",
@@ -15,7 +15,6 @@
     "name": "Jacopo Evangelisti",
     "role": "CTO",
     "team": "Leadership",
-    "skills": ["corso-sicurezza", "manutenzione", "saldare"],
     "image": "/photos/evangelisti.jpeg",
     "email": "jac.evangelisti@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -41,8 +40,8 @@
   {
     "id": 5,
     "name": "Riccardo Nisi",
-    "role": "Project Manager",
-    "team": "ARM",
+    "role": "On trial ",
+    "team": "COO",
     "image": "/photos/nisi.jpeg",
     "email": "ric.nisi@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -60,7 +59,7 @@
     "id": 7,
     "name": "Luca Maria Massucci",
     "role": "Head of",
-    "team": "Research&Assembly",
+    "team": "ARM",
     "image": "/photos/massucci.jpeg",
     "email": "luc.massucci@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -69,7 +68,7 @@
     "id": 8,
     "name": "Umberto Tepedino",
     "role": "Head of",
-    "team": "CAD&Design",
+    "team": "Research&Assembly",
     "image": "/photos/tepedino.jpeg",
     "email": "umb.tepedino@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -85,6 +84,15 @@
   },
   {
     "id": 10,
+    "name": "Francesco Venanzi",
+    "role": "Head of",
+    "team": "CAD&Design",
+    "email": "fra.venanzi1@stud.uniroma3.it",
+    "linkedin": "www.linkedin.com/in/francesco-venanzi-608a0a3b9",
+    "image": "/photos/DSCF7641.JPG"
+  },
+  {
+    "id": 11,
     "name": "Gabriele Anselmi",
     "role": "Team Member",
     "team": "Electronics&Informatics",
@@ -93,16 +101,16 @@
     "linkedin": "https://www.linkedin.com/in/gabriele-anselmi-ab627434a?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   },
   {
-    "id": 11,
+    "id": 12,
     "name": "Nicolò Arena",
     "role": "Team Member",
-    "team": "Research&Assembly",
+    "team": "ARM",
     "image": "/photos/arena.jpeg",
     "email": "nic.arena1@stud.uniroma3.it",
     "linkedin": "https://www.linkedin.com/in/nicolò-arena-25a345311?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   },
   {
-    "id": 12,
+    "id": 13,
     "name": "Nicolò Azzella",
     "role": "Team Member",
     "team": "FLOAT",
@@ -111,14 +119,23 @@
     "email2": "N1k0t3sla@gmail.com"
   },
   {
-    "id": 13,
+    "id": 14,
     "name": "Flavio Bacci",
     "role": "Team Member",
     "team": "CAD&Design",
+    "email": "fla.bacci1@stud.uniroma3.it",
     "image": "/photos/13.png"
   },
   {
-    "id": 14,
+    "id": 15,
+    "name": "Lorenzo Barbone",
+    "role": "Team Member",
+    "team": "ARM",
+    "email": "lor.barbone@stud.uniroma3.it",
+    "image": "/photos/13.png"
+  },
+  {
+    "id": 16,
     "name": "Vittoria Cerquaglia",
     "role": "Team Member",
     "team": "Electronics&Informatics",
@@ -126,21 +143,21 @@
     "image": "/photos/cerquaglia.jpeg"
   },
   {
-    "id": 15,
+    "id": 17,
     "name": "Alessandro Ciminello",
     "role": "Team Member",
     "team": "CAD&Design",
     "image": "/photos/17.png"
   },
   {
-    "id": 16,
+    "id": 18,
     "name": "Massimiliano Cristilli",
     "role": "Team Member",
-    "team": "Research&Assembly",
+    "team": "Electronics&Informatics",
     "image": "/photos/15.png"
   },
   {
-    "id": 17,
+    "id": 19,
     "name": "Chiara D'antonio",
     "role": "Team Member",
     "team": "FLOAT",
@@ -149,21 +166,22 @@
     "image": "/photos/19.png"
   },
   {
-    "id": 18,
+    "id": 20,
     "name": "Alessio Di Girolamo",
     "role": "Team Member",
-    "team": "ROV",
+    "team": "Electronics&Informatics",
     "image": "/photos/20.png"
   },
   {
-    "id": 19,
+    "id": 21,
     "name": "Teresa Ferrocino",
     "role": "Team Member",
     "team": "Research&Assembly",
+    "email": "ter.ferrocino@stud.uniroma3.it",
     "image": "/photos/21.png"
   },
   {
-    "id": 20,
+    "id": 22,
     "name": "Chiara Grando",
     "role": "Team Member",
     "team": "ARM",
@@ -172,7 +190,7 @@
     "linkedin": "https://www.linkedin.com/in/chiara-grando-921236339?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   },
   {
-    "id": 21,
+    "id": 23,
     "name": "Arianna Grossi",
     "role": "Team Member",
     "team": "ARM",
@@ -181,21 +199,21 @@
     "image": "/photos/23.png"
   },
   {
-    "id": 22,
+    "id": 24,
     "name": "Federico Iannaccone",
     "role": "Team Member",
-    "team": "CAD&Design",
+    "team": "Electronics&Informatics",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 23,
+    "id": 25,
     "name": "Francesco Laudadio",
     "role": "Team Member",
     "team": "ROV",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 24,
+    "id": 26,
     "name": "Michela Lissandrello",
     "role": "Team Member",
     "team": "Research&Assembly",
@@ -203,7 +221,7 @@
     "image": "/photos/lissandrello.png"
   },
   {
-    "id": 25,
+    "id": 27,
     "name": "Francesco Margagnoni",
     "role": "Team Member",
     "team": "ARM",
@@ -213,14 +231,7 @@
     "image": "/photos/margagnoni.jpeg"
   },
   {
-    "id": 26,
-    "name": "Carmelo Nicolò",
-    "role": "Team Member",
-    "team": "ROV",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 27,
+    "id": 28,
     "name": "Valerio Orlandini",
     "role": "Team Member",
     "team": "Research&Assembly",
@@ -230,14 +241,23 @@
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 28,
-    "name": "Andra Pelliccia",
+    "id": 29,
+    "name": "Francesca Panichi",
     "role": "Team Member",
-    "team": "Research&Assembly",
+    "team": "ARM",
+    "email": "fra.panichi2@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 29,
+    "id": 30,
+    "name": "Andra Pelliccia",
+    "role": "Team Member",
+    "team": "Research&Assembly",
+    "email": "and.pelliccia3@stud.uniroma3.it",
+    "image": "/photos/DSCF7641.JPG"
+  },
+  {
+    "id": 31,
     "name": "Riccardo De Fonseca Pimentel",
     "role": "Team Member",
     "team": "Research&Assembly",
@@ -245,14 +265,23 @@
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 30,
-    "name": "Lorenzo Piumelli",
+    "id": 32,
+    "name": "Vittorio Statera ",
     "role": "Team Member",
-    "team": "CAD&Design",
+    "team": "Research&Assembly",
+    "email": "vit.statera@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 31,
+    "id": 33,
+    "name": "Valerio Surace",
+    "role": "Team Member",
+    "team": "CAD&Design",
+    "email": "val.surace@stud.uniroma3.it",
+    "image": "/photos/DSCF7641.JPG"
+  },
+  {
+    "id": 34,
     "name": "Matteo Traversa",
     "role": "Team Member",
     "team": "Electronics&Informatics",
@@ -260,23 +289,22 @@
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 32,
+    "id": 35,
     "name": "Luca Trevisan",
     "role": "Team Member",
-    "team": "CAD&Design",
+    "team": "Electronics&Informatics",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 33,
-    "name": "Francesco Venanzi",
+    "id": 36,
+    "name": "Flavio Trombetta",
     "role": "Team Member",
-    "team": "CAD&Design",
-    "email": "fra.venanzi1@stud.uniroma3.it",
-    "linkedin": "www.linkedin.com/in/francesco-venanzi-608a0a3b9",
+    "team": "Research&Assembly",
+    "email": "fla.trombetta@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 34,
+    "id": 37,
     "name": "Angelo Zelli",
     "role": "Team Member",
     "team": "Electronics&Informatics",
