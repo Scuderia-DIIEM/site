@@ -44,8 +44,8 @@
     "id": 5,
     "name": "Riccardo Nisi",
     "role": "On trial",
-    "team": "COO",
-    "skills": ["corso-sicurezza", "stampante-3d"],
+    "team": "Marathoner",
+    "skills": ["corso-sicurezza", "stampante-3d", "manutenzione"],
     "image": "/photos/nisi.jpeg",
     "email": "ric.nisi@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -55,7 +55,7 @@
     "name": "Matteo Febbi",
     "role": "Project Manager",
     "team": "FLOAT",
-    "skills": ["corso-sicurezza", "stampante-3d", "stampante-resina"],
+    "skills": ["corso-sicurezza", "stampante-3d", "stampante-resina", "manutenzione"],
     "image": "/photos/febbi.jpeg",
     "email": "mat.febbi@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"
@@ -222,7 +222,7 @@
     "name": "Federico Iannaccone",
     "role": "Team Member",
     "team": "Electronics&Informatics",
-    "skills": ["corso-sicurezza","stampante-3d","core", "stampante-resina", "saldare"],
+    "skills": ["corso-sicurezza","stampante-3d","core", "stampante-resina", "manutenzione", "saldare"],
     "email": "fed.iannaccone@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
