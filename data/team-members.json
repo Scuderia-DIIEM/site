@@ -204,7 +204,7 @@
   {
     "id": 22,
     "name": "Chiara Grando",
-    "role": "Team Member",
+    "role": "Elettronica",
     "team": "ARM",
     "skills": ["corso-sicurezza"],
     "image": "/photos/grando.jpeg",
@@ -343,8 +343,8 @@
   {
     "id": 37,
     "name": "Angelo Zelli",
-    "role": "Team Member",
-    "team": "Elettronica",
+    "role": "CAD",
+    "team": "FLOAT",
     "skills": ["corso-sicurezza"],
     "email": "ang.zelli@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"

@@ -71,7 +71,7 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
         </h3>
         <div className="team-card-role flex flex-col text-xs">
           {member.headOf && (
-            <span className="font-semibold text-primary">
+            <span className="text-primary">
               Head of {member.headOf === 'role'
                 ? (Array.isArray(member.role) ? member.role.join(', ') : member.role)
                 : member.team}
@@ -291,7 +291,7 @@ export default function TeamPage() {
                     <div>
                       <p className="text-lg text-gray-600 font-semibold">
                         {selectedMember.headOf && (
-                          <p className="text-lg font-semibold text-primary">
+                          <p className="text-lg text-primary">
                             Head of {selectedMember.headOf === 'role'
                               ? (Array.isArray(selectedMember.role) ? selectedMember.role.join(', ') : selectedMember.role)
                               : selectedMember.team}
