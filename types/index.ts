@@ -66,7 +66,7 @@ export interface Testimonial {
   id: string
   quote: string
   author: string
-  role: string
+  role: string | string[]
 }
 
 export interface NewsItem {
@@ -90,6 +90,8 @@ export interface TeamMember {
   id: number
   name: string
   role: string
+  headOf?: 'role' | 'team'
+  team: string
   image: string
 }
 

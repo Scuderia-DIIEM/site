@@ -70,10 +70,18 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
         <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1 font-display group-hover:text-primary transition-colors duration-300">
           {member.name}
         </h3>
-        <div className="flex flex-wrap items-center gap-x-2 text-sm md:text-base text-gray-600">
-          <span>{member.role}</span>
-          {/*<span aria-hidden="true">|</span>*/}
-          <span>{member.team}</span>
+        <div className="flex flex-col text-sm text-gray-600 md:text-base">
+          {member.headOf && (
+            <span className="font-semibold text-primary">
+              Head of {member.headOf === 'role'
+                ? (Array.isArray(member.role) ? member.role.join(', ') : member.role)
+                : member.team}
+            </span>
+          )}
+          {member.headOf !== 'team' && <span>{member.team}</span>}
+          {member.headOf !== 'role' && (
+            <span>{Array.isArray(member.role) ? member.role.join(', ') : member.role}</span>
+          )}
         </div>
       </div>
 
@@ -83,46 +91,40 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
   )
 }
 
-type RoleFilter = 'all' | 'rov' | 'float' | 'arm' | 'electronics-informatics' | 'cad-design' | 'research-assembly'
+type TechnicalArea = 'all' | 'elettronica' | 'informatica' | 'cad' | 'meccanica'
+type ProjectTeam = 'all' | 'rov' | 'float' | 'arm' | 'gs' | 'special'
 
-const roleFilters: Array<{ id: RoleFilter; label: string }> = [
+const technicalAreaFilters: Array<{ id: TechnicalArea; label: string }> = [
+  { id: 'all', label: 'Tutti' },
+  { id: 'elettronica', label: 'Elettronica' },
+  { id: 'informatica', label: 'Informatica' },
+  { id: 'cad', label: 'CAD' },
+  { id: 'meccanica', label: 'Meccanica' },
+]
+
+const projectTeamFilters: Array<{ id: ProjectTeam; label: string }> = [
   { id: 'all', label: 'Tutti' },
   { id: 'rov', label: 'ROV' },
   { id: 'float', label: 'FLOAT' },
   { id: 'arm', label: 'ARM' },
-  { id: 'electronics-informatics', label: 'Electronics&Informatics' },
-  { id: 'cad-design', label: 'CAD&Design' },
-  { id: 'research-assembly', label: 'Research&Assembly' },
+  { id: 'gs', label: 'GS' },
+  { id: 'special', label: 'Tecnologie speciali' },
 ]
-
-function normalizeRoleKey(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/&/g, 'and')
-    .replace(/[^a-z0-9]/g, '')
-}
-
-function getMemberRoleGroup(team?: string): RoleFilter {
-  const normalizedRole = normalizeRoleKey(team ?? '')
-
-  if (normalizedRole.includes('rov')) return 'rov'
-  if (normalizedRole.includes('float')) return 'float'
-  if (normalizedRole.includes('arm')) return 'arm'
-  if (normalizedRole.includes('electrical') || normalizedRole.includes('software') || normalizedRole.includes('electronics') || normalizedRole.includes('informatics')) return 'electronics-informatics'
-  if (normalizedRole.includes('cad') || normalizedRole.includes('design')) return 'cad-design'
-  if (normalizedRole.includes('research') || normalizedRole.includes('assembly')) return 'research-assembly'
-
-  return 'all'
-}
 
 export default function Team() {
   const columnsPerRow = useColumnsPerRow()
   const [visibleRows, setVisibleRows] = useState(1) // Mostra inizialmente solo la prima riga
   const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null)
-  const [selectedRole, setSelectedRole] = useState<RoleFilter>('all')
+  const [selectedArea, setSelectedArea] = useState<TechnicalArea>('all')
+  const [selectedTeam, setSelectedTeam] = useState<ProjectTeam>('all')
 
   const filteredMembers = teamMembers.filter(
-    (member) => selectedRole === 'all' || getMemberRoleGroup(member.team) === selectedRole
+    (member) => {
+      const project = selectedTeam === 'special' ? 'Tecnologie speciali' : selectedTeam
+      const roles = Array.isArray(member.role) ? member.role : [member.role]
+      return (selectedArea === 'all' || roles.some((role) => role.toLowerCase() === selectedArea)) &&
+        (selectedTeam === 'all' || (member.team ?? '').toLowerCase() === project.toLowerCase())
+    }
   )
 
   const totalRows = Math.ceil(filteredMembers.length / columnsPerRow)
@@ -132,7 +134,7 @@ export default function Team() {
 
   useEffect(() => {
     setVisibleRows(1)
-  }, [selectedRole])
+  }, [selectedArea, selectedTeam])
 
   const handleShowMore = () => {
     setVisibleRows(prev => Math.min(prev + 1, totalRows))
@@ -157,13 +159,30 @@ export default function Team() {
         </motion.div>
 
         <div className="mb-8 flex flex-wrap justify-center gap-2">
-          {roleFilters.map((filter) => (
+          {technicalAreaFilters.map((filter) => (
             <button
               key={filter.id}
               type="button"
-              onClick={() => setSelectedRole(filter.id)}
+              onClick={() => setSelectedArea(filter.id)}
               className={`rounded-full px-4 py-2 text-xs font-medium transition-colors sm:text-sm ${
-                selectedRole === filter.id
+                selectedArea === filter.id
+                  ? 'bg-white text-primary shadow-sm'
+                  : 'border border-white/25 bg-transparent text-white/80 hover:border-white/60 hover:text-white'
+              }`}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="mb-8 flex flex-wrap justify-center gap-2">
+          {projectTeamFilters.map((filter) => (
+            <button
+              key={filter.id}
+              type="button"
+              onClick={() => setSelectedTeam(filter.id)}
+              className={`rounded-full px-4 py-2 text-xs font-medium transition-colors sm:text-sm ${
+                selectedTeam === filter.id
                   ? 'bg-white text-primary shadow-sm'
                   : 'border border-white/25 bg-transparent text-white/80 hover:border-white/60 hover:text-white'
               }`}
@@ -239,11 +258,24 @@ export default function Team() {
                   <div className="member-modal-heading-row">
                     <div>
                       <p className="text-lg text-gray-600 font-semibold">
-                        {selectedMember.role}
+                        {selectedMember.headOf && (
+                          <p className="text-lg font-semibold text-primary">
+                            Head of {selectedMember.headOf === 'role'
+                              ? (Array.isArray(selectedMember.role) ? selectedMember.role.join(', ') : selectedMember.role)
+                              : selectedMember.team}
+                          </p>
+                        )}
                       </p>
-                      <p className="text-lg text-gray-600 mb-6 font-semibold">
-                        {selectedMember.team}
-                      </p>
+                      {selectedMember.headOf !== 'team' && (
+                        <p className="text-lg text-gray-600 mb-6 font-semibold">
+                          {selectedMember.team}
+                        </p>
+                      )}
+                      {selectedMember.headOf !== 'role' && (
+                        <p className="text-lg font-semibold text-gray-700">
+                          {Array.isArray(selectedMember.role) ? selectedMember.role.join(', ') : selectedMember.role}
+                        </p>
+                      )}
                     </div>
                     <MemberSkills
                       skills={(selectedMember as { skills?: string[] }).skills}

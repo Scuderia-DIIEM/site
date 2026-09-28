@@ -13,37 +13,25 @@ import MemberSkills from '@/components/UI/MemberSkills'
 const teamMembers = Array.isArray(teamMembersData) ? teamMembersData : []
 const veterans = Array.isArray(veteransData) ? veteransData : []
 
-type RoleFilter = 'all' | 'rov' | 'float' | 'arm' | 'electronics-informatics' | 'cad-design' | 'research-assembly'
+type TechnicalArea = 'all' | 'elettronica' | 'informatica' | 'cad' | 'meccanica'
+type ProjectTeam = 'all' | 'rov' | 'float' | 'arm' | 'gs' | 'special'
 
-const roleFilters: Array<{ id: RoleFilter; label: string }> = [
+const technicalAreaFilters: Array<{ id: TechnicalArea; label: string }> = [
+  { id: 'all', label: 'Tutti' },
+  { id: 'elettronica', label: 'Elettronica' },
+  { id: 'informatica', label: 'Informatica' },
+  { id: 'cad', label: 'CAD' },
+  { id: 'meccanica', label: 'Meccanica' },
+]
+
+const projectTeamFilters: Array<{ id: ProjectTeam; label: string }> = [
   { id: 'all', label: 'Tutti' },
   { id: 'rov', label: 'ROV' },
   { id: 'float', label: 'FLOAT' },
   { id: 'arm', label: 'ARM' },
-  { id: 'electronics-informatics', label: 'Electronics&Informatics' },
-  { id: 'cad-design', label: 'CAD&Design' },
-  { id: 'research-assembly', label: 'Research&Assembly' },
+  { id: 'gs', label: 'GS' },
+  { id: 'special', label: 'Tecnologie speciali' },
 ]
-
-function normalizeRoleKey(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/&/g, 'and')
-    .replace(/[^a-z0-9]/g, '')
-}
-
-function getMemberRoleGroup(team?: string): RoleFilter {
-  const normalizedRole = normalizeRoleKey(team ?? '')
-
-  if (normalizedRole.includes('rov')) return 'rov'
-  if (normalizedRole.includes('float')) return 'float'
-  if (normalizedRole.includes('arm')) return 'arm'
-  if (normalizedRole.includes('electrical') || normalizedRole.includes('software') || normalizedRole.includes('electronics') || normalizedRole.includes('informatics')) return 'electronics-informatics'
-  if (normalizedRole.includes('cad') || normalizedRole.includes('design')) return 'cad-design'
-  if (normalizedRole.includes('research') || normalizedRole.includes('assembly')) return 'research-assembly'
-
-  return 'all'
-}
 
 interface TeamMemberCardProps {
   member: typeof teamMembers[0]
@@ -81,10 +69,18 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
         <h3 className="team-card-title mb-0.5 line-clamp-2 font-display text-xs font-bold transition-colors duration-300 group-hover:text-primary sm:text-sm dark:group-hover:text-accent">
           {member.name}
         </h3>
-        <div className="team-card-role flex flex-wrap items-center gap-x-1 text-xs">
-          <span>{member.role}</span>
-          {/*<span aria-hidden="true">|</span>*/}
-          <span>{member.team}</span>
+        <div className="team-card-role flex flex-col text-xs">
+          {member.headOf && (
+            <span className="font-semibold text-primary">
+              Head of {member.headOf === 'role'
+                ? (Array.isArray(member.role) ? member.role.join(', ') : member.role)
+                : member.team}
+            </span>
+          )}
+          {member.headOf !== 'team' && <span>{member.team}</span>}
+          {member.headOf !== 'role' && (
+            <span>{Array.isArray(member.role) ? member.role.join(', ') : member.role}</span>
+          )}
         </div>
       </div>
 
@@ -97,7 +93,8 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
 export default function TeamPage() {
   const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null)
   const [activeSection, setActiveSection] = useState<'current' | 'founders'>('current')
-  const [selectedRole, setSelectedRole] = useState<RoleFilter>('all')
+  const [selectedArea, setSelectedArea] = useState<TechnicalArea>('all')
+  const [selectedTeam, setSelectedTeam] = useState<ProjectTeam>('all')
 
   const activeMembers = activeSection === 'current'
     ? teamMembers
@@ -105,8 +102,12 @@ export default function TeamPage() {
 
   const filteredMembers = activeSection === 'current'
     ? activeMembers.filter((member) => {
+        const memberRole = (member as { role?: string | string[] }).role ?? ''
+        const roles = Array.isArray(memberRole) ? memberRole : [memberRole]
         const team = (member as { team?: string }).team ?? ''
-        return selectedRole === 'all' || getMemberRoleGroup(team) === selectedRole
+        const project = selectedTeam === 'special' ? 'tecnologie speciali' : selectedTeam
+        return (selectedArea === 'all' || roles.some((role) => role.toLowerCase() === selectedArea)) &&
+          (selectedTeam === 'all' || team.toLowerCase() === project)
       })
     : activeMembers
 
@@ -150,7 +151,8 @@ export default function TeamPage() {
                     type="button"
                     onClick={() => {
                       setActiveSection('current')
-                      setSelectedRole('all')
+                      setSelectedArea('all')
+                      setSelectedTeam('all')
                       setSelectedMember(null)
                     }}
                     className={`toggle-button px-5 py-2 text-sm sm:px-6 ${
@@ -166,7 +168,8 @@ export default function TeamPage() {
                     type="button"
                     onClick={() => {
                       setActiveSection('founders')
-                      setSelectedRole('all')
+                      setSelectedArea('all')
+                      setSelectedTeam('all')
                       setSelectedMember(null)
                     }}
                     className={`toggle-button px-5 py-2 text-sm sm:px-6 ${
@@ -181,13 +184,32 @@ export default function TeamPage() {
 
                 {activeSection === 'current' && (
                   <div className="flex flex-wrap justify-center gap-2">
-                    {roleFilters.map((filter) => (
+                    {technicalAreaFilters.map((filter) => (
                       <button
                         key={filter.id}
                         type="button"
-                        onClick={() => setSelectedRole(filter.id)}
+                        onClick={() => setSelectedArea(filter.id)}
                         className={`rounded-full px-4 py-2 text-xs font-medium transition-colors sm:text-sm ${
-                          selectedRole === filter.id
+                          selectedArea === filter.id
+                            ? 'bg-primary text-white shadow-sm'
+                            : 'border border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary'
+                        }`}
+                      >
+                        {filter.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {activeSection === 'current' && (
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {projectTeamFilters.map((filter) => (
+                      <button
+                        key={filter.id}
+                        type="button"
+                        onClick={() => setSelectedTeam(filter.id)}
+                        className={`rounded-full px-4 py-2 text-xs font-medium transition-colors sm:text-sm ${
+                          selectedTeam === filter.id
                             ? 'bg-primary text-white shadow-sm'
                             : 'border border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary'
                         }`}
@@ -268,11 +290,24 @@ export default function TeamPage() {
                   <div className="member-modal-heading-row">
                     <div>
                       <p className="text-lg text-gray-600 font-semibold">
-                        {selectedMember.role}
+                        {selectedMember.headOf && (
+                          <p className="text-lg font-semibold text-primary">
+                            Head of {selectedMember.headOf === 'role'
+                              ? (Array.isArray(selectedMember.role) ? selectedMember.role.join(', ') : selectedMember.role)
+                              : selectedMember.team}
+                          </p>
+                        )}
                       </p>
-                      <p className="text-lg text-gray-600 mb-4 font-semibold">
-                        {selectedMember.team}
-                      </p>
+                      {selectedMember.headOf !== 'team' && (
+                        <p className="text-lg text-gray-600 font-semibold">
+                          {selectedMember.team}
+                        </p>
+                      )}
+                      {selectedMember.headOf !== 'role' && (
+                        <p className="text-lg font-semibold mb-4 text-gray-700">
+                          {Array.isArray(selectedMember.role) ? selectedMember.role.join(', ') : selectedMember.role}
+                        </p>
+                      )}
                     </div>
                     <MemberSkills
                       skills={(selectedMember as { skills?: string[] }).skills}

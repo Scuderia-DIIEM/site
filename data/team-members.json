@@ -2,8 +2,7 @@
   {
     "id": 1,
     "name": "Stefano Pio Onorati",
-    "role": "CEO",
-    "team": "Leadership",
+    "role": "Leadership CEO",
     "skills": ["corso-sicurezza"],
     "image": "/photos/onorati.jpeg",
     "email": "ste.onorati1@stud.uniroma3.it",
@@ -13,8 +12,8 @@
   {
     "id": 2,
     "name": "Jacopo Evangelisti",
-    "role": "CTO",
-    "team": "Leadership",
+    "role": "Elettronica",
+    "team": "Leadership CTO",
     "skills": ["corso-sicurezza", "saldare", "core", "stampante-3d"],
     "image": "/photos/evangelisti.jpeg",
     "email": "jac.evangelisti@stud.uniroma3.it",
@@ -23,8 +22,8 @@
   {
     "id": 3,
     "name": "Alice Moro",
-    "role": "CMO",
-    "team": "Leadership",
+    "role": "Leadership",
+    "team": "CMO",
     "skills": ["corso-sicurezza"],
     "image": "/photos/moro.jpeg",
     "email": "ali.moro@stud.uniroma3.it",
@@ -33,8 +32,9 @@
   {
     "id": 4,
     "name": "Mirko Agostinelli",
-    "role": "Project Manager",
+    "role": ["Elettronica", "Informatica"],
     "team": "ROV",
+    "headOf": "team",
     "skills": ["corso-sicurezza", "saldare", "core"],
     "image": "/photos/agostinelli.jpeg",
     "email": "mir.agostinelli@stud.uniroma3.it",
@@ -43,8 +43,8 @@
   {
     "id": 5,
     "name": "Riccardo Nisi",
-    "role": "On trial",
-    "team": "COO",
+    "role": "Meccanica",
+    "team": "On trial COO",
     "skills": ["corso-sicurezza", "stampante-3d", "manutenzione"],
     "image": "/photos/nisi.jpeg",
     "email": "ric.nisi@stud.uniroma3.it",
@@ -53,8 +53,9 @@
   {
     "id": 6,
     "name": "Matteo Febbi",
-    "role": "Project Manager",
+    "role": "Meccanica",
     "team": "FLOAT",
+    "headOf": "team",
     "skills": ["corso-sicurezza", "stampante-3d", "stampante-resina", "manutenzione"],
     "image": "/photos/febbi.jpeg",
     "email": "mat.febbi@stud.uniroma3.it",
@@ -63,8 +64,9 @@
   {
     "id": 7,
     "name": "Luca Maria Massucci",
-    "role": "Head of",
+    "role": "Meccanica",
     "team": "ARM",
+    "headOf": "team",
     "skills": ["corso-sicurezza"],
     "image": "/photos/massucci.jpeg",
     "email": "luc.massucci@stud.uniroma3.it",
@@ -73,7 +75,8 @@
   {
     "id": 8,
     "name": "Umberto Tepedino",
-    "role": "Head of",
+    "headOf": "team",
+    "role": "CAD",
     "team": "Research&Assembly",
     "skills": ["corso-sicurezza", "stampante-3d", "saldare"],
     "image": "/photos/tepedino.jpeg",
@@ -83,8 +86,9 @@
   {
     "id": 9,
     "name": "Gianluca Pizzuti",
-    "role": "Head of",
-    "team": "Electronics&Informatics",
+    "role": ["Elettronica", "Informatica"],
+    "team": "ROV",
+    "headOf": "role",
     "skills": ["corso-sicurezza", "core", "saldare"],
     "image": "/photos/pizzuti.jpeg",
     "email": "gian.pizzuti@stud.uniroma3.it",
@@ -93,8 +97,8 @@
   {
     "id": 10,
     "name": "Francesco Venanzi",
-    "role": "Head of",
-    "team": "CAD&Design",
+    "role": "CAD",
+    "headOf": "role",
     "skills": ["corso-sicurezza"],
     "email": "fra.venanzi1@stud.uniroma3.it",
     "linkedin": "www.linkedin.com/in/francesco-venanzi-608a0a3b9",
@@ -103,8 +107,8 @@
   {
     "id": 11,
     "name": "Gabriele Anselmi",
-    "role": "Team Member",
-    "team": "Electronics&Informatics",
+    "role": "Elettronica",
+    "team": "ROV",
     "skills": ["corso-sicurezza"],
     "image": "/photos/anselmi.jpeg",
     "email": "gab.anselmi@stud.uniroma3.it",
@@ -149,8 +153,8 @@
   {
     "id": 16,
     "name": "Vittoria Cerquaglia",
-    "role": "Team Member",
-    "team": "Electronics&Informatics",
+    "role": "Elettronica",
+    "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "vit.cerquaglia@stud.uniroma3.it",
     "image": "/photos/cerquaglia.jpeg"
@@ -168,7 +172,7 @@
     "id": 18,
     "name": "Massimiliano Cristilli",
     "role": "Team Member",
-    "team": "Electronics&Informatics",
+    "team": "Elettronica",
     "skills": ["corso-sicurezza"],
     "image": "/photos/15.png"
   },
@@ -185,7 +189,7 @@
     "id": 20,
     "name": "Alessio Di Girolamo",
     "role": "Team Member",
-    "team": "Electronics&Informatics",
+    "team": "Elettronica",
     "image": "/photos/20.png"
   },
   {
@@ -221,7 +225,7 @@
     "id": 24,
     "name": "Federico Iannaccone",
     "role": "Team Member",
-    "team": "Electronics&Informatics",
+    "team": "Elettronica",
     "skills": ["corso-sicurezza","stampante-3d","core", "stampante-resina", "manutenzione", "saldare"],
     "email": "fed.iannaccone@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
@@ -313,7 +317,7 @@
     "id": 34,
     "name": "Matteo Traversa",
     "role": "Team Member",
-    "team": "Electronics&Informatics",
+    "team": "Elettronica",
     "skills": ["corso-sicurezza"],
     "email": "mat.traversa@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
@@ -322,7 +326,7 @@
     "id": 35,
     "name": "Luca Trevisan",
     "role": "Team Member",
-    "team": "Electronics&Informatics",
+    "team": "Elettronica",
     "skills": ["corso-sicurezza"],
     "email": "luc.trevisan@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
@@ -340,7 +344,7 @@
     "id": 37,
     "name": "Angelo Zelli",
     "role": "Team Member",
-    "team": "Electronics&Informatics",
+    "team": "Elettronica",
     "skills": ["corso-sicurezza"],
     "email": "ang.zelli@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"

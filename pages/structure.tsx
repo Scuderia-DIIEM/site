@@ -1,8 +1,11 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { createContext, useContext, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Head from "next/head";
+import Image from "next/image";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
+import teamMembersData from "@/data/team-members.json";
+import Modal from "@/components/UI/Modal";
 
 type NodeId =
   | "ceo"
@@ -19,6 +22,7 @@ type NodeId =
   | "electronics"
   | "software"
   | "cad"
+  | "mechanics"
   | "special";
 
 type OrgNode = {
@@ -242,6 +246,21 @@ const nodes: Record<NodeId, OrgNode> = {
     colorClass: "bg-gradient-to-br from-red-600 to-red-800 text-white",
     activeClass: "ring-red-400",
   },
+  mechanics: {
+    id: "mechanics",
+    title: "Meccanica",
+    subtitle: "Strutture e componenti",
+    description:
+      "Area tecnica dedicata alla progettazione, realizzazione e integrazione delle strutture e dei componenti meccanici dei progetti.",
+    responsibilities: [
+      "Progettazione di strutture e componenti",
+      "Assiemi e lavorazioni meccaniche",
+      "Integrazione dei sottosistemi",
+      "Test e manutenzione dei prototipi",
+    ],
+    colorClass: "bg-gradient-to-br from-red-600 to-red-800 text-white",
+    activeClass: "ring-red-400",
+  },
   special: {
     id: "special",
     title: "Tecnologie speciali",
@@ -254,10 +273,52 @@ const nodes: Record<NodeId, OrgNode> = {
       "Prototipazione avanzata",
       "Supporto ai reparti tecnici",
     ],
-    colorClass: "bg-gradient-to-br from-red-600 to-red-800 text-white",
-    activeClass: "ring-red-400",
+    colorClass: "bg-gradient-to-br from-orange-600 to-orange-800 text-white",
+    activeClass: "ring-orange-400",
   },
 };
+
+const teamMembers = Array.isArray(teamMembersData) ? teamMembersData : [];
+type TeamMember = (typeof teamMembers)[number];
+const MemberSelectionContext = createContext<(member: TeamMember) => void>(() => undefined);
+const ShowMembersContext = createContext(false);
+
+function getNodeMembers(id: NodeId) {
+  const technicalAreas: Partial<Record<NodeId, string[]>> = {
+    electronics: ["Elettronica", "Electronics&Informatics"],
+    software: ["Informatica", "Electronics&Informatics"],
+    cad: ["CAD", "CAD&Design"],
+    mechanics: ["Meccanica", "Research&Assembly"],
+  };
+  const projects: Partial<Record<NodeId, string[]>> = {
+    rov: ["ROV"],
+    float: ["FLOAT"],
+    arm: ["ARM"],
+    gs: ["GS", "Electronics&Informatics"],
+    special: ["Tecnologie speciali", "Research&Assembly", "CAD&Design"],
+  };
+  const leadership: Partial<Record<NodeId, string[]>> = {
+    ceo: ["CEO"],
+    cto: ["CTO"],
+    cmo: ["CMO"],
+    coo: ["COO"],
+  };
+  const technicalArea = technicalAreas[id];
+  const project = projects[id];
+  const leadershipRole = leadership[id];
+  const technicalRoles = technicalArea ?? [];
+  const projectTeams = project ?? [];
+  const leadershipRoles = leadershipRole ?? [];
+
+  return teamMembers.filter((member) => {
+    const roles = Array.isArray(member.role) ? member.role : [member.role];
+    return Boolean(
+      (technicalRoles.length > 0 && (roles.some((role) => technicalRoles.includes(role)) || technicalRoles.includes(member.team))) ||
+      (projectTeams.length > 0 && projectTeams.includes(member.team)) ||
+      (leadershipRoles.length > 0 && (roles.some((role) => leadershipRoles.includes(role)) || leadershipRoles.includes(member.team))),
+    );
+  });
+}
 
 function NodeButton({
   id,
@@ -272,26 +333,91 @@ function NodeButton({
 }) {
   const node = nodes[id];
   const selected = selectedId === id;
+  const nodeMembers = getNodeMembers(id);
+  const onMemberSelect = useContext(MemberSelectionContext);
+  const showMembers = useContext(ShowMembersContext);
+  const memberGridColumns = nodeMembers.length === 1
+    ? "grid-cols-1"
+    : nodeMembers.length === 2
+      ? "grid-cols-2"
+      : "grid-cols-4";
+
+  const headOfNode = (member: TeamMember) => {
+    if (member.headOf === "team") {
+      const teamHeadNodes: Record<string, NodeId> = {
+        ROV: "rov",
+        FLOAT: "float",
+        ARM: "arm",
+        GS: "gs",
+        "Research&Assembly": "special",
+        "CAD&Design": "cad",
+      };
+      return teamHeadNodes[member.team] === id;
+    }
+
+    if (member.headOf === "role") {
+      const roles = Array.isArray(member.role) ? member.role : [member.role];
+      const roleHeadNodes: Record<string, NodeId> = {
+        Elettronica: "electronics",
+        Informatica: "software",
+        CAD: "cad",
+        Meccanica: "mechanics",
+      };
+      return roles.some((role) => roleHeadNodes[role] === id);
+    }
+
+    return false;
+  };
 
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(id)}
-      className={`w-full rounded-2xl text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-4 ${node.colorClass} ${
+    <motion.div
+      layout
+      transition={{ layout: { duration: 0.45, ease: "easeInOut" } }}
+      className={`group relative z-0 w-full rounded-2xl text-left shadow-lg transition-all duration-300 hover:z-20 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-2xl focus-within:z-20 focus-within:scale-[1.04] focus:outline-none focus:ring-4 ${node.colorClass} ${
         selected
           ? `scale-[1.02] ring-4 ${node.activeClass}`
           : "ring-1 ring-white/10"
       } ${compact ? "px-4 py-3" : "px-5 py-4"}`}
     >
-      <div
-        className={`${compact ? "text-base" : "text-xl"} font-black tracking-wide`}
+      <button
+        type="button"
+        onClick={() => onSelect(id)}
+        className="w-full text-left focus:outline-none"
       >
-        {node.title}
-      </div>
-      <div className="mt-1 text-xs font-medium opacity-85 sm:text-sm">
-        {node.subtitle}
-      </div>
-    </button>
+        <div className={`${compact ? "text-base" : "text-xl"} font-black tracking-wide`}>
+          {node.title}
+        </div>
+        <div className="mt-1 text-xs font-medium opacity-85 sm:text-sm">
+          {node.subtitle}
+        </div>
+      </button>
+      <AnimatePresence initial={false}>
+        {showMembers && nodeMembers.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+            animate={{ opacity: 1, height: "auto", marginTop: 12 }}
+            exit={{ opacity: 0, height: 0, marginTop: 0 }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            className={`grid ${memberGridColumns} justify-items-start gap-1 overflow-hidden border-t border-white/20 pt-2`}
+          >
+            {nodeMembers.map((member) => (
+              <button
+                key={member.id}
+                type="button"
+                onClick={() => onMemberSelect(member)}
+                className={`w-fit max-w-full min-w-0 rounded-lg border px-1 py-1 text-left text-[8px] font-medium leading-tight break-words transition-colors focus:outline-none focus:ring-2 focus:ring-white/70 sm:px-1.5 sm:text-[10px] ${
+                  headOfNode(member)
+                    ? "border-amber-200/70 bg-amber-300/30 hover:bg-amber-300/40"
+                    : "border-white/20 bg-white/10 hover:bg-white/20"
+                }`}
+              >
+                {member.name}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 
@@ -306,13 +432,13 @@ function DepartmentCard({
 }) {
   return (
     <motion.div
-      className="structure-blue-card rounded-3xl border border-white/10 !bg-[#012245] p-4 text-white shadow-xl dark:border-white/10 dark:!bg-[#012245] dark:text-white dark:shadow-2xl sm:p-5"
+      className="structure-blue-card rounded-3xl border border-white/10 !bg-[#012245] p-3 text-white shadow-xl dark:border-white/10 dark:!bg-[#012245] dark:text-white dark:shadow-2xl sm:p-4"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.45 }}
     >
-      <div className="mb-4">
+      <div className="mb-3">
         <h3 className="text-lg font-black text-white sm:text-xl">{title}</h3>
         <p className="text-sm text-white/70">{subtitle}</p>
       </div>
@@ -323,6 +449,8 @@ function DepartmentCard({
 
 export default function StructurePage() {
   const [selectedId, setSelectedId] = useState<NodeId>("ceo");
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+  const [showMembers, setShowMembers] = useState(false);
   const detailsRef = useRef<HTMLDivElement | null>(null);
 
   const selectedNode = nodes[selectedId];
@@ -343,9 +471,12 @@ export default function StructurePage() {
   }, 100);
 };
 
-  const projectIds = useMemo<NodeId[]>(() => ["rov", "float", "arm", "gs"], []);
+  const projectIds = useMemo<NodeId[]>(
+    () => ["rov", "float", "arm", "gs", "special"],
+    [],
+  );
   const technicalIds = useMemo<NodeId[]>(
-    () => ["electronics", "software", "cad", "special"],
+    () => ["electronics", "software", "cad", "mechanics"],
     [],
   );
 
@@ -401,6 +532,8 @@ export default function StructurePage() {
         }
       `}</style>
 
+      <MemberSelectionContext.Provider value={setSelectedMember}>
+      <ShowMembersContext.Provider value={showMembers}>
       <div className="structure-page min-h-screen !bg-white text-slate-950 dark:!bg-primary dark:text-white">
         <Header />
 
@@ -436,6 +569,19 @@ export default function StructurePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
+                <div className="mb-4 flex justify-end">
+                  <label className="inline-flex cursor-pointer items-center gap-3 rounded-full border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-white/15 sm:text-sm">
+                    <span>Mostra membri</span>
+                    <input
+                      type="checkbox"
+                      checked={showMembers}
+                      onChange={(event) => setShowMembers(event.target.checked)}
+                      className="peer sr-only"
+                    />
+                    <span className="relative h-5 w-9 rounded-full bg-white/25 transition-colors peer-checked:bg-accent peer-focus-visible:ring-2 peer-focus-visible:ring-white/80 after:absolute after:left-1 after:top-1 after:h-3 after:w-3 after:rounded-full after:bg-white after:transition-transform peer-checked:after:translate-x-4" />
+                  </label>
+                </div>
+
                 {/* CEO */}
                 <div className="flex justify-center">
                   <motion.div
@@ -453,28 +599,28 @@ export default function StructurePage() {
                   </motion.div>
                 </div>
 
-                <div className="mx-auto my-6 h-10 w-0.5 bg-accent/80" />
+                <div className="mx-auto my-4 h-7 w-0.5 bg-accent/80" />
 
                 {/* Aree principali */}
-                <div className="grid gap-5 lg:grid-cols-[1fr_1fr_1.75fr]">
+                <div className={`grid gap-4 transition-[grid-template-columns] duration-500 ease-in-out ${showMembers ? "lg:grid-cols-[minmax(0,0.65fr)_minmax(0,0.65fr)_minmax(0,2.7fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.75fr)]"}`}>
                   <DepartmentCard
-                    title="Marketing e comunicazione"
+                    title="Relazioni esterne"
                     subtitle=""
                   >
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       <NodeButton
                         id="cmo"
                         selectedId={selectedId}
                         onSelect={handleNodeClick}
                       />
-                      <div className="ml-8 h-6 w-0.5 bg-white/25" />
+                      <div className="ml-5 h-4 w-0.5 bg-white/25" />
                       <NodeButton
                         id="marketing"
                         selectedId={selectedId}
                         onSelect={handleNodeClick}
                         compact
                       />
-                      <div className="ml-8 h-6 w-0.5 bg-white/25" />
+                      <div className="ml-5 h-4 w-0.5 bg-white/25" />
                       <NodeButton
                         id="photo"
                         selectedId={selectedId}
@@ -485,13 +631,13 @@ export default function StructurePage() {
                   </DepartmentCard>
 
                   <DepartmentCard title="Gestione operativa" subtitle="">
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       <NodeButton
                         id="coo"
                         selectedId={selectedId}
                         onSelect={handleNodeClick}
                       />
-                      <div className="ml-8 h-6 w-0.5 bg-white/25" />
+                      <div className="ml-5 h-4 w-0.5 bg-white/25" />
                       <NodeButton
                         id="operations"
                         selectedId={selectedId}
@@ -505,19 +651,19 @@ export default function StructurePage() {
                     title="Tecnologia, progetti e aree specialistiche"
                     subtitle=""
                   >
-                    <div className="space-y-5">
+                    <div className="space-y-4">
                       <NodeButton
                         id="cto"
                         selectedId={selectedId}
                         onSelect={handleNodeClick}
                       />
 
-                      <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="grid gap-3 sm:grid-cols-2">
                         <div>
                           <div className="mb-3 rounded-full border border-white/10 !bg-white/10 px-4 py-2 text-center text-xs font-black uppercase tracking-wide text-white shadow-sm dark:border-white/10 dark:!bg-white/10 dark:text-white">
                             Progetti
                           </div>
-                          <div className="space-y-3">
+                          <div className="space-y-2">
                             {projectIds.map((id) => (
                               <NodeButton
                                 key={id}
@@ -534,7 +680,7 @@ export default function StructurePage() {
                           <div className="mb-3 rounded-full border border-white/10 !bg-white/10 px-4 py-2 text-center text-xs font-black uppercase tracking-wide text-white shadow-sm dark:border-white/10 dark:!bg-white/10 dark:text-white">
                             Aree tecniche
                           </div>
-                          <div className="space-y-3">
+                          <div className="space-y-2">
                             {technicalIds.map((id) => (
                               <NodeButton
                                 key={id}
@@ -621,6 +767,58 @@ export default function StructurePage() {
 
         <Footer />
       </div>
+      </ShowMembersContext.Provider>
+      <Modal
+        isOpen={selectedMember !== null}
+        onClose={() => setSelectedMember(null)}
+        title={selectedMember?.name || ""}
+      >
+        {selectedMember && (
+          <div className="flex flex-col gap-5 sm:flex-row">
+            <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-gray-100 sm:w-40">
+              <Image
+                src={selectedMember.image}
+                alt={selectedMember.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="flex-1">
+              {selectedMember.headOf && (
+                <p className="text-lg font-semibold text-primary">
+                  Head of {selectedMember.headOf === "role"
+                    ? (Array.isArray(selectedMember.role) ? selectedMember.role.join(", ") : selectedMember.role)
+                    : selectedMember.team}
+                </p>
+              )}
+              {selectedMember.headOf !== "team" && (
+                <p className="mb-5 text-lg font-semibold text-gray-500">{selectedMember.team}</p>
+              )}
+              {selectedMember.headOf !== "role" && (
+                <p className="text-lg font-semibold text-gray-700">
+                  {Array.isArray(selectedMember.role) ? selectedMember.role.join(", ") : selectedMember.role}
+                </p>
+              )}
+              {selectedMember.email && (
+                <a className="block text-primary hover:underline" href={`mailto:${selectedMember.email}`}>
+                  {selectedMember.email}
+                </a>
+              )}
+              {selectedMember.linkedin && (
+                <a
+                  className="mt-2 block text-primary hover:underline"
+                  href={selectedMember.linkedin.startsWith("http") ? selectedMember.linkedin : `https://${selectedMember.linkedin}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn
+                </a>
+              )}
+            </div>
+          </div>
+        )}
+      </Modal>
+      </MemberSelectionContext.Provider>
     </>
   );
 }
