@@ -304,7 +304,7 @@ export default function TeamPage() {
                         </p>
                       )}
                       {selectedMember.headOf !== 'role' && (
-                        <p className="text-lg font-semibold mb-4 text-gray-700">
+                        <p className="text-lg font-semibold text-gray-700">
                           {Array.isArray(selectedMember.role) ? selectedMember.role.join(', ') : selectedMember.role}
                         </p>
                       )}
@@ -313,7 +313,7 @@ export default function TeamPage() {
                       skills={(selectedMember as { skills?: string[] }).skills}
                     />
                   </div>
-                  <h4 className="text-lg font-bold text-primary mb-3">Contatti</h4>
+                  <h4 className="mt-4 text-lg font-bold text-primary mb-3">Contatti</h4>
 
                   <div className="grid grid-cols-1 gap-3">
                     {/* Email */}

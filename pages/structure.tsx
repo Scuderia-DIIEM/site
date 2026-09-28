@@ -6,6 +6,7 @@ import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import teamMembersData from "@/data/team-members.json";
 import Modal from "@/components/UI/Modal";
+import MemberSkills from "@/components/UI/MemberSkills";
 
 type NodeId =
   | "ceo"
@@ -773,50 +774,98 @@ export default function StructurePage() {
         onClose={() => setSelectedMember(null)}
         title={selectedMember?.name || ""}
       >
-        {selectedMember && (
-          <div className="flex flex-col gap-5 sm:flex-row">
-            <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-gray-100 sm:w-40">
-              <Image
-                src={selectedMember.image}
-                alt={selectedMember.name}
-                fill
-                className="object-cover"
-              />
+        <div className="member-modal-body flex flex-col items-center gap-6 md:flex-row">
+          {selectedMember && (
+            <div className="member-modal-photo w-full flex-shrink-0 self-center">
+              <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-gray-100 dark:border-white/10 dark:bg-[#071425]">
+                <div className="relative aspect-square w-full overflow-hidden">
+                  <Image
+                    src={selectedMember.image}
+                    alt={selectedMember.name}
+                    fill
+                    className="object-cover object-center"
+                    style={{ objectPosition: "center center" }}
+                  />
+                </div>
+              </div>
+              <div className="mt-3">
+                {(selectedMember as any).yearsActive && (
+                  <p className="mt-1 text-xs text-gray-500">Periodo di attività: {(selectedMember as any).yearsActive}</p>
+                )}
+              </div>
             </div>
-            <div className="flex-1">
-              {selectedMember.headOf && (
-                <p className="text-lg font-semibold text-primary">
-                  Head of {selectedMember.headOf === "role"
-                    ? (Array.isArray(selectedMember.role) ? selectedMember.role.join(", ") : selectedMember.role)
-                    : selectedMember.team}
-                </p>
-              )}
-              {selectedMember.headOf !== "team" && (
-                <p className="mb-5 text-lg font-semibold text-gray-500">{selectedMember.team}</p>
-              )}
-              {selectedMember.headOf !== "role" && (
-                <p className="text-lg font-semibold text-gray-700">
-                  {Array.isArray(selectedMember.role) ? selectedMember.role.join(", ") : selectedMember.role}
-                </p>
-              )}
-              {selectedMember.email && (
-                <a className="block text-primary hover:underline" href={`mailto:${selectedMember.email}`}>
-                  {selectedMember.email}
-                </a>
-              )}
-              {selectedMember.linkedin && (
-                <a
-                  className="mt-2 block text-primary hover:underline"
-                  href={selectedMember.linkedin.startsWith("http") ? selectedMember.linkedin : `https://${selectedMember.linkedin}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  LinkedIn
-                </a>
-              )}
-            </div>
+          )}
+
+          <div className="member-modal-info w-full">
+            {selectedMember && (
+              <div className="px-1 md:px-4">
+                <div className="member-modal-heading-row">
+                  <div>
+                    <p className="text-lg font-semibold text-gray-600">
+                      {selectedMember.headOf && (
+                        <span className="text-lg font-semibold text-primary">
+                          Head of {selectedMember.headOf === "role"
+                            ? (Array.isArray(selectedMember.role) ? selectedMember.role.join(", ") : selectedMember.role)
+                            : selectedMember.team}
+                        </span>
+                      )}
+                    </p>
+                    {selectedMember.headOf !== "team" && (
+                      <p className="text-lg font-semibold text-gray-600">{selectedMember.team}</p>
+                    )}
+                    {selectedMember.headOf !== "role" && (
+                      <p className="text-lg font-semibold text-gray-700">
+                        {Array.isArray(selectedMember.role) ? selectedMember.role.join(", ") : selectedMember.role}
+                      </p>
+                    )}
+                  </div>
+                  <MemberSkills skills={(selectedMember as { skills?: string[] }).skills} />
+                </div>
+                <h4 className="mb-3 mt-4 text-lg font-bold text-primary">Contatti</h4>
+                <div className="grid grid-cols-1 gap-3">
+                  {selectedMember.email && (
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 text-primary">📧</span>
+                      <a href={`mailto:${selectedMember.email}`} className="break-all text-blue-600 hover:underline">
+                        {selectedMember.email}
+                      </a>
+                    </div>
+                  )}
+                  {(selectedMember as any).phone && (
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 text-primary">📱</span>
+                      <a href={`tel:${(selectedMember as any).phone}`} className="text-blue-600 hover:underline">
+                        {(selectedMember as any).phone}
+                      </a>
+                    </div>
+                  )}
+                  {(selectedMember as any).email2 && (
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 text-primary">✉️</span>
+                      <a href={`mailto:${(selectedMember as any).email2}`} className="break-all text-blue-600 hover:underline">
+                        {(selectedMember as any).email2}
+                      </a>
+                    </div>
+                  )}
+                  {(selectedMember as any).linkedin && (
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 text-primary">💼</span>
+                      <a href={(selectedMember as any).linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                        LinkedIn
+                      </a>
+                    </div>
+                  )}
+                  {!selectedMember.email &&
+                    !(selectedMember as any).phone &&
+                    !(selectedMember as any).linkedin &&
+                    !(selectedMember as any).email2 && (
+                      <p className="italic text-gray-500">Nessun contatto disponibile</p>
+                    )}
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </Modal>
       </MemberSelectionContext.Provider>
     </>

@@ -43,8 +43,8 @@
   {
     "id": 5,
     "name": "Riccardo Nisi",
-    "role": "Meccanica",
-    "team": "On trial COO",
+    "role": "COO",
+    "team": "On trial",
     "skills": ["corso-sicurezza", "stampante-3d", "manutenzione"],
     "image": "/photos/nisi.jpeg",
     "email": "ric.nisi@stud.uniroma3.it",
