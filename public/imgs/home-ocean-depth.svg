@@ -1,0 +1,257 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <linearGradient id="water" x1="960" y1="0" x2="960" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#72dced"/>
+      <stop offset=".48" stop-color="#39bedb"/>
+      <stop offset="1" stop-color="#087db3"/>
+    </linearGradient>
+    <linearGradient id="sunray" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#e4fff5" stop-opacity=".4"/>
+      <stop offset="1" stop-color="#c6f9ee" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="deepFloor" x1="960" y1="710" x2="960" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0c6592" stop-opacity="0"/>
+      <stop offset="1" stop-color="#073962"/>
+    </linearGradient>
+    <g id="fish" fill="currentColor">
+      <path d="M0 0c15-12 37-13 55 0C37 13 15 12 0 0Z"/>
+      <path d="m51 0 16-11v22L51 0Z"/>
+      <circle cx="13" cy="-2" r="1.8" fill="#073e68"/>
+    </g>
+    <g id="discFish" fill="currentColor">
+      <path d="M0 0c12-19 34-25 55-12l11 12-11 12C34 25 12 19 0 0Z"/>
+      <path d="m20-16 8-15 9 17m-17 30 8 14 9-16M57 0l17-14v28L57 0Z"/>
+      <circle cx="13" cy="-3" r="2" fill="#073e68"/>
+    </g>
+    <g id="longFish" fill="currentColor">
+      <path d="M0 0c21-8 48-8 78 0-30 8-57 8-78 0Z"/>
+      <path d="m75 0 18-9v18L75 0Z"/>
+      <circle cx="12" cy="-1" r="1.5" fill="#073e68"/>
+    </g>
+    <g id="seaweed" fill="currentColor">
+      <path d="M0 0c-14-42 12-72-5-129 32 36 19 74 28 129C42-49 26-84 54-120c1 55 2 91-23 120H0Z"/>
+      <path d="M-9-34c-29-14-37-34-38-57 25 18 36 31 38 57Zm38-5c26-18 33-37 32-61-21 20-31 36-32 61Z"/>
+    </g>
+    <g id="branch" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 0c-8-20-5-35 0-50-22 3-34-7-42-24m42 24c-1-19 9-34 24-47m-24 47c-17-4-26-14-29-30m29 30c18-6 28-18 34-36m-34 36c-2-18 3-33 12-46m-12 46c-22 2-35 14-40 29m40-29c19 2 32 12 41 25" stroke-width="8"/>
+    </g>
+    <g id="fan" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 0c-8-29-8-52-2-78m2 78c-28-21-43-44-49-70m49 70c-38-8-59-22-78-43m78 43c13-31 29-53 49-73M0 0c28-23 48-46 65-75M0 0c-19-34-27-60-25-88m25 88c-1-41 8-67 25-93" stroke-width="8"/>
+    </g>
+    <g id="coralMound" fill="currentColor">
+      <path d="M-76 0c-12-22-2-43 18-48-3-25 19-41 41-32 16-26 49-26 63-1 25-11 51 8 46 34 23 11 25 34 9 47H-76Z"/>
+      <path d="M-43-8c-8-12 0-23 11-24-2-11 9-18 18-11 6-14 23-15 29-2 12-8 25 2 19 14 13 6 12 17 4 23m-48-2c-4-8 1-13 8-15m32 12c5-5 3-11-3-14m-4-18c8 2 11 8 8 14" fill="none" stroke="#0b5480" stroke-width="4" stroke-linecap="round"/>
+    </g>
+  </defs>
+
+  <path fill="url(#water)" d="M0 0h1920v1080H0z"/>
+  <path fill="url(#sunray)" d="M190 0h125l375 630H500L190 0Zm525 0h72l222 610H875L715 0Zm702 0h100l-278 660h-96l274-660Zm335 0h57l-155 605h-77L1752 0Z"/>
+
+  <g stroke="#c8fbf4" stroke-linecap="round" opacity=".27">
+    <path d="M0 153c133 9 254 5 366-2m87 4c119-8 210-5 325 8m83-3c124-12 231-11 362 5m88-2c144-14 284-13 425 1" stroke-width="5"/>
+    <path d="M0 232c174-11 300-8 437 5m94-4c93-9 178-6 265 3m94-2c132-12 258-9 389 3m104-4c156-9 325-7 537 5" stroke-width="3"/>
+    <path d="M0 392c155 6 257 3 376-8m110 1c125-7 226-5 348 9m96-3c148-10 263-8 397 4m105-4c131-8 262-6 388 2" stroke-width="4"/>
+  </g>
+
+  <g fill="#d6fffa" opacity=".48">
+    <circle cx="128" cy="199" r="4"/><circle cx="286" cy="336" r="3"/><circle cx="503" cy="272" r="3"/>
+    <circle cx="696" cy="177" r="4"/><circle cx="828" cy="420" r="3"/><circle cx="1095" cy="246" r="4"/>
+    <circle cx="1263" cy="365" r="3"/><circle cx="1478" cy="184" r="4"/><circle cx="1672" cy="303" r="3"/>
+    <circle cx="1804" cy="453" r="4"/><circle cx="940" cy="524" r="3"/>
+  </g>
+
+  <g color="#0c719e" opacity=".72">
+    <use href="#fish" transform="translate(180 298) scale(.42)"/><use href="#discFish" transform="translate(365 366) scale(.68)"/>
+    <use href="#longFish" transform="translate(486 322) scale(.5)"/><use href="#fish" transform="translate(562 345) scale(.35)"/>
+    <use href="#discFish" transform="translate(738 451) scale(.48)"/><use href="#fish" transform="translate(818 433) scale(.34)"/>
+    <use href="#fish" transform="translate(930 274) scale(.3)"/><use href="#longFish" transform="translate(1050 361) scale(.48)"/>
+    <use href="#discFish" transform="translate(1204 443) scale(.54)"/><use href="#fish" transform="translate(1285 460) scale(.34)"/>
+    <use href="#longFish" transform="translate(1418 318) scale(.6)"/><use href="#discFish" transform="translate(1515 348) scale(.45)"/>
+    <use href="#fish" transform="translate(1657 430) scale(.37)"/><use href="#longFish" transform="translate(1735 283) scale(.44)"/>
+  </g>
+  <g color="#07578b" opacity=".57">
+    <use href="#fish" transform="translate(310 515) scale(.31)"/><use href="#fish" transform="translate(354 529) scale(.24)"/>
+    <use href="#fish" transform="translate(388 509) scale(.28)"/><use href="#discFish" transform="translate(690 574) scale(.36)"/>
+    <use href="#fish" transform="translate(742 585) scale(.24)"/><use href="#longFish" transform="translate(1010 549) scale(.38)"/>
+    <use href="#fish" transform="translate(1072 563) scale(.23)"/><use href="#fish" transform="translate(1390 535) scale(.29)"/>
+    <use href="#fish" transform="translate(1440 550) scale(.22)"/><use href="#discFish" transform="translate(1580 588) scale(.34)"/>
+  </g>
+  <g color="#0c719e" opacity=".48">
+    <use href="#discFish" transform="translate(220 433) scale(.29)"/><use href="#fish" transform="translate(258 444) scale(.2)"/>
+    <use href="#fish" transform="translate(292 430) scale(.23)"/><use href="#longFish" transform="translate(615 390) scale(.27)"/>
+    <use href="#fish" transform="translate(651 399) scale(.19)"/><use href="#discFish" transform="translate(1010 464) scale(.3)"/>
+    <use href="#fish" transform="translate(1051 477) scale(.2)"/><use href="#fish" transform="translate(1083 459) scale(.22)"/>
+    <use href="#longFish" transform="translate(1484 506) scale(.28)"/><use href="#fish" transform="translate(1525 515) scale(.19)"/>
+    <use href="#discFish" transform="translate(1744 395) scale(.27)"/>
+  </g>
+
+  <path d="M0 648c143-21 244-17 347-4 107 14 179-9 274-16 128-10 215 12 323 3 131-12 202-26 325-8 128 20 207 6 316-1 120-8 225 0 335 22v436H0V648Z" fill="#0a78a0" opacity=".48"/>
+  <path d="M0 710c149-28 278-23 388-4 133 24 218 13 342-19 125-32 225-24 339 5 127 32 210 30 334 1 142-33 285-35 517 10v377H0V710Z" fill="#08618f" opacity=".76"/>
+  <g fill="#053653" opacity=".58">
+    <path d="m390 670 24-3 22 4 19-2 25 3 34-2 19 4-3 6H389Z"/>
+    <path d="m842 667 22-3 20 3 19-2 24 4 31-2 18 4-2 6H841Z"/>
+    <path d="m1297 673 25-3 20 3 20-2 23 4 31-2 18 4-3 6h-135Z"/>
+    <path d="m526 741 23-3 20 4 19-2 24 4 31-2 18 4-3 6H525Z"/>
+    <path d="m993 746 23-3 21 4 19-2 24 4 31-2 18 4-3 6H992Z"/>
+    <path d="m1444 741 22-3 21 4 19-2 23 4 30-2 18 4-3 6h-132Z"/>
+  </g>
+  <g fill="#0b527c" opacity=".7">
+    <path d="m397 659 17-18 16 3 11-13 23 4 9 13 21-3 13 11 22 1 8 13-3 8H390l1-11Z"/>
+    <path d="m849 656 14-15 18 3 10-14 22 5 12 12 19-4 11 11 21 1 8 12-3 7H842l1-10Z"/>
+    <path d="m1303 662 16-18 17 4 12-13 21 5 10 13 20-4 13 12 19 2 8 13-3 7h-142l2-11Z"/>
+    <path d="m535 728 15-17 18 3 11-13 21 5 10 12 19-3 13 11 21 1 8 13-3 8H527l2-11Z"/>
+    <path d="m1001 733 17-19 19 4 12-13 22 5 10 13 20-3 13 12 22 1 8 14-3 8H993l2-12Z"/>
+    <path d="m1452 729 15-17 17 3 11-13 22 5 11 12 19-3 13 11 21 2 7 13-2 8h-141l2-11Z"/>
+  </g>
+  <g fill="none" stroke="#55a0b6" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" opacity=".43">
+    <path d="m410 665 17-9 17 4 12-7m-38 19 20-4 14 4m408-14 17-8 14 4 12-7m-35 17 18-3 15 3m400-11 17-8 17 4 11-7m-37 18 20-4 14 4"/>
+    <path d="m545 737 18-8 15 4 11-7m-34 17 18-3 14 4m405-11 18-8 16 4 11-7m-36 17 18-3 15 4m418-10 16-8 16 4 12-7m-36 17 18-3 15 4"/>
+  </g>
+  <g color="#268cad" opacity=".56">
+    <use href="#branch" transform="translate(155 653) scale(.3)"/>
+    <use href="#coralMound" transform="translate(265 662) scale(.25)"/>
+    <use href="#fan" transform="translate(210 658) scale(.27)"/>
+    <use href="#branch" transform="translate(92 650) scale(.28)"/>
+    <use href="#fan" transform="translate(330 654) scale(.38)"/>
+    <use href="#branch" transform="translate(410 657) scale(.31)"/>
+    <use href="#coralMound" transform="translate(465 656) scale(.24)"/>
+    <use href="#coralMound" transform="translate(535 660) scale(.32)"/>
+    <use href="#fan" transform="translate(650 657) scale(.3)"/>
+    <use href="#coralMound" transform="translate(715 653) scale(.25)"/>
+    <use href="#branch" transform="translate(785 651) scale(.38)"/>
+    <use href="#fan" transform="translate(925 653) scale(.29)"/>
+    <use href="#fan" transform="translate(1050 652) scale(.34)"/>
+    <use href="#branch" transform="translate(1153 652) scale(.3)"/>
+    <use href="#coralMound" transform="translate(1212 649) scale(.24)"/>
+    <use href="#coralMound" transform="translate(1270 648) scale(.32)"/>
+    <use href="#fan" transform="translate(1385 652) scale(.29)"/>
+    <use href="#branch" transform="translate(1510 656) scale(.36)"/>
+    <use href="#fan" transform="translate(1652 657) scale(.32)"/>
+    <use href="#branch" transform="translate(1715 661) scale(.29)"/>
+    <use href="#coralMound" transform="translate(1770 665) scale(.27)"/>
+    <use href="#branch" transform="translate(1842 662) scale(.28)"/>
+  </g>
+  <g color="#2b93ad" opacity=".8">
+    <use href="#fan" transform="translate(444 650) scale(.25)"/>
+    <use href="#branch" transform="translate(504 657) scale(.24)"/>
+    <use href="#fan" transform="translate(883 648) scale(.27)"/>
+    <use href="#branch" transform="translate(962 652) scale(.25)"/>
+    <use href="#fan" transform="translate(1336 651) scale(.25)"/>
+    <use href="#branch" transform="translate(1415 653) scale(.24)"/>
+  </g>
+  <g color="#0b6998" opacity=".76">
+    <use href="#branch" transform="translate(270 719) scale(.48)"/>
+    <use href="#coralMound" transform="translate(365 729) scale(.36)"/>
+    <use href="#fan" transform="translate(322 723) scale(.32)"/>
+    <use href="#fan" transform="translate(420 730) scale(.34)"/>
+    <use href="#fan" transform="translate(485 735) scale(.46)"/>
+    <use href="#branch" transform="translate(588 727) scale(.4)"/>
+    <use href="#coralMound" transform="translate(635 716) scale(.33)"/>
+    <use href="#fan" transform="translate(663 721) scale(.31)"/>
+    <use href="#coralMound" transform="translate(705 709) scale(.39)"/>
+    <use href="#fan" transform="translate(825 713) scale(.36)"/>
+    <use href="#branch" transform="translate(935 720) scale(.43)"/>
+    <use href="#coralMound" transform="translate(1058 724) scale(.35)"/>
+    <use href="#branch" transform="translate(1109 721) scale(.34)"/>
+    <use href="#fan" transform="translate(1168 724) scale(.44)"/>
+    <use href="#branch" transform="translate(1280 721) scale(.4)"/>
+    <use href="#fan" transform="translate(1335 714) scale(.36)"/>
+    <use href="#coralMound" transform="translate(1390 709) scale(.4)"/>
+    <use href="#fan" transform="translate(1502 720) scale(.39)"/>
+    <use href="#coralMound" transform="translate(1565 727) scale(.34)"/>
+    <use href="#fan" transform="translate(1533 723) scale(.31)"/>
+    <use href="#branch" transform="translate(1612 717) scale(.47)"/>
+    <use href="#coralMound" transform="translate(1733 730) scale(.36)"/>
+    <use href="#fan" transform="translate(1810 737) scale(.34)"/>
+    <use href="#branch" transform="translate(1848 735) scale(.32)"/>
+  </g>
+  <g color="#176b91" opacity=".9">
+    <use href="#branch" transform="translate(552 728) scale(.33)"/>
+    <use href="#fan" transform="translate(764 716) scale(.31)"/>
+    <use href="#branch" transform="translate(1004 716) scale(.33)"/>
+    <use href="#fan" transform="translate(1220 724) scale(.32)"/>
+    <use href="#branch" transform="translate(1463 714) scale(.34)"/>
+  </g>
+  <g color="#2586a5" opacity=".88">
+    <use href="#fan" transform="translate(380 663) scale(.25)"/>
+    <use href="#branch" transform="translate(430 660) scale(.28)"/>
+    <use href="#coralMound" transform="translate(466 665) scale(.2)"/>
+    <use href="#fan" transform="translate(492 659) scale(.24)"/>
+    <use href="#branch" transform="translate(824 659) scale(.25)"/>
+    <use href="#fan" transform="translate(866 654) scale(.28)"/>
+    <use href="#coralMound" transform="translate(912 660) scale(.21)"/>
+    <use href="#branch" transform="translate(952 657) scale(.27)"/>
+    <use href="#fan" transform="translate(1280 664) scale(.25)"/>
+    <use href="#branch" transform="translate(1324 659) scale(.28)"/>
+    <use href="#coralMound" transform="translate(1370 665) scale(.2)"/>
+    <use href="#fan" transform="translate(1410 660) scale(.26)"/>
+    <use href="#branch" transform="translate(512 738) scale(.35)"/>
+    <use href="#fan" transform="translate(555 735) scale(.34)"/>
+    <use href="#coralMound" transform="translate(590 739) scale(.25)"/>
+    <use href="#branch" transform="translate(952 742) scale(.34)"/>
+    <use href="#fan" transform="translate(1000 739) scale(.36)"/>
+    <use href="#coralMound" transform="translate(1040 742) scale(.24)"/>
+    <use href="#branch" transform="translate(1398 742) scale(.35)"/>
+    <use href="#fan" transform="translate(1447 740) scale(.36)"/>
+    <use href="#coralMound" transform="translate(1490 743) scale(.25)"/>
+  </g>
+  <path fill="url(#deepFloor)" d="M0 780c170-60 302-39 448 0 163 43 274 6 407-30 157-43 274-22 408 20 151 47 266 21 390-10 93-23 179-22 267-5v325H0V780Z"/>
+  <path d="M0 867c165-59 304-40 435-8 154 37 273 8 414-35 144-43 253-29 393 19 148 51 264 23 390-12 105-29 196-28 288-12v261H0V867Z" fill="#073d73"/>
+  <g>
+    <path d="M0 1013c47-38 105-42 151-12 31-54 94-65 139-26 51-37 117-30 153 15 42-15 91-4 119 29l16 61H0v-67Z" fill="#052b50"/>
+    <path d="M0 1041c40-34 85-39 125-17 23-34 69-42 103-17 39-31 90-25 119 11 32-10 70-1 91 25l10 37H0v-39Z" fill="#0a4c78"/>
+    <path d="M430 1059c34-34 82-40 121-14 28-39 78-45 111-17 38-26 86-17 109 18l12 34H418l12-21Zm490 8c29-38 78-48 117-24 36-35 91-31 120 7 42-18 90-5 112 28l4 22H909l11-33Z" fill="#06406d"/>
+    <path d="M1443 1035c42-43 101-48 149-15 32-47 91-56 135-21 47-35 108-25 139 22 17-5 35-4 54 1v72h-500l23-59Z" fill="#052b50"/>
+    <path d="M1515 1060c36-34 84-38 124-13 29-37 75-43 108-16 36-26 83-19 107 14 23-6 45-3 66 6v43h-414l9-34Z" fill="#0a4c78"/>
+    <g fill="#16759a" opacity=".58">
+      <path d="M34 1037c37-19 67-17 98 4-30-6-55-3-83 8l-15-12Zm190-23c29-16 54-13 77 5-26-5-46-2-68 8l-9-13Zm303 47c32-19 61-16 86 5-27-6-50-3-74 9l-12-14Zm540-1c29-16 56-14 79 4-25-5-46-3-69 7l-10-11Zm376-21c34-20 65-16 91 7-30-7-54-4-81 8l-10-15Zm256 11c26-13 49-11 70 4-23-4-41-2-61 7l-9-11Z"/>
+    </g>
+  </g>
+
+  <g color="#0b6998" opacity=".8">
+    <use href="#fan" transform="translate(248 881) scale(.54)"/>
+    <use href="#coralMound" transform="translate(352 898) scale(.48)"/>
+    <use href="#branch" transform="translate(489 903) scale(.56)"/>
+    <use href="#fan" transform="translate(684 910) scale(.48)"/>
+    <use href="#coralMound" transform="translate(782 917) scale(.52)"/>
+    <use href="#branch" transform="translate(924 920) scale(.5)"/>
+    <use href="#fan" transform="translate(1134 910) scale(.52)"/>
+    <use href="#coralMound" transform="translate(1268 899) scale(.48)"/>
+    <use href="#branch" transform="translate(1440 887) scale(.57)"/>
+    <use href="#fan" transform="translate(1608 871) scale(.56)"/>
+    <use href="#coralMound" transform="translate(1731 859) scale(.5)"/>
+  </g>
+
+  <g color="#0873ad" opacity=".85">
+    <use href="#seaweed" transform="translate(95 872) scale(1.28)"/><use href="#seaweed" transform="translate(243 881) scale(1.12)"/>
+    <use href="#seaweed" transform="translate(442 902) scale(.85)"/><use href="#fan" transform="translate(620 930) scale(.64)"/>
+    <use href="#seaweed" transform="translate(810 936) scale(.75)"/><use href="#fan" transform="translate(940 935) scale(.54)"/>
+    <use href="#fan" transform="translate(1060 926) scale(.67)"/><use href="#branch" transform="translate(1166 925) scale(.6)"/>
+    <use href="#seaweed" transform="translate(1270 918) scale(.84)"/><use href="#fan" transform="translate(1398 902) scale(.55)"/>
+    <use href="#seaweed" transform="translate(1502 879) scale(1.06)"/><use href="#branch" transform="translate(1636 875) scale(.63)"/>
+    <use href="#seaweed" transform="translate(1776 866) scale(1.34)"/>
+  </g>
+  <g color="#07558a" opacity=".96">
+    <use href="#fan" transform="translate(42 725) scale(.82)"/><use href="#branch" transform="translate(188 795) scale(.88)"/>
+    <use href="#seaweed" transform="translate(305 827) scale(.75)"/><use href="#coralMound" transform="translate(439 866) scale(.65)"/>
+    <use href="#fan" transform="translate(578 887) scale(.62)"/><use href="#branch" transform="translate(714 908) scale(.65)"/>
+    <use href="#coralMound" transform="translate(850 920) scale(.62)"/><use href="#branch" transform="translate(1032 918) scale(.68)"/>
+    <use href="#fan" transform="translate(1190 902) scale(.67)"/><use href="#coralMound" transform="translate(1360 874) scale(.68)"/>
+    <use href="#seaweed" transform="translate(1530 835) scale(.8)"/><use href="#branch" transform="translate(1698 791) scale(.88)"/>
+    <use href="#fan" transform="translate(1874 719) scale(.82)"/>
+  </g>
+  <g color="#064773" opacity=".98">
+    <use href="#fan" transform="translate(78 1044) scale(.92)"/>
+    <use href="#branch" transform="translate(205 1042) scale(.94)"/>
+    <use href="#seaweed" transform="translate(335 1040) scale(.82)"/>
+    <use href="#fan" transform="translate(485 1044) scale(.84)"/>
+    <use href="#branch" transform="translate(645 1043) scale(.84)"/>
+    <use href="#seaweed" transform="translate(802 1041) scale(.78)"/>
+    <use href="#fan" transform="translate(1004 1042) scale(.85)"/>
+    <use href="#branch" transform="translate(1167 1042) scale(.9)"/>
+    <use href="#seaweed" transform="translate(1326 1040) scale(.82)"/>
+    <use href="#fan" transform="translate(1490 1038) scale(.92)"/>
+    <use href="#branch" transform="translate(1663 1040) scale(.9)"/>
+    <use href="#seaweed" transform="translate(1820 1038) scale(.86)"/>
+  </g>
+</svg>

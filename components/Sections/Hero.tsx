@@ -7,9 +7,15 @@ import MantaAnimation from '../UI/MantaAnimation'
 
 export default function Hero() {
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary via-deep-space to-primary">
+        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#061b20]">
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
+                <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-cover bg-center transition-[filter] duration-700 dark:brightness-[.62] dark:saturate-[.82]"
+                    style={{ backgroundImage: "url('/imgs/home-ocean-depth.svg')" }}
+                />
+                <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#01253a]/10 via-[#031f35]/30 to-[#04182c]/55 dark:from-[#001323]/35 dark:via-[#001323]/55 dark:to-[#000b18]/75 transition-colors duration-700" />
                 {/* Water particle effects */}
                 <WaterParticles particleCount={100} />
                 <MantaAnimation />

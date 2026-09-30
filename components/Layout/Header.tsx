@@ -188,7 +188,7 @@ export default function Header() {
               onClick={toggleTheme}
               aria-label={theme === 'dark' ? 'Passa alla modalità chiara' : 'Passa alla modalità scura'}
               title={theme === 'dark' ? 'Modalità chiara' : 'Modalità scura'}
-              animate={{ backgroundColor: theme === 'dark' ? '#202d42' : '#f4792b' }}
+              animate={{ backgroundColor: theme === 'dark' ? '#0c4a6e' : '#f4792b' }}
               transition={{ duration: 0.25 }}
             >
               <span
@@ -196,7 +196,7 @@ export default function Header() {
                 aria-hidden="true"
               >
                 {theme === 'dark' ? (
-                  <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="h-3 w-3 text-accent" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20.9 13A8.5 8.5 0 0 1 11 3.1 8.5 8.5 0 1 0 20.9 13Z" />
                   </svg>
                 ) : (
@@ -207,8 +207,8 @@ export default function Header() {
                 )}
               </span>
               <motion.span
-                className="absolute left-0.5 top-1/2 h-5 w-5 rounded-full bg-white shadow-sm"
-                animate={{ x: theme === 'dark' ? 24 : 0, y: '-50%' }}
+                className={`absolute left-0.5 top-1/2 h-5 w-5 rounded-full shadow-sm ${theme === 'dark' ? 'bg-slate-800' : 'bg-white'}`}
+                animate={{ x: theme === 'dark' ? 22 : 0, y: '-50%' }}
                 transition={{ type: 'spring', stiffness: 500, damping: 32 }}
                 aria-hidden="true"
               />
