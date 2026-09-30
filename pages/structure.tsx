@@ -314,9 +314,9 @@ function getNodeMembers(id: NodeId) {
   return teamMembers.filter((member) => {
     const roles = Array.isArray(member.role) ? member.role : [member.role];
     return Boolean(
-      (technicalRoles.length > 0 && (roles.some((role) => technicalRoles.includes(role)) || technicalRoles.includes(member.team))) ||
-      (projectTeams.length > 0 && projectTeams.includes(member.team)) ||
-      (leadershipRoles.length > 0 && (roles.some((role) => leadershipRoles.includes(role)) || leadershipRoles.includes(member.team))),
+      (technicalRoles.length > 0 && (roles.some((role) => technicalRoles.includes(role)) || (member.team !== undefined && technicalRoles.includes(member.team)))) ||
+      (projectTeams.length > 0 && member.team !== undefined && projectTeams.includes(member.team)) ||
+      (leadershipRoles.length > 0 && (roles.some((role) => leadershipRoles.includes(role)) || (member.team !== undefined && leadershipRoles.includes(member.team)))),
     );
   });
 }
@@ -353,7 +353,7 @@ function NodeButton({
         "Research&Assembly": "special",
         "CAD&Design": "cad",
       };
-      return teamHeadNodes[member.team] === id;
+      return member.team !== undefined && teamHeadNodes[member.team] === id;
     }
 
     if (member.headOf === "role") {
