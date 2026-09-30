@@ -41,6 +41,12 @@ npm run build
 
 This will generate a fully static site in the `out` directory, which can be deployed to any static hosting service (GitHub Pages, Netlify, Vercel, etc.).
 
+### ThingSpeak Sensor Readings
+
+Paste the ThingSpeak read API key into `THINGSPEAK_READ_API_KEY` in `components/Layout/Header.tsx` to display the latest temperature (`field1`) and humidity (`field2`) from channel `3516664`.
+
+The site is statically exported, so this read-only key is included in the public browser bundle. Anyone can use it to read the private channel's feed; do not use a write key. Rebuild and redeploy the site after inserting the key.
+
 ## Project Structure
 
 ```
