@@ -17,7 +17,6 @@ type TechnicalArea = 'all' | 'elettronica' | 'informatica' | 'cad' | 'meccanica'
 type ProjectTeam = 'all' | 'rov' | 'float' | 'arm' | 'gs' | 'special'
 
 const technicalAreaFilters: Array<{ id: TechnicalArea; label: string }> = [
-  { id: 'all', label: 'Tutti' },
   { id: 'elettronica', label: 'Elettronica' },
   { id: 'informatica', label: 'Informatica' },
   { id: 'cad', label: 'CAD' },
@@ -25,7 +24,6 @@ const technicalAreaFilters: Array<{ id: TechnicalArea; label: string }> = [
 ]
 
 const projectTeamFilters: Array<{ id: ProjectTeam; label: string }> = [
-  { id: 'all', label: 'Tutti' },
   { id: 'rov', label: 'ROV' },
   { id: 'float', label: 'FLOAT' },
   { id: 'arm', label: 'ARM' },
@@ -183,40 +181,40 @@ export default function TeamPage() {
                 </div>
 
                 {activeSection === 'current' && (
-                  <div className="flex flex-wrap justify-center gap-2">
-                    {technicalAreaFilters.map((filter) => (
+                  <div className="max-w-full overflow-x-auto pb-2" aria-label="Filtri del team">
+                    <div className="mx-auto flex w-max items-center gap-1.5">
+                      {projectTeamFilters.map((filter) => (
                       <button
                         key={filter.id}
                         type="button"
-                        onClick={() => setSelectedArea(filter.id)}
-                        className={`rounded-full px-4 py-2 text-xs font-medium transition-colors sm:text-sm ${
-                          selectedArea === filter.id
-                            ? 'bg-primary text-white shadow-sm'
-                            : 'border border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary'
-                        }`}
-                      >
-                        {filter.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {activeSection === 'current' && (
-                  <div className="flex flex-wrap justify-center gap-2">
-                    {projectTeamFilters.map((filter) => (
-                      <button
-                        key={filter.id}
-                        type="button"
-                        onClick={() => setSelectedTeam(filter.id)}
-                        className={`rounded-full px-4 py-2 text-xs font-medium transition-colors sm:text-sm ${
+                        onClick={() => setSelectedTeam(selectedTeam === filter.id ? 'all' : filter.id)}
+                        className={`relative whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-medium transition-all duration-300 hover:z-10 hover:px-6 sm:text-xs ${
                           selectedTeam === filter.id
-                            ? 'bg-primary text-white shadow-sm'
+                            ? 'toggle-button-active'
                             : 'border border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary'
                         }`}
+                        aria-pressed={selectedTeam === filter.id}
                       >
                         {filter.label}
                       </button>
                     ))}
+                      <span className="mx-0.5 h-4 w-px shrink-0 bg-gray-200" aria-hidden="true" />
+                      {technicalAreaFilters.map((filter) => (
+                      <button
+                        key={filter.id}
+                        type="button"
+                        onClick={() => setSelectedArea(selectedArea === filter.id ? 'all' : filter.id)}
+                        className={`relative whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-medium transition-all duration-300 hover:z-10 hover:px-6 sm:text-xs ${
+                          selectedArea === filter.id
+                            ? 'toggle-button-active'
+                            : 'border border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary'
+                        }`}
+                        aria-pressed={selectedArea === filter.id}
+                      >
+                        {filter.label}
+                      </button>
+                    ))}
+                    </div>
                   </div>
                 )}
               </div>

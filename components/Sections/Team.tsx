@@ -95,7 +95,6 @@ type TechnicalArea = 'all' | 'elettronica' | 'informatica' | 'cad' | 'meccanica'
 type ProjectTeam = 'all' | 'rov' | 'float' | 'arm' | 'gs' | 'special'
 
 const technicalAreaFilters: Array<{ id: TechnicalArea; label: string }> = [
-  { id: 'all', label: 'Tutti' },
   { id: 'elettronica', label: 'Elettronica' },
   { id: 'informatica', label: 'Informatica' },
   { id: 'cad', label: 'CAD' },
@@ -103,7 +102,6 @@ const technicalAreaFilters: Array<{ id: TechnicalArea; label: string }> = [
 ]
 
 const projectTeamFilters: Array<{ id: ProjectTeam; label: string }> = [
-  { id: 'all', label: 'Tutti' },
   { id: 'rov', label: 'ROV' },
   { id: 'float', label: 'FLOAT' },
   { id: 'arm', label: 'ARM' },
@@ -158,38 +156,40 @@ export default function Team() {
           </p>
         </motion.div>
 
-        <div className="mb-8 flex flex-wrap justify-center gap-2">
-          {technicalAreaFilters.map((filter) => (
+        <div className="mb-8 max-w-full overflow-x-auto pb-2" aria-label="Filtri del team">
+          <div className="mx-auto flex w-max items-center gap-1.5">
+            {projectTeamFilters.map((filter) => (
+              <button
+                key={filter.id}
+                type="button"
+                onClick={() => setSelectedTeam(selectedTeam === filter.id ? 'all' : filter.id)}
+                className={`relative whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-medium transition-all duration-300 hover:z-10 hover:px-4 sm:text-xs ${
+                  selectedTeam === filter.id
+                    ? 'toggle-button-active'
+                    : 'border border-white/25 bg-transparent text-white/80 hover:border-white/60 hover:text-white'
+                }`}
+                aria-pressed={selectedTeam === filter.id}
+              >
+                {filter.label}
+              </button>
+            ))}
+            <span className="mx-0.5 h-4 w-px shrink-0 bg-white/25" aria-hidden="true" />
+            {technicalAreaFilters.map((filter) => (
             <button
               key={filter.id}
               type="button"
-              onClick={() => setSelectedArea(filter.id)}
-              className={`rounded-full px-4 py-2 text-xs font-medium transition-colors sm:text-sm ${
+              onClick={() => setSelectedArea(selectedArea === filter.id ? 'all' : filter.id)}
+              className={`relative whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-medium transition-all duration-300 hover:z-10 hover:px-4 sm:text-xs ${
                 selectedArea === filter.id
-                  ? 'bg-white text-primary shadow-sm'
+                  ? 'toggle-button-active'
                   : 'border border-white/25 bg-transparent text-white/80 hover:border-white/60 hover:text-white'
               }`}
+              aria-pressed={selectedArea === filter.id}
             >
               {filter.label}
             </button>
           ))}
-        </div>
-
-        <div className="mb-8 flex flex-wrap justify-center gap-2">
-          {projectTeamFilters.map((filter) => (
-            <button
-              key={filter.id}
-              type="button"
-              onClick={() => setSelectedTeam(filter.id)}
-              className={`rounded-full px-4 py-2 text-xs font-medium transition-colors sm:text-sm ${
-                selectedTeam === filter.id
-                  ? 'bg-white text-primary shadow-sm'
-                  : 'border border-white/25 bg-transparent text-white/80 hover:border-white/60 hover:text-white'
-              }`}
-            >
-              {filter.label}
-            </button>
-          ))}
+          </div>
         </div>
 
         {/* Griglia dei membri */}

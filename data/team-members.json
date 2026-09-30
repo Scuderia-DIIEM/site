@@ -12,7 +12,7 @@
   {
     "id": 2,
     "name": "Jacopo Evangelisti",
-    "role": "Elettronica",
+    "role": ["Elettronica", "Informatica"],
     "team": "Leadership CTO",
     "skills": ["corso-sicurezza", "saldare", "core", "stampante-3d"],
     "image": "/photos/evangelisti.jpeg",
@@ -76,8 +76,8 @@
     "id": 8,
     "name": "Umberto Tepedino",
     "headOf": "team",
-    "role": "CAD",
-    "team": "Research&Assembly",
+    "role": "Meccanica",
+    "team": "Tecnologie speciali",
     "skills": ["corso-sicurezza", "stampante-3d", "saldare"],
     "image": "/photos/tepedino.jpeg",
     "email": "umb.tepedino@stud.uniroma3.it",
@@ -117,7 +117,7 @@
   {
     "id": 12,
     "name": "Nicolò Arena",
-    "role": "Team Member",
+    "role": "CAD",
     "team": "ARM",
     "skills": ["corso-sicurezza"],
     "image": "/photos/arena.jpeg",
@@ -127,7 +127,7 @@
   {
     "id": 13,
     "name": "Nicolò Azzella",
-    "role": "Team Member",
+    "role": "Elettronica",
     "team": "FLOAT",
     "skills": ["corso-sicurezza"],
     "image": "/photos/azzella.jpg",
@@ -137,8 +137,8 @@
   {
     "id": 14,
     "name": "Flavio Bacci",
-    "role": "Team Member",
-    "team": "CAD&Design",
+    "role": "CAD",
+    "team": "ROV",
     "email": "fla.bacci1@stud.uniroma3.it",
     "image": "/photos/13.png"
   },
@@ -162,8 +162,8 @@
   {
     "id": 17,
     "name": "Alessandro Ciminello",
-    "role": "Team Member",
-    "team": "CAD&Design",
+    "role": "CAD",
+    "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "ale.ciminello@stud.uniroma3.it",
     "image": "/photos/17.png"
@@ -171,15 +171,15 @@
   {
     "id": 18,
     "name": "Massimiliano Cristilli",
-    "role": "Team Member",
-    "team": "Elettronica",
+    "role": "Elettronica",
+    "team": "ROV",
     "skills": ["corso-sicurezza"],
     "image": "/photos/15.png"
   },
   {
     "id": 19,
     "name": "Chiara D'antonio",
-    "role": "Team Member",
+    "role": "CAD",
     "team": "FLOAT",
     "email": "chi.dantonio@stud.uniroma3.it",
     "email2": "cdantonio03@gmail.com",
@@ -188,15 +188,15 @@
   {
     "id": 20,
     "name": "Alessio Di Girolamo",
-    "role": "Team Member",
-    "team": "Elettronica",
+    "role": "Elettronica",
+    "team": "ROV",
     "image": "/photos/20.png"
   },
   {
     "id": 21,
     "name": "Teresa Ferrocino",
-    "role": "Team Member",
-    "team": "Research&Assembly",
+    "role": "Meccanica",
+    "team": "Tecnologie speciali",
     "skills": ["corso-sicurezza"],
     "email": "ter.ferrocino@stud.uniroma3.it",
     "image": "/photos/21.png"
@@ -204,7 +204,7 @@
   {
     "id": 22,
     "name": "Chiara Grando",
-    "role": "Elettronica",
+    "role": ["Elettronica", "Informatica"],
     "team": "ARM",
     "skills": ["corso-sicurezza"],
     "image": "/photos/grando.jpeg",
@@ -214,7 +214,7 @@
   {
     "id": 23,
     "name": "Arianna Grossi",
-    "role": "Team Member",
+    "role": "CAD",
     "team": "ARM",
     "skills": ["corso-sicurezza"],
     "email": "ari.grossi1@stud.uniroma3.it",
@@ -224,8 +224,8 @@
   {
     "id": 24,
     "name": "Federico Iannaccone",
-    "role": "Team Member",
-    "team": "Elettronica",
+    "role": ["Elettronica", "Informatica"],
+    "team": "ROV",
     "skills": ["corso-sicurezza","stampante-3d","core", "stampante-resina", "manutenzione", "saldare"],
     "email": "fed.iannaccone@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
@@ -233,8 +233,8 @@
   {
     "id": 25,
     "name": "Francesco Laudadio",
-    "role": "Team Member",
-    "team": "CAD&Design",
+    "role": "CAD",
+    "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "fra.laudadio@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
@@ -242,8 +242,8 @@
   {
     "id": 26,
     "name": "Michela Lissandrello",
-    "role": "Team Member",
-    "team": "Research&Assembly",
+    "role": "Meccanica",
+    "team": "Tecnologie speciali",
     "skills": ["corso-sicurezza"],
     "email": "mic.lissandrello@stud.uniroma3.it",
     "image": "/photos/lissandrello.png"
@@ -251,7 +251,7 @@
   {
     "id": 27,
     "name": "Francesco Margagnoni",
-    "role": "Team Member",
+    "role": ["Elettronica", "Informatica"],
     "team": "ARM",
     "skills": ["corso-sicurezza"],
     "email": "fra.margagnoni@stud.uniroma3.it",
@@ -262,8 +262,8 @@
   {
     "id": 28,
     "name": "Valerio Orlandini",
-    "role": "Team Member",
-    "team": "Research&Assembly",
+    "role": "Meccanica",
+    "team": "ARM",
     "skills": ["corso-sicurezza"],
     "email": "val.orlandini@stud.uniroma3.it",
     "email2": "vale.orlandini1@gmail.com",
@@ -273,7 +273,7 @@
   {
     "id": 29,
     "name": "Francesca Panichi",
-    "role": "Team Member",
+    "role": "CAD",
     "team": "ARM",
     "email": "fra.panichi2@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
@@ -281,67 +281,49 @@
   {
     "id": 30,
     "name": "Andrea Pelliccia",
-    "role": "Team Member",
-    "team": "Research&Assembly",
+    "role": "Meccanica",
+    "team": "Task force Fluidodynamics",
     "skills": ["corso-sicurezza"],
     "email": "and.pelliccia3@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
     "id": 31,
-    "name": "Riccardo De Fonseca Pimentel",
-    "role": "Team Member",
-    "team": "Research&Assembly",
-    "skills": ["corso-sicurezza"],
-    "email": "ric.defonsecapiment@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 32,
-    "name": "Vittorio Statera ",
-    "role": "Team Member",
-    "team": "Research&Assembly",
+    "name": "Vittorio Statera",
+    "role": "Meccanica",
+    "team": "Task force Fluidodynamics",
     "email": "vit.statera@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 33,
+    "id": 32,
     "name": "Valerio Surace",
-    "role": "Team Member",
-    "team": "CAD&Design",
+    "role": "CAD",
+    "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "val.surace@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 34,
+    "id": 33,
     "name": "Matteo Traversa",
-    "role": "Team Member",
-    "team": "Elettronica",
+    "role": "Elettronica",
+    "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "mat.traversa@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 35,
+    "id": 34,
     "name": "Luca Trevisan",
-    "role": "Team Member",
-    "team": "Elettronica",
+    "role": "Elettronica",
+    "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "luc.trevisan@stud.uniroma3.it",
     "image": "/photos/DSCF7641.JPG"
   },
   {
-    "id": 36,
-    "name": "Flavio Trombetta",
-    "role": "Team Member",
-    "team": "Research&Assembly",
-    "skills": ["corso-sicurezza"],
-    "email": "fla.trombetta@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
-  },
-  {
-    "id": 37,
+    "id": 35,
     "name": "Angelo Zelli",
     "role": "CAD",
     "team": "FLOAT",
