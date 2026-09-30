@@ -2,7 +2,8 @@
   {
     "id": 1,
     "name": "Stefano Pio Onorati",
-    "role": "Leadership CEO",
+    "role": "Leadership",
+    "team": "CEO",
     "skills": ["corso-sicurezza"],
     "image": "/photos/onorati.jpeg",
     "email": "ste.onorati1@stud.uniroma3.it",
@@ -13,7 +14,7 @@
     "id": 2,
     "name": "Jacopo Evangelisti",
     "role": ["Elettronica", "Informatica"],
-    "team": "Leadership CTO",
+    "team": "CTO",
     "skills": ["corso-sicurezza", "saldare", "core", "stampante-3d"],
     "image": "/photos/evangelisti.jpeg",
     "email": "jac.evangelisti@stud.uniroma3.it",
