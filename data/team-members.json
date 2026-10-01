@@ -103,7 +103,7 @@
     "skills": ["corso-sicurezza"],
     "email": "fra.venanzi1@stud.uniroma3.it",
     "linkedin": "www.linkedin.com/in/francesco-venanzi-608a0a3b9",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/01.png"
   },
   {
     "id": 11,
@@ -141,7 +141,7 @@
     "role": "CAD",
     "team": "ROV",
     "email": "fla.bacci1@stud.uniroma3.it",
-    "image": "/photos/13.png"
+    "image": "/photos/avatar/02.png"
   },
   {
     "id": 15,
@@ -149,7 +149,7 @@
     "role": "Team Member",
     "team": "ARM",
     "email": "lor.barbone@stud.uniroma3.it",
-    "image": "/photos/13.png"
+    "image": "/photos/avatar/03.png"
   },
   {
     "id": 16,
@@ -167,7 +167,7 @@
     "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "ale.ciminello@stud.uniroma3.it",
-    "image": "/photos/17.png"
+    "image": "/photos/avatar/04.png"
   },
   {
     "id": 18,
@@ -175,7 +175,7 @@
     "role": "Elettronica",
     "team": "ROV",
     "skills": ["corso-sicurezza"],
-    "image": "/photos/15.png"
+    "image": "/photos/avatar/06.png"
   },
   {
     "id": 19,
@@ -184,14 +184,14 @@
     "team": "FLOAT",
     "email": "chi.dantonio@stud.uniroma3.it",
     "email2": "cdantonio03@gmail.com",
-    "image": "/photos/19.png"
+    "image": "/photos/avatar/12.png"
   },
   {
     "id": 20,
     "name": "Alessio Di Girolamo",
     "role": "Elettronica",
     "team": "ROV",
-    "image": "/photos/20.png"
+    "image": "/photos/avatar/13.png"
   },
   {
     "id": 21,
@@ -200,7 +200,7 @@
     "team": "Tecnologie speciali",
     "skills": ["corso-sicurezza"],
     "email": "ter.ferrocino@stud.uniroma3.it",
-    "image": "/photos/21.png"
+    "image": "/photos/avatar/15.png"
   },
   {
     "id": 22,
@@ -220,7 +220,7 @@
     "skills": ["corso-sicurezza"],
     "email": "ari.grossi1@stud.uniroma3.it",
     "email2": "grossiariannaa@gmail.com",
-    "image": "/photos/23.png"
+    "image": "/photos/avatar/16.png"
   },
   {
     "id": 24,
@@ -229,7 +229,7 @@
     "team": "ROV",
     "skills": ["corso-sicurezza","stampante-3d","core", "stampante-resina", "manutenzione", "saldare"],
     "email": "fed.iannaccone@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/23.png"
   },
   {
     "id": 25,
@@ -238,7 +238,7 @@
     "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "fra.laudadio@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/18.png"
   },
   {
     "id": 26,
@@ -269,7 +269,7 @@
     "email": "val.orlandini@stud.uniroma3.it",
     "email2": "vale.orlandini1@gmail.com",
     "linkedin": "https://www.linkedin.com/in/valerio-orlandini-a5286137a?trk=contact-info",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/22.png"
   },
   {
     "id": 29,
@@ -277,7 +277,7 @@
     "role": "CAD",
     "team": "ARM",
     "email": "fra.panichi2@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/25.png"
   },
   {
     "id": 30,
@@ -286,7 +286,7 @@
     "team": "Task force Fluidodynamics",
     "skills": ["corso-sicurezza"],
     "email": "and.pelliccia3@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/26.png"
   },
   {
     "id": 31,
@@ -294,7 +294,7 @@
     "role": "Meccanica",
     "team": "Task force Fluidodynamics",
     "email": "vit.statera@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/30.png"
   },
   {
     "id": 32,
@@ -303,7 +303,7 @@
     "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "val.surace@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/35.png"
   },
   {
     "id": 33,
@@ -312,7 +312,7 @@
     "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "mat.traversa@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/33.png"
   },
   {
     "id": 34,
@@ -321,7 +321,7 @@
     "team": "ROV",
     "skills": ["corso-sicurezza"],
     "email": "luc.trevisan@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/37.png"
   },
   {
     "id": 35,
@@ -330,6 +330,6 @@
     "team": "FLOAT",
     "skills": ["corso-sicurezza"],
     "email": "ang.zelli@stud.uniroma3.it",
-    "image": "/photos/DSCF7641.JPG"
+    "image": "/photos/avatar/50.png"
   }
 ]

@@ -127,7 +127,7 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
   const currentImage = images[currentIndex]
 
   return (
-    <section id="gallery" className="scroll-mt-5 py-20 bg-gradient-to-b from-white to-gray-50">
+    <section id="gallery" className="scroll-mt-5 py-20 bg-white from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12"

@@ -196,6 +196,13 @@ html {
   .dark .project-article .hover\:text-accent:hover {
     color: #f4792b !important;
   }
+
+  .dark #about,
+  .dark #team,
+  .dark #racing,
+  .dark #contact {
+    background: #07152b !important;
+  }
 }
 
 /* Custom component styles */
