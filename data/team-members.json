@@ -4,7 +4,7 @@
     "name": "Stefano Pio Onorati",
     "role": "Leadership",
     "team": "CEO",
-    "skills": ["corso-sicurezza"],
+    "skills": ["corso-sicurezza", "riccardo"],
     "image": "/photos/onorati.jpeg",
     "email": "ste.onorati1@stud.uniroma3.it",
     "phone": "+39 123 456 7890",
@@ -25,7 +25,7 @@
     "name": "Alice Moro",
     "role": "Leadership",
     "team": "CMO",
-    "skills": ["corso-sicurezza"],
+    "skills": ["corso-sicurezza", "riccardo"],
     "image": "/photos/moro.jpeg",
     "email": "ali.moro@stud.uniroma3.it",
     "linkedin": "https://linkedin.com"

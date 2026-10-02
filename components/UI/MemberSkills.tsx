@@ -20,6 +20,7 @@ const skillDefinitions: SkillDefinition[] = [
   { id: 'stampante-resina', name: 'Stampante a resina', description: 'Usare la stampante a resina', fallback: 'R' },
   { id: 'saldare', name: 'Saldare', description: 'Skill di saldatura', fallback: 'SA' },
   { id: 'core', name: 'Core', description: 'Può accedere e modificare il core', fallback: 'C' },
+  //{ id: 'riccardo', name: 'Sopporta Riccardo', description: 'Riccardo è una persona difficile da gestire e sopportare, questa persona è abituata a passarci un pomeriggio e quindi, molto probabilmente, anche a combattere la WWIII', fallback: 'R' },
 ]
 
 function getSkills(skills: string[] | undefined) {
