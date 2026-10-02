@@ -216,11 +216,11 @@ export default function Header() {
             <div
               tabIndex={0}
               aria-describedby="sensor-tooltip"
-              aria-label={`Temperatura ${formatSensorValue(isSensorDataFresh ? sensorFeed?.field1 : null, ' gradi Celsius')}, umidità ${formatSensorValue(isSensorDataFresh ? sensorFeed?.field2 : null, ' percento')}`}
+              aria-label={`Temperatura ${formatSensorValue(sensorFeed?.field1, ' gradi Celsius')}, umidità ${formatSensorValue(sensorFeed?.field2, ' percento')}`}
               className="group relative flex h-10 w-10 shrink-0 cursor-default flex-col items-center justify-center rounded-full border border-white/30 bg-white/10 text-[10px] font-semibold leading-3 text-white outline-none transition hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-accent"
             >
-              <span>{formatSensorValue(isSensorDataFresh ? sensorFeed?.field1 : null, '°')}</span>
-              <span>{formatSensorValue(isSensorDataFresh ? sensorFeed?.field2 : null, '%')}</span>
+              <span>{formatSensorValue(sensorFeed?.field1, '°')}</span>
+              <span>{formatSensorValue(sensorFeed?.field2, '%')}</span>
               <div
                 id="sensor-tooltip"
                 role="tooltip"
