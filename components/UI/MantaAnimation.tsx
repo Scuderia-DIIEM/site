@@ -27,7 +27,7 @@ function randomFrom<T>(items: T[]) {
 
 export default function MantaAnimation() {
   const mantas = useMemo<Manta[]>(() => {
-    const mantaCount = 5
+    const mantaCount = 3
 
     return Array.from({ length: mantaCount }, (_, index) => {
       const isLeftSide = index % 2 === 0

@@ -17,7 +17,7 @@ export default function Hero() {
                 />
                 <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#01253a]/10 via-[#031f35]/30 to-[#04182c]/55 dark:from-[#001323]/35 dark:via-[#001323]/55 dark:to-[#000b18]/75 transition-colors duration-700" />
                 {/* Water particle effects */}
-                <WaterParticles particleCount={100} />
+                <WaterParticles particleCount={50} />
                 <MantaAnimation />
                 <motion.div
                     className="absolute top-20 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl"

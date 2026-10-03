@@ -22,7 +22,7 @@ interface WaterParticlesProps {
 }
 
 function WaterParticles({ 
-    particleCount = 30,
+    particleCount = 20,
     className = '' 
 }: WaterParticlesProps) {
     const [viewportHeight, setViewportHeight] = useState(1000)
