@@ -14,7 +14,8 @@ type NodeId =
   | "coo"
   | "cto"
   | "marketing"
-  | "photo"
+  | "social"
+  | "gadgets"
   | "operations"
   | "rov"
   | "float"
@@ -104,7 +105,7 @@ const nodes: Record<NodeId, OrgNode> = {
     description:
       "Area dedicata alla comunicazione visiva e testuale, alla presenza online e alla valorizzazione dei progetti della Scuderia.",
     responsibilities: [
-      "Contenuti social",
+      "Contatti con sponsor e partner",
       "Grafica e materiali promozionali",
       "Comunicati e storytelling",
       "Supporto agli eventi",
@@ -112,17 +113,32 @@ const nodes: Record<NodeId, OrgNode> = {
     colorClass: "bg-gradient-to-br from-emerald-600 to-emerald-800 text-white",
     activeClass: "ring-emerald-400",
   },
-  photo: {
-    id: "photo",
-    title: "Photo",
-    subtitle: "Fotografia e video",
+  social: {
+    id: "social",
+    title: "Social",
+    subtitle: "Creazione di contenuti",
     description:
       "Area dedicata alla produzione di contenuti visivi, fotografie e video per la comunicazione della Scuderia.",
     responsibilities: [
       "Contenuti social",
       "Grafiche",
-      "Materiali promozionali",
+      "Foto e video",
       "Supporto agli eventi",
+    ],
+    colorClass: "bg-gradient-to-br from-emerald-600 to-emerald-800 text-white",
+    activeClass: "ring-emerald-400",
+  },
+  gadgets: {
+    id: "gadgets",
+    title: "Gadgets",
+    subtitle: "Design e creazione di gadget",
+    description:
+      "Area dedicata alla progettazione e alla creazione di gadget per rappresentare e promuovere la Scuderia.",
+    responsibilities: [
+      "Ideazione e design dei gadget",
+      "Progettazione dei prodotti",
+      "Realizzazione dei gadget",
+      "Distribuzione e promozione dei gadget",
     ],
     colorClass: "bg-gradient-to-br from-emerald-600 to-emerald-800 text-white",
     activeClass: "ring-emerald-400",
@@ -623,7 +639,14 @@ export default function StructurePage() {
                       />
                       <div className="ml-5 h-4 w-0.5 bg-white/25" />
                       <NodeButton
-                        id="photo"
+                        id="social"
+                        selectedId={selectedId}
+                        onSelect={handleNodeClick}
+                        compact
+                      />
+                      <div className="ml-5 h-4 w-0.5 bg-white/25" />
+                      <NodeButton
+                        id="gadgets"
                         selectedId={selectedId}
                         onSelect={handleNodeClick}
                         compact
@@ -776,7 +799,7 @@ export default function StructurePage() {
       >
         <div className="member-modal-body flex flex-col items-center gap-6 md:flex-row">
           {selectedMember && (
-            <div className="member-modal-photo w-full flex-shrink-0 self-center">
+            <div className="member-modal-social w-full flex-shrink-0 self-center">
               <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-gray-100 dark:border-white/10 dark:bg-[#071425]">
                 <div className="relative aspect-square w-full overflow-hidden">
                   <Image
