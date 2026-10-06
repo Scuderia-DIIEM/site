@@ -102,7 +102,7 @@ export default function TermsOfUsePage() {
 
         <main className="pt-28 pb-20">
           <section className="mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#112844] dark:shadow-[0_12px_30px_rgba(0,0,0,0.35)] sm:p-8">
+            <div className="mb-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-[#112844] dark:shadow-[0_12px_30px_rgba(0,0,0,0.35)] sm:p-8">
               <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-accent">
                 Condizioni
               </p>
@@ -118,7 +118,7 @@ export default function TermsOfUsePage() {
               {sections.map((section) => (
                 <section
                   key={section.title}
-                  className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#112840]/95 dark:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
+                  className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[#112840]/95 dark:shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
                 >
                   <h2 className="font-display text-2xl font-bold text-primary dark:text-white">
                     {section.title}
