@@ -213,6 +213,12 @@ export default function Header() {
                 aria-hidden="true"
               />
             </motion.button>
+            <Link
+              href="/login"
+              className="hidden rounded-full border border-white/30 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10 sm:inline-flex"
+            >
+              Accedi
+            </Link>
             <div
               tabIndex={0}
               aria-describedby="sensor-tooltip"
@@ -262,10 +268,14 @@ export default function Header() {
                 </span>
               </Link>
             ))}
+            <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="block py-2 text-white transition-colors duration-300 hover:text-accent">
+                Area riservata
+              </span>
+            </Link>
           </motion.div>
         )}
       </nav>
     </motion.header>
   )
 }
-

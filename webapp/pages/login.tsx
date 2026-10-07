@@ -1,0 +1,119 @@
+import Head from "next/head";
+import Link from "next/link";
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/router";
+
+interface LoginResponse {
+  user?: { role: "admin" | "user" };
+  mustChangePassword?: boolean;
+  error?: string;
+}
+
+export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const result = (await response.json()) as LoginResponse;
+
+      if (!response.ok) {
+        setError(result.error ?? "Accesso non riuscito.");
+        return;
+      }
+
+      if (result.mustChangePassword) {
+        await router.push("/change-password");
+      } else if (result.user?.role === "admin") {
+        await router.push("/admin/users");
+      } else {
+        await router.push("/");
+      }
+    } catch {
+      setError("Servizio non disponibile. Riprova tra poco.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <>
+      <Head>
+        <title>Accedi | Scuderia DIIEM</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <main className="min-h-screen bg-slate-950 px-6 py-20 text-white">
+        <div className="mx-auto max-w-md">
+          <Link href="/" className="text-sm text-cyan-300 hover:text-cyan-200">
+            &larr; Torna al sito
+          </Link>
+          <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">
+              Area riservata
+            </p>
+            <h1 className="mt-3 text-3xl font-bold">Accedi</h1>
+            <p className="mt-3 text-sm text-slate-300">
+              Gli account sono creati dall&apos;amministratore. Non è possibile registrarsi.
+            </p>
+            <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+              <div>
+                <label className="mb-2 block text-sm font-medium" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  autoComplete="username"
+                  className="w-full rounded-lg border border-white/15 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-400"
+                  id="email"
+                  maxLength={254}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                  type="email"
+                  value={email}
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-medium" htmlFor="password">
+                  Password
+                </label>
+                <input
+                  autoComplete="current-password"
+                  className="w-full rounded-lg border border-white/15 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-400"
+                  id="password"
+                  maxLength={128}
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                  type="password"
+                  value={password}
+                />
+              </div>
+              {error && (
+                <p className="rounded-lg bg-red-950/70 px-4 py-3 text-sm text-red-200" role="alert">
+                  {error}
+                </p>
+              )}
+              <button
+                className="w-full rounded-lg bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60"
+                disabled={isSubmitting}
+                type="submit"
+              >
+                {isSubmitting ? "Accesso in corso..." : "Accedi"}
+              </button>
+            </form>
+          </section>
+        </div>
+      </main>
+    </>
+  );
+}

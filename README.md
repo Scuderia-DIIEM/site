@@ -1,113 +1,58 @@
-# University Project Landing Page
+# Scuderia DIIEM
 
-A modern, beautiful landing page built with Next.js and TypeScript, configured for static site generation.
+This repository contains the Scuderia DIIEM website and its API:
 
-## Features
+- [`webapp/`](./webapp/): Next.js website, exported as a static site.
+- [`api/`](./api/): Fastify API written in TypeScript, with PostgreSQL connectivity.
 
-- ⚡ **Static Site Generation** - Optimized for performance with Next.js static export
-- 🎨 **Modern Design** - Beautiful, responsive UI with smooth animations
-- 📱 **Fully Responsive** - Works seamlessly on mobile, tablet, and desktop
-- 🔒 **Type-Safe** - Built with TypeScript for better development experience
-- ✨ **Accessible** - Follows modern web accessibility best practices
+## Webapp
 
-## Getting Started
+From `webapp/`, install dependencies and run the development server:
 
-### Prerequisites
-
-- Node.js 18+ installed on your system
-- npm or yarn package manager
-
-### Installation
-
-1. Install dependencies:
-```bash
+```sh
 npm install
-```
-
-2. Run the development server:
-```bash
 npm run dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+Build the static site with `npm run build`; the generated site is written to `webapp/out`.
+See [`webapp/README.md`](./webapp/README.md) for more website details.
 
-### Building for Production
+## API and PostgreSQL
 
-To create a static export of your site:
+The API requires Node.js 22 or later and PostgreSQL. The production webapp is a
+static Next.js export served by unprivileged Nginx; Nginx forwards `/api/` requests
+to Fastify, so browser requests use the same origin. To build and run all three
+services as containers, first create a `.env` from `.env.example` and set strong
+secrets, then run Docker Compose from the repository root:
 
-```bash
-npm run build
+```sh
+Copy-Item .env.example .env
+# Generate a URL-safe secret, then use a different value for each secret in .env:
+node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"
+docker compose up --build
 ```
 
-This will generate a fully static site in the `out` directory, which can be deployed to any static hosting service (GitHub Pages, Netlify, Vercel, etc.).
+The website is available at <http://localhost:3000>. `GET /health` reports API
+liveness and `GET /health/ready` checks PostgreSQL readiness.
 
-### ThingSpeak Sensor Readings
+To develop the API directly, provide `DATABASE_URL` and run the commands from `api/`:
 
-Paste the ThingSpeak read API key into `THINGSPEAK_READ_API_KEY` in `components/Layout/Header.tsx` to display the latest temperature (`field1`) and humidity (`field2`) from channel `3516664`.
-
-The site is statically exported, so this read-only key is included in the public browser bundle. Anyone can use it to read the private channel's feed; do not use a write key. Rebuild and redeploy the site after inserting the key.
-
-## Project Structure
-
-```
-├── pages/
-│   ├── _app.tsx          # App wrapper with global styles
-│   └── index.tsx         # Main landing page
-├── styles/
-│   └── globals.css       # Global styles and design system
-├── next.config.js        # Next.js configuration (static export)
-├── tsconfig.json         # TypeScript configuration
-└── package.json          # Dependencies and scripts
+```sh
+npm install
+npm run dev
 ```
 
-## Customization
+Build it with `npm run build`; run the compiled server with `npm start`.
 
-### Updating Content
+## Login and user provisioning
 
-Edit `pages/index.tsx` to customize the content, sections, and structure of the landing page.
+There is no public registration. On first startup the API creates the admin account
+from `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD`. Sign in at
+<http://localhost:3000/login>; the admin can then create accounts from
+<http://localhost:3000/admin/users>. The API generates a cryptographically random
+temporary password, displays it once, and requires the new user to change it at
+their first login. Temporary passwords expire after 24 hours. An admin can generate
+a replacement password for an existing user from the same page.
 
-### Styling
-
-Modify `styles/globals.css` to change colors, fonts, spacing, and other design elements. CSS variables are defined at the top of the file for easy customization.
-
-### Colors
-
-The color scheme can be customized by modifying the CSS variables in `styles/globals.css`:
-
-```css
-:root {
-  --primary-color: #6366f1;
-  --secondary-color: #8b5cf6;
-  --accent-color: #ec4899;
-  /* ... */
-}
-```
-
-## Deployment
-
-### Deploy to Vercel
-
-The easiest way to deploy is using [Vercel](https://vercel.com):
-
-```bash
-npm i -g vercel
-vercel
-```
-
-### Deploy to Netlify
-
-1. Build the static site: `npm run build`
-2. Drag and drop the `out` folder to [Netlify](https://app.netlify.com/drop)
-
-### Deploy to GitHub Pages
-
-1. Build the static site: `npm run build`
-2. Commit the `out` folder and push to your repository
-3. Configure GitHub Pages to serve from the `out` directory
-
-## License
-
-This project is created for educational purposes as part of a university project.
-
-
-# diiem-website
+Authentication uses short-lived, HTTP-only, same-site cookies. When hosting behind
+HTTPS, set `COOKIE_SECURE=true` in `.env`.
