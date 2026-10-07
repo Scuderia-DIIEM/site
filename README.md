@@ -32,7 +32,7 @@ node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'
 docker compose up --build
 ```
 
-The website is available at <http://localhost:3000>. `GET /health` reports API
+The website is available at <http://localhost>. `GET /health` reports API
 liveness and `GET /health/ready` checks PostgreSQL readiness.
 
 To develop the API directly, provide `DATABASE_URL` and run the commands from `api/`:
