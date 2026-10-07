@@ -14,7 +14,7 @@ A modern, beautiful landing page built with Next.js and TypeScript, configured f
 
 ### Prerequisites
 
-- Node.js 18+ installed on your system
+- Node.js 22+ installed on your system
 - npm or yarn package manager
 
 ### Installation

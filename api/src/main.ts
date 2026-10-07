@@ -1,5 +1,7 @@
 import { buildApp } from "./app.js";
 
+let app: Awaited<ReturnType<typeof buildApp>> | undefined;
+
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
   throw new Error("DATABASE_URL environment variable is required");
@@ -32,7 +34,7 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
 const host = process.env.HOST ?? "0.0.0.0";
 
 try {
-  const app = await buildApp({
+  app = await buildApp({
     databaseUrl,
     jwtSecret,
     cookieSecure: process.env.COOKIE_SECURE === "true",
@@ -42,5 +44,6 @@ try {
   await app.listen({ host, port });
 } catch (error) {
   console.error("API server failed to start", error);
+  if (app) await app.close();
   process.exitCode = 1;
 }
