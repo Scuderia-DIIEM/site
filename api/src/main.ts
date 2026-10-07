@@ -40,6 +40,7 @@ try {
     cookieSecure: process.env.COOKIE_SECURE === "true",
     bootstrapAdminEmail,
     bootstrapAdminPassword,
+    uploadDirectory: process.env.UPLOAD_DIR ?? "./uploads",
   });
   await app.listen({ host, port });
 } catch (error) {

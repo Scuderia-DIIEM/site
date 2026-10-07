@@ -36,6 +36,12 @@ export default function LoginPage() {
 
       if (result.mustChangePassword) {
         await router.push("/change-password");
+      } else if (
+        typeof router.query.next === "string" &&
+        router.query.next.startsWith("/") &&
+        !router.query.next.startsWith("//")
+      ) {
+        await router.push(router.query.next);
       } else if (result.user?.role === "admin") {
         await router.push("/admin/users");
       } else {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Header from '../components/Layout/Header'
 import Footer from '../components/Layout/Footer'
@@ -11,10 +11,75 @@ interface ProjectsPageProps {
   projects: ProjectArticle[]
 }
 
+interface UploadedArticle extends ProjectArticle {
+  pdfUrl: string
+  isPublic: boolean
+}
+
 export default function ProjectsPage({ projects }: ProjectsPageProps) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [searchTerm, setSearchTerm] = useState('')
-  const projectList = projects
+  const [uploadedArticles, setUploadedArticles] = useState<UploadedArticle[]>([])
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [mustChangePassword, setMustChangePassword] = useState(false)
+  const [loadError, setLoadError] = useState('')
+
+  useEffect(() => {
+    let active = true
+    void Promise.all([
+      fetch('/api/projects').then(async (response) => {
+        if (!response.ok) throw new Error('Non è stato possibile caricare gli articoli caricati.')
+        const result = (await response.json()) as {
+          articles: Array<{
+            id: string
+            slug: string
+            title: string
+            excerpt: string
+            authors: string[]
+            coverImage: string
+            pdfUrl: string
+            isPublic: boolean
+            date: string
+          }>
+        }
+        return result.articles
+      }),
+      fetch('/api/auth/me').then(async (response) => {
+        if (!response.ok) return null
+        return (await response.json()) as { user: { id: string }; mustChangePassword: boolean }
+      }),
+    ])
+      .then(([articles, session]) => {
+        if (!active) return
+        setUploadedArticles(
+          articles.map((article) => ({
+            id: article.id,
+            slug: article.slug,
+            title: article.title,
+            excerpt: article.excerpt,
+            authors: article.authors,
+            date: article.date,
+            heroImage: article.coverImage,
+            pdfUrl: article.pdfUrl,
+            isPublic: article.isPublic,
+            blocks: [],
+          }))
+        )
+        setIsAuthenticated(Boolean(session))
+        setMustChangePassword(Boolean(session?.mustChangePassword))
+      })
+      .catch((error: unknown) => {
+        if (active) {
+          setLoadError(error instanceof Error ? error.message : 'Errore durante il caricamento degli articoli.')
+        }
+      })
+
+    return () => {
+      active = false
+    }
+  }, [])
+
+  const projectList = [...uploadedArticles, ...projects]
 
   const filteredProjects = projectList.filter((project) => {
     const search = searchTerm.trim().toLowerCase()
@@ -101,13 +166,41 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                   </button>
                 </div>
               </motion.div>
+              {isAuthenticated && !mustChangePassword && (
+                <div className="mt-5 flex justify-center">
+                  <Link
+                    href="/projects/new"
+                    className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 font-semibold text-white shadow transition hover:brightness-110"
+                  >
+                    <span aria-hidden="true">+</span>
+                    Aggiungi un articolo
+                  </Link>
+                </div>
+              )}
+              {mustChangePassword && (
+                <p className="mt-5 text-center text-sm text-white">
+                  Cambia la password temporanea prima di pubblicare un articolo.{' '}
+                  <Link className="underline" href="/change-password">
+                    Cambia password
+                  </Link>
+                </p>
+              )}
             </div>
           </section>
 
           <section className="bg-gradient-to-b from-white to-gray-50 px-5 py-8 sm:py-10">
             <div className="mx-auto max-w-7xl">
+              {loadError && (
+                <p className="mb-5 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900" role="status">
+                  {loadError}
+                </p>
+              )}
               {filteredProjects.length === 0 ? (
-                <p className="text-gray-500">Nessun progetto corrisponde alla ricerca.</p>
+                <p className="text-gray-500">
+                  {loadError && projects.length === 0
+                    ? 'Gli articoli caricati non sono al momento disponibili.'
+                    : 'Nessun progetto corrisponde alla ricerca.'}
+                </p>
               ) : viewMode === 'grid' ? (
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {filteredProjects.map((p, index) => {
@@ -123,7 +216,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                         className="h-full"
                       >
                         <Link
-                          href={`/projects/${p.slug}`}
+                          href={p.pdfUrl ? `/projects/article?slug=${encodeURIComponent(p.slug)}` : `/projects/${p.slug}`}
                           className="block h-full overflow-hidden rounded-xl bg-white shadow-md transition-all duration-200 hover:shadow-lg"
                         >
                           {heroSrc && (
@@ -137,6 +230,11 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                           )}
                           <div className="p-4">
                             <h2 className="mb-2 text-xl font-semibold text-accent">{p.title}</h2>
+                            {p.isPublic !== undefined && (
+                              <p className="mb-2 text-xs font-medium text-slate-500">
+                                {p.isPublic ? 'Articolo pubblico' : 'Articolo privato'}
+                              </p>
+                            )}
                             {p.authors && p.authors.length > 0 && (
                               <p className="mb-2 text-sm text-gray-500">
                                 {p.authors.length > 1 ? 'Autori' : 'Autore'}: {p.authors.join(', ')}
@@ -164,7 +262,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                         whileHover={{ y: -3 }}
                       >
                         <Link
-                          href={`/projects/${p.slug}`}
+                          href={p.pdfUrl ? `/projects/article?slug=${encodeURIComponent(p.slug)}` : `/projects/${p.slug}`}
                           className="block rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:shadow-md"
                         >
                           <div className="flex items-center gap-3 p-3">
@@ -180,7 +278,14 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                             <div className="min-w-0 flex-1">
                               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                                 <h2 className="truncate text-lg font-semibold text-accent">{p.title}</h2>
-                                <p className="text-xs text-gray-400">{p.date}</p>
+                                <div className="flex items-center gap-3">
+                                  {p.isPublic !== undefined && (
+                                    <span className="text-xs text-slate-500">
+                                      {p.isPublic ? 'Pubblico' : 'Privato'}
+                                    </span>
+                                  )}
+                                  <p className="text-xs text-gray-400">{p.date}</p>
+                                </div>
                               </div>
                               {p.authors && p.authors.length > 0 && (
                                 <p className="mt-1 text-sm text-gray-500">

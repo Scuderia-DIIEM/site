@@ -51,6 +51,8 @@ export interface ProjectArticle {
   authors?: string[]
   heroImage?: string | HeroImage
   blocks: ProjectBlock[]
+  pdfUrl?: string
+  isPublic?: boolean
 }
 
 export interface GalleryImage {
@@ -94,4 +96,3 @@ export interface TeamMember {
   team: string
   image: string
 }
-

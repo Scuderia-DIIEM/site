@@ -48,11 +48,20 @@ Build it with `npm run build`; run the compiled server with `npm start`.
 
 There is no public registration. On first startup the API creates the admin account
 from `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD`. Sign in at
-<http://localhost:3000/login>; the admin can then create accounts from
-<http://localhost:3000/admin/users>. The API generates a cryptographically random
+<http://localhost/login>; the admin can then create accounts from
+<http://localhost/admin/users>. The API generates a cryptographically random
 temporary password, displays it once, and requires the new user to change it at
 their first login. Temporary passwords expire after 24 hours. An admin can generate
 a replacement password for an existing user from the same page.
 
 Authentication uses short-lived, HTTP-only, same-site cookies. When hosting behind
 HTTPS, set `COOKIE_SECURE=true` in `.env`.
+
+## Project articles
+
+Any authenticated user can create an article from the **Progetti** page. Articles
+include a title, cover image, description, authors and a PDF, and can be public or
+private. Public articles and their PDFs are visible to everyone; private articles,
+cover images and PDFs are available only to signed-in users. Uploads are validated
+as JPEG, PNG, WebP or PDF and limited to 5 MB per cover image and 20 MB per PDF.
+Uploaded files are stored in the persistent `article_uploads` Docker volume.

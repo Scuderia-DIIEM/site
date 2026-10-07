@@ -18,3 +18,15 @@ declare module "@fastify/jwt" {
     };
   }
 }
+
+declare module "fastify" {
+  interface FastifyRequest {
+    articleViewer: {
+      sub: string;
+      email: string;
+      role: "admin" | "user";
+      authVersion: number;
+      mustChangePassword: boolean;
+    } | null;
+  }
+}
