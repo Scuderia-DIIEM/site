@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,6 +12,17 @@ type ThingSpeakFeed = {
   created_at?: string
 }
 
+type AuthUser = {
+  id: string
+  name: string
+  email: string
+  role: 'admin' | 'user'
+}
+
+type AuthResponse = {
+  user?: AuthUser
+}
+
 function formatSensorValue(value: string | null | undefined, unit: string) {
   const parsedValue = Number(value)
   if (!value || !Number.isFinite(parsedValue)) return '--'
@@ -19,11 +30,19 @@ function formatSensorValue(value: string | null | undefined, unit: string) {
 }
 
 export default function Header() {
+  const router = useRouter()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false)
   const [theme, setTheme] = useState<'dark' | 'light'>('light')
   const [sensorFeed, setSensorFeed] = useState<ThingSpeakFeed | null>(null)
   const [isSensorDataFresh, setIsSensorDataFresh] = useState(false)
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(null)
+  const [isAuthLoading, setIsAuthLoading] = useState(true)
+  const [authError, setAuthError] = useState('')
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const desktopAccountMenuRef = useRef<HTMLDivElement>(null)
+  const mobileAccountMenuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem('theme')
@@ -46,6 +65,92 @@ export default function Header() {
 
   const toggleTheme = () => {
     setTheme((current) => (current === 'dark' ? 'light' : 'dark'))
+  }
+
+  const loadCurrentUser = useCallback(async () => {
+    try {
+      const response = await fetch('/api/auth/me')
+      if (response.status === 401) {
+        setCurrentUser(null)
+        setAuthError('')
+        return
+      }
+      if (response.status === 404) {
+        setCurrentUser(null)
+        setAuthError('API account non disponibile. Avvia Docker Compose dalla cartella del progetto.')
+        return
+      }
+      if (!response.ok) {
+        throw new Error(`Session check failed with status ${response.status}`)
+      }
+
+      const result = (await response.json()) as AuthResponse
+      if (!result.user?.name || !result.user.email) {
+        throw new Error('Session response did not include a user name and email')
+      }
+      setCurrentUser(result.user)
+      setAuthError('')
+    } catch (error) {
+      console.error('Unable to verify the signed-in account', error)
+      setAuthError('Impossibile verificare la sessione.')
+    } finally {
+      setIsAuthLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    void loadCurrentUser()
+    router.events.on('routeChangeComplete', loadCurrentUser)
+    const closeAccountMenu = () => setIsAccountMenuOpen(false)
+    const refreshCurrentUser = () => void loadCurrentUser()
+    router.events.on('routeChangeStart', closeAccountMenu)
+    window.addEventListener('scuderia:profile-updated', refreshCurrentUser)
+    return () => {
+      router.events.off('routeChangeComplete', loadCurrentUser)
+      router.events.off('routeChangeStart', closeAccountMenu)
+      window.removeEventListener('scuderia:profile-updated', refreshCurrentUser)
+    }
+  }, [loadCurrentUser, router.events])
+
+  useEffect(() => {
+    if (!isAccountMenuOpen) return
+    const closeOnOutsideClick = (event: MouseEvent) => {
+      if (
+        event.target instanceof Node &&
+        !desktopAccountMenuRef.current?.contains(event.target) &&
+        !mobileAccountMenuRef.current?.contains(event.target)
+      ) {
+        setIsAccountMenuOpen(false)
+      }
+    }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsAccountMenuOpen(false)
+    }
+    document.addEventListener('mousedown', closeOnOutsideClick)
+    document.addEventListener('keydown', closeOnEscape)
+    return () => {
+      document.removeEventListener('mousedown', closeOnOutsideClick)
+      document.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [isAccountMenuOpen])
+
+  async function logout() {
+    setIsLoggingOut(true)
+    setAuthError('')
+    try {
+      const response = await fetch('/api/auth/logout', { method: 'POST' })
+      if (!response.ok) {
+        throw new Error(`Logout failed with status ${response.status}`)
+      }
+      setCurrentUser(null)
+      setIsAccountMenuOpen(false)
+      setIsMobileMenuOpen(false)
+    } catch (error) {
+      console.error('Unable to sign out', error)
+      setAuthError('Logout non riuscito. Riprova.')
+    } finally {
+      setIsLoggingOut(false)
+    }
   }
 
   useEffect(() => {
@@ -96,7 +201,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const router = useRouter()
   const isHome = router.pathname === '/'
 
   const navItems = [
@@ -213,12 +317,95 @@ export default function Header() {
                 aria-hidden="true"
               />
             </motion.button>
-            <Link
-              href="/login"
-              className="hidden rounded-full border border-white/30 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10 sm:inline-flex"
-            >
-              Accedi
-            </Link>
+            {!isAuthLoading && (
+              currentUser ? (
+                <div ref={desktopAccountMenuRef} className="relative hidden sm:block">
+                  <button
+                    aria-controls="desktop-account-menu"
+                    aria-expanded={isAccountMenuOpen}
+                    className="inline-flex max-w-52 items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white transition hover:border-accent hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    onClick={() => setIsAccountMenuOpen((open) => !open)}
+                    type="button"
+                  >
+                    <span className="truncate">{currentUser.name}</span>
+                    <svg
+                      aria-hidden="true"
+                      className={`h-4 w-4 shrink-0 transition-transform ${isAccountMenuOpen ? 'rotate-180' : ''}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+                  {authError && (
+                    <span className="ml-2 max-w-40 text-xs text-orange-200" role="alert">
+                      {authError}
+                    </span>
+                  )}
+                  {isAccountMenuOpen && (
+                    <div
+                      className="absolute right-0 top-full z-[60] mt-2 w-56 overflow-hidden rounded-xl border border-white/15 bg-primary py-2 shadow-xl"
+                      id="desktop-account-menu"
+                      role="menu"
+                    >
+                      <p className="truncate px-4 py-2 text-xs text-white/60" title={currentUser.email}>
+                        {currentUser.email}
+                      </p>
+                      <div className="my-1 border-t border-white/10" />
+                      <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/profile" role="menuitem">
+                        Modifica profilo
+                      </Link>
+                      <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/change-password" role="menuitem">
+                        Cambia password
+                      </Link>
+                      <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/projects" role="menuitem">
+                        Articoli e progetti
+                      </Link>
+                      <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/projects/new" role="menuitem">
+                        Aggiungi un articolo
+                      </Link>
+                      {currentUser.role === 'admin' && (
+                        <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/admin/users" role="menuitem">
+                          Gestione utenti
+                        </Link>
+                      )}
+                      <div className="my-1 border-t border-white/10" />
+                      <button
+                        className="block w-full px-4 py-2 text-left text-sm text-white transition hover:bg-white/10 hover:text-accent disabled:opacity-60"
+                        disabled={isLoggingOut}
+                        onClick={() => void logout()}
+                        role="menuitem"
+                        type="button"
+                      >
+                        {isLoggingOut ? 'Uscita...' : 'Esci'}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : authError ? (
+                <div className="hidden items-center gap-2 sm:flex">
+                  <span className="max-w-40 text-xs text-orange-200" role="alert">
+                    {authError}
+                  </span>
+                  <button
+                    className="rounded-full border border-white/30 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+                    onClick={() => void loadCurrentUser()}
+                    type="button"
+                  >
+                    Riprova
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  className="hidden rounded-full border border-white/30 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10 sm:inline-flex"
+                >
+                  Accedi
+                </Link>
+              )
+            )}
             <div
               tabIndex={0}
               aria-describedby="sensor-tooltip"
@@ -268,11 +455,107 @@ export default function Header() {
                 </span>
               </Link>
             ))}
-            <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="block py-2 text-white transition-colors duration-300 hover:text-accent">
-                Area riservata
-              </span>
-            </Link>
+            {!isAuthLoading && (
+              currentUser ? (
+                <div ref={mobileAccountMenuRef} className="border-t border-white/20 pt-3">
+                  <button
+                    aria-controls="mobile-account-menu"
+                    aria-expanded={isAccountMenuOpen}
+                    className="flex w-full items-center justify-between gap-2 py-2 font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    onClick={() => setIsAccountMenuOpen((open) => !open)}
+                    type="button"
+                  >
+                    <span className="truncate">{currentUser.name}</span>
+                    <svg
+                      aria-hidden="true"
+                      className={`h-4 w-4 shrink-0 transition-transform ${isAccountMenuOpen ? 'rotate-180' : ''}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+                  {authError && (
+                    <p className="py-1 text-sm text-orange-200" role="alert">
+                      {authError}
+                    </p>
+                  )}
+                  {isAccountMenuOpen && (
+                    <div className="mt-2 rounded-xl border border-white/15 bg-primary-variant p-2" id="mobile-account-menu" role="menu">
+                      <p className="truncate px-3 py-2 text-xs text-white/60">{currentUser.email}</p>
+                      <Link className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/profile" onClick={() => setIsMobileMenuOpen(false)} role="menuitem">
+                        Modifica profilo
+                      </Link>
+                      <Link className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/change-password" onClick={() => setIsMobileMenuOpen(false)} role="menuitem">
+                        Cambia password
+                      </Link>
+                      <Link className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/projects" onClick={() => setIsMobileMenuOpen(false)} role="menuitem">
+                        Articoli e progetti
+                      </Link>
+                      <Link className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/projects/new" onClick={() => setIsMobileMenuOpen(false)} role="menuitem">
+                        Aggiungi un articolo
+                      </Link>
+                      {currentUser.role === 'admin' && (
+                        <Link className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/admin/users" onClick={() => setIsMobileMenuOpen(false)} role="menuitem">
+                          Gestione utenti
+                        </Link>
+                      )}
+                      <div className="my-1 border-t border-white/10" />
+                      <button
+                        className="block w-full rounded-lg px-3 py-2 text-left text-sm text-white hover:bg-white/10 hover:text-accent disabled:opacity-60"
+                        disabled={isLoggingOut}
+                        onClick={() => void logout()}
+                        role="menuitem"
+                        type="button"
+                      >
+                        {isLoggingOut ? 'Uscita...' : 'Esci'}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : authError ? (
+                <button
+                  className="block py-2 text-white transition-colors duration-300 hover:text-accent"
+                  onClick={() => void loadCurrentUser()}
+                  type="button"
+                >
+                  {authError} Riprova
+                </button>
+              ) : (
+                <Link
+                  className="flex w-full items-center justify-between rounded-xl bg-secondary px-4 py-3 font-bold text-white shadow-lg shadow-black/20 transition hover:bg-caramel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  href="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <span className="flex items-center gap-3">
+                    <svg
+                      aria-hidden="true"
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <rect x="4" y="10" width="16" height="11" rx="2" />
+                      <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                    </svg>
+                    Area riservata
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M5 12h14m-6-6 6 6-6 6" />
+                  </svg>
+                </Link>
+              )
+            )}
           </motion.div>
         )}
       </nav>

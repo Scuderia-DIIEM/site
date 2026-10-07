@@ -14,6 +14,10 @@ npm install
 npm run dev
 ```
 
+When developing against the account API, start Docker Compose first. The Next.js
+development server forwards `/api/` requests to the Docker web service on
+`http://127.0.0.1:80`, while the production build remains a static export.
+
 Build the static site with `npm run build`; the generated site is written to `webapp/out`.
 See [`webapp/README.md`](./webapp/README.md) for more website details.
 
@@ -47,12 +51,19 @@ Build it with `npm run build`; run the compiled server with `npm start`.
 ## Login and user provisioning
 
 There is no public registration. On first startup the API creates the admin account
-from `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD`. Sign in at
+from `BOOTSTRAP_ADMIN_EMAIL`, `BOOTSTRAP_ADMIN_NAME` and
+`BOOTSTRAP_ADMIN_PASSWORD`. The admin name is optional and defaults to the email
+address prefix. Sign in at
 <http://localhost/login>; the admin can then create accounts from
 <http://localhost/admin/users>. The API generates a cryptographically random
 temporary password, displays it once, and requires the new user to change it at
 their first login. Temporary passwords expire after 24 hours. An admin can generate
-a replacement password for an existing user from the same page.
+a replacement password for an existing user from the same page, and can edit account
+names there. Admins can also delete user accounts; any articles created by the deleted
+account are retained and reassigned to the admin performing the deletion. Admin accounts
+cannot be deleted from the user-management page. Users can edit their own display name
+from the profile menu. Existing accounts receive their email prefix as an initial name.
+Uploaded project articles can be edited by their creator or an administrator.
 
 Authentication uses short-lived, HTTP-only, same-site cookies. When hosting behind
 HTTPS, set `COOKIE_SECURE=true` in `.env`.

@@ -119,6 +119,16 @@ html {
     color: #ffffff !important;
   }
 
+  .dark .project-visibility-badge.is-public {
+    background-color: #064e3b !important;
+    color: #a7f3d0 !important;
+  }
+
+  .dark .project-visibility-badge.is-private {
+    background-color: #78350f !important;
+    color: #fde68a !important;
+  }
+
   .dark .text-accent,
   .dark .hover\:text-accent:hover,
   .dark .text-secondary,
@@ -497,4 +507,3 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
-

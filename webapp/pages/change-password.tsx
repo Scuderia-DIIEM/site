@@ -44,8 +44,8 @@ export default function ChangePasswordPage() {
       setError("Le nuove password non coincidono.");
       return;
     }
-    if (!/^[\x21-\x7e]{12,128}$/.test(newPassword)) {
-      setError("Usa da 12 a 128 caratteri ASCII stampabili.");
+    if (!/^[\x21-\x7e]{1,128}$/.test(newPassword)) {
+      setError("Usa da 1 a 128 caratteri ASCII stampabili.");
       return;
     }
 
@@ -78,18 +78,18 @@ export default function ChangePasswordPage() {
         <title>Cambia password | Scuderia DIIEM</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <main className="min-h-screen bg-slate-950 px-6 py-20 text-white">
+      <main className="min-h-screen bg-primary px-6 py-20 text-white">
         <div className="mx-auto max-w-md">
-          <Link href="/" className="text-sm text-cyan-300 hover:text-cyan-200">
+          <Link href="/" className="text-sm text-secondary hover:text-orange-300">
             &larr; Torna al sito
           </Link>
-          <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">
+          <section className="mt-8 rounded-2xl border border-secondary/25 bg-primary-variant/70 p-8 shadow-2xl shadow-black/20">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
               Sicurezza account
             </p>
             <h1 className="mt-3 text-3xl font-bold">Cambia password</h1>
             {mustChangePassword && (
-              <p className="mt-3 text-sm text-slate-300">
+              <p className="mt-3 text-sm text-white/75">
                 Per proteggere il tuo account, scegli una nuova password prima di continuare.
               </p>
             )}
@@ -102,7 +102,7 @@ export default function ChangePasswordPage() {
                     </label>
                     <input
                       autoComplete="current-password"
-                      className="w-full rounded-lg border border-white/15 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-400"
+                      className="w-full rounded-lg border border-white/20 bg-primary px-4 py-3 text-white outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/30"
                       id="current-password"
                       onChange={(event) => setCurrentPassword(event.target.value)}
                       required
@@ -117,9 +117,8 @@ export default function ChangePasswordPage() {
                   </label>
                   <input
                     autoComplete="new-password"
-                    className="w-full rounded-lg border border-white/15 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-400"
+                    className="w-full rounded-lg border border-white/20 bg-primary px-4 py-3 text-white outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/30"
                     id="new-password"
-                    minLength={12}
                     maxLength={128}
                     onChange={(event) => setNewPassword(event.target.value)}
                     required
@@ -133,9 +132,8 @@ export default function ChangePasswordPage() {
                   </label>
                   <input
                     autoComplete="new-password"
-                    className="w-full rounded-lg border border-white/15 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-400"
+                    className="w-full rounded-lg border border-white/20 bg-primary px-4 py-3 text-white outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/30"
                     id="confirm-password"
-                    minLength={12}
                     maxLength={128}
                     onChange={(event) => setConfirmation(event.target.value)}
                     required
@@ -149,7 +147,7 @@ export default function ChangePasswordPage() {
                   </p>
                 )}
                 <button
-                  className="w-full rounded-lg bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="w-full rounded-lg bg-secondary px-4 py-3 font-semibold text-white transition hover:bg-caramel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:cursor-not-allowed disabled:opacity-60"
                   disabled={isSubmitting}
                   type="submit"
                 >

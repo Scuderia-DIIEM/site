@@ -4,6 +4,7 @@ declare module "@fastify/jwt" {
   interface FastifyJWT {
     payload: {
       sub: string;
+      name: string;
       email: string;
       role: "admin" | "user";
       authVersion: number;
@@ -11,6 +12,7 @@ declare module "@fastify/jwt" {
     };
     user: {
       sub: string;
+      name: string;
       email: string;
       role: "admin" | "user";
       authVersion: number;

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 interface AdminUser {
   id: string;
+  name: string;
   email: string;
   role: "admin" | "user";
   mustChangePassword: boolean;
@@ -22,7 +23,12 @@ interface UsersResponse {
 export default function AdminUsersPage() {
   const router = useRouter();
   const [users, setUsers] = useState<AdminUser[]>([]);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [editingUserId, setEditingUserId] = useState("");
+  const [editingName, setEditingName] = useState("");
+  const [savingName, setSavingName] = useState(false);
+  const [deletingUserId, setDeletingUserId] = useState("");
   const [temporaryPassword, setTemporaryPassword] = useState("");
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
@@ -68,13 +74,14 @@ export default function AdminUsersPage() {
       const response = await fetch("/api/admin/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ name, email }),
       });
       const result = (await response.json()) as UsersResponse;
       if (!response.ok) {
         setError(result.error ?? "Impossibile creare l'utente.");
         return;
       }
+      setName("");
       setEmail("");
       setTemporaryPassword(result.temporaryPassword ?? "");
       setStatus("Account creato. Copia la password temporanea e consegnala all'utente.");
@@ -83,6 +90,32 @@ export default function AdminUsersPage() {
       setError("Servizio non disponibile. Riprova tra poco.");
     } finally {
       setSubmitting(false);
+    }
+  }
+
+  async function saveName(user: AdminUser) {
+    setError("");
+    setStatus("");
+    setSavingName(true);
+    try {
+      const response = await fetch(`/api/admin/users/${encodeURIComponent(user.id)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: editingName }),
+      });
+      const result = (await response.json()) as UsersResponse;
+      if (!response.ok) {
+        setError(result.error ?? "Impossibile aggiornare il nome.");
+        return;
+      }
+      setEditingUserId("");
+      setEditingName("");
+      setStatus(`Nome aggiornato per ${user.email}.`);
+      await loadUsers();
+    } catch {
+      setError("Servizio non disponibile. Riprova tra poco.");
+    } finally {
+      setSavingName(false);
     }
   }
 
@@ -107,6 +140,33 @@ export default function AdminUsersPage() {
     }
   }
 
+  async function deleteUser(user: AdminUser) {
+    const confirmed = window.confirm(
+      `Eliminare l'account di ${user.name} (${user.email})? Gli articoli creati da questo account resteranno e verranno assegnati a te.`,
+    );
+    if (!confirmed) return;
+
+    setError("");
+    setStatus("");
+    setDeletingUserId(user.id);
+    try {
+      const response = await fetch(`/api/admin/users/${encodeURIComponent(user.id)}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        const result = (await response.json()) as UsersResponse;
+        setError(result.error ?? "Impossibile eliminare l'account.");
+        return;
+      }
+      setStatus(`Account di ${user.email} eliminato. Gli articoli sono stati assegnati al tuo account.`);
+      await loadUsers();
+    } catch {
+      setError("Servizio non disponibile. Riprova tra poco.");
+    } finally {
+      setDeletingUserId("");
+    }
+  }
+
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
     await router.push("/login");
@@ -118,14 +178,14 @@ export default function AdminUsersPage() {
         <title>Gestione utenti | Scuderia DIIEM</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <main className="min-h-screen bg-slate-950 px-6 py-12 text-white">
+      <main className="min-h-screen bg-primary px-6 py-12 text-white">
         <div className="mx-auto max-w-5xl">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <Link href="/" className="text-sm text-cyan-300 hover:text-cyan-200">
+            <Link href="/" className="text-sm text-secondary hover:text-orange-300">
               &larr; Torna al sito
             </Link>
             <button
-              className="rounded-lg border border-white/20 px-4 py-2 text-sm hover:bg-white/10"
+              className="rounded-lg border border-white/30 px-4 py-2 text-sm hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
               onClick={() => void logout()}
               type="button"
             >
@@ -133,24 +193,38 @@ export default function AdminUsersPage() {
             </button>
           </div>
           <header className="mt-10">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
               Area amministrazione
             </p>
             <h1 className="mt-3 text-3xl font-bold sm:text-4xl">Gestione utenti</h1>
-            <p className="mt-3 text-slate-300">
+            <p className="mt-3 text-white/75">
               Crea account senza registrazione pubblica e genera password temporanee monouso.
             </p>
           </header>
 
           <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
             <h2 className="text-xl font-semibold">Crea un account</h2>
-            <form className="mt-5 flex flex-col gap-3 sm:flex-row" onSubmit={handleCreate}>
+            <form className="mt-5 grid gap-3 sm:grid-cols-[1fr_1fr_auto]" onSubmit={handleCreate}>
+              <label className="sr-only" htmlFor="new-user-name">
+                Nome della persona
+              </label>
+              <input
+                autoComplete="off"
+                className="min-w-0 rounded-lg border border-white/20 bg-primary-variant px-4 py-3 text-white outline-none placeholder:text-white/50 focus:border-secondary focus:ring-2 focus:ring-secondary/30"
+                id="new-user-name"
+                maxLength={100}
+                onChange={(event) => setName(event.target.value)}
+                placeholder="Nome e cognome"
+                required
+                type="text"
+                value={name}
+              />
               <label className="sr-only" htmlFor="new-user-email">
                 Email del nuovo utente
               </label>
               <input
                 autoComplete="off"
-                className="min-w-0 flex-1 rounded-lg border border-white/15 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-400"
+                className="min-w-0 rounded-lg border border-white/20 bg-primary-variant px-4 py-3 text-white outline-none placeholder:text-white/50 focus:border-secondary focus:ring-2 focus:ring-secondary/30"
                 id="new-user-email"
                 maxLength={254}
                 onChange={(event) => setEmail(event.target.value)}
@@ -160,7 +234,7 @@ export default function AdminUsersPage() {
                 value={email}
               />
               <button
-                className="rounded-lg bg-cyan-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:opacity-60"
+                className="rounded-lg bg-secondary px-5 py-3 font-semibold text-white transition hover:bg-caramel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:opacity-60"
                 disabled={submitting}
                 type="submit"
               >
@@ -202,7 +276,7 @@ export default function AdminUsersPage() {
             <div className="flex items-center justify-between gap-4">
               <h2 className="text-xl font-semibold">Account</h2>
               <button
-                className="text-sm text-cyan-300 hover:text-cyan-200"
+                className="text-sm text-secondary hover:text-orange-300"
                 onClick={() => void loadUsers()}
                 type="button"
               >
@@ -210,9 +284,9 @@ export default function AdminUsersPage() {
               </button>
             </div>
             {loading ? (
-              <p className="mt-5 text-sm text-slate-300">Caricamento...</p>
+              <p className="mt-5 text-sm text-white/75">Caricamento...</p>
             ) : users.length === 0 ? (
-              <p className="mt-5 text-sm text-slate-300">Nessun account disponibile.</p>
+              <p className="mt-5 text-sm text-white/75">Nessun account disponibile.</p>
             ) : (
               <ul className="mt-5 divide-y divide-white/10">
                 {users.map((user) => (
@@ -221,21 +295,85 @@ export default function AdminUsersPage() {
                     key={user.id}
                   >
                     <div>
-                      <p className="font-medium">{user.email}</p>
-                      <p className="mt-1 text-xs text-slate-400">
+                      <p className="font-medium">{user.name}</p>
+                      <p className="mt-1 text-sm text-white/75">{user.email}</p>
+                      <p className="mt-1 text-xs text-white/55">
                         {user.role === "admin" ? "Amministratore" : "Utente"} ·{" "}
                         {user.mustChangePassword ? "Password temporanea da cambiare" : "Account attivo"}
                       </p>
                     </div>
-                    {user.role === "user" && (
-                      <button
-                        className="self-start rounded-lg border border-white/20 px-3 py-2 text-sm hover:bg-white/10 sm:self-auto"
-                        onClick={() => void resetPassword(user)}
-                        type="button"
-                      >
-                        Genera password temporanea
-                      </button>
-                    )}
+                    <div className="flex flex-wrap items-center gap-2">
+                      {editingUserId === user.id ? (
+                        <form
+                          className="flex flex-wrap items-center gap-2"
+                          onSubmit={(event) => {
+                            event.preventDefault();
+                            void saveName(user);
+                          }}
+                        >
+                          <label className="sr-only" htmlFor={`edit-name-${user.id}`}>
+                            Modifica nome per {user.email}
+                          </label>
+                          <input
+                            autoComplete="off"
+                            className="w-48 rounded-lg border border-white/20 bg-primary-variant px-3 py-2 text-sm text-white outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/30"
+                            id={`edit-name-${user.id}`}
+                            maxLength={100}
+                            onChange={(event) => setEditingName(event.target.value)}
+                            required
+                            value={editingName}
+                          />
+                          <button
+                            className="rounded-lg bg-secondary px-3 py-2 text-sm font-semibold text-white hover:bg-caramel disabled:opacity-60"
+                            disabled={savingName}
+                            type="submit"
+                          >
+                            {savingName ? "Salvataggio..." : "Salva"}
+                          </button>
+                          <button
+                            className="rounded-lg border border-white/30 px-3 py-2 text-sm hover:bg-white/10"
+                            onClick={() => {
+                              setEditingUserId("");
+                              setEditingName("");
+                            }}
+                            type="button"
+                          >
+                            Annulla
+                          </button>
+                        </form>
+                      ) : (
+                        <button
+                          className="rounded-lg border border-white/30 px-3 py-2 text-sm hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                          onClick={() => {
+                            setEditingUserId(user.id);
+                            setEditingName(user.name);
+                          }}
+                          type="button"
+                        >
+                          Modifica nome
+                        </button>
+                      )}
+                      {user.role === "user" && (
+                        <>
+                          <button
+                            className="rounded-lg border border-white/30 px-3 py-2 text-sm hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                            disabled={deletingUserId === user.id}
+                            onClick={() => void resetPassword(user)}
+                            type="button"
+                          >
+                            Genera password temporanea
+                          </button>
+                          <button
+                            className="rounded-lg border border-red-300/50 px-3 py-2 text-sm text-red-200 transition hover:bg-red-950/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 disabled:cursor-not-allowed disabled:opacity-50"
+                            disabled={deletingUserId === user.id}
+                            onClick={() => void deleteUser(user)}
+                            type="button"
+                          >
+                            {deletingUserId === user.id ? "Eliminazione..." : "Elimina account"}
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </li>
                 ))}
               </ul>

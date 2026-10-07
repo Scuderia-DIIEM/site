@@ -18,12 +18,13 @@ const temporaryPasswordDurationHours = 24;
 const maxCoverSize = 5 * 1024 * 1024;
 const maxPdfSize = 20 * 1024 * 1024;
 const maxArticleUploadSize = maxPdfSize + maxCoverSize;
-const passwordPattern = /^[\x21-\x7e]{12,128}$/;
+const passwordPattern = /^[\x21-\x7e]{1,128}$/;
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const dummyPasswordHash = `scrypt$${Buffer.alloc(16).toString("base64url")}$${Buffer.alloc(64).toString("base64url")}`;
 
 interface UserRow {
   id: string;
+  name: string;
   email: string;
   password_hash: string;
   role: "admin" | "user";
@@ -43,11 +44,13 @@ interface ArticleRow {
   cover_content_type: string;
   pdf_file: string;
   is_public: boolean;
+  created_by: string;
   created_at: Date;
 }
 
 interface SessionUser {
   sub: string;
+  name: string;
   email: string;
   role: "admin" | "user";
   authVersion: number;
@@ -60,7 +63,12 @@ interface UserCredentials {
 }
 
 interface CreateUserBody {
+  name: string;
   email: string;
+}
+
+interface UpdateUserBody {
+  name: string;
 }
 
 interface UserIdParams {
@@ -76,6 +84,7 @@ export interface AppOptions {
   jwtSecret: string;
   cookieSecure: boolean;
   bootstrapAdminEmail: string;
+  bootstrapAdminName?: string;
   bootstrapAdminPassword: string;
   uploadDirectory?: string;
 }
@@ -103,6 +112,7 @@ async function verifyPassword(password: string, encodedHash: string): Promise<bo
 function publicUser(user: UserRow) {
   return {
     id: user.id,
+    name: user.name,
     email: user.email,
     role: user.role,
     mustChangePassword: user.must_change_password,
@@ -152,7 +162,25 @@ async function requireSameOrigin(
   if (!origin) return;
 
   try {
-    if (new URL(origin).origin === `${request.protocol}://${request.headers.host}`) return;
+    const originUrl = new URL(origin);
+    const forwardedProtocolHeader = request.headers["x-forwarded-proto"];
+    const forwardedProtocol = (Array.isArray(forwardedProtocolHeader)
+      ? forwardedProtocolHeader[0]
+      : forwardedProtocolHeader)
+      ?.split(",")[0]
+      .trim();
+    const requestProtocol = (forwardedProtocol || request.protocol.split(",")[0].trim()).toLowerCase();
+    const forwardedHostHeader = request.headers["x-forwarded-host"];
+    const forwardedHost = (Array.isArray(forwardedHostHeader)
+      ? forwardedHostHeader[0]
+      : forwardedHostHeader)
+      ?.split(",")[0]
+      .trim();
+    const requestHost = (forwardedHost || request.headers.host || "").toLowerCase();
+
+    if (originUrl.protocol === `${requestProtocol}:` && originUrl.host.toLowerCase() === requestHost) {
+      return;
+    }
   } catch {
     // Reject malformed Origin headers below.
   }
@@ -165,6 +193,7 @@ export async function buildApp({
   jwtSecret,
   cookieSecure,
   bootstrapAdminEmail,
+  bootstrapAdminName = normalizeEmail(bootstrapAdminEmail).split("@")[0] || "Amministratore",
   bootstrapAdminPassword,
   uploadDirectory = "./uploads",
 }: AppOptions): Promise<FastifyInstance> {
@@ -199,6 +228,7 @@ export async function buildApp({
     await database.query(`
       CREATE TABLE IF NOT EXISTS users (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        name TEXT NOT NULL DEFAULT '',
         email TEXT NOT NULL UNIQUE,
         password_hash TEXT NOT NULL,
         role TEXT NOT NULL CHECK (role IN ('admin', 'user')),
@@ -208,12 +238,18 @@ export async function buildApp({
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `);
+    await database.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS name TEXT NOT NULL DEFAULT ''");
+    await database.query("UPDATE users SET name = split_part(email, '@', 1) WHERE name = ''");
 
     await database.query(
-      `INSERT INTO users (email, password_hash, role)
-       VALUES ($1, $2, 'admin')
+      `INSERT INTO users (name, email, password_hash, role)
+       VALUES ($1, $2, $3, 'admin')
        ON CONFLICT (email) DO NOTHING`,
-      [normalizeEmail(bootstrapAdminEmail), await hashPassword(bootstrapAdminPassword)],
+      [
+        bootstrapAdminName.trim().slice(0, 100) || "Amministratore",
+        normalizeEmail(bootstrapAdminEmail),
+        await hashPassword(bootstrapAdminPassword),
+      ],
     );
 
     await database.query(`
@@ -247,7 +283,7 @@ export async function buildApp({
     }
 
     const result = await database.query<UserRow>(
-      `SELECT id, email, password_hash, role, auth_version, must_change_password,
+      `SELECT id, name, email, password_hash, role, auth_version, must_change_password,
               temporary_password_expires_at, created_at
        FROM users WHERE id = $1`,
       [request.user.sub],
@@ -263,6 +299,7 @@ export async function buildApp({
 
     request.user = {
       sub: user.id,
+      name: user.name,
       email: user.email,
       role: user.role,
       authVersion: user.auth_version,
@@ -304,7 +341,7 @@ export async function buildApp({
     }
 
     const result = await database.query<UserRow>(
-      `SELECT id, email, password_hash, role, auth_version, must_change_password,
+      `SELECT id, name, email, password_hash, role, auth_version, must_change_password,
               temporary_password_expires_at, created_at
        FROM users WHERE id = $1`,
       [request.user.sub],
@@ -353,7 +390,7 @@ export async function buildApp({
     async (request, reply) => {
       const email = normalizeEmail(request.body.email);
       const result = await database.query<UserRow>(
-        `SELECT id, email, password_hash, role, auth_version, must_change_password,
+        `SELECT id, name, email, password_hash, role, auth_version, must_change_password,
                 temporary_password_expires_at, created_at
          FROM users WHERE email = $1`,
         [email],
@@ -378,6 +415,7 @@ export async function buildApp({
 
       const sessionUser: SessionUser = {
         sub: user.id,
+        name: user.name,
         email: user.email,
         role: user.role,
         authVersion: user.auth_version,
@@ -390,7 +428,7 @@ export async function buildApp({
           maxAge: sessionDurationSeconds,
         })
         .send({
-          user: { id: user.id, email: user.email, role: user.role },
+          user: { id: user.id, name: user.name, email: user.email, role: user.role },
           mustChangePassword: user.must_change_password,
         });
     },
@@ -410,11 +448,44 @@ export async function buildApp({
     async (request) => ({
       user: {
         id: request.user.sub,
+        name: request.user.name,
         email: request.user.email,
         role: request.user.role,
       },
       mustChangePassword: request.user.mustChangePassword,
     }),
+  );
+
+  app.patch<{ Body: { name: string } }>(
+    "/api/auth/profile",
+    {
+      preHandler: [requireSameOrigin, app.authenticate],
+      schema: {
+        body: {
+          type: "object",
+          required: ["name"],
+          additionalProperties: false,
+          properties: { name: { type: "string", minLength: 1, maxLength: 100 } },
+        },
+      },
+    },
+    async (request, reply) => {
+      const name = request.body.name.trim();
+      if (!name || name.length > 100) {
+        return reply.code(400).send({ error: "A name of 1-100 characters is required" });
+      }
+
+      const result = await database.query<{ id: string; name: string; email: string; role: "admin" | "user" }>(
+        `UPDATE users SET name = $1
+         WHERE id = $2
+         RETURNING id, name, email, role`,
+        [name, request.user.sub],
+      );
+      const user = result.rows[0];
+      if (!user) return reply.code(401).send({ error: "Authentication required" });
+
+      return reply.header("Cache-Control", "private, no-store").send({ user });
+    },
   );
 
   app.post<{ Body: { currentPassword?: string; newPassword: string } }>(
@@ -428,7 +499,7 @@ export async function buildApp({
           additionalProperties: false,
           properties: {
             currentPassword: { type: "string", maxLength: 128 },
-            newPassword: { type: "string", minLength: 12, maxLength: 128 },
+            newPassword: { type: "string", minLength: 1, maxLength: 128 },
           },
         },
       },
@@ -436,12 +507,12 @@ export async function buildApp({
     async (request, reply) => {
       if (!passwordPattern.test(request.body.newPassword)) {
         return reply.code(400).send({
-          error: "Password must contain 12-128 printable ASCII characters",
+          error: "Password must contain 1-128 printable ASCII characters",
         });
       }
 
       const result = await database.query<UserRow>(
-        `SELECT id, email, password_hash, role, auth_version, must_change_password,
+        `SELECT id, name, email, password_hash, role, auth_version, must_change_password,
                 temporary_password_expires_at, created_at
          FROM users WHERE id = $1`,
         [request.user.sub],
@@ -462,13 +533,14 @@ export async function buildApp({
          SET password_hash = $1, must_change_password = FALSE,
              temporary_password_expires_at = NULL, auth_version = auth_version + 1
          WHERE id = $2
-         RETURNING id, email, password_hash, role, auth_version, must_change_password,
+         RETURNING id, name, email, password_hash, role, auth_version, must_change_password,
                    temporary_password_expires_at, created_at`,
         [await hashPassword(request.body.newPassword), user.id],
       );
       const updatedUser = update.rows[0];
       const sessionUser: SessionUser = {
         sub: updatedUser.id,
+        name: updatedUser.name,
         email: updatedUser.email,
         role: updatedUser.role,
         authVersion: updatedUser.auth_version,
@@ -489,7 +561,7 @@ export async function buildApp({
     { preHandler: [requireSameOrigin, app.authenticate, app.requireAdmin] },
     async () => {
       const result = await database.query<UserRow>(
-        `SELECT id, email, password_hash, role, auth_version, must_change_password,
+        `SELECT id, name, email, password_hash, role, auth_version, must_change_password,
                 temporary_password_expires_at, created_at
          FROM users ORDER BY created_at DESC`,
       );
@@ -504,14 +576,21 @@ export async function buildApp({
       schema: {
         body: {
           type: "object",
-          required: ["email"],
+          required: ["name", "email"],
           additionalProperties: false,
-          properties: { email: { type: "string", minLength: 3, maxLength: 254 } },
+          properties: {
+            name: { type: "string", minLength: 1, maxLength: 100 },
+            email: { type: "string", minLength: 3, maxLength: 254 },
+          },
         },
       },
     },
     async (request, reply) => {
       const email = normalizeEmail(request.body.email);
+      const name = request.body.name.trim();
+      if (!name || name.length > 100) {
+        return reply.code(400).send({ error: "A name of 1-100 characters is required" });
+      }
       if (!emailPattern.test(email)) {
         return reply.code(400).send({ error: "A valid email address is required" });
       }
@@ -520,11 +599,11 @@ export async function buildApp({
       try {
         const result = await database.query<UserRow>(
           `INSERT INTO users
-             (email, password_hash, role, must_change_password, temporary_password_expires_at)
-           VALUES ($1, $2, 'user', TRUE, NOW() + INTERVAL '${temporaryPasswordDurationHours} hours')
-           RETURNING id, email, password_hash, role, auth_version, must_change_password,
+             (name, email, password_hash, role, must_change_password, temporary_password_expires_at)
+           VALUES ($1, $2, $3, 'user', TRUE, NOW() + INTERVAL '${temporaryPasswordDurationHours} hours')
+           RETURNING id, name, email, password_hash, role, auth_version, must_change_password,
                      temporary_password_expires_at, created_at`,
-          [email, await hashPassword(temporaryPassword)],
+          [name, email, await hashPassword(temporaryPassword)],
         );
         return reply.code(201).send({
           user: publicUser(result.rows[0]),
@@ -535,6 +614,100 @@ export async function buildApp({
           return reply.code(409).send({ error: "An account with this email already exists" });
         }
         throw error;
+      }
+    },
+  );
+
+  app.patch<{ Params: UserIdParams; Body: UpdateUserBody }>(
+    "/api/admin/users/:id",
+    {
+      preHandler: [requireSameOrigin, app.authenticate, app.requireAdmin],
+      schema: {
+        params: {
+          type: "object",
+          required: ["id"],
+          properties: { id: { type: "string", format: "uuid" } },
+        },
+        body: {
+          type: "object",
+          required: ["name"],
+          additionalProperties: false,
+          properties: { name: { type: "string", minLength: 1, maxLength: 100 } },
+        },
+      },
+    },
+    async (request, reply) => {
+      const name = request.body.name.trim();
+      if (!name || name.length > 100) {
+        return reply.code(400).send({ error: "A name of 1-100 characters is required" });
+      }
+
+      const result = await database.query<UserRow>(
+        `UPDATE users SET name = $1
+         WHERE id = $2
+         RETURNING id, name, email, password_hash, role, auth_version, must_change_password,
+                   temporary_password_expires_at, created_at`,
+        [name, request.params.id],
+      );
+      const user = result.rows[0];
+      if (!user) return reply.code(404).send({ error: "User not found" });
+
+      return reply.send({ user: publicUser(user) });
+    },
+  );
+
+  app.delete<{ Params: UserIdParams }>(
+    "/api/admin/users/:id",
+    {
+      preHandler: [requireSameOrigin, app.authenticate, app.requireAdmin],
+      schema: {
+        params: {
+          type: "object",
+          required: ["id"],
+          properties: { id: { type: "string", format: "uuid" } },
+        },
+      },
+    },
+    async (request, reply) => {
+      const client = await database.connect();
+      try {
+        await client.query("BEGIN");
+        const targetResult = await client.query<{ id: string; role: string }>(
+          "SELECT id, role FROM users WHERE id = $1 FOR UPDATE",
+          [request.params.id],
+        );
+        const target = targetResult.rows[0];
+        if (!target) {
+          await client.query("ROLLBACK");
+          return reply.code(404).send({ error: "User account not found" });
+        }
+        if (target.role !== "user") {
+          await client.query("ROLLBACK");
+          return reply.code(403).send({ error: "Administrator accounts cannot be deleted" });
+        }
+        await client.query(
+          "UPDATE project_articles SET created_by = $1 WHERE created_by = $2",
+          [request.user.sub, request.params.id],
+        );
+        const result = await client.query<{ id: string }>(
+          "DELETE FROM users WHERE id = $1 AND role = 'user' RETURNING id",
+          [request.params.id],
+        );
+        if (!result.rowCount) {
+          await client.query("ROLLBACK");
+          return reply.code(404).send({ error: "User account not found" });
+        }
+        await client.query("COMMIT");
+        return reply.code(204).send();
+      } catch (error) {
+        try {
+          await client.query("ROLLBACK");
+        } catch (rollbackError) {
+          request.log.error({ err: rollbackError }, "Unable to roll back account deletion");
+        }
+        throw error;
+      } finally {
+        client.release();
       }
     },
   );
@@ -559,7 +732,7 @@ export async function buildApp({
              temporary_password_expires_at = NOW() + INTERVAL '${temporaryPasswordDurationHours} hours',
              auth_version = auth_version + 1
          WHERE id = $2 AND role = 'user'
-         RETURNING id, email, password_hash, role, auth_version, must_change_password,
+         RETURNING id, name, email, password_hash, role, auth_version, must_change_password,
                    temporary_password_expires_at, created_at`,
         [await hashPassword(temporaryPassword), request.params.id],
       );
@@ -753,7 +926,7 @@ export async function buildApp({
     async (request, reply) => {
       const result = await database.query<ArticleRow>(
         `SELECT id, slug, title, excerpt, authors, cover_file, cover_content_type,
-                pdf_file, is_public, created_at
+                pdf_file, is_public, created_by, created_at
          FROM project_articles
          WHERE slug = $1 AND (is_public = TRUE OR $2::boolean = TRUE)`,
         [request.params.slug, request.articleViewer !== null],
@@ -764,7 +937,213 @@ export async function buildApp({
         "Cache-Control",
         article.is_public ? "public, max-age=60" : "private, no-store",
       );
-      return { article: articleResponse(article) };
+      return {
+        article: articleResponse(article),
+        canEdit: request.articleViewer !== null &&
+          (request.articleViewer.role === "admin" || request.articleViewer.sub === article.created_by),
+      };
+    },
+  );
+
+  app.put<{ Params: ProjectParams }>(
+    "/api/projects/:slug",
+    {
+      preHandler: [requireSameOrigin, app.authenticate],
+      schema: {
+        params: {
+          type: "object",
+          required: ["slug"],
+          properties: { slug: { type: "string", minLength: 1, maxLength: 100 } },
+        },
+      },
+    },
+    async (request, reply) => {
+      const currentResult = await database.query<ArticleRow>(
+        `SELECT id, slug, title, excerpt, authors, cover_file, cover_content_type,
+                pdf_file, is_public, created_by, created_at
+         FROM project_articles WHERE slug = $1`,
+        [request.params.slug],
+      );
+      const currentArticle = currentResult.rows[0];
+      if (!currentArticle) return reply.code(404).send({ error: "Article not found" });
+      if (request.user.role !== "admin" && request.user.sub !== currentArticle.created_by) {
+        return reply.code(403).send({ error: "Only the article author or an administrator can edit it" });
+      }
+
+      let title = "";
+      let excerpt = "";
+      let rawAuthors = "";
+      let visibility = "";
+      let cover: { data: Buffer; type: string; extension: string } | undefined;
+      let pdf: Buffer | undefined;
+      const receivedFields = new Set<string>();
+
+      try {
+        for await (const part of request.parts()) {
+          if (part.type === "file") {
+            const data = await part.toBuffer();
+            if (part.fieldname === "cover") {
+              if (cover) return reply.code(400).send({ error: "Upload one cover image only" });
+              if (data.length > maxCoverSize) {
+                return reply.code(413).send({ error: "Cover image must be 5 MB or smaller" });
+              }
+              const detectedType = await fileTypeFromBuffer(data);
+              const imageTypes: Record<string, { extension: string; type: string }> = {
+                "image/jpeg": { extension: "jpg", type: "image/jpeg" },
+                "image/png": { extension: "png", type: "image/png" },
+                "image/webp": { extension: "webp", type: "image/webp" },
+              };
+              const imageType = detectedType && imageTypes[detectedType.mime];
+              if (!imageType) {
+                return reply.code(400).send({ error: "Cover must be a valid JPEG, PNG or WebP image" });
+              }
+              cover = { data, ...imageType };
+            } else if (part.fieldname === "pdf") {
+              if (pdf) return reply.code(400).send({ error: "Upload one PDF article only" });
+              if (data.length > maxPdfSize) {
+                return reply.code(413).send({ error: "PDF must be 20 MB or smaller" });
+              }
+              const detectedType = await fileTypeFromBuffer(data);
+              if (detectedType?.mime !== "application/pdf") {
+                return reply.code(400).send({ error: "Article must be a valid PDF file" });
+              }
+              pdf = data;
+            } else {
+              return reply.code(400).send({ error: "Unexpected upload file field" });
+            }
+          } else {
+            if (typeof part.value !== "string") {
+              return reply.code(400).send({ error: "Article fields must be text" });
+            }
+            if (receivedFields.has(part.fieldname)) {
+              return reply.code(400).send({ error: "Duplicate article field" });
+            }
+            receivedFields.add(part.fieldname);
+            if (part.fieldname === "title") title = part.value;
+            else if (part.fieldname === "excerpt") excerpt = part.value;
+            else if (part.fieldname === "authors") rawAuthors = part.value;
+            else if (part.fieldname === "visibility") visibility = part.value;
+            else return reply.code(400).send({ error: "Unexpected article field" });
+          }
+        }
+      } catch (error) {
+        if (
+          typeof error === "object" &&
+          error !== null &&
+          "code" in error &&
+          error.code === "FST_REQ_FILE_TOO_LARGE"
+        ) {
+          return reply.code(413).send({ error: "Article upload exceeds the 20 MB file limit" });
+        }
+        throw error;
+      }
+
+      if (["title", "excerpt", "authors", "visibility"].some((field) => !receivedFields.has(field))) {
+        return reply.code(400).send({ error: "All article fields are required" });
+      }
+      title = title.trim();
+      excerpt = excerpt.trim();
+      if (title.length < 3 || title.length > 160) {
+        return reply.code(400).send({ error: "Title must contain 3-160 characters" });
+      }
+      if (excerpt.length < 10 || excerpt.length > 2000) {
+        return reply.code(400).send({ error: "Description must contain 10-2000 characters" });
+      }
+      if (visibility !== "public" && visibility !== "private") {
+        return reply.code(400).send({ error: "Choose whether the article is public or private" });
+      }
+
+      let authors: unknown;
+      try {
+        authors = JSON.parse(rawAuthors) as unknown;
+      } catch {
+        return reply.code(400).send({ error: "Authors must be submitted as a JSON array" });
+      }
+      if (
+        !Array.isArray(authors) ||
+        authors.length === 0 ||
+        authors.length > 30 ||
+        authors.some((author) => typeof author !== "string" || author.trim().length < 1 || author.trim().length > 100)
+      ) {
+        return reply.code(400).send({ error: "Provide up to 30 authors, each with 1-100 characters" });
+      }
+      authors = authors.map((author: string) => author.trim());
+
+      const coverFile = cover ? `${randomUUID()}.${cover.extension}` : currentArticle.cover_file;
+      const coverContentType = cover?.type ?? currentArticle.cover_content_type;
+      const pdfFile = pdf ? `${randomUUID()}.pdf` : currentArticle.pdf_file;
+      const newFilePaths = [
+        ...(cover ? [path.join(resolvedUploadDirectory, coverFile)] : []),
+        ...(pdf ? [path.join(resolvedUploadDirectory, pdfFile)] : []),
+      ];
+
+      try {
+        if (cover) {
+          await writeFile(path.join(resolvedUploadDirectory, coverFile), cover.data, {
+            flag: "wx",
+            mode: 0o640,
+          });
+        }
+        if (pdf) {
+          await writeFile(path.join(resolvedUploadDirectory, pdfFile), pdf, {
+            flag: "wx",
+            mode: 0o640,
+          });
+        }
+
+        const result = await database.query<ArticleRow>(
+          `UPDATE project_articles
+           SET title = $1, excerpt = $2, authors = $3, is_public = $4,
+               cover_file = $5, cover_content_type = $6, pdf_file = $7
+           WHERE id = $8
+           RETURNING id, slug, title, excerpt, authors, cover_file, cover_content_type,
+                     pdf_file, is_public, created_by, created_at`,
+          [
+            title,
+            excerpt,
+            authors,
+            visibility === "public",
+            coverFile,
+            coverContentType,
+            pdfFile,
+            currentArticle.id,
+          ],
+        );
+        const updatedArticle = result.rows[0];
+
+        const oldFileNames = [
+          ...(cover ? [currentArticle.cover_file] : []),
+          ...(pdf ? [currentArticle.pdf_file] : []),
+        ];
+        for (const oldFileName of oldFileNames) {
+          if (!isStoredFilename(oldFileName)) {
+            request.log.error(
+              { articleId: currentArticle.id },
+              "Invalid stored filename for replaced article file",
+            );
+            continue;
+          }
+          try {
+            await unlink(path.join(resolvedUploadDirectory, oldFileName));
+          } catch (error) {
+            if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
+              request.log.error({ err: error, articleId: currentArticle.id }, "Unable to remove replaced article file");
+            }
+          }
+        }
+
+        reply.header("Cache-Control", "private, no-store");
+        return reply.send({ article: articleResponse(updatedArticle), canEdit: true });
+      } catch (error) {
+        await Promise.all(
+          newFilePaths.map((filePath) =>
+            unlink(filePath).catch((cleanupError: NodeJS.ErrnoException) => {
+              if (cleanupError.code !== "ENOENT") throw cleanupError;
+            }),
+          ),
+        );
+        throw error;
+      }
     },
   );
 

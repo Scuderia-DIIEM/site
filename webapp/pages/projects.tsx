@@ -205,6 +205,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {filteredProjects.map((p, index) => {
                     const heroSrc = getHeroImageSrc(p.heroImage)
+                    const isPublic = p.isPublic ?? true
                     return (
                       <motion.div
                         key={p.id}
@@ -229,12 +230,18 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                             </div>
                           )}
                           <div className="p-4">
-                            <h2 className="mb-2 text-xl font-semibold text-accent">{p.title}</h2>
-                            {p.isPublic !== undefined && (
-                              <p className="mb-2 text-xs font-medium text-slate-500">
-                                {p.isPublic ? 'Articolo pubblico' : 'Articolo privato'}
-                              </p>
-                            )}
+                            <div className="mb-2 flex items-start justify-between gap-3">
+                              <h2 className="min-w-0 text-xl font-semibold text-accent">{p.title}</h2>
+                              <span
+                                className={`project-visibility-badge shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
+                                  isPublic
+                                    ? 'is-public bg-emerald-100 text-emerald-800'
+                                    : 'is-private bg-amber-100 text-amber-900'
+                                }`}
+                              >
+                                {isPublic ? 'Pubblico' : 'Privato'}
+                              </span>
+                            </div>
                             {p.authors && p.authors.length > 0 && (
                               <p className="mb-2 text-sm text-gray-500">
                                 {p.authors.length > 1 ? 'Autori' : 'Autore'}: {p.authors.join(', ')}
@@ -252,6 +259,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                 <div className="space-y-3">
                   {filteredProjects.map((p, index) => {
                     const heroSrc = getHeroImageSrc(p.heroImage)
+                    const isPublic = p.isPublic ?? true
                     return (
                       <motion.div
                         key={p.id}
@@ -276,16 +284,20 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                               </div>
                             )}
                             <div className="min-w-0 flex-1">
-                              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                                <h2 className="truncate text-lg font-semibold text-accent">{p.title}</h2>
-                                <div className="flex items-center gap-3">
-                                  {p.isPublic !== undefined && (
-                                    <span className="text-xs text-slate-500">
-                                      {p.isPublic ? 'Pubblico' : 'Privato'}
-                                    </span>
-                                  )}
-                                  <p className="text-xs text-gray-400">{p.date}</p>
+                              <div className="flex flex-wrap items-center justify-between gap-2">
+                                <div className="flex min-w-0 items-center gap-2">
+                                  <h2 className="truncate text-lg font-semibold text-accent">{p.title}</h2>
+                                  <span
+                                    className={`project-visibility-badge shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
+                                      isPublic
+                                        ? 'is-public bg-emerald-100 text-emerald-800'
+                                        : 'is-private bg-amber-100 text-amber-900'
+                                    }`}
+                                  >
+                                    {isPublic ? 'Pubblico' : 'Privato'}
+                                  </span>
                                 </div>
+                                <p className="text-xs text-gray-400">{p.date}</p>
                               </div>
                               {p.authors && p.authors.length > 0 && (
                                 <p className="mt-1 text-sm text-gray-500">

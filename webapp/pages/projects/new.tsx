@@ -192,13 +192,24 @@ export default function NewProjectArticlePage() {
                   </label>
                   <input
                     accept="image/jpeg,image/png,image/webp"
-                    className="block w-full rounded-lg border border-slate-300 p-3 text-sm text-slate-700 file:mr-4 file:rounded-md file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:font-semibold"
+                    className="peer sr-only"
                     id="article-cover"
                     onChange={(event) => setCover(event.target.files?.[0] ?? null)}
                     required
                     type="file"
                   />
-                  <p className="mt-1 text-xs text-slate-500">JPEG, PNG o WebP; massimo 5 MB.</p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <label
+                      className="inline-flex cursor-pointer items-center rounded-lg bg-accent px-4 py-2.5 font-semibold text-white transition hover:brightness-110 focus-within:outline-none focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2"
+                      htmlFor="article-cover"
+                    >
+                      Scegli copertina
+                    </label>
+                    <span className="min-w-0 break-all text-sm text-slate-600" aria-live="polite">
+                      {cover?.name ?? 'Nessun file selezionato'}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs text-slate-500">JPEG, PNG o WebP; massimo 5 MB.</p>
                 </div>
 
                 <div>
@@ -207,13 +218,24 @@ export default function NewProjectArticlePage() {
                   </label>
                   <input
                     accept="application/pdf,.pdf"
-                    className="block w-full rounded-lg border border-slate-300 p-3 text-sm text-slate-700 file:mr-4 file:rounded-md file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:font-semibold"
+                    className="peer sr-only"
                     id="article-pdf"
                     onChange={(event) => setPdf(event.target.files?.[0] ?? null)}
                     required
                     type="file"
                   />
-                  <p className="mt-1 text-xs text-slate-500">PDF; massimo 20 MB.</p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <label
+                      className="inline-flex cursor-pointer items-center rounded-lg bg-accent px-4 py-2.5 font-semibold text-white transition hover:brightness-110 focus-within:outline-none focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2"
+                      htmlFor="article-pdf"
+                    >
+                      Scegli PDF
+                    </label>
+                    <span className="min-w-0 break-all text-sm text-slate-600" aria-live="polite">
+                      {pdf?.name ?? 'Nessun file selezionato'}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs text-slate-500">PDF; massimo 20 MB.</p>
                 </div>
 
                 <fieldset>

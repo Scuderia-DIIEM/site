@@ -17,9 +17,14 @@ if (!bootstrapAdminEmail) {
   throw new Error("BOOTSTRAP_ADMIN_EMAIL environment variable is required");
 }
 
+const bootstrapAdminName = process.env.BOOTSTRAP_ADMIN_NAME?.trim() || bootstrapAdminEmail.split("@")[0];
+if (bootstrapAdminName.length > 100) {
+  throw new Error("BOOTSTRAP_ADMIN_NAME must be at most 100 characters");
+}
+
 const bootstrapAdminPassword = process.env.BOOTSTRAP_ADMIN_PASSWORD;
-if (!bootstrapAdminPassword || !/^[\x21-\x7e]{12,128}$/.test(bootstrapAdminPassword)) {
-  throw new Error("BOOTSTRAP_ADMIN_PASSWORD must contain 12-128 printable ASCII characters");
+if (!bootstrapAdminPassword || !/^[\x21-\x7e]{1,128}$/.test(bootstrapAdminPassword)) {
+  throw new Error("BOOTSTRAP_ADMIN_PASSWORD must contain 1-128 printable ASCII characters");
 }
 
 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bootstrapAdminEmail.trim())) {
@@ -39,6 +44,7 @@ try {
     jwtSecret,
     cookieSecure: process.env.COOKIE_SECURE === "true",
     bootstrapAdminEmail,
+    bootstrapAdminName,
     bootstrapAdminPassword,
     uploadDirectory: process.env.UPLOAD_DIR ?? "./uploads",
   });
