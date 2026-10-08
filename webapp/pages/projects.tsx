@@ -26,56 +26,71 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
 
   useEffect(() => {
     let active = true
-    void Promise.all([
-      fetch('/api/projects').then(async (response) => {
-        if (!response.ok) throw new Error('Non è stato possibile caricare gli articoli caricati.')
-        const result = (await response.json()) as {
-          articles: Array<{
-            id: string
-            slug: string
-            title: string
-            excerpt: string
-            authors: string[]
-            coverImage: string
-            pdfUrl: string
-            isPublic: boolean
-            date: string
-          }>
-        }
-        return result.articles
-      }),
-      fetch('/api/auth/me').then(async (response) => {
-        if (!response.ok) return null
-        return (await response.json()) as { user: { id: string }; mustChangePassword: boolean }
-      }),
-    ])
-      .then(([articles, session]) => {
-        if (!active) return
-        setUploadedArticles(
-          articles.map((article) => ({
-            id: article.id,
-            slug: article.slug,
-            title: article.title,
-            excerpt: article.excerpt,
-            authors: article.authors,
-            date: article.date,
-            heroImage: article.coverImage,
-            pdfUrl: article.pdfUrl,
-            isPublic: article.isPublic,
-            blocks: [],
-          }))
-        )
-        setIsAuthenticated(Boolean(session))
-        setMustChangePassword(Boolean(session?.mustChangePassword))
-      })
-      .catch((error: unknown) => {
+    let latestLoad = 0
+    const loadArticles = async () => {
+      const loadId = ++latestLoad
+      const [articles, session] = await Promise.all([
+        fetch('/api/projects', { cache: 'no-store' }).then(async (response) => {
+          if (!response.ok) throw new Error('Non è stato possibile caricare gli articoli caricati.')
+          const result = (await response.json()) as {
+            articles: Array<{
+              id: string
+              slug: string
+              title: string
+              excerpt: string
+              authors: string[]
+              coverImage: string
+              pdfUrl: string
+              isPublic: boolean
+              date: string
+            }>
+          }
+          return result.articles
+        }),
+        fetch('/api/auth/me', { cache: 'no-store' }).then(async (response) => {
+          if (!response.ok) return null
+          return (await response.json()) as { user: { id: string }; mustChangePassword: boolean }
+        }),
+      ])
+
+      if (!active || loadId !== latestLoad) return
+      setLoadError('')
+      setUploadedArticles(
+        articles.map((article) => ({
+          id: article.id,
+          slug: article.slug,
+          title: article.title,
+          excerpt: article.excerpt,
+          authors: article.authors,
+          date: article.date,
+          heroImage: article.coverImage,
+          pdfUrl: article.pdfUrl,
+          isPublic: article.isPublic,
+          blocks: [],
+        }))
+      )
+      setIsAuthenticated(Boolean(session))
+      setMustChangePassword(Boolean(session?.mustChangePassword))
+    }
+
+    const refreshArticlesAfterAuthChange = () => {
+      void loadArticles().catch((error: unknown) => {
         if (active) {
           setLoadError(error instanceof Error ? error.message : 'Errore durante il caricamento degli articoli.')
         }
       })
+    }
+
+    void loadArticles().catch((error: unknown) => {
+      if (active) {
+        setLoadError(error instanceof Error ? error.message : 'Errore durante il caricamento degli articoli.')
+      }
+    })
+    window.addEventListener('scuderia:auth-changed', refreshArticlesAfterAuthChange)
 
     return () => {
       active = false
+      window.removeEventListener('scuderia:auth-changed', refreshArticlesAfterAuthChange)
     }
   }, [])
 

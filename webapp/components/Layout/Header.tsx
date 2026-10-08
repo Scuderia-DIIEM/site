@@ -152,6 +152,7 @@ export default function Header() {
       setCurrentUser(null)
       setIsAccountMenuOpen(false)
       setIsMobileMenuOpen(false)
+      window.dispatchEvent(new Event('scuderia:auth-changed'))
     } catch (error) {
       console.error('Unable to sign out', error)
       setAuthError('Logout non riuscito. Riprova.')
@@ -180,6 +181,7 @@ export default function Header() {
       setLoginIdentifier('')
       setLoginPassword('')
       setIsAccountMenuOpen(false)
+      window.dispatchEvent(new Event('scuderia:auth-changed'))
       if (result.mustChangePassword) {
         await router.push('/change-password')
       } else if (result.user.role !== 'admin') {
@@ -193,6 +195,12 @@ export default function Header() {
   }
 
   useEffect(() => {
+    if (!currentUser) {
+      setSensorFeed(null)
+      setIsSensorDataFresh(false)
+      return
+    }
+
     const readApiKey = THINGSPEAK_READ_API_KEY
     if (!readApiKey) return
 
@@ -216,7 +224,7 @@ export default function Header() {
       isActive = false
       window.clearInterval(intervalId)
     }
-  }, [])
+  }, [currentUser])
 
   useEffect(() => {
     const recordedAt = sensorFeed?.created_at ? Date.parse(sensorFeed.created_at) : NaN
@@ -247,6 +255,7 @@ export default function Header() {
     { label: 'Dispositivi', href: '/#products' },
     { label: 'Chi Siamo', href: '/#about' },
     { label: 'Struttura', href: '/structure' },
+    { label: 'Progetti', href: isHome ? '#projects' : '/projects' },
     { label: 'Team', href: isHome ? '#team' : '/team' },
     { label: 'Eventi', href: '/#racing' },
     { label: 'Contatti', href: '/#contact' },
@@ -283,7 +292,7 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:ml-auto md:flex items-center space-x-8">
-            <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-6">
               {navItems.map((item, index) => (
                 <Link key={item.href} href={item.href}>
                   <motion.span
@@ -300,7 +309,7 @@ export default function Header() {
             </div>
           </div>
 
-          <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-8">
+          <div className="ml-auto flex shrink-0 items-center gap-4 md:ml-4">
             <button
               className="md:hidden text-white"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -323,39 +332,6 @@ export default function Header() {
                 )}
               </svg>
             </button>
-            <motion.button
-              type="button"
-              role="switch"
-              aria-checked={theme === 'dark'}
-              className="relative h-7 w-12 shrink-0 rounded-full border border-white/25 p-0.5 text-white outline-none focus-visible:ring-2 focus-visible:ring-accent"
-              onClick={toggleTheme}
-              aria-label={theme === 'dark' ? 'Passa alla modalità chiara' : 'Passa alla modalità scura'}
-              title={theme === 'dark' ? 'Modalità chiara' : 'Modalità scura'}
-              animate={{ backgroundColor: theme === 'dark' ? '#0c4a6e' : '#f4792b' }}
-              transition={{ duration: 0.25 }}
-            >
-              <span
-                className={`absolute top-1/2 -translate-y-1/2 ${theme === 'dark' ? 'left-[6px]' : 'right-[6px]'}`}
-                aria-hidden="true"
-              >
-                {theme === 'dark' ? (
-                  <svg className="h-3 w-3 text-accent" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.9 13A8.5 8.5 0 0 1 11 3.1 8.5 8.5 0 1 0 20.9 13Z" />
-                  </svg>
-                ) : (
-                  <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                    <circle cx="12" cy="12" r="3.5" />
-                    <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
-                  </svg>
-                )}
-              </span>
-              <motion.span
-                className={`absolute left-0.5 top-1/2 h-5 w-5 rounded-full shadow-sm ${theme === 'dark' ? 'bg-slate-800' : 'bg-white'}`}
-                animate={{ x: theme === 'dark' ? 22 : 0, y: '-50%' }}
-                transition={{ type: 'spring', stiffness: 500, damping: 32 }}
-                aria-hidden="true"
-              />
-            </motion.button>
             {!isAuthLoading && (
               currentUser ? (
                 <div ref={desktopAccountMenuRef} className="relative hidden sm:block">
@@ -487,34 +463,69 @@ export default function Header() {
                 </div>
               )
             )}
-            <div
-              tabIndex={0}
-              aria-describedby="sensor-tooltip"
-              aria-label={`Temperatura ${formatSensorValue(sensorFeed?.field1, ' gradi Celsius')}, umidità ${formatSensorValue(sensorFeed?.field2, ' percento')}`}
-              className="group relative flex h-10 w-10 shrink-0 cursor-default flex-col items-center justify-center rounded-full border border-white/30 bg-white/10 text-[10px] font-semibold leading-3 text-white outline-none transition hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-accent"
+            <motion.button
+              type="button"
+              role="switch"
+              aria-checked={theme === 'dark'}
+              className="relative h-7 w-12 shrink-0 rounded-full border border-white/25 p-0.5 text-white outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              onClick={toggleTheme}
+              aria-label={theme === 'dark' ? 'Passa alla modalità chiara' : 'Passa alla modalità scura'}
+              title={theme === 'dark' ? 'Modalità chiara' : 'Modalità scura'}
+              animate={{ backgroundColor: theme === 'dark' ? '#0c4a6e' : '#f4792b' }}
+              transition={{ duration: 0.25 }}
             >
-              <span>{formatSensorValue(sensorFeed?.field1, '°')}</span>
-              <span>{formatSensorValue(sensorFeed?.field2, '%')}</span>
-              <div
-                id="sensor-tooltip"
-                role="tooltip"
-                className="invisible absolute right-0 top-full z-50 mt-2 w-max max-w-[min(18rem,calc(100vw-2rem))] rounded-md border border-white/20 bg-primary px-3 py-2 text-xs font-normal leading-relaxed text-white opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100 group-focus:visible group-focus:opacity-100"
+              <span
+                className={`absolute top-1/2 -translate-y-1/2 ${theme === 'dark' ? 'left-[6px]' : 'right-[6px]'}`}
+                aria-hidden="true"
               >
-                {sensorFeed ? (
-                  <>
-                    {!isSensorDataFresh && <div className="mb-1 font-semibold">Ultimo valore registrato</div>}
-                    <div>Temperatura: {formatSensorValue(sensorFeed.field1, ' °C')}</div>
-                    <div>Umidità: {formatSensorValue(sensorFeed.field2, '%')}</div>
-                    {sensorFeed.created_at && (
-                      <div className="mt-1 text-white/70">
-                        Aggiornato: {new Date(sensorFeed.created_at).toLocaleString('it-IT')}</div>
-                    )}
-                  </>
+                {theme === 'dark' ? (
+                  <svg className="h-3 w-3 text-accent" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.9 13A8.5 8.5 0 0 1 11 3.1 8.5 8.5 0 1 0 20.9 13Z" />
+                  </svg>
                 ) : (
-                  'Dati non disponibili'
+                  <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                    <circle cx="12" cy="12" r="3.5" />
+                    <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+                  </svg>
                 )}
+              </span>
+              <motion.span
+                className={`absolute left-0.5 top-1/2 h-5 w-5 rounded-full shadow-sm ${theme === 'dark' ? 'bg-slate-800' : 'bg-white'}`}
+                animate={{ x: theme === 'dark' ? 22 : 0, y: '-50%' }}
+                transition={{ type: 'spring', stiffness: 500, damping: 32 }}
+                aria-hidden="true"
+              />
+            </motion.button>
+            {currentUser && (
+              <div
+                tabIndex={0}
+                aria-describedby="sensor-tooltip"
+                aria-label={`Temperatura ${formatSensorValue(sensorFeed?.field1, ' gradi Celsius')}, umidità ${formatSensorValue(sensorFeed?.field2, ' percento')}`}
+                className="group relative flex h-10 w-10 shrink-0 cursor-default flex-col items-center justify-center rounded-full border border-white/30 bg-white/10 text-[10px] font-semibold leading-3 text-white outline-none transition hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                <span>{formatSensorValue(sensorFeed?.field1, '°')}</span>
+                <span>{formatSensorValue(sensorFeed?.field2, '%')}</span>
+                <div
+                  id="sensor-tooltip"
+                  role="tooltip"
+                  className="invisible absolute right-0 top-full z-50 mt-2 w-max max-w-[min(18rem,calc(100vw-2rem))] rounded-md border border-white/20 bg-primary px-3 py-2 text-xs font-normal leading-relaxed text-white opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100 group-focus:visible group-focus:opacity-100"
+                >
+                  {sensorFeed ? (
+                    <>
+                      {!isSensorDataFresh && <div className="mb-1 font-semibold">Ultimo valore registrato</div>}
+                      <div>Temperatura: {formatSensorValue(sensorFeed.field1, ' °C')}</div>
+                      <div>Umidità: {formatSensorValue(sensorFeed.field2, '%')}</div>
+                      {sensorFeed.created_at && (
+                        <div className="mt-1 text-white/70">
+                          Aggiornato: {new Date(sensorFeed.created_at).toLocaleString('it-IT')}</div>
+                      )}
+                    </>
+                  ) : (
+                    'Dati non disponibili'
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
