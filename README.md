@@ -62,7 +62,8 @@ a replacement password for an existing user from the same page, and can edit acc
 names there. Admins can also delete user accounts; any articles created by the deleted
 account are retained and reassigned to the admin performing the deletion. Admin accounts
 cannot be deleted from the user-management page. Users can edit their own display name
-from the profile menu. Existing accounts receive their email prefix as an initial name.
+from the profile menu. Existing accounts receive their email prefix as an initial name. Users can edit their
+display name and email address from the profile menu.
 Uploaded project articles can be edited by their creator or an administrator.
 
 Authentication uses short-lived, HTTP-only, same-site cookies. When hosting behind

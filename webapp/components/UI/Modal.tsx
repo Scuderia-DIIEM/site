@@ -47,7 +47,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
             onClick={onClose}
           >
             {/* Modal Content */}
@@ -84,4 +84,3 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
     </AnimatePresence>
   )
 }
-

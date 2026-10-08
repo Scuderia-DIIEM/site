@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -37,6 +37,9 @@ export default function UploadedProjectArticlePage() {
   const [pdf, setPdf] = useState<File | null>(null)
   const [editError, setEditError] = useState('')
   const [isSaving, setIsSaving] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const coverInputRef = useRef<HTMLInputElement>(null)
+  const pdfInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!router.isReady || !slug) return
@@ -134,6 +137,27 @@ export default function UploadedProjectArticlePage() {
       setEditError('Servizio non disponibile. Riprova tra poco.')
     } finally {
       setIsSaving(false)
+    }
+  }
+
+  async function deleteArticle() {
+    if (!article) return
+    if (!window.confirm(`Vuoi eliminare definitivamente l’articolo "${article.title}"?`)) return
+
+    setEditError('')
+    setIsDeleting(true)
+    try {
+      const response = await fetch(`/api/projects/${encodeURIComponent(article.slug)}`, { method: 'DELETE' })
+      if (!response.ok) {
+        const result = (await response.json()) as { error?: string }
+        setEditError(result.error ?? 'Non è stato possibile eliminare l’articolo.')
+        return
+      }
+      await router.push('/projects')
+    } catch {
+      setEditError('Servizio non disponibile. Riprova tra poco.')
+    } finally {
+      setIsDeleting(false)
     }
   }
 
@@ -272,19 +296,29 @@ export default function UploadedProjectArticlePage() {
                   <div className="mt-5 flex flex-wrap gap-3">
                     <button
                       className="rounded-lg bg-accent px-4 py-2 font-semibold text-white transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
-                      disabled={isSaving}
+                      disabled={isSaving || isDeleting}
                       type="submit"
                     >
                       {isSaving ? 'Salvataggio…' : 'Salva modifiche'}
                     </button>
                     <button
-                      className="rounded-lg border border-slate-300 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-60"
-                      disabled={isSaving}
+                      className="rounded-lg border border-slate-300 px-4 py-2 font-semibold text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-500 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
+                      disabled={isSaving || isDeleting}
                       onClick={() => setIsEditing(false)}
                       type="button"
                     >
                       Annulla
                     </button>
+                    {article.canEdit && (
+                      <button
+                        className="rounded-lg border border-red-300 px-4 py-2 font-semibold text-red-700 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-red-700 dark:bg-red-950 dark:text-white dark:hover:bg-red-900"
+                        disabled={isSaving || isDeleting}
+                        onClick={() => void deleteArticle()}
+                        type="button"
+                      >
+                        {isDeleting ? 'Eliminazione…' : 'Elimina articolo'}
+                      </button>
+                    )}
                   </div>
                 )}
                 {editError && (
@@ -293,8 +327,18 @@ export default function UploadedProjectArticlePage() {
                   </p>
                 )}
 
-                <div className="mt-7 grid items-center gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] sm:gap-8">
-                  <div className="mx-auto w-full max-w-sm overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm sm:mx-0">
+                <div
+                  className={
+                    isEditing
+                      ? 'mt-7 grid items-center gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] sm:gap-8'
+                      : 'mt-7 block'
+                  }
+                >
+                  <div
+                    className={`mx-auto w-full max-w-sm overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm sm:mx-0 ${
+                      isEditing ? '' : 'sm:float-left sm:mr-8 sm:mb-4 sm:w-[35%]'
+                    }`}
+                  >
                     <img
                       alt={`Copertina: ${article.title}`}
                       className="max-h-80 w-full object-contain"
@@ -307,12 +351,26 @@ export default function UploadedProjectArticlePage() {
                         </label>
                         <input
                           accept="image/jpeg,image/png,image/webp"
-                          className="block w-full text-xs text-slate-700"
+                          className="sr-only"
                           id="replace-article-cover"
                           onChange={(event) => setCover(event.target.files?.[0] ?? null)}
+                          ref={coverInputRef}
                           type="file"
                         />
-                        <p className="mt-1 text-xs text-slate-500">Facoltativo; JPEG, PNG o WebP, massimo 5 MB.</p>
+                        <div className="flex flex-wrap items-center gap-3">
+                          <button
+                            aria-controls="replace-article-cover"
+                            className="inline-flex cursor-pointer items-center rounded-lg bg-accent px-4 py-2.5 font-semibold text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                            onClick={() => coverInputRef.current?.click()}
+                            type="button"
+                          >
+                            Scegli copertina
+                          </button>
+                          <span className="min-w-0 break-all text-sm text-slate-600" aria-live="polite">
+                            {cover?.name ?? 'Nessun nuovo file selezionato'}
+                          </span>
+                        </div>
+                        <p className="mt-2 text-xs text-slate-500">Facoltativo; JPEG, PNG o WebP, massimo 5 MB.</p>
                       </div>
                     )}
                   </div>
@@ -339,7 +397,7 @@ export default function UploadedProjectArticlePage() {
                   )}
                 </div>
 
-                <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <section className="clear-both mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                       <h2 className="text-xl font-semibold text-slate-900">Articolo completo</h2>
@@ -363,11 +421,25 @@ export default function UploadedProjectArticlePage() {
                       </label>
                       <input
                         accept="application/pdf,.pdf"
-                        className="block w-full text-sm text-slate-700"
+                        className="sr-only"
                         id="replace-article-pdf"
                         onChange={(event) => setPdf(event.target.files?.[0] ?? null)}
+                        ref={pdfInputRef}
                         type="file"
                       />
+                      <div className="flex flex-wrap items-center gap-3">
+                        <button
+                          aria-controls="replace-article-pdf"
+                          className="inline-flex cursor-pointer items-center rounded-lg bg-accent px-4 py-2.5 font-semibold text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                          onClick={() => pdfInputRef.current?.click()}
+                          type="button"
+                        >
+                          Scegli PDF
+                        </button>
+                        <span className="min-w-0 break-all text-sm text-slate-600" aria-live="polite">
+                          {pdf?.name ?? 'Nessun nuovo file selezionato'}
+                        </span>
+                      </div>
                       <p className="mt-1 text-xs text-slate-500">Facoltativo; PDF, massimo 20 MB.</p>
                     </div>
                   )}

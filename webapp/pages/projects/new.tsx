@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -24,6 +24,8 @@ export default function NewProjectArticlePage() {
   const [visibility, setVisibility] = useState<'public' | 'private'>('public')
   const [cover, setCover] = useState<File | null>(null)
   const [pdf, setPdf] = useState<File | null>(null)
+  const coverInputRef = useRef<HTMLInputElement>(null)
+  const pdfInputRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
@@ -192,19 +194,22 @@ export default function NewProjectArticlePage() {
                   </label>
                   <input
                     accept="image/jpeg,image/png,image/webp"
-                    className="peer sr-only"
+                    className="sr-only"
                     id="article-cover"
                     onChange={(event) => setCover(event.target.files?.[0] ?? null)}
+                    ref={coverInputRef}
                     required
                     type="file"
                   />
                   <div className="flex flex-wrap items-center gap-3">
-                    <label
-                      className="inline-flex cursor-pointer items-center rounded-lg bg-accent px-4 py-2.5 font-semibold text-white transition hover:brightness-110 focus-within:outline-none focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2"
-                      htmlFor="article-cover"
+                    <button
+                      aria-controls="article-cover"
+                      className="inline-flex cursor-pointer items-center rounded-lg bg-accent px-4 py-2.5 font-semibold text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                      onClick={() => coverInputRef.current?.click()}
+                      type="button"
                     >
                       Scegli copertina
-                    </label>
+                    </button>
                     <span className="min-w-0 break-all text-sm text-slate-600" aria-live="polite">
                       {cover?.name ?? 'Nessun file selezionato'}
                     </span>
@@ -218,19 +223,22 @@ export default function NewProjectArticlePage() {
                   </label>
                   <input
                     accept="application/pdf,.pdf"
-                    className="peer sr-only"
+                    className="sr-only"
                     id="article-pdf"
                     onChange={(event) => setPdf(event.target.files?.[0] ?? null)}
+                    ref={pdfInputRef}
                     required
                     type="file"
                   />
                   <div className="flex flex-wrap items-center gap-3">
-                    <label
-                      className="inline-flex cursor-pointer items-center rounded-lg bg-accent px-4 py-2.5 font-semibold text-white transition hover:brightness-110 focus-within:outline-none focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2"
-                      htmlFor="article-pdf"
+                    <button
+                      aria-controls="article-pdf"
+                      className="inline-flex cursor-pointer items-center rounded-lg bg-accent px-4 py-2.5 font-semibold text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                      onClick={() => pdfInputRef.current?.click()}
+                      type="button"
                     >
                       Scegli PDF
-                    </label>
+                    </button>
                     <span className="min-w-0 break-all text-sm text-slate-600" aria-live="polite">
                       {pdf?.name ?? 'Nessun file selezionato'}
                     </span>

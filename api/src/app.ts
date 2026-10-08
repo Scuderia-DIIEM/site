@@ -58,7 +58,7 @@ interface SessionUser {
 }
 
 interface UserCredentials {
-  email: string;
+  identifier: string;
   password: string;
 }
 
@@ -68,7 +68,9 @@ interface CreateUserBody {
 }
 
 interface UpdateUserBody {
-  name: string;
+  name?: string;
+  email?: string;
+  role?: "admin" | "user";
 }
 
 interface UserIdParams {
@@ -378,31 +380,35 @@ export async function buildApp({
       schema: {
         body: {
           type: "object",
-          required: ["email", "password"],
+          required: ["identifier", "password"],
           additionalProperties: false,
           properties: {
-            email: { type: "string", maxLength: 254 },
+            identifier: { type: "string", minLength: 1, maxLength: 254 },
             password: { type: "string", minLength: 1, maxLength: 128 },
           },
         },
       },
     },
     async (request, reply) => {
-      const email = normalizeEmail(request.body.email);
+      const identifier = request.body.identifier.trim();
+      const email = normalizeEmail(identifier);
       const result = await database.query<UserRow>(
         `SELECT id, name, email, password_hash, role, auth_version, must_change_password,
                 temporary_password_expires_at, created_at
-         FROM users WHERE email = $1`,
-        [email],
+         FROM users
+         WHERE email = $1 OR LOWER(name) = LOWER($2)
+         ORDER BY CASE WHEN email = $1 THEN 0 ELSE 1 END
+         LIMIT 2`,
+        [email, identifier],
       );
-      const user = result.rows[0];
+      const user = result.rows.length === 1 ? result.rows[0] : undefined;
       const passwordMatches = await verifyPassword(
         request.body.password,
         user?.password_hash ?? dummyPasswordHash,
       );
 
       if (!user || !passwordMatches) {
-        return reply.code(401).send({ error: "Invalid email or password" });
+        return reply.code(401).send({ error: "Invalid email, username or password" });
       }
       if (
         user.temporary_password_expires_at &&
@@ -456,35 +462,65 @@ export async function buildApp({
     }),
   );
 
-  app.patch<{ Body: { name: string } }>(
+  app.patch<{ Body: { name: string; email: string } }>(
     "/api/auth/profile",
     {
       preHandler: [requireSameOrigin, app.authenticate],
       schema: {
         body: {
           type: "object",
-          required: ["name"],
+          required: ["name", "email"],
           additionalProperties: false,
-          properties: { name: { type: "string", minLength: 1, maxLength: 100 } },
+          properties: {
+            name: { type: "string", minLength: 1, maxLength: 100 },
+            email: { type: "string", minLength: 3, maxLength: 254 },
+          },
         },
       },
     },
     async (request, reply) => {
       const name = request.body.name.trim();
+      const email = normalizeEmail(request.body.email);
       if (!name || name.length > 100) {
         return reply.code(400).send({ error: "A name of 1-100 characters is required" });
       }
+      if (!emailPattern.test(email)) {
+        return reply.code(400).send({ error: "A valid email address is required" });
+      }
 
-      const result = await database.query<{ id: string; name: string; email: string; role: "admin" | "user" }>(
-        `UPDATE users SET name = $1
-         WHERE id = $2
-         RETURNING id, name, email, role`,
-        [name, request.user.sub],
-      );
-      const user = result.rows[0];
-      if (!user) return reply.code(401).send({ error: "Authentication required" });
+      try {
+        const result = await database.query<UserRow>(
+          `UPDATE users SET name = $1, email = $2
+           WHERE id = $3
+           RETURNING id, name, email, password_hash, role, auth_version, must_change_password,
+                     temporary_password_expires_at, created_at`,
+          [name, email, request.user.sub],
+        );
+        const user = result.rows[0];
+        if (!user) return reply.code(401).send({ error: "Authentication required" });
 
-      return reply.header("Cache-Control", "private, no-store").send({ user });
+        const sessionUser: SessionUser = {
+          sub: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          authVersion: user.auth_version,
+          mustChangePassword: user.must_change_password,
+        };
+
+        return reply
+          .header("Cache-Control", "private, no-store")
+          .setCookie(sessionCookie, app.jwt.sign(sessionUser), {
+            ...cookieOptions,
+            maxAge: sessionDurationSeconds,
+          })
+          .send({ user: { id: user.id, name: user.name, email: user.email, role: user.role } });
+      } catch (error) {
+        if (typeof error === "object" && error !== null && "code" in error && error.code === "23505") {
+          return reply.code(409).send({ error: "An account with this email already exists" });
+        }
+        throw error;
+      }
     },
   );
 
@@ -630,29 +666,129 @@ export async function buildApp({
         },
         body: {
           type: "object",
-          required: ["name"],
           additionalProperties: false,
-          properties: { name: { type: "string", minLength: 1, maxLength: 100 } },
+          minProperties: 1,
+          properties: {
+            name: { type: "string", minLength: 1, maxLength: 100 },
+            email: { type: "string", minLength: 3, maxLength: 254 },
+            role: { type: "string", enum: ["admin", "user"] },
+          },
         },
       },
     },
     async (request, reply) => {
-      const name = request.body.name.trim();
-      if (!name || name.length > 100) {
+      if (request.body.email !== undefined) {
+        const email = normalizeEmail(request.body.email);
+        if (!emailPattern.test(email)) {
+          return reply.code(400).send({ error: "A valid email address is required" });
+        }
+        try {
+          const result = await database.query<UserRow>(
+            `UPDATE users SET name = COALESCE($1, name), email = $2
+             WHERE id = $3
+             RETURNING id, name, email, password_hash, role, auth_version, must_change_password,
+                       temporary_password_expires_at, created_at`,
+            [request.body.name?.trim() || null, email, request.params.id],
+          );
+          const user = result.rows[0];
+          if (!user) return reply.code(404).send({ error: "User not found" });
+          return reply.send({ user: publicUser(user) });
+        } catch (error) {
+          if (typeof error === "object" && error !== null && "code" in error && error.code === "23505") {
+            return reply.code(409).send({ error: "An account with this email already exists" });
+          }
+          throw error;
+        }
+      }
+      const name = request.body.name?.trim();
+      if (name !== undefined && (!name || name.length > 100)) {
         return reply.code(400).send({ error: "A name of 1-100 characters is required" });
       }
 
-      const result = await database.query<UserRow>(
-        `UPDATE users SET name = $1
-         WHERE id = $2
-         RETURNING id, name, email, password_hash, role, auth_version, must_change_password,
-                   temporary_password_expires_at, created_at`,
-        [name, request.params.id],
-      );
-      const user = result.rows[0];
-      if (!user) return reply.code(404).send({ error: "User not found" });
+      const client = await database.connect();
+      try {
+        await client.query("BEGIN");
+        if (request.body.role !== undefined) {
+          await client.query("SELECT pg_advisory_xact_lock(481516, 2342)");
+        }
 
-      return reply.send({ user: publicUser(user) });
+        const targetResult = await client.query<UserRow>(
+          `SELECT id, name, email, password_hash, role, auth_version, must_change_password,
+                  temporary_password_expires_at, created_at
+           FROM users WHERE id = $1 FOR UPDATE`,
+          [request.params.id],
+        );
+
+        app.get<{ Params: UserIdParams }>(
+          "/api/admin/users/:id",
+          {
+            preHandler: [requireSameOrigin, app.authenticate, app.requireAdmin],
+            schema: {
+              params: {
+                type: "object",
+                required: ["id"],
+                properties: { id: { type: "string", format: "uuid" } },
+              },
+            },
+          },
+          async (request, reply) => {
+            const result = await database.query<UserRow>(
+              `SELECT id, name, email, password_hash, role, auth_version, must_change_password,
+                      temporary_password_expires_at, created_at
+               FROM users WHERE id = $1`,
+              [request.params.id],
+            );
+            const user = result.rows[0];
+            if (!user) return reply.code(404).send({ error: "User not found" });
+            return { user: publicUser(user) };
+          },
+        );
+        const target = targetResult.rows[0];
+        if (!target) {
+          await client.query("ROLLBACK");
+          return reply.code(404).send({ error: "User not found" });
+        }
+
+        if (request.body.role === "user" && target.role === "admin") {
+          const adminCountResult = await client.query<{ count: number }>(
+            "SELECT COUNT(*)::int AS count FROM users WHERE role = 'admin'",
+          );
+          if (adminCountResult.rows[0].count <= 1) {
+            await client.query("ROLLBACK");
+            return reply.code(409).send({ error: "At least one administrator account must remain" });
+          }
+        }
+
+        const result = request.body.role === undefined
+          ? await client.query<UserRow>(
+            `UPDATE users SET name = $1
+             WHERE id = $2
+             RETURNING id, name, email, password_hash, role, auth_version, must_change_password,
+                       temporary_password_expires_at, created_at`,
+            [name, request.params.id],
+          )
+          : await client.query<UserRow>(
+            `UPDATE users
+             SET name = COALESCE($1, name),
+                 auth_version = auth_version + CASE WHEN role IS DISTINCT FROM $2 THEN 1 ELSE 0 END,
+                 role = $2
+             WHERE id = $3
+             RETURNING id, name, email, password_hash, role, auth_version, must_change_password,
+                       temporary_password_expires_at, created_at`,
+            [name ?? null, request.body.role, request.params.id],
+          );
+        await client.query("COMMIT");
+        return reply.send({ user: publicUser(result.rows[0]) });
+      } catch (error) {
+        try {
+          await client.query("ROLLBACK");
+        } catch (rollbackError) {
+          request.log.error({ err: rollbackError }, "Unable to roll back account update");
+        }
+        throw error;
+      } finally {
+        client.release();
+      }
     },
   );
 
@@ -731,7 +867,7 @@ export async function buildApp({
          SET password_hash = $1, must_change_password = TRUE,
              temporary_password_expires_at = NOW() + INTERVAL '${temporaryPasswordDurationHours} hours',
              auth_version = auth_version + 1
-         WHERE id = $2 AND role = 'user'
+         WHERE id = $2
          RETURNING id, name, email, password_hash, role, auth_version, must_change_password,
                    temporary_password_expires_at, created_at`,
         [await hashPassword(temporaryPassword), request.params.id],
@@ -749,7 +885,7 @@ export async function buildApp({
     async (request, reply) => {
       const result = await database.query<ArticleRow>(
         `SELECT id, slug, title, excerpt, authors, cover_file, cover_content_type,
-                pdf_file, is_public, created_at
+                pdf_file, is_public, created_by, created_at
          FROM project_articles
          WHERE is_public = TRUE OR $1::boolean = TRUE
          ORDER BY created_at DESC`,
@@ -1144,6 +1280,59 @@ export async function buildApp({
         );
         throw error;
       }
+    },
+  );
+
+  app.delete<{ Params: ProjectParams }>(
+    "/api/projects/:slug",
+    {
+      preHandler: [requireSameOrigin, app.authenticate],
+      schema: {
+        params: {
+          type: "object",
+          required: ["slug"],
+          properties: { slug: { type: "string", minLength: 1, maxLength: 100 } },
+        },
+      },
+    },
+    async (request, reply) => {
+      const currentResult = await database.query<{
+        id: string;
+        created_by: string;
+      }>(
+        "SELECT id, created_by FROM project_articles WHERE slug = $1",
+        [request.params.slug],
+      );
+      const currentArticle = currentResult.rows[0];
+      if (!currentArticle) return reply.code(404).send({ error: "Article not found" });
+      if (request.user.role !== "admin" && request.user.sub !== currentArticle.created_by) {
+        return reply.code(403).send({ error: "Only the article author or an administrator can delete it" });
+      }
+
+      const result = await database.query<{ cover_file: string; pdf_file: string }>(
+        `DELETE FROM project_articles
+         WHERE id = $1 AND (created_by = $2 OR $3::boolean = TRUE)
+         RETURNING cover_file, pdf_file`,
+        [currentArticle.id, request.user.sub, request.user.role === "admin"],
+      );
+      const deletedArticle = result.rows[0];
+      if (!deletedArticle) return reply.code(404).send({ error: "Article not found" });
+
+      for (const fileName of [deletedArticle.cover_file, deletedArticle.pdf_file]) {
+        if (!isStoredFilename(fileName)) {
+          request.log.error({ articleId: currentArticle.id }, "Invalid stored filename for deleted article");
+          continue;
+        }
+        try {
+          await unlink(path.join(resolvedUploadDirectory, fileName));
+        } catch (error) {
+          if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
+            request.log.error({ err: error, articleId: currentArticle.id }, "Unable to remove deleted article file");
+          }
+        }
+      }
+
+      return reply.code(204).send();
     },
   );
 

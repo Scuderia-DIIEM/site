@@ -11,7 +11,7 @@ interface LoginResponse {
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,7 +25,7 @@ export default function LoginPage() {
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ identifier, password }),
       });
       const result = (await response.json()) as LoginResponse;
 
@@ -42,8 +42,6 @@ export default function LoginPage() {
         !router.query.next.startsWith("//")
       ) {
         await router.push(router.query.next);
-      } else if (result.user?.role === "admin") {
-        await router.push("/admin/users");
       } else {
         await router.push("/");
       }
@@ -75,18 +73,18 @@ export default function LoginPage() {
             </p>
             <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
               <div>
-                <label className="mb-2 block text-sm font-medium" htmlFor="email">
-                  Email
+                <label className="mb-2 block text-sm font-medium" htmlFor="identifier">
+                  Email o nome utente
                 </label>
                 <input
                   autoComplete="username"
                   className="w-full rounded-lg border border-white/20 bg-primary px-4 py-3 text-white outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/30"
-                  id="email"
+                  id="identifier"
                   maxLength={254}
-                  onChange={(event) => setEmail(event.target.value)}
+                  onChange={(event) => setIdentifier(event.target.value)}
                   required
-                  type="email"
-                  value={email}
+                  type="text"
+                  value={identifier}
                 />
               </div>
               <div>

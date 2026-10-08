@@ -216,41 +216,43 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                         whileHover={{ y: -4 }}
                         className="h-full"
                       >
-                        <Link
-                          href={p.pdfUrl ? `/projects/article?slug=${encodeURIComponent(p.slug)}` : `/projects/${p.slug}`}
-                          className="block h-full overflow-hidden rounded-xl bg-white shadow-md transition-all duration-200 hover:shadow-lg"
-                        >
-                          {heroSrc && (
-                            <div className="relative h-44 overflow-hidden">
-                              <img
-                                src={heroSrc}
-                                alt={typeof p.heroImage === 'string' ? p.title : p.heroImage?.alt ?? p.title}
-                                className="h-full w-full object-cover"
-                              />
-                            </div>
-                          )}
-                          <div className="p-4">
-                            <div className="mb-2 flex items-start justify-between gap-3">
-                              <h2 className="min-w-0 text-xl font-semibold text-accent">{p.title}</h2>
-                              <span
-                                className={`project-visibility-badge shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
-                                  isPublic
-                                    ? 'is-public bg-emerald-100 text-emerald-800'
-                                    : 'is-private bg-amber-100 text-amber-900'
-                                }`}
-                              >
-                                {isPublic ? 'Pubblico' : 'Privato'}
-                              </span>
-                            </div>
-                            {p.authors && p.authors.length > 0 && (
-                              <p className="mb-2 text-sm text-gray-500">
-                                {p.authors.length > 1 ? 'Autori' : 'Autore'}: {p.authors.join(', ')}
-                              </p>
+                        <div className="h-full overflow-hidden rounded-xl bg-white shadow-md transition-all duration-200 hover:shadow-lg">
+                          <Link
+                            href={p.pdfUrl ? `/projects/article?slug=${encodeURIComponent(p.slug)}` : `/projects/${p.slug}`}
+                            className="block"
+                          >
+                            {heroSrc && (
+                              <div className="relative h-44 overflow-hidden">
+                                <img
+                                  src={heroSrc}
+                                  alt={typeof p.heroImage === 'string' ? p.title : p.heroImage?.alt ?? p.title}
+                                  className="h-full w-full object-cover"
+                                />
+                              </div>
                             )}
-                            <p className="mb-4 text-sm text-gray-600">{p.excerpt}</p>
-                            <p className="text-xs text-gray-400">{p.date}</p>
-                          </div>
-                        </Link>
+                            <div className="p-4">
+                              <div className="mb-2 flex items-start justify-between gap-3">
+                                <h2 className="min-w-0 text-xl font-semibold text-accent">{p.title}</h2>
+                                <span
+                                  className={`project-visibility-badge shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
+                                    isPublic
+                                      ? 'is-public bg-emerald-100 text-emerald-800'
+                                      : 'is-private bg-amber-100 text-amber-900'
+                                  }`}
+                                >
+                                  {isPublic ? 'Pubblico' : 'Privato'}
+                                </span>
+                              </div>
+                              {p.authors && p.authors.length > 0 && (
+                                <p className="mb-2 text-sm text-gray-500">
+                                  {p.authors.length > 1 ? 'Autori' : 'Autore'}: {p.authors.join(', ')}
+                                </p>
+                              )}
+                              <p className="mb-4 line-clamp-3 text-sm text-gray-600">{p.excerpt}</p>
+                              <p className="text-xs text-gray-400">{p.date}</p>
+                            </div>
+                          </Link>
+                        </div>
                       </motion.div>
                     )
                   })}
@@ -269,45 +271,47 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                         transition={{ duration: 0.5, delay: index * 0.04 }}
                         whileHover={{ y: -3 }}
                       >
-                        <Link
-                          href={p.pdfUrl ? `/projects/article?slug=${encodeURIComponent(p.slug)}` : `/projects/${p.slug}`}
-                          className="block rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:shadow-md"
-                        >
-                          <div className="flex items-center gap-3 p-3">
-                            {heroSrc && (
-                              <div className="h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:w-24">
-                                <img
-                                  src={heroSrc}
-                                  alt={typeof p.heroImage === 'string' ? p.title : p.heroImage?.alt ?? p.title}
-                                  className="h-full w-full object-cover"
-                                />
-                              </div>
-                            )}
-                            <div className="min-w-0 flex-1">
-                              <div className="flex flex-wrap items-center justify-between gap-2">
-                                <div className="flex min-w-0 items-center gap-2">
-                                  <h2 className="truncate text-lg font-semibold text-accent">{p.title}</h2>
-                                  <span
-                                    className={`project-visibility-badge shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
-                                      isPublic
-                                        ? 'is-public bg-emerald-100 text-emerald-800'
-                                        : 'is-private bg-amber-100 text-amber-900'
-                                    }`}
-                                  >
-                                    {isPublic ? 'Pubblico' : 'Privato'}
-                                  </span>
+                        <div className="rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:shadow-md">
+                          <Link
+                            href={p.pdfUrl ? `/projects/article?slug=${encodeURIComponent(p.slug)}` : `/projects/${p.slug}`}
+                            className="block"
+                          >
+                            <div className="flex items-center gap-3 p-3">
+                              {heroSrc && (
+                                <div className="h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:w-24">
+                                  <img
+                                    src={heroSrc}
+                                    alt={typeof p.heroImage === 'string' ? p.title : p.heroImage?.alt ?? p.title}
+                                    className="h-full w-full object-cover"
+                                  />
                                 </div>
-                                <p className="text-xs text-gray-400">{p.date}</p>
-                              </div>
-                              {p.authors && p.authors.length > 0 && (
-                                <p className="mt-1 text-sm text-gray-500">
-                                  {p.authors.length > 1 ? 'Autori' : 'Autore'}: {p.authors.join(', ')}
-                                </p>
                               )}
-                              <p className="mt-2 max-h-10 overflow-hidden text-ellipsis text-sm text-gray-600">{p.excerpt}</p>
+                              <div className="min-w-0 flex-1">
+                                <div className="flex flex-wrap items-center justify-between gap-2">
+                                  <div className="flex min-w-0 items-center gap-2">
+                                    <h2 className="truncate text-lg font-semibold text-accent">{p.title}</h2>
+                                    <span
+                                      className={`project-visibility-badge shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
+                                        isPublic
+                                          ? 'is-public bg-emerald-100 text-emerald-800'
+                                          : 'is-private bg-amber-100 text-amber-900'
+                                      }`}
+                                    >
+                                      {isPublic ? 'Pubblico' : 'Privato'}
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-gray-400">{p.date}</p>
+                                </div>
+                                {p.authors && p.authors.length > 0 && (
+                                  <p className="mt-1 text-sm text-gray-500">
+                                    {p.authors.length > 1 ? 'Autori' : 'Autore'}: {p.authors.join(', ')}
+                                  </p>
+                                )}
+                                <p className="mt-2 line-clamp-3 text-sm text-gray-600">{p.excerpt}</p>
+                              </div>
                             </div>
-                          </div>
-                        </Link>
+                          </Link>
+                        </div>
                       </motion.div>
                     )
                   })}

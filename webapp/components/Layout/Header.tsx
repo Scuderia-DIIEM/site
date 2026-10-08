@@ -21,6 +21,8 @@ type AuthUser = {
 
 type AuthResponse = {
   user?: AuthUser
+  mustChangePassword?: boolean
+  error?: string
 }
 
 function formatSensorValue(value: string | null | undefined, unit: string) {
@@ -41,6 +43,10 @@ export default function Header() {
   const [isAuthLoading, setIsAuthLoading] = useState(true)
   const [authError, setAuthError] = useState('')
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [loginIdentifier, setLoginIdentifier] = useState('')
+  const [loginPassword, setLoginPassword] = useState('')
+  const [loginError, setLoginError] = useState('')
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
   const desktopAccountMenuRef = useRef<HTMLDivElement>(null)
   const mobileAccountMenuRef = useRef<HTMLDivElement>(null)
 
@@ -142,6 +148,7 @@ export default function Header() {
       if (!response.ok) {
         throw new Error(`Logout failed with status ${response.status}`)
       }
+
       setCurrentUser(null)
       setIsAccountMenuOpen(false)
       setIsMobileMenuOpen(false)
@@ -150,6 +157,38 @@ export default function Header() {
       setAuthError('Logout non riuscito. Riprova.')
     } finally {
       setIsLoggingOut(false)
+    }
+  }
+
+  async function login(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setLoginError('')
+    setIsLoggingIn(true)
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier: loginIdentifier, password: loginPassword }),
+      })
+      const result = (await response.json()) as AuthResponse
+      if (!response.ok || !result.user) {
+        setLoginError(result.error ?? 'Accesso non riuscito.')
+        return
+      }
+
+      setCurrentUser(result.user)
+      setLoginIdentifier('')
+      setLoginPassword('')
+      setIsAccountMenuOpen(false)
+      if (result.mustChangePassword) {
+        await router.push('/change-password')
+      } else if (result.user.role !== 'admin') {
+        await router.push('/')
+      }
+    } catch {
+      setLoginError('Servizio non disponibile. Riprova tra poco.')
+    } finally {
+      setIsLoggingIn(false)
     }
   }
 
@@ -398,12 +437,57 @@ export default function Header() {
                   </button>
                 </div>
               ) : (
-                <Link
-                  href="/login"
-                  className="hidden rounded-full border border-white/30 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10 sm:inline-flex"
-                >
-                  Accedi
-                </Link>
+                <div ref={desktopAccountMenuRef} className="relative hidden sm:block">
+                  <button
+                    aria-expanded={isAccountMenuOpen}
+                    className="rounded-full border border-white/30 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    onClick={() => {
+                      setLoginError('')
+                      setIsAccountMenuOpen((open) => !open)
+                    }}
+                    type="button"
+                  >
+                    Accedi
+                  </button>
+                  {isAccountMenuOpen && (
+                    <form
+                      className="absolute right-0 top-full z-[60] mt-2 w-72 space-y-3 rounded-xl border border-white/15 bg-primary p-4 shadow-xl"
+                      onSubmit={login}
+                    >
+                      <p className="text-sm font-semibold text-white">Accedi al tuo account</p>
+                      <input
+                        aria-label="Email o nome utente"
+                        autoComplete="username"
+                        className="w-full rounded-lg border border-white/20 bg-primary-variant px-3 py-2 text-sm text-white outline-none focus:border-secondary"
+                        maxLength={254}
+                        onChange={(event) => setLoginIdentifier(event.target.value)}
+                        placeholder="Email o nome utente"
+                        required
+                        type="text"
+                        value={loginIdentifier}
+                      />
+                      <input
+                        aria-label="Password"
+                        autoComplete="current-password"
+                        className="w-full rounded-lg border border-white/20 bg-primary-variant px-3 py-2 text-sm text-white outline-none focus:border-secondary"
+                        maxLength={128}
+                        onChange={(event) => setLoginPassword(event.target.value)}
+                        placeholder="Password"
+                        required
+                        type="password"
+                        value={loginPassword}
+                      />
+                      {loginError && <p className="text-xs text-red-200" role="alert">{loginError}</p>}
+                      <button
+                        className="w-full rounded-lg bg-secondary px-3 py-2 text-sm font-semibold text-white transition hover:bg-caramel disabled:cursor-not-allowed disabled:opacity-60"
+                        disabled={isLoggingIn}
+                        type="submit"
+                      >
+                        {isLoggingIn ? 'Accesso...' : 'Accedi'}
+                      </button>
+                    </form>
+                  )}
+                </div>
               )
             )}
             <div
@@ -524,12 +608,17 @@ export default function Header() {
                   {authError} Riprova
                 </button>
               ) : (
-                <Link
-                  className="flex w-full items-center justify-between rounded-xl bg-secondary px-4 py-3 font-bold text-white shadow-lg shadow-black/20 transition hover:bg-caramel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-                  href="/login"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <span className="flex items-center gap-3">
+                <div ref={mobileAccountMenuRef}>
+                  <button
+                    aria-expanded={isAccountMenuOpen}
+                    className="flex w-full items-center justify-between rounded-xl bg-secondary px-4 py-3 font-bold text-white shadow-lg shadow-black/20 transition hover:bg-caramel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    onClick={() => {
+                      setLoginError('')
+                      setIsAccountMenuOpen((open) => !open)
+                    }}
+                    type="button"
+                  >
+                    <span className="flex items-center gap-3">
                     <svg
                       aria-hidden="true"
                       className="h-5 w-5"
@@ -541,9 +630,9 @@ export default function Header() {
                       <rect x="4" y="10" width="16" height="11" rx="2" />
                       <path d="M8 10V7a4 4 0 0 1 8 0v3" />
                     </svg>
-                    Area riservata
-                  </span>
-                  <svg
+                      Area riservata
+                    </span>
+                    <svg
                     aria-hidden="true"
                     className="h-5 w-5"
                     fill="none"
@@ -552,8 +641,40 @@ export default function Header() {
                     strokeWidth="2"
                   >
                     <path d="M5 12h14m-6-6 6 6-6 6" />
-                  </svg>
-                </Link>
+                    </svg>
+                  </button>
+                  {isAccountMenuOpen && (
+                    <form className="mt-2 space-y-3 rounded-xl border border-white/15 bg-primary-variant p-4" onSubmit={login}>
+                      <p className="text-sm font-semibold text-white">Accedi al tuo account</p>
+                      <input
+                        aria-label="Email o nome utente"
+                        autoComplete="username"
+                        className="w-full rounded-lg border border-white/20 bg-primary px-3 py-2 text-sm text-white outline-none focus:border-secondary"
+                        maxLength={254}
+                        onChange={(event) => setLoginIdentifier(event.target.value)}
+                        placeholder="Email o nome utente"
+                        required
+                        type="text"
+                        value={loginIdentifier}
+                      />
+                      <input
+                        aria-label="Password"
+                        autoComplete="current-password"
+                        className="w-full rounded-lg border border-white/20 bg-primary px-3 py-2 text-sm text-white outline-none focus:border-secondary"
+                        maxLength={128}
+                        onChange={(event) => setLoginPassword(event.target.value)}
+                        placeholder="Password"
+                        required
+                        type="password"
+                        value={loginPassword}
+                      />
+                      {loginError && <p className="text-xs text-red-200" role="alert">{loginError}</p>}
+                      <button className="w-full rounded-lg bg-secondary px-3 py-2 text-sm font-semibold text-white disabled:opacity-60" disabled={isLoggingIn} type="submit">
+                        {isLoggingIn ? 'Accesso...' : 'Accedi'}
+                      </button>
+                    </form>
+                  )}
+                </div>
               )
             )}
           </motion.div>

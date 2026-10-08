@@ -18,17 +18,18 @@ interface UsersResponse {
   user?: AdminUser;
   temporaryPassword?: string;
   error?: string;
+  message?: string;
 }
 
 export default function AdminUsersPage() {
   const router = useRouter();
   const [users, setUsers] = useState<AdminUser[]>([]);
+  const [currentUserId, setCurrentUserId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [editingUserId, setEditingUserId] = useState("");
-  const [editingName, setEditingName] = useState("");
-  const [savingName, setSavingName] = useState(false);
   const [deletingUserId, setDeletingUserId] = useState("");
+  const [changingRoleId, setChangingRoleId] = useState("");
+  const [pendingRoles, setPendingRoles] = useState<Record<string, AdminUser["role"]>>({});
   const [temporaryPassword, setTemporaryPassword] = useState("");
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
@@ -44,6 +45,10 @@ export default function AdminUsersPage() {
       if (sessionResponse.status === 401 || usersResponse.status === 401) {
         await router.replace("/login");
         return;
+      }
+      if (sessionResponse.ok) {
+        const session = (await sessionResponse.json()) as { user: { id: string } };
+        setCurrentUserId(session.user.id);
       }
       if (usersResponse.status === 403) {
         setError("Questa pagina è riservata agli amministratori.");
@@ -93,50 +98,45 @@ export default function AdminUsersPage() {
     }
   }
 
-  async function saveName(user: AdminUser) {
+  async function changeRole(user: AdminUser, role: "admin" | "user") {
+    const roleLabel = role === "admin" ? "amministratore" : "utente normale";
+    if (!window.confirm(`Impostare ${user.name} (${user.email}) come ${roleLabel}?`)) return;
+
     setError("");
     setStatus("");
-    setSavingName(true);
+    setChangingRoleId(user.id);
+    setPendingRoles((current) => ({ ...current, [user.id]: role }));
     try {
       const response = await fetch(`/api/admin/users/${encodeURIComponent(user.id)}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: editingName }),
+        body: JSON.stringify({ role }),
       });
       const result = (await response.json()) as UsersResponse;
       if (!response.ok) {
-        setError(result.error ?? "Impossibile aggiornare il nome.");
+        setError(result.message ?? result.error ?? `Impossibile aggiornare il ruolo (HTTP ${response.status}).`);
         return;
       }
-      setEditingUserId("");
-      setEditingName("");
-      setStatus(`Nome aggiornato per ${user.email}.`);
+      if (user.id === currentUserId) {
+        window.alert("Il tuo ruolo è stato aggiornato. Accedi nuovamente per continuare.");
+        await router.replace("/login");
+        return;
+      }
+      setUsers((current) =>
+        current.map((account) =>
+          account.id === user.id ? { ...account, role: result.user?.role ?? role } : account,
+        ),
+      );
+      setStatus(`Ruolo aggiornato per ${user.email}.`);
       await loadUsers();
     } catch {
       setError("Servizio non disponibile. Riprova tra poco.");
     } finally {
-      setSavingName(false);
-    }
-  }
-
-  async function resetPassword(user: AdminUser) {
-    setError("");
-    setStatus("");
-    setTemporaryPassword("");
-    try {
-      const response = await fetch(`/api/admin/users/${encodeURIComponent(user.id)}/temporary-password`, {
-        method: "POST",
+      setChangingRoleId("");
+      setPendingRoles((current) => {
+        const { [user.id]: _pendingRole, ...remainingRoles } = current;
+        return remainingRoles;
       });
-      const result = (await response.json()) as UsersResponse;
-      if (!response.ok) {
-        setError(result.error ?? "Impossibile generare una nuova password.");
-        return;
-      }
-      setTemporaryPassword(result.temporaryPassword ?? "");
-      setStatus(`Nuova password temporanea generata per ${user.email}.`);
-      await loadUsers();
-    } catch {
-      setError("Servizio non disponibile. Riprova tra poco.");
     }
   }
 
@@ -303,66 +303,29 @@ export default function AdminUsersPage() {
                       </p>
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
-                      {editingUserId === user.id ? (
-                        <form
-                          className="flex flex-wrap items-center gap-2"
-                          onSubmit={(event) => {
-                            event.preventDefault();
-                            void saveName(user);
-                          }}
-                        >
-                          <label className="sr-only" htmlFor={`edit-name-${user.id}`}>
-                            Modifica nome per {user.email}
-                          </label>
-                          <input
-                            autoComplete="off"
-                            className="w-48 rounded-lg border border-white/20 bg-primary-variant px-3 py-2 text-sm text-white outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/30"
-                            id={`edit-name-${user.id}`}
-                            maxLength={100}
-                            onChange={(event) => setEditingName(event.target.value)}
-                            required
-                            value={editingName}
-                          />
-                          <button
-                            className="rounded-lg bg-secondary px-3 py-2 text-sm font-semibold text-white hover:bg-caramel disabled:opacity-60"
-                            disabled={savingName}
-                            type="submit"
-                          >
-                            {savingName ? "Salvataggio..." : "Salva"}
-                          </button>
-                          <button
-                            className="rounded-lg border border-white/30 px-3 py-2 text-sm hover:bg-white/10"
-                            onClick={() => {
-                              setEditingUserId("");
-                              setEditingName("");
-                            }}
-                            type="button"
-                          >
-                            Annulla
-                          </button>
-                        </form>
-                      ) : (
-                        <button
-                          className="rounded-lg border border-white/30 px-3 py-2 text-sm hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-                          onClick={() => {
-                            setEditingUserId(user.id);
-                            setEditingName(user.name);
-                          }}
-                          type="button"
-                        >
-                          Modifica nome
-                        </button>
-                      )}
-                      {user.role === "user" && (
-                        <>
-                          <button
-                            className="rounded-lg border border-white/30 px-3 py-2 text-sm hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-                            disabled={deletingUserId === user.id}
-                            onClick={() => void resetPassword(user)}
-                            type="button"
-                          >
-                            Genera password temporanea
-                          </button>
+                      <label className="sr-only" htmlFor={`role-${user.id}`}>
+                        Ruolo per {user.email}
+                      </label>
+                      <select
+                        className="rounded-lg border border-white/30 bg-primary-variant px-3 py-2 text-sm text-white outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/30 disabled:cursor-not-allowed disabled:opacity-60"
+                        disabled={changingRoleId === user.id}
+                        id={`role-${user.id}`}
+                        onChange={(event) => {
+                          const role = event.currentTarget.value;
+                          if (role === "admin" || role === "user") void changeRole(user, role);
+                        }}
+                        value={pendingRoles[user.id] ?? user.role}
+                      >
+                        <option className="bg-primary text-white" value="user">Utente normale</option>
+                        <option className="bg-primary text-white" value="admin">Amministratore</option>
+                      </select>
+                      <Link
+                        className="rounded-lg border border-white/30 px-3 py-2 text-sm hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                        href={`/profile?user=${encodeURIComponent(user.id)}`}
+                      >
+                        Modifica credenziali
+                      </Link>
+                      {
                           <button
                             className="rounded-lg border border-red-300/50 px-3 py-2 text-sm text-red-200 transition hover:bg-red-950/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={deletingUserId === user.id}
@@ -371,8 +334,7 @@ export default function AdminUsersPage() {
                           >
                             {deletingUserId === user.id ? "Eliminazione..." : "Elimina account"}
                           </button>
-                        </>
-                      )}
+                      }
                     </div>
                   </li>
                 ))}

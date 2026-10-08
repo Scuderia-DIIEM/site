@@ -6,6 +6,8 @@ import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 
 interface ProfileUser {
+  id?: string;
+  role?: "admin" | "user";
   name: string;
   email: string;
 }
@@ -24,10 +26,15 @@ export default function ProfilePage() {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
   const [status, setStatus] = useState("");
+  const [isAdminEditing, setIsAdminEditing] = useState(false);
+  const [isGeneratingPassword, setIsGeneratingPassword] = useState(false);
+  const [temporaryPassword, setTemporaryPassword] = useState("");
 
   useEffect(() => {
     let active = true;
-    void fetch("/api/auth/me")
+    const targetId = typeof router.query.user === "string" ? router.query.user : "";
+    setIsAdminEditing(Boolean(targetId));
+    void fetch(targetId ? `/api/admin/users/${encodeURIComponent(targetId)}` : "/api/auth/me")
       .then(async (response) => {
         const result = (await response.json()) as ProfileResponse;
         if (response.status === 401) {
@@ -38,7 +45,7 @@ export default function ProfilePage() {
           setError(result.error ?? "Non è stato possibile verificare la sessione.");
           return;
         }
-        if (result.mustChangePassword) {
+        if (!targetId && result.mustChangePassword) {
           await router.replace("/change-password");
           return;
         }
@@ -56,7 +63,7 @@ export default function ProfilePage() {
     return () => {
       active = false;
     };
-  }, [router]);
+  }, [router, router.query.user]);
 
   async function saveProfile(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -64,11 +71,15 @@ export default function ProfilePage() {
     setStatus("");
     setIsSaving(true);
     try {
-      const response = await fetch("/api/auth/profile", {
+      const targetId = typeof router.query.user === "string" ? router.query.user : "";
+      const response = await fetch(
+        targetId ? `/api/admin/users/${encodeURIComponent(targetId)}` : "/api/auth/profile",
+        {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name }),
-      });
+        body: JSON.stringify({ name, email }),
+        },
+      );
       const result = (await response.json()) as ProfileResponse;
       if (!response.ok || !result.user) {
         setError(result.error ?? "Non è stato possibile aggiornare il profilo.");
@@ -79,9 +90,33 @@ export default function ProfilePage() {
       window.dispatchEvent(new Event("scuderia:profile-updated"));
     } catch {
       setError("Servizio non disponibile. Riprova tra poco.");
-    } finally {
-      setIsSaving(false);
+  } finally {
+    setIsSaving(false);
+  }
+  }
+
+  async function generateTemporaryPassword() {
+  const targetId = typeof router.query.user === "string" ? router.query.user : "";
+  if (!targetId) return;
+  setError("");
+  setStatus("");
+  setTemporaryPassword("");
+  setIsGeneratingPassword(true);
+  try {
+    const response = await fetch(`/api/admin/users/${encodeURIComponent(targetId)}/temporary-password`, { method: "POST" });
+    const result = (await response.json()) as ProfileResponse & { temporaryPassword?: string };
+    if (!response.ok) {
+      setError(result.error ?? "Non è stato possibile generare la password temporanea.");
+      return;
     }
+
+    setTemporaryPassword(result.temporaryPassword ?? "");
+    setStatus("Password temporanea generata. Copiala e consegnala all’utente.");
+  } catch {
+    setError("Servizio non disponibile. Riprova tra poco.");
+  } finally {
+    setIsGeneratingPassword(false);
+  }
   }
 
   return (
@@ -99,11 +134,13 @@ export default function ProfilePage() {
             </Link>
             <header className="mt-6">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
-                Area personale
+                {isAdminEditing ? "Modifica account" : "Area personale"}
               </p>
-              <h1 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">Il mio profilo</h1>
+              <h1 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">
+                {isAdminEditing ? "Modifica account" : "Il mio profilo"}
+              </h1>
               <p className="mt-3 text-slate-600">
-                Aggiorna il nome mostrato nel menu del tuo account.
+                Aggiorna nome, email e password dell’account.
               </p>
             </header>
 
@@ -136,14 +173,14 @@ export default function ProfilePage() {
                     Email
                   </label>
                   <input
+                    autoComplete="email"
                     className="w-full rounded-lg border border-slate-200 bg-slate-100 px-4 py-3 text-slate-600"
                     id="profile-email"
-                    readOnly
+                    onChange={(event) => setEmail(event.target.value)}
+                    required
+                    type="email"
                     value={email}
                   />
-                  <p className="mt-1 text-xs text-slate-500">
-                    Per modificare l’indirizzo email, contatta un amministratore.
-                  </p>
                 </div>
                 {error && (
                   <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
@@ -163,13 +200,30 @@ export default function ProfilePage() {
                   >
                     {isSaving ? "Salvataggio…" : "Salva profilo"}
                   </button>
-                  <Link
-                    className="rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-100"
-                    href="/change-password"
-                  >
-                    Cambia password
-                  </Link>
+                  {isAdminEditing && (
+                    <Link
+                      className="rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-100"
+                      href="/admin/users"
+                    >
+                      Torna alla gestione utenti
+                    </Link>
+                  )}
+                  {isAdminEditing && (
+                    <button
+                      className="rounded-lg border border-amber-400 bg-amber-50 px-5 py-3 font-semibold text-amber-800 hover:bg-amber-100 disabled:opacity-60"
+                      disabled={isGeneratingPassword}
+                      onClick={() => void generateTemporaryPassword()}
+                      type="button"
+                    >
+                      {isGeneratingPassword ? "Generazione…" : "Genera password temporanea"}
+                    </button>
+                  )}
                 </div>
+                {temporaryPassword && (
+                  <div className="rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                    Password temporanea: <code className="font-bold">{temporaryPassword}</code>
+                  </div>
+                )}
               </form>
             )}
           </section>
