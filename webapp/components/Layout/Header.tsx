@@ -311,7 +311,7 @@ export default function Header() {
 
           <div className="ml-auto flex shrink-0 items-center gap-4 md:ml-4">
             <button
-              className="md:hidden text-white"
+              className="md:hidden cursor-pointer text-white"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? 'Chiudi menu' : 'Apri menu'}
             >
@@ -338,7 +338,7 @@ export default function Header() {
                   <button
                     aria-controls="desktop-account-menu"
                     aria-expanded={isAccountMenuOpen}
-                    className="inline-flex max-w-52 items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white transition hover:border-accent hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    className="inline-flex max-w-52 cursor-pointer items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white transition hover:border-accent hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                     onClick={() => setIsAccountMenuOpen((open) => !open)}
                     type="button"
                   >
@@ -385,7 +385,7 @@ export default function Header() {
                       )}
                       <div className="my-1 border-t border-white/10" />
                       <button
-                        className="block w-full px-4 py-2 text-left text-sm text-white transition hover:bg-white/10 hover:text-accent disabled:opacity-60"
+                        className="block w-full cursor-pointer px-4 py-2 text-left text-sm text-white transition hover:bg-white/10 hover:text-accent disabled:cursor-not-allowed disabled:opacity-60"
                         disabled={isLoggingOut}
                         onClick={() => void logout()}
                         role="menuitem"
@@ -402,7 +402,7 @@ export default function Header() {
                     {authError}
                   </span>
                   <button
-                    className="rounded-full border border-white/30 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+                    className="cursor-pointer rounded-full border border-white/30 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10"
                     onClick={() => void loadCurrentUser()}
                     type="button"
                   >
@@ -413,7 +413,7 @@ export default function Header() {
                 <div ref={desktopAccountMenuRef} className="relative hidden sm:block">
                   <button
                     aria-expanded={isAccountMenuOpen}
-                    className="rounded-full border border-white/30 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    className="cursor-pointer rounded-full border border-white/30 px-3 py-2 text-sm font-medium text-white transition hover:border-accent hover:bg-white/10 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                     onClick={() => {
                       setLoginError('')
                       setIsAccountMenuOpen((open) => !open)
@@ -452,7 +452,7 @@ export default function Header() {
                       />
                       {loginError && <p className="text-xs text-red-200" role="alert">{loginError}</p>}
                       <button
-                        className="w-full rounded-lg bg-secondary px-3 py-2 text-sm font-semibold text-white transition hover:bg-caramel disabled:cursor-not-allowed disabled:opacity-60"
+                        className="w-full cursor-pointer rounded-lg bg-secondary px-3 py-2 text-sm font-semibold text-white transition hover:bg-caramel disabled:cursor-not-allowed disabled:opacity-60"
                         disabled={isLoggingIn}
                         type="submit"
                       >
@@ -467,7 +467,7 @@ export default function Header() {
               type="button"
               role="switch"
               aria-checked={theme === 'dark'}
-              className="relative h-7 w-12 shrink-0 rounded-full border border-white/25 p-0.5 text-white outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="relative h-7 w-12 shrink-0 cursor-pointer rounded-full border border-white/25 p-0.5 text-white outline-none focus-visible:ring-2 focus-visible:ring-accent"
               onClick={toggleTheme}
               aria-label={theme === 'dark' ? 'Passa alla modalità chiara' : 'Passa alla modalità scura'}
               title={theme === 'dark' ? 'Modalità chiara' : 'Modalità scura'}
@@ -553,7 +553,7 @@ export default function Header() {
                   <button
                     aria-controls="mobile-account-menu"
                     aria-expanded={isAccountMenuOpen}
-                    className="flex w-full items-center justify-between gap-2 py-2 font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    className="flex w-full cursor-pointer items-center justify-between gap-2 py-2 font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                     onClick={() => setIsAccountMenuOpen((open) => !open)}
                     type="button"
                   >
@@ -593,7 +593,7 @@ export default function Header() {
                       )}
                       <div className="my-1 border-t border-white/10" />
                       <button
-                        className="block w-full rounded-lg px-3 py-2 text-left text-sm text-white hover:bg-white/10 hover:text-accent disabled:opacity-60"
+                        className="block w-full cursor-pointer rounded-lg px-3 py-2 text-left text-sm text-white hover:bg-white/10 hover:text-accent disabled:cursor-not-allowed disabled:opacity-60"
                         disabled={isLoggingOut}
                         onClick={() => void logout()}
                         role="menuitem"
@@ -606,7 +606,7 @@ export default function Header() {
                 </div>
               ) : authError ? (
                 <button
-                  className="block py-2 text-white transition-colors duration-300 hover:text-accent"
+                  className="block cursor-pointer py-2 text-white transition-colors duration-300 hover:text-accent"
                   onClick={() => void loadCurrentUser()}
                   type="button"
                 >
@@ -616,7 +616,7 @@ export default function Header() {
                 <div ref={mobileAccountMenuRef}>
                   <button
                     aria-expanded={isAccountMenuOpen}
-                    className="flex w-full items-center justify-between rounded-xl bg-secondary px-4 py-3 font-bold text-white shadow-lg shadow-black/20 transition hover:bg-caramel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    className="flex w-full cursor-pointer items-center justify-between rounded-xl bg-secondary px-4 py-3 font-bold text-white shadow-lg shadow-black/20 transition hover:bg-caramel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     onClick={() => {
                       setLoginError('')
                       setIsAccountMenuOpen((open) => !open)
@@ -674,7 +674,7 @@ export default function Header() {
                         value={loginPassword}
                       />
                       {loginError && <p className="text-xs text-red-200" role="alert">{loginError}</p>}
-                      <button className="w-full rounded-lg bg-secondary px-3 py-2 text-sm font-semibold text-white disabled:opacity-60" disabled={isLoggingIn} type="submit">
+                      <button className="w-full cursor-pointer rounded-lg bg-secondary px-3 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60" disabled={isLoggingIn} type="submit">
                         {isLoggingIn ? 'Accesso...' : 'Accedi'}
                       </button>
                     </form>
