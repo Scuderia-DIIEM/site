@@ -29,6 +29,11 @@ export default function ProfilePage() {
   const [isAdminEditing, setIsAdminEditing] = useState(false);
   const [isGeneratingPassword, setIsGeneratingPassword] = useState(false);
   const [temporaryPassword, setTemporaryPassword] = useState("");
+  const [isPasswordSectionOpen, setIsPasswordSectionOpen] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -117,6 +122,42 @@ export default function ProfilePage() {
   } finally {
     setIsGeneratingPassword(false);
   }
+  }
+
+  async function changePassword() {
+    setError("");
+    setStatus("");
+    if (newPassword !== passwordConfirmation) {
+      setError("Le nuove password non coincidono.");
+      return;
+    }
+    if (!/^[\x21-\x7e]{1,128}$/.test(newPassword)) {
+      setError("Usa da 1 a 128 caratteri ASCII stampabili.");
+      return;
+    }
+
+    setIsChangingPassword(true);
+    try {
+      const response = await fetch("/api/auth/password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+      const result = (await response.json()) as ProfileResponse;
+      if (!response.ok) {
+        setError(result.error ?? "Non è stato possibile aggiornare la password.");
+        return;
+      }
+      setCurrentPassword("");
+      setNewPassword("");
+      setPasswordConfirmation("");
+      setIsPasswordSectionOpen(false);
+      setStatus("Password aggiornata.");
+    } catch {
+      setError("Servizio non disponibile. Riprova tra poco.");
+    } finally {
+      setIsChangingPassword(false);
+    }
   }
 
   return (
@@ -222,6 +263,65 @@ export default function ProfilePage() {
                 {temporaryPassword && (
                   <div className="rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-900">
                     Password temporanea: <code className="font-bold">{temporaryPassword}</code>
+                  </div>
+                )}
+                {!isAdminEditing && (
+                  <div className="border-t border-slate-200 pt-5">
+                    {!isPasswordSectionOpen ? (
+                      <button
+                        className="rounded-lg border border-accent px-5 py-3 font-semibold text-accent transition hover:bg-accent/10"
+                        onClick={() => {
+                          setError("");
+                          setStatus("");
+                          setIsPasswordSectionOpen(true);
+                        }}
+                        type="button"
+                      >
+                        Cambia password
+                      </button>
+                    ) : (
+                      <div className="space-y-4">
+                        <h2 className="text-lg font-semibold text-slate-900">Cambia password</h2>
+                        <input
+                          autoComplete="current-password"
+                          className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                          maxLength={128}
+                          onChange={(event) => setCurrentPassword(event.target.value)}
+                          placeholder="Password attuale"
+                          required
+                          type="password"
+                          value={currentPassword}
+                        />
+                        <input
+                          autoComplete="new-password"
+                          className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                          maxLength={128}
+                          onChange={(event) => setNewPassword(event.target.value)}
+                          placeholder="Nuova password"
+                          required
+                          type="password"
+                          value={newPassword}
+                        />
+                        <input
+                          autoComplete="new-password"
+                          className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                          maxLength={128}
+                          onChange={(event) => setPasswordConfirmation(event.target.value)}
+                          placeholder="Conferma nuova password"
+                          required
+                          type="password"
+                          value={passwordConfirmation}
+                        />
+                        <button
+                          className="rounded-lg bg-accent px-5 py-3 font-semibold text-white transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+                          disabled={isChangingPassword}
+                          onClick={() => void changePassword()}
+                          type="button"
+                        >
+                          {isChangingPassword ? "Aggiornamento…" : "Aggiorna password"}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
               </form>

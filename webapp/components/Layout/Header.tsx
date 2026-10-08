@@ -396,9 +396,6 @@ export default function Header() {
                       <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/profile" role="menuitem">
                         Modifica profilo
                       </Link>
-                      <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/change-password" role="menuitem">
-                        Cambia password
-                      </Link>
                       <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/projects" role="menuitem">
                         Articoli e progetti
                       </Link>
@@ -571,9 +568,6 @@ export default function Header() {
                       <p className="truncate px-3 py-2 text-xs text-white/60">{currentUser.email}</p>
                       <Link className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/profile" onClick={() => setIsMobileMenuOpen(false)} role="menuitem">
                         Modifica profilo
-                      </Link>
-                      <Link className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/change-password" onClick={() => setIsMobileMenuOpen(false)} role="menuitem">
-                        Cambia password
                       </Link>
                       <Link className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/projects" onClick={() => setIsMobileMenuOpen(false)} role="menuitem">
                         Articoli e progetti
