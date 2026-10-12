@@ -36,7 +36,7 @@ node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'
 docker compose up --build
 ```
 
-The website is available at <http://localhost>. `GET /health` reports API
+The website is available at <http://your-server-ip>. `GET /health` reports API
 liveness and `GET /health/ready` checks PostgreSQL readiness.
 
 To develop the API directly, provide `DATABASE_URL` and run the commands from `api/`:
@@ -66,8 +66,8 @@ from the profile menu. Existing accounts receive their email prefix as an initia
 display name and email address from the profile menu.
 Uploaded project articles can be edited by their creator or an administrator.
 
-Authentication uses short-lived, HTTP-only, same-site cookies. When hosting behind
-HTTPS, set `COOKIE_SECURE=true` in `.env`.
+Authentication uses short-lived, HTTP-only, same-site cookies. When hosting behind HTTPS, set `COOKIE_SECURE=true` in `.env`. For the
+HTTP setup on port 80, keep it set to `false`.
 
 ## Project articles
 

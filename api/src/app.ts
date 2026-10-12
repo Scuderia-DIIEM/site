@@ -654,6 +654,31 @@ export async function buildApp({
     },
   );
 
+  app.get<{ Params: UserIdParams }>(
+    "/api/admin/users/:id",
+    {
+      preHandler: [requireSameOrigin, app.authenticate, app.requireAdmin],
+      schema: {
+        params: {
+          type: "object",
+          required: ["id"],
+          properties: { id: { type: "string", format: "uuid" } },
+        },
+      },
+    },
+    async (request, reply) => {
+      const result = await database.query<UserRow>(
+        `SELECT id, name, email, password_hash, role, auth_version, must_change_password,
+                temporary_password_expires_at, created_at
+         FROM users WHERE id = $1`,
+        [request.params.id],
+      );
+      const user = result.rows[0];
+      if (!user) return reply.code(404).send({ error: "User not found" });
+      return { user: publicUser(user) };
+    },
+  );
+
   app.patch<{ Params: UserIdParams; Body: UpdateUserBody }>(
     "/api/admin/users/:id",
     {
@@ -719,30 +744,6 @@ export async function buildApp({
           [request.params.id],
         );
 
-        app.get<{ Params: UserIdParams }>(
-          "/api/admin/users/:id",
-          {
-            preHandler: [requireSameOrigin, app.authenticate, app.requireAdmin],
-            schema: {
-              params: {
-                type: "object",
-                required: ["id"],
-                properties: { id: { type: "string", format: "uuid" } },
-              },
-            },
-          },
-          async (request, reply) => {
-            const result = await database.query<UserRow>(
-              `SELECT id, name, email, password_hash, role, auth_version, must_change_password,
-                      temporary_password_expires_at, created_at
-               FROM users WHERE id = $1`,
-              [request.params.id],
-            );
-            const user = result.rows[0];
-            if (!user) return reply.code(404).send({ error: "User not found" });
-            return { user: publicUser(user) };
-          },
-        );
         const target = targetResult.rows[0];
         if (!target) {
           await client.query("ROLLBACK");

@@ -139,7 +139,7 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-display">
             I Nostri Progetti
           </h2>
-          <Button href="/projects" variant="primary"
+          <Button href="/projects/" variant="primary"
             className="mt-6">
                 Scopri i nostri progetti
             </Button>
@@ -336,4 +336,3 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
     </section>
   )
 }
-
