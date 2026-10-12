@@ -49,6 +49,7 @@ export default function Header() {
   const [isLoggingIn, setIsLoggingIn] = useState(false)
   const desktopAccountMenuRef = useRef<HTMLDivElement>(null)
   const mobileAccountMenuRef = useRef<HTMLDivElement>(null)
+  const authCheckInFlight = useRef(false)
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem('theme')
@@ -74,6 +75,8 @@ export default function Header() {
   }
 
   const loadCurrentUser = useCallback(async () => {
+    if (authCheckInFlight.current) return
+    authCheckInFlight.current = true
     try {
       const response = await fetch('/api/auth/me')
       if (response.status === 401) {
@@ -86,8 +89,14 @@ export default function Header() {
         setAuthError('API account non disponibile. Avvia Docker Compose dalla cartella del progetto.')
         return
       }
+      if (response.status === 429) {
+        // Keep the current account state when a burst of route changes hits the API limit.
+        setAuthError('')
+        return
+      }
       if (!response.ok) {
-        throw new Error(`Session check failed with status ${response.status}`)
+        setAuthError('Impossibile verificare la sessione. Riprova tra poco.')
+        return
       }
 
       const result = (await response.json()) as AuthResponse
@@ -100,6 +109,7 @@ export default function Header() {
       console.error('Unable to verify the signed-in account', error)
       setAuthError('Impossibile verificare la sessione.')
     } finally {
+      authCheckInFlight.current = false
       setIsAuthLoading(false)
     }
   }, [])

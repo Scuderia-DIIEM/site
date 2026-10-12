@@ -44,6 +44,8 @@ interface ArticleRow {
   cover_content_type: string;
   pdf_file: string;
   is_public: boolean;
+  article_date: string;
+  tags: string[];
   created_by: string;
   created_at: Date;
 }
@@ -138,6 +140,33 @@ function slugify(value: string): string {
     .replace(/-+$/g, "");
 }
 
+function isValidArticleDate(value: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
+}
+
+function parseTags(rawTags: string): string[] | null {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(rawTags);
+  } catch {
+    return null;
+  }
+  if (!Array.isArray(parsed) || parsed.length > 30) return null;
+  const tags: string[] = [];
+  for (const value of parsed) {
+    if (typeof value !== "string") return null;
+    const tag = value.trim().toLowerCase();
+    if (tag.length === 0) continue;
+    if (tag.length > 40) return null;
+    if (tags.includes(tag)) continue;
+    tags.push(tag);
+  }
+  return tags;
+}
+
 function articleResponse(article: ArticleRow) {
   return {
     id: article.id,
@@ -148,7 +177,8 @@ function articleResponse(article: ArticleRow) {
     coverImage: `/api/projects/${encodeURIComponent(article.slug)}/cover`,
     pdfUrl: `/api/projects/${encodeURIComponent(article.slug)}/pdf`,
     isPublic: article.is_public,
-    date: article.created_at.toISOString().slice(0, 10),
+    date: article.article_date,
+    tags: article.tags ?? [],
   };
 }
 
@@ -213,7 +243,7 @@ export async function buildApp({
   await app.register(multipart, {
     limits: {
       files: 2,
-      fields: 4,
+      fields: 6,
       fileSize: maxPdfSize,
       fieldSize: 8 * 1024,
     },
@@ -265,10 +295,14 @@ export async function buildApp({
         cover_content_type TEXT NOT NULL,
         pdf_file TEXT NOT NULL,
         is_public BOOLEAN NOT NULL DEFAULT FALSE,
+        article_date DATE NOT NULL DEFAULT CURRENT_DATE,
+        tags TEXT[] NOT NULL DEFAULT '{}',
         created_by UUID NOT NULL REFERENCES users(id),
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `);
+    await database.query("ALTER TABLE project_articles ADD COLUMN IF NOT EXISTS article_date DATE NOT NULL DEFAULT CURRENT_DATE");
+    await database.query("ALTER TABLE project_articles ADD COLUMN IF NOT EXISTS tags TEXT[] NOT NULL DEFAULT '{}'");
   } catch (error) {
     await database.end();
     throw error;
@@ -886,7 +920,7 @@ export async function buildApp({
     async (request, reply) => {
       const result = await database.query<ArticleRow>(
         `SELECT id, slug, title, excerpt, authors, cover_file, cover_content_type,
-                pdf_file, is_public, created_by, created_at
+                pdf_file, is_public, article_date, tags, created_by, created_at
          FROM project_articles
          WHERE is_public = TRUE OR $1::boolean = TRUE
          ORDER BY created_at DESC`,
@@ -911,6 +945,8 @@ export async function buildApp({
       let excerpt = "";
       let rawAuthors = "";
       let visibility = "";
+      let articleDate = new Date().toISOString().slice(0, 10);
+      let rawTags = "[]";
       let cover: { data: Buffer; type: string; extension: string } | undefined;
       let pdf: Buffer | undefined;
 
@@ -955,7 +991,9 @@ export async function buildApp({
             else if (part.fieldname === "excerpt") excerpt = part.value;
             else if (part.fieldname === "authors") rawAuthors = part.value;
             else if (part.fieldname === "visibility") visibility = part.value;
-            else return reply.code(400).send({ error: "Unexpected article field" });
+            else if (part.fieldname === "date") articleDate = part.value;
+            else if (part.fieldname === "tags") rawTags = part.value;
+            else return reply.code(400).send({ error: `Unexpected article field: ${part.fieldname}` });
           }
         }
       } catch (error) {
@@ -981,6 +1019,9 @@ export async function buildApp({
       if (visibility !== "public" && visibility !== "private") {
         return reply.code(400).send({ error: "Choose whether the article is public or private" });
       }
+      if (!isValidArticleDate(articleDate)) {
+        return reply.code(400).send({ error: "Date must be a valid calendar date" });
+      }
       if (!cover || !pdf) {
         return reply.code(400).send({ error: "Add both a cover image and the article PDF" });
       }
@@ -1000,6 +1041,8 @@ export async function buildApp({
         return reply.code(400).send({ error: "Provide up to 30 authors, each with 1-100 characters" });
       }
       authors = authors.map((author: string) => author.trim());
+      const tags = parseTags(rawTags);
+      if (!tags) return reply.code(400).send({ error: "Tags must be a JSON array with up to 30 valid values" });
 
       const id = randomUUID();
       const slugBase = slugify(title).slice(0, 60) || "articolo";
@@ -1016,10 +1059,10 @@ export async function buildApp({
         ]);
         const result = await database.query<ArticleRow>(
           `INSERT INTO project_articles
-             (id, slug, title, excerpt, authors, cover_file, cover_content_type, pdf_file, is_public, created_by)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+             (id, slug, title, excerpt, authors, cover_file, cover_content_type, pdf_file, is_public, article_date, tags, created_by)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
            RETURNING id, slug, title, excerpt, authors, cover_file, cover_content_type,
-                     pdf_file, is_public, created_at`,
+                       pdf_file, is_public, article_date, tags, created_by, created_at`,
           [
             id,
             slug,
@@ -1030,6 +1073,8 @@ export async function buildApp({
             cover.type,
             pdfFile,
             visibility === "public",
+            articleDate,
+            tags,
             request.user.sub,
           ],
         );
@@ -1063,7 +1108,7 @@ export async function buildApp({
     async (request, reply) => {
       const result = await database.query<ArticleRow>(
         `SELECT id, slug, title, excerpt, authors, cover_file, cover_content_type,
-                pdf_file, is_public, created_by, created_at
+                pdf_file, is_public, article_date, tags, created_by, created_at
          FROM project_articles
          WHERE slug = $1 AND (is_public = TRUE OR $2::boolean = TRUE)`,
         [request.params.slug, request.articleViewer !== null],
@@ -1097,7 +1142,7 @@ export async function buildApp({
     async (request, reply) => {
       const currentResult = await database.query<ArticleRow>(
         `SELECT id, slug, title, excerpt, authors, cover_file, cover_content_type,
-                pdf_file, is_public, created_by, created_at
+                pdf_file, is_public, article_date, tags, created_by, created_at
          FROM project_articles WHERE slug = $1`,
         [request.params.slug],
       );
@@ -1111,6 +1156,8 @@ export async function buildApp({
       let excerpt = "";
       let rawAuthors = "";
       let visibility = "";
+      let articleDate = currentArticle.article_date;
+      let rawTags = JSON.stringify(currentArticle.tags ?? []);
       let cover: { data: Buffer; type: string; extension: string } | undefined;
       let pdf: Buffer | undefined;
       const receivedFields = new Set<string>();
@@ -1160,7 +1207,9 @@ export async function buildApp({
             else if (part.fieldname === "excerpt") excerpt = part.value;
             else if (part.fieldname === "authors") rawAuthors = part.value;
             else if (part.fieldname === "visibility") visibility = part.value;
-            else return reply.code(400).send({ error: "Unexpected article field" });
+            else if (part.fieldname === "date") articleDate = part.value;
+            else if (part.fieldname === "tags") rawTags = part.value;
+            else return reply.code(400).send({ error: `Unexpected article field: ${part.fieldname}` });
           }
         }
       } catch (error) {
@@ -1175,7 +1224,7 @@ export async function buildApp({
         throw error;
       }
 
-      if (["title", "excerpt", "authors", "visibility"].some((field) => !receivedFields.has(field))) {
+      if (["title", "excerpt", "authors", "visibility", "date", "tags"].some((field) => !receivedFields.has(field))) {
         return reply.code(400).send({ error: "All article fields are required" });
       }
       title = title.trim();
@@ -1188,6 +1237,9 @@ export async function buildApp({
       }
       if (visibility !== "public" && visibility !== "private") {
         return reply.code(400).send({ error: "Choose whether the article is public or private" });
+      }
+      if (!isValidArticleDate(articleDate)) {
+        return reply.code(400).send({ error: "Date must be a valid calendar date" });
       }
 
       let authors: unknown;
@@ -1205,6 +1257,8 @@ export async function buildApp({
         return reply.code(400).send({ error: "Provide up to 30 authors, each with 1-100 characters" });
       }
       authors = authors.map((author: string) => author.trim());
+      const tags = parseTags(rawTags);
+      if (!tags) return reply.code(400).send({ error: "Tags must be a JSON array with up to 30 valid values" });
 
       const coverFile = cover ? `${randomUUID()}.${cover.extension}` : currentArticle.cover_file;
       const coverContentType = cover?.type ?? currentArticle.cover_content_type;
@@ -1231,15 +1285,18 @@ export async function buildApp({
         const result = await database.query<ArticleRow>(
           `UPDATE project_articles
            SET title = $1, excerpt = $2, authors = $3, is_public = $4,
-               cover_file = $5, cover_content_type = $6, pdf_file = $7
-           WHERE id = $8
+               article_date = $5, tags = $6,
+               cover_file = $7, cover_content_type = $8, pdf_file = $9
+           WHERE id = $10
            RETURNING id, slug, title, excerpt, authors, cover_file, cover_content_type,
-                     pdf_file, is_public, created_by, created_at`,
+                     pdf_file, is_public, article_date, tags, created_by, created_at`,
           [
             title,
             excerpt,
             authors,
             visibility === "public",
+            articleDate,
+            tags,
             coverFile,
             coverContentType,
             pdfFile,

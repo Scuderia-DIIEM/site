@@ -78,7 +78,7 @@
     "name": "Umberto Tepedino",
     "headOf": "team",
     "role": "Meccanica",
-    "team": "Tecnologie speciali",
+    "team": "Ricerca e Sviluppo",
     "skills": ["corso-sicurezza", "stampante-3d", "saldare"],
     "image": "/photos/tepedino.jpeg",
     "email": "umb.tepedino@stud.uniroma3.it",
@@ -219,7 +219,7 @@
     "id": 24,
     "name": "Teresa Ferrocino",
     "role": "Meccanica",
-    "team": "Tecnologie speciali",
+    "team": "Ricerca e Sviluppo",
     "skills": ["corso-sicurezza"],
     "email": "ter.ferrocino@stud.uniroma3.it",
     "image": "/photos/avatar/15.png"
@@ -266,7 +266,7 @@
     "id": 29,
     "name": "Michela Lissandrello",
     "role": "Meccanica",
-    "team": "Tecnologie speciali",
+    "team": "Ricerca e Sviluppo",
     "skills": ["corso-sicurezza"],
     "email": "mic.lissandrello@stud.uniroma3.it",
     "image": "/photos/lissandrello.png"
@@ -357,14 +357,14 @@
   {
     "id": 40,
     "name": "Riccardo Pimental",
-    "team": "Tecnologie speciali",
+    "team": "Ricerca e Sviluppo",
     "email": "ric.pimental@stud.uniroma3.it",
     "image": "/photos/avatar/75.png"
   },
   {
     "id": 41,
     "name": "Alessandro Rainero",
-    "team": "Tecnologie speciali",
+    "team": "Ricerca e Sviluppo",
     "role": "Meccanica",
     "email": "ale.rainero@stud.uniroma3.it",
     "image": "/photos/avatar/50.png"

@@ -48,6 +48,7 @@ export interface ProjectArticle {
   title: string
   excerpt: string
   date: string
+  tags?: string[]
   authors?: string[]
   heroImage?: string | HeroImage
   blocks: ProjectBlock[]

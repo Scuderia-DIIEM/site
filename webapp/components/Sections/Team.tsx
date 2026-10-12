@@ -106,7 +106,7 @@ const projectTeamFilters: Array<{ id: ProjectTeam; label: string }> = [
   { id: 'float', label: 'FLOAT' },
   { id: 'arm', label: 'ARM' },
   { id: 'gs', label: 'GS' },
-  { id: 'special', label: 'Tecnologie speciali' },
+  { id: 'special', label: 'Ricerca e Sviluppo' },
 ]
 
 export default function Team() {
@@ -118,7 +118,7 @@ export default function Team() {
 
   const filteredMembers = teamMembers.filter(
     (member) => {
-      const project = selectedTeam === 'special' ? 'Tecnologie speciali' : selectedTeam
+      const project = selectedTeam === 'special' ? 'Ricerca e Sviluppo' : selectedTeam
       const roles = (Array.isArray(member.role) ? member.role : [member.role]).filter(
         (role): role is string => typeof role === 'string'
       )

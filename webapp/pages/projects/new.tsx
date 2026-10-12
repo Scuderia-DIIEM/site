@@ -14,6 +14,18 @@ interface ApiError {
   error?: string
 }
 
+function toIsoDate(date: string): string {
+  const [day, month, year] = date.split('/')
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+}
+
+function toItalianDate(date: Date): string {
+  return date.toLocaleDateString('it-IT')
+}
+
+const today = toItalianDate(new Date())
+const maxPdfSize = 20 * 1024 * 1024
+
 export default function NewProjectArticlePage() {
   const router = useRouter()
   const [authorized, setAuthorized] = useState(false)
@@ -21,6 +33,9 @@ export default function NewProjectArticlePage() {
   const [title, setTitle] = useState('')
   const [excerpt, setExcerpt] = useState('')
   const [authors, setAuthors] = useState('')
+  const [date, setDate] = useState(today)
+  const [tags, setTags] = useState('')
+  const [existingTags, setExistingTags] = useState<string[]>([])
   const [visibility, setVisibility] = useState<'public' | 'private'>('public')
   const [cover, setCover] = useState<File | null>(null)
   const [pdf, setPdf] = useState<File | null>(null)
@@ -28,6 +43,16 @@ export default function NewProjectArticlePage() {
   const pdfInputRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
+
+  function handlePdfSelection(file: File | null) {
+    if (file && file.size > maxPdfSize) {
+      setPdf(null)
+      setError('Il PDF supera il limite massimo di 20 MB. Seleziona un file più piccolo.')
+      return
+    }
+    setError('')
+    setPdf(file)
+  }
 
   useEffect(() => {
     let active = true
@@ -59,6 +84,20 @@ export default function NewProjectArticlePage() {
     }
   }, [router])
 
+  useEffect(() => {
+    void fetch('/api/projects', { cache: 'no-store' })
+      .then(async (response) => {
+        if (!response.ok) return
+        const result = (await response.json()) as { articles?: Array<{ tags?: string[] }> }
+        setExistingTags(
+          [...new Set(result.articles?.flatMap((article) => article.tags ?? []) ?? [])].sort()
+        )
+      })
+      .catch(() => {
+        // Suggestions are optional; article creation remains available if they cannot be loaded.
+      })
+  }, [])
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError('')
@@ -74,11 +113,14 @@ export default function NewProjectArticlePage() {
       setError('Inserisci almeno un autore.')
       return
     }
+    const tagList = [...new Set(tags.split(/[\n,]+/).map((tag) => tag.trim().toLowerCase()).filter(Boolean))]
 
     const formData = new FormData()
     formData.set('title', title)
     formData.set('excerpt', excerpt)
     formData.set('authors', JSON.stringify(authorList))
+    formData.set('date', toIsoDate(date))
+    formData.set('tags', JSON.stringify(tagList))
     formData.set('visibility', visibility)
     formData.set('cover', cover)
     formData.set('pdf', pdf)
@@ -86,7 +128,7 @@ export default function NewProjectArticlePage() {
     setSubmitting(true)
     try {
       const response = await fetch('/api/projects', { method: 'POST', body: formData })
-      const result = (await response.json()) as {
+      const result = (await response.json().catch(() => ({}))) as {
         article?: { slug: string }
         error?: string
       }
@@ -153,6 +195,44 @@ export default function NewProjectArticlePage() {
                     required
                     value={title}
                   />
+                </div>
+
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-slate-800" htmlFor="article-date">
+                      Data dell’articolo
+                    </label>
+                    <input
+                      className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                      id="article-date"
+                      onChange={(event) => setDate(event.target.value)}
+                      required
+                      inputMode="numeric"
+                      maxLength={10}
+                      pattern="\d{2}/\d{2}/\d{4}"
+                      placeholder="gg/mm/aaaa"
+                      type="text"
+                      value={date}
+                    />
+                    <p className="mt-1 text-xs text-slate-500">Preimpostata alla data di oggi.</p>
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-slate-800" htmlFor="article-tags">
+                      Tag
+                    </label>
+                    <input
+                      className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                      id="article-tags"
+                      list="article-tag-suggestions"
+                      onChange={(event) => setTags(event.target.value)}
+                      placeholder="robotica, CAD, ricerca"
+                      value={tags}
+                    />
+                    <datalist id="article-tag-suggestions">
+                      {existingTags.map((tag) => <option key={tag} value={tag} />)}
+                    </datalist>
+                    <p className="mt-1 text-xs text-slate-500">Separa più tag con virgole. I tag già usati vengono suggeriti.</p>
+                  </div>
                 </div>
 
                 <div>
@@ -225,7 +305,7 @@ export default function NewProjectArticlePage() {
                     accept="application/pdf,.pdf"
                     className="sr-only"
                     id="article-pdf"
-                    onChange={(event) => setPdf(event.target.files?.[0] ?? null)}
+                    onChange={(event) => handlePdfSelection(event.target.files?.[0] ?? null)}
                     ref={pdfInputRef}
                     required
                     type="file"

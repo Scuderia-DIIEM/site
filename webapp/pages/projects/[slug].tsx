@@ -9,6 +9,11 @@ interface ProjectDetailProps {
   project: ProjectArticle
 }
 
+function formatDisplayDate(date: string): string {
+  const [year, month, day] = date.slice(0, 10).split('-')
+  return year && month && day ? `${day}/${month}/${year}` : date
+}
+
 export default function ProjectDetail({ project }: ProjectDetailProps) {
 
   const getHeroData = (heroImage?: string | { src: string; alt?: string; caption?: string; width?: number; height?: number; align?: 'left' | 'center' | 'right'; show?: boolean; className?: string }) => {
@@ -100,7 +105,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         <main className="py-24">
           <div className="max-w-4xl mx-auto px-4">
             <h1 className="text-3xl font-bold text-accent mb-4">{project.title}</h1>
-            <p className="text-sm text-gray-400 mb-6">{project.date}</p>
+            <p className="text-sm text-gray-400 mb-6">{formatDisplayDate(project.date)}</p>
             {project.heroImage && (() => {
               const hero = getHeroData(project.heroImage)
               if (!hero) return null

@@ -280,13 +280,13 @@ const nodes: Record<NodeId, OrgNode> = {
   },
   special: {
     id: "special",
-    title: "Tecnologie speciali",
-    subtitle: "Ricerca e sviluppo",
+    title: "Ricerca e Sviluppo",
+    subtitle: "Materiali e tecnologie",
     description:
       "Area trasversale per soluzioni sperimentali, tecnologie innovative e attività di ricerca applicata ai progetti della Scuderia.",
     responsibilities: [
       "Sperimentazione",
-      "Ricerca di nuove soluzioni",
+      "Ricerca di materiali",
       "Prototipazione avanzata",
       "Supporto ai reparti tecnici",
     ],
@@ -318,7 +318,7 @@ function getNodeMembers(id: NodeId) {
     float: ["FLOAT"],
     arm: ["ARM"],
     gs: ["GS", "Electronics&Informatics"],
-    special: ["Tecnologie speciali", "Research&Assembly", "CAD&Design"],
+    special: ["Ricerca e Sviluppo", "Research&Assembly", "CAD&Design"],
   };
   const leadership: Partial<Record<NodeId, string[]>> = {
     ceo: ["CEO"],

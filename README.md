@@ -72,8 +72,10 @@ HTTP setup on port 80, keep it set to `false`.
 ## Project articles
 
 Any authenticated user can create an article from the **Progetti** page. Articles
-include a title, cover image, description, authors and a PDF, and can be public or
-private. Public articles and their PDFs are visible to everyone; private articles,
+include a title, cover image, description, authors, publication date, tags and a PDF,
+and can be public or private. The publication date defaults to the upload date but
+can be changed for older articles. The projects page supports chronological sorting
+and filtering by tags. Public articles and their PDFs are visible to everyone; private articles,
 cover images and PDFs are available only to signed-in users. Uploads are validated
 as JPEG, PNG, WebP or PDF and limited to 5 MB per cover image and 20 MB per PDF.
 Uploaded files are stored in the persistent `article_uploads` Docker volume.

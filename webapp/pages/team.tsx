@@ -28,7 +28,7 @@ const projectTeamFilters: Array<{ id: ProjectTeam; label: string }> = [
   { id: 'float', label: 'FLOAT' },
   { id: 'arm', label: 'ARM' },
   { id: 'gs', label: 'GS' },
-  { id: 'special', label: 'Tecnologie speciali' },
+  { id: 'special', label: 'Ricerca e Sviluppo' },
 ]
 
 interface TeamMemberCardProps {
@@ -103,7 +103,7 @@ export default function TeamPage() {
         const memberRole = (member as { role?: string | string[] }).role ?? ''
         const roles = Array.isArray(memberRole) ? memberRole : [memberRole]
         const team = (member as { team?: string }).team ?? ''
-        const project = selectedTeam === 'special' ? 'tecnologie speciali' : selectedTeam
+        const project = selectedTeam === 'special' ? 'ricerca e sviluppo' : selectedTeam
         return (selectedArea === 'all' || roles.some((role) => role.toLowerCase() === selectedArea)) &&
           (selectedTeam === 'all' || team.toLowerCase() === project)
       })

@@ -16,6 +16,11 @@ interface UploadedArticle extends ProjectArticle {
   isPublic: boolean
 }
 
+function formatDisplayDate(date: string): string {
+  const [year, month, day] = date.slice(0, 10).split('-')
+  return year && month && day ? `${day}/${month}/${year}` : date
+}
+
 export default function ProjectsPage({ projects }: ProjectsPageProps) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [searchTerm, setSearchTerm] = useState('')
@@ -23,6 +28,10 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [mustChangePassword, setMustChangePassword] = useState(false)
   const [loadError, setLoadError] = useState('')
+  const [filtersOpen, setFiltersOpen] = useState(false)
+  const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc')
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [visibilityFilter, setVisibilityFilter] = useState<'all' | 'public' | 'private'>('all')
 
   useEffect(() => {
     let active = true
@@ -43,6 +52,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
               pdfUrl: string
               isPublic: boolean
               date: string
+              tags?: string[]
             }>
           }
           return result.articles
@@ -66,6 +76,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
           heroImage: article.coverImage,
           pdfUrl: article.pdfUrl,
           isPublic: article.isPublic,
+          tags: article.tags ?? [],
           blocks: [],
         }))
       )
@@ -96,16 +107,26 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
 
   const projectList = [...uploadedArticles, ...projects]
 
+  const availableTags = [...new Set(projectList.flatMap((project) => project.tags ?? []))].sort()
   const filteredProjects = projectList.filter((project) => {
     const search = searchTerm.trim().toLowerCase()
-    if (!search) return true
     const authorsText = project.authors?.join(' ').toLowerCase() ?? ''
-    return (
+    const matchesSearch = !search || (
       project.title.toLowerCase().includes(search) ||
       project.excerpt.toLowerCase().includes(search) ||
       authorsText.includes(search) ||
       project.date.toLowerCase().includes(search)
     )
+    const projectTags = project.tags ?? []
+    const matchesTags = selectedTags.length === 0 || selectedTags.some((tag) => projectTags.includes(tag))
+    const matchesVisibility =
+      visibilityFilter === 'all' ||
+      (visibilityFilter === 'public' && (project.isPublic ?? true)) ||
+      (visibilityFilter === 'private' && project.isPublic === false)
+    return matchesSearch && matchesTags && matchesVisibility
+  }).sort((a, b) => {
+    const comparison = a.date.localeCompare(b.date)
+    return sortOrder === 'asc' ? comparison : -comparison
   })
 
   const getHeroImageSrc = (heroImage?: string | { src: string }) =>
@@ -180,7 +201,77 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                     Lista
                   </button>
                 </div>
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen((open) => !open)}
+                  aria-expanded={filtersOpen}
+                  className={`shrink-0 rounded-full px-4 py-3 text-sm font-semibold transition ${
+                    filtersOpen ? 'bg-accent text-white' : 'bg-white/15 text-white hover:bg-white/25'
+                  }`}
+                >
+                  Filtri
+                </button>
               </motion.div>
+              {filtersOpen && (
+                <div className="mt-4 rounded-2xl bg-white p-4 text-slate-900 shadow-lg">
+                  <div className="flex flex-wrap items-center gap-4">
+                    <label className="text-sm font-semibold">
+                      Ordine
+                      <select
+                        className="ml-2 rounded-lg border border-slate-300 px-3 py-2 font-normal"
+                        value={sortOrder}
+                        onChange={(event) => setSortOrder(event.target.value as 'asc' | 'desc')}
+                      >
+                        <option value="desc">Dal più recente</option>
+                        <option value="asc">Dal meno recente</option>
+                      </select>
+                    </label>
+                    <label className="text-sm font-semibold">
+                      Visibilità
+                      <select
+                        className="ml-2 rounded-lg border border-slate-300 px-3 py-2 font-normal"
+                        value={visibilityFilter}
+                        onChange={(event) =>
+                          setVisibilityFilter(event.target.value as 'all' | 'public' | 'private')
+                        }
+                      >
+                        <option value="all">Tutti</option>
+                        <option value="public">Pubblici</option>
+                        <option value="private">Privati</option>
+                      </select>
+                    </label>
+                    {selectedTags.length > 0 && (
+                      <button
+                        type="button"
+                        className="text-sm font-semibold text-accent underline"
+                        onClick={() => setSelectedTags([])}
+                      >
+                        Azzera tag
+                      </button>
+                    )}
+                  </div>
+                  {availableTags.length > 0 ? (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {availableTags.map((tag) => (
+                        <label key={tag} className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-sm">
+                          <input
+                            checked={selectedTags.includes(tag)}
+                            onChange={(event) =>
+                              setSelectedTags((current) =>
+                                event.target.checked ? [...current, tag] : current.filter((item) => item !== tag)
+                              )
+                            }
+                            type="checkbox"
+                          />
+                          #{tag}
+                        </label>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="mt-3 text-sm text-slate-500">Non ci sono ancora tag disponibili.</p>
+                  )}
+                </div>
+              )}
               {isAuthenticated && !mustChangePassword && (
                 <div className="mt-5 flex justify-center">
                   <Link
@@ -264,7 +355,12 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                                 </p>
                               )}
                               <p className="mb-4 line-clamp-3 text-sm text-gray-600">{p.excerpt}</p>
-                              <p className="text-xs text-gray-400">{p.date}</p>
+                              {p.tags && p.tags.length > 0 && (
+                                <div className="mb-3 flex flex-wrap gap-1.5">
+                                  {p.tags.map((tag) => <span key={tag} className="rounded-full bg-accent/10 px-2 py-1 text-[11px] font-semibold text-accent">#{tag}</span>)}
+                                </div>
+                              )}
+                              <p className="text-xs text-gray-400">{formatDisplayDate(p.date)}</p>
                             </div>
                           </Link>
                         </div>
@@ -315,7 +411,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                                       {isPublic ? 'Pubblico' : 'Privato'}
                                     </span>
                                   </div>
-                                  <p className="text-xs text-gray-400">{p.date}</p>
+                                  <p className="text-xs text-gray-400">{formatDisplayDate(p.date)}</p>
                                 </div>
                                 {p.authors && p.authors.length > 0 && (
                                   <p className="mt-1 text-sm text-gray-500">
@@ -323,6 +419,11 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                                   </p>
                                 )}
                                 <p className="mt-2 line-clamp-3 text-sm text-gray-600">{p.excerpt}</p>
+                                {p.tags && p.tags.length > 0 && (
+                                  <div className="mt-2 flex flex-wrap gap-1.5">
+                                    {p.tags.map((tag) => <span key={tag} className="rounded-full bg-accent/10 px-2 py-1 text-[11px] font-semibold text-accent">#{tag}</span>)}
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </Link>
