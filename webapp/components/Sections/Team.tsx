@@ -119,7 +119,9 @@ export default function Team() {
   const filteredMembers = teamMembers.filter(
     (member) => {
       const project = selectedTeam === 'special' ? 'Tecnologie speciali' : selectedTeam
-      const roles = Array.isArray(member.role) ? member.role : [member.role]
+      const roles = (Array.isArray(member.role) ? member.role : [member.role]).filter(
+        (role): role is string => typeof role === 'string'
+      )
       return (selectedArea === 'all' || roles.some((role) => role.toLowerCase() === selectedArea)) &&
         (selectedTeam === 'all' || (member.team ?? '').toLowerCase() === project.toLowerCase())
     }

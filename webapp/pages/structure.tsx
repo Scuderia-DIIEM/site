@@ -301,6 +301,12 @@ const MemberSelectionContext = createContext<(member: TeamMember) => void>(() =>
 const ShowMembersContext = createContext(false);
 
 function getNodeMembers(id: NodeId) {
+  const departmentTeams: Partial<Record<NodeId, string[]>> = {
+    marketing: ["Marketing"],
+    social: ["Social"],
+    gadgets: ["Gadgets"],
+    operations: ["Operations"],
+  };
   const technicalAreas: Partial<Record<NodeId, string[]>> = {
     electronics: ["Elettronica", "Electronics&Informatics"],
     software: ["Informatica", "Electronics&Informatics"],
@@ -320,6 +326,7 @@ function getNodeMembers(id: NodeId) {
     cmo: ["CMO"],
     coo: ["COO"],
   };
+  const departmentTeam = departmentTeams[id] ?? [];
   const technicalArea = technicalAreas[id];
   const project = projects[id];
   const leadershipRole = leadership[id];
@@ -328,8 +335,13 @@ function getNodeMembers(id: NodeId) {
   const leadershipRoles = leadershipRole ?? [];
 
   return teamMembers.filter((member) => {
-    const roles = Array.isArray(member.role) ? member.role : [member.role];
+    const roles = (Array.isArray(member.role) ? member.role : [member.role]).filter(
+      (role): role is string => typeof role === "string",
+    );
     return Boolean(
+      (departmentTeam.length > 0 &&
+        member.team !== undefined &&
+        departmentTeam.some((team) => team.toLowerCase() === member.team?.toLowerCase())) ||
       (technicalRoles.length > 0 && (roles.some((role) => technicalRoles.includes(role)) || (member.team !== undefined && technicalRoles.includes(member.team)))) ||
       (projectTeams.length > 0 && member.team !== undefined && projectTeams.includes(member.team)) ||
       (leadershipRoles.length > 0 && (roles.some((role) => leadershipRoles.includes(role)) || (member.team !== undefined && leadershipRoles.includes(member.team)))),
@@ -355,13 +367,17 @@ function NodeButton({
   const showMembers = useContext(ShowMembersContext);
   const memberGridColumns = nodeMembers.length === 1
     ? "grid-cols-1"
-    : nodeMembers.length === 2
+    : nodeMembers.length <= 4
       ? "grid-cols-2"
-      : "grid-cols-4";
+      : "grid-cols-3";
 
   const headOfNode = (member: TeamMember) => {
     if (member.headOf === "team") {
       const teamHeadNodes: Record<string, NodeId> = {
+        Marketing: "marketing",
+        Social: "social",
+        Gadgets: "gadgets",
+        Operations: "operations",
         ROV: "rov",
         FLOAT: "float",
         ARM: "arm",
@@ -422,7 +438,7 @@ function NodeButton({
                 key={member.id}
                 type="button"
                 onClick={() => onMemberSelect(member)}
-                className={`w-fit max-w-full min-w-0 rounded-lg border px-1 py-1 text-left text-[8px] font-medium leading-tight break-words transition-colors focus:outline-none focus:ring-2 focus:ring-white/70 sm:px-1.5 sm:text-[10px] ${
+                className={`w-full min-w-0 rounded-lg border px-1.5 py-1 text-left text-[9px] font-medium leading-tight break-words whitespace-normal transition-colors focus:outline-none focus:ring-2 focus:ring-white/70 sm:px-2 sm:text-[10px] ${
                   headOfNode(member)
                     ? "border-amber-200/70 bg-amber-300/30 hover:bg-amber-300/40"
                     : "border-white/20 bg-white/10 hover:bg-white/20"

@@ -117,6 +117,14 @@
   },
   {
     "id": 12,
+    "name": "Ambra Antonucci",
+    "team": "Social",
+    "skills": ["saldare"],
+    "image": "/photos/avatar/16.png",
+    "email": "amb.antonucci1@stud.uniroma3.it"
+  },
+  {
+    "id": 13,
     "name": "Nicolò Arena",
     "role": "CAD",
     "team": "ARM",
@@ -126,7 +134,7 @@
     "linkedin": "https://www.linkedin.com/in/nicolò-arena-25a345311?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   },
   {
-    "id": 13,
+    "id": 14,
     "name": "Nicolò Azzella",
     "role": "Elettronica",
     "team": "FLOAT",
@@ -136,7 +144,7 @@
     "email2": "N1k0t3sla@gmail.com"
   },
   {
-    "id": 14,
+    "id": 15,
     "name": "Flavio Bacci",
     "role": "CAD",
     "team": "ROV",
@@ -144,7 +152,7 @@
     "image": "/photos/avatar/02.png"
   },
   {
-    "id": 15,
+    "id": 16,
     "name": "Lorenzo Barbone",
     "role": "Team Member",
     "team": "ARM",
@@ -152,7 +160,14 @@
     "image": "/photos/avatar/03.png"
   },
   {
-    "id": 16,
+    "id": 17,
+    "name": "Ilaria Belli",
+    "role": "Informatica",
+    "email": "ila.belli1@stud.uniroma3.it",
+    "image": "/photos/avatar/57.png"
+  },
+  {
+    "id": 18,
     "name": "Vittoria Cerquaglia",
     "role": "Elettronica",
     "team": "ROV",
@@ -161,7 +176,7 @@
     "image": "/photos/cerquaglia.jpeg"
   },
   {
-    "id": 17,
+    "id": 19,
     "name": "Alessandro Ciminello",
     "role": "CAD",
     "team": "ROV",
@@ -170,7 +185,14 @@
     "image": "/photos/avatar/04.png"
   },
   {
-    "id": 18,
+    "id": 20,
+    "name": "Francesco Consalvi",
+    "team": "Informatica",
+    "email": "fra.consalvi3@stud.uniroma3.it",
+    "image": "/photos/avatar/49.png"
+  },
+  {
+    "id": 21,
     "name": "Massimiliano Cristilli",
     "role": "Elettronica",
     "team": "ROV",
@@ -178,7 +200,7 @@
     "image": "/photos/avatar/06.png"
   },
   {
-    "id": 19,
+    "id": 22,
     "name": "Chiara D'antonio",
     "role": "CAD",
     "team": "FLOAT",
@@ -187,14 +209,14 @@
     "image": "/photos/avatar/12.png"
   },
   {
-    "id": 20,
+    "id": 23,
     "name": "Alessio Di Girolamo",
     "role": "Elettronica",
     "team": "ROV",
     "image": "/photos/avatar/13.png"
   },
   {
-    "id": 21,
+    "id": 24,
     "name": "Teresa Ferrocino",
     "role": "Meccanica",
     "team": "Tecnologie speciali",
@@ -203,27 +225,27 @@
     "image": "/photos/avatar/15.png"
   },
   {
-    "id": 22,
+    "id": 25,
     "name": "Chiara Grando",
     "role": ["Elettronica", "Informatica"],
     "team": "ARM",
-    "skills": ["corso-sicurezza"],
+    "skills": ["corso-sicurezza", "saldare"],
     "image": "/photos/grando.jpeg",
     "email": "chi.grando@stud.uniroma3.it",
     "linkedin": "https://www.linkedin.com/in/chiara-grando-921236339?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   },
   {
-    "id": 23,
+    "id": 26,
     "name": "Arianna Grossi",
     "role": "CAD",
     "team": "ARM",
-    "skills": ["corso-sicurezza"],
+    "skills": ["corso-sicurezza", "saldare"],
     "email": "ari.grossi1@stud.uniroma3.it",
     "email2": "grossiariannaa@gmail.com",
     "image": "/photos/grossi.png"
   },
   {
-    "id": 24,
+    "id": 27,
     "name": "Federico Iannaccone",
     "role": ["Elettronica", "Informatica"],
     "team": "ROV",
@@ -232,7 +254,7 @@
     "image": "/photos/avatar/23.png"
   },
   {
-    "id": 25,
+    "id": 28,
     "name": "Francesco Laudadio",
     "role": "CAD",
     "team": "ROV",
@@ -241,7 +263,7 @@
     "image": "/photos/avatar/18.png"
   },
   {
-    "id": 26,
+    "id": 29,
     "name": "Michela Lissandrello",
     "role": "Meccanica",
     "team": "Tecnologie speciali",
@@ -250,18 +272,46 @@
     "image": "/photos/lissandrello.png"
   },
   {
-    "id": 27,
+    "id": 30,
+    "name": "Francesco Lombardi",
+    "role": "Informatica",
+    "email": "fra.lombardi@stud.uniroma3.it",
+    "image": "/photos/avatar/62.png"
+  },
+  {
+    "id": 31,
     "name": "Francesco Margagnoni",
-    "role": ["Elettronica", "Informatica"],
+    "role": "Elettronica",
     "team": "ARM",
-    "skills": ["corso-sicurezza"],
+    "skills": ["corso-sicurezza", "saldare"],
     "email": "fra.margagnoni@stud.uniroma3.it",
     "email2": "francescomargagnoni79@gmail.com",
     "linkedin": "https://www.linkedin.com/in/francesco-margagnoni-419890392?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
     "image": "/photos/margagnoni.jpeg"
   },
   {
-    "id": 28,
+    "id": 32,
+    "name": "Pierluigi Margagnoni",
+    "team": "Marketing",
+    "email": "pier.margagnoni@stud.uniroma3.it",
+    "image": "/photos/avatar/66.png"
+  },
+  {
+    "id": 33,
+    "name": "Spartaco Miatto",
+    "team": "Informatica",
+    "email": "spa.miatto@stud.uniroma3.it",
+    "image": "/photos/avatar/75.png"
+  },
+  {
+    "id": 34,
+    "name": "Marco Navato",
+    "role": "CAD",
+    "email": "mar.navato@stud.uniroma3.it",
+    "image": "/photos/avatar/73.png"
+  },
+  {
+    "id": 35,
     "name": "Valerio Orlandini",
     "role": "Meccanica",
     "team": "ARM",
@@ -272,7 +322,7 @@
     "image": "/photos/avatar/22.png"
   },
   {
-    "id": 29,
+    "id": 36,
     "name": "Francesca Panichi",
     "role": "CAD",
     "team": "ARM",
@@ -280,7 +330,7 @@
     "image": "/photos/panichi.png"
   },
   {
-    "id": 30,
+    "id": 37,
     "name": "Andrea Pelliccia",
     "role": "Meccanica",
     "team": "Task force Fluidodynamics",
@@ -289,7 +339,60 @@
     "image": "/photos/avatar/26.png"
   },
   {
-    "id": 31,
+    "id": 38,
+    "name": "Francesco Perosini",
+    "team": "ROV",
+    "role": "Elettronica",
+    "email": "fra.perosini@stud.uniroma3.it",
+    "image": "/photos/avatar/69.png"
+  },
+  {
+    "id": 39,
+    "name": "Claudio Pierini",
+    "team": "Marketing",
+    "skills": ["saldare"],
+    "email": "cla.pierini@stud.uniroma3.it",
+    "image": "/photos/avatar/64.png"
+  },
+  {
+    "id": 40,
+    "name": "Riccardo Pimental",
+    "team": "Tecnologie speciali",
+    "email": "ric.pimental@stud.uniroma3.it",
+    "image": "/photos/avatar/75.png"
+  },
+  {
+    "id": 41,
+    "name": "Alessandro Rainero",
+    "team": "Tecnologie speciali",
+    "role": "Meccanica",
+    "email": "ale.rainero@stud.uniroma3.it",
+    "image": "/photos/avatar/50.png"
+  },
+  {
+    "id": 42,
+    "name": "Domenico Romano",
+    "team": "Informatica",
+    "email": "dom.romano1@stud.uniroma3.it",
+    "image": "/photos/avatar/66.png"
+  },
+  {
+    "id": 43,
+    "name": "Stefano Santella",
+    "team": "Informatica",
+    "email": "ste.santella@stud.uniroma3.it",
+    "image": "/photos/avatar/59.png"
+  },
+  {
+    "id": 44,
+    "name": "Davide Scimenes",
+    "team": "Marketing",
+    "skills": ["saldare"],
+    "email": "dav.scimenes@stud.uniroma3.it",
+    "image": "/photos/avatar/62.png"
+  },
+  {
+    "id": 45,
     "name": "Vittorio Statera",
     "role": "Meccanica",
     "team": "Task force Fluidodynamics",
@@ -297,7 +400,7 @@
     "image": "/photos/avatar/30.png"
   },
   {
-    "id": 32,
+    "id": 46,
     "name": "Valerio Surace",
     "role": "CAD",
     "team": "ROV",
@@ -306,7 +409,7 @@
     "image": "/photos/avatar/35.png"
   },
   {
-    "id": 33,
+    "id": 47,
     "name": "Matteo Traversa",
     "role": "Elettronica",
     "team": "ROV",
@@ -315,7 +418,7 @@
     "image": "/photos/avatar/33.png"
   },
   {
-    "id": 34,
+    "id": 48,
     "name": "Luca Trevisan",
     "role": "Elettronica",
     "team": "ROV",
@@ -324,7 +427,7 @@
     "image": "/photos/avatar/37.png"
   },
   {
-    "id": 35,
+    "id": 49,
     "name": "Angelo Zelli",
     "role": "CAD",
     "team": "FLOAT",
