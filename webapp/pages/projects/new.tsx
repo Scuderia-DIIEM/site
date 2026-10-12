@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Header from '../../components/Layout/Header'
 import Footer from '../../components/Layout/Footer'
+import { useLanguage } from '@/lib/language'
 
 interface SessionResponse {
   user: { id: string }
@@ -27,6 +28,7 @@ const today = toItalianDate(new Date())
 const maxPdfSize = 20 * 1024 * 1024
 
 export default function NewProjectArticlePage() {
+  const { t } = useLanguage()
   const router = useRouter()
   const [authorized, setAuthorized] = useState(false)
   const [checkingSession, setCheckingSession] = useState(true)
@@ -159,22 +161,22 @@ export default function NewProjectArticlePage() {
         <main className="bg-slate-50 px-4 pb-16 pt-32 sm:px-6">
           <div className="mx-auto max-w-3xl">
             <Link href="/projects" className="text-sm font-medium text-accent hover:underline">
-              &larr; Torna agli articoli
+              &larr; {t('Torna agli articoli')}
             </Link>
             <header className="mt-6">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
-                Area riservata
+                {t('Area riservata')}
               </p>
               <h1 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">
-                Aggiungi un articolo
+                {t('Aggiungi un articolo')}
               </h1>
               <p className="mt-3 text-slate-600">
-                Carica la copertina e il PDF. Puoi scegliere se renderlo pubblico o riservato agli utenti autenticati.
+                {t('Carica la copertina e il PDF. Puoi scegliere se renderlo pubblico o riservato agli utenti autenticati.')}
               </p>
             </header>
 
             {checkingSession ? (
-              <p className="mt-8 rounded-xl bg-white p-5 text-slate-600">Verifica dell’accesso in corso…</p>
+              <p className="mt-8 rounded-xl bg-white p-5 text-slate-600">{t('Verifica dell’accesso in corso…')}</p>
             ) : authorized ? (
               <form
                 className="mt-8 space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
@@ -182,7 +184,7 @@ export default function NewProjectArticlePage() {
               >
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-800" htmlFor="article-title">
-                    Titolo / copertina
+                    {t('Titolo / copertina')}
                   </label>
                   <input
                     autoComplete="off"
@@ -191,7 +193,7 @@ export default function NewProjectArticlePage() {
                     maxLength={160}
                     minLength={3}
                     onChange={(event) => setTitle(event.target.value)}
-                    placeholder="Titolo dell’articolo"
+                    placeholder={t('Titolo dell’articolo')}
                     required
                     value={title}
                   />
@@ -200,7 +202,7 @@ export default function NewProjectArticlePage() {
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-800" htmlFor="article-date">
-                      Data dell’articolo
+                      {t('Data dell’articolo')}
                     </label>
                     <input
                       className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
@@ -214,7 +216,7 @@ export default function NewProjectArticlePage() {
                       type="text"
                       value={date}
                     />
-                    <p className="mt-1 text-xs text-slate-500">Preimpostata alla data di oggi.</p>
+                    <p className="mt-1 text-xs text-slate-500">{t('Preimpostata alla data di oggi.')}</p>
                   </div>
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-800" htmlFor="article-tags">
@@ -237,7 +239,7 @@ export default function NewProjectArticlePage() {
 
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-800" htmlFor="article-excerpt">
-                    Breve descrizione
+                    {t('Breve descrizione')}
                   </label>
                   <textarea
                     className="min-h-32 w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
@@ -245,7 +247,7 @@ export default function NewProjectArticlePage() {
                     maxLength={2000}
                     minLength={10}
                     onChange={(event) => setExcerpt(event.target.value)}
-                    placeholder="Descrivi brevemente l’articolo…"
+                    placeholder={t('Descrivi brevemente l’articolo…')}
                     required
                     value={excerpt}
                   />
@@ -254,7 +256,7 @@ export default function NewProjectArticlePage() {
 
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-800" htmlFor="article-authors">
-                    Autori
+                    {t('Autori')}
                   </label>
                   <textarea
                     className="min-h-24 w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
@@ -265,12 +267,12 @@ export default function NewProjectArticlePage() {
                     required
                     value={authors}
                   />
-                  <p className="mt-1 text-xs text-slate-500">Inserisci un autore per riga o separali con una virgola.</p>
+                  <p className="mt-1 text-xs text-slate-500">{t('Inserisci un autore per riga o separali con una virgola.')}</p>
                 </div>
 
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-800" htmlFor="article-cover">
-                    Foto di copertina
+                    {t('Foto di copertina')}
                   </label>
                   <input
                     accept="image/jpeg,image/png,image/webp"
@@ -288,10 +290,10 @@ export default function NewProjectArticlePage() {
                       onClick={() => coverInputRef.current?.click()}
                       type="button"
                     >
-                      Scegli copertina
+                      {t('Scegli copertina')}
                     </button>
                     <span className="min-w-0 break-all text-sm text-slate-600" aria-live="polite">
-                      {cover?.name ?? 'Nessun file selezionato'}
+                      {cover?.name ?? t('Nessun file selezionato')}
                     </span>
                   </div>
                   <p className="mt-2 text-xs text-slate-500">JPEG, PNG o WebP; massimo 5 MB.</p>
@@ -299,7 +301,7 @@ export default function NewProjectArticlePage() {
 
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-800" htmlFor="article-pdf">
-                    Articolo completo in PDF
+                    {t('Articolo completo in PDF')}
                   </label>
                   <input
                     accept="application/pdf,.pdf"
@@ -373,7 +375,7 @@ export default function NewProjectArticlePage() {
                   disabled={submitting}
                   type="submit"
                 >
-                  {submitting ? 'Caricamento e pubblicazione…' : 'Pubblica articolo'}
+                  {submitting ? t('Caricamento e pubblicazione…') : t('Pubblica articolo')}
                 </button>
               </form>
             ) : (

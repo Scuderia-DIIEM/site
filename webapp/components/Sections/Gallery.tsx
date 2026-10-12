@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import Button from '../UI/Button'
+import { useLanguage } from '@/lib/language'
 
 interface GalleryImage {
   src: string
@@ -53,6 +54,7 @@ const defaultImages: GalleryImage[] = [
 ]
 
 export default function Gallery({ images = defaultImages }: GalleryProps) {
+  const { t } = useLanguage()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [touchStart, setTouchStart] = useState<number | null>(null)
@@ -137,11 +139,11 @@ export default function Gallery({ images = defaultImages }: GalleryProps) {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-display">
-            I Nostri Progetti
+            {t('I Nostri Progetti')}
           </h2>
           <Button href="/projects/" variant="primary"
             className="mt-6">
-                Scopri i nostri progetti
+                {t('Scopri i nostri progetti')}
             </Button>
         </motion.div>
 

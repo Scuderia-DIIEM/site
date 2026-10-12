@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import { useLanguage } from '@/lib/language'
 import { motion } from 'framer-motion'
 
 interface Partner {
@@ -70,6 +71,7 @@ const partners: Partner[] = [
 ]
 
 export default function Features() {
+  const { t } = useLanguage()
   return (
     <section id="partners" className="py-20 bg-white from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,10 +83,10 @@ export default function Features() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-display">
-            I Nostri Partner
+            {t('I Nostri Partner')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Aziende che collaborano con noi e sostengono il nostro progetto.
+            {t('Aziende che collaborano con noi e sostengono il nostro progetto.')}
           </p>
         </motion.div>
 
@@ -139,7 +141,7 @@ export default function Features() {
                          partner.accentColor === 'deep-space' ? '#202d42' : '#f4792b'
                 }}
               >
-                Visita il sito
+                {t('Visita il sito')}
               </div>
             </motion.a>
           ))}
@@ -148,4 +150,3 @@ export default function Features() {
     </section>
   )
 }
-

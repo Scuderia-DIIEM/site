@@ -7,6 +7,7 @@ import Footer from "../components/Layout/Footer";
 import teamMembersData from "@/data/team-members.json";
 import Modal from "@/components/UI/Modal";
 import MemberSkills from "@/components/UI/MemberSkills";
+import { useLanguage } from "@/lib/language";
 
 type NodeId =
   | "ceo"
@@ -360,6 +361,7 @@ function NodeButton({
   onSelect: (id: NodeId) => void;
   compact?: boolean;
 }) {
+  const { t } = useLanguage();
   const node = nodes[id];
   const selected = selectedId === id;
   const nodeMembers = getNodeMembers(id);
@@ -418,10 +420,10 @@ function NodeButton({
         className="w-full text-left focus:outline-none"
       >
         <div className={`${compact ? "text-base" : "text-xl"} font-black tracking-wide`}>
-          {node.title}
+          {t(node.title)}
         </div>
         <div className="mt-1 text-xs font-medium opacity-85 sm:text-sm">
-          {node.subtitle}
+          {t(node.subtitle)}
         </div>
       </button>
       <AnimatePresence initial={false}>
@@ -481,6 +483,7 @@ function DepartmentCard({
 }
 
 export default function StructurePage() {
+  const { t } = useLanguage();
   const [selectedId, setSelectedId] = useState<NodeId>("ceo");
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const [showMembers, setShowMembers] = useState(false);
@@ -580,10 +583,10 @@ export default function StructurePage() {
                 transition={{ duration: 0.6 }}
               >
                 <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-accent">
-                  Organizzazione interna
+                  {t("Organizzazione interna")}
                 </p>
                 <h1 className="structure-title font-display text-4xl font-black md:text-5xl">
-                  Struttura aziendale
+                  {t("Struttura aziendale")}
                 </h1>
                 <p className="structure-description mx-auto mt-4 max-w-3xl text-base leading-relaxed sm:text-lg">
                   La Scuderia DIIEM è organizzata in aree operative e tecniche
@@ -604,7 +607,7 @@ export default function StructurePage() {
               >
                 <div className="mb-4 flex justify-end">
                   <label className="inline-flex cursor-pointer items-center gap-3 rounded-full border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-white/15 sm:text-sm">
-                    <span>Mostra membri</span>
+                    <span>{t("Mostra membri")}</span>
                     <input
                       type="checkbox"
                       checked={showMembers}
@@ -751,7 +754,7 @@ export default function StructurePage() {
                   className="structure-blue-card scroll-mt-28 rounded-3xl border border-white/10 !bg-[#012245] p-6 text-white shadow-xl backdrop-blur-md dark:border-white/10 dark:!bg-[#003366] dark:text-white"
                 >
                   <p className="text-sm font-bold uppercase tracking-[0.2em] text-accent">
-                    Elemento selezionato
+                    {t("Elemento selezionato")}
                   </p>
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -763,13 +766,13 @@ export default function StructurePage() {
                       className="mt-4"
                     >
                       <h2 className="font-display text-3xl font-black text-white">
-                        {selectedNode.title}
+                        {t(selectedNode.title)}
                       </h2>
                       <p className="mt-1 text-accent">
-                        {selectedNode.subtitle}
+                        {t(selectedNode.subtitle)}
                       </p>
                       <p className="mt-4 leading-relaxed text-white/80">
-                        {selectedNode.description}
+                        {t(selectedNode.description)}
                       </p>
                     </motion.div>
                   </AnimatePresence>
@@ -777,7 +780,7 @@ export default function StructurePage() {
 
                 <div className="structure-blue-card rounded-3xl border border-white/10 !bg-[#012245] p-6 text-white shadow-xl backdrop-blur-md dark:border-white/10 dark:!bg-[#003366] dark:text-white">
                   <h3 className="font-display text-2xl font-black text-white">
-                    Responsabilità principali
+                    {t("Responsabilità principali")}
                   </h3>
                   <AnimatePresence mode="wait">
                     <motion.ul
@@ -794,7 +797,7 @@ export default function StructurePage() {
                           className="rounded-2xl border border-white/10 !bg-white/10 px-4 py-3 text-sm text-white/85 shadow-sm dark:border-white/10 dark:!bg-white/10 dark:text-white/85"
                         >
                           <span className="mr-2 text-accent">•</span>
-                          {item}
+                          {t(item)}
                         </li>
                       ))}
                     </motion.ul>
@@ -860,7 +863,7 @@ export default function StructurePage() {
                   </div>
                   <MemberSkills skills={(selectedMember as { skills?: string[] }).skills} />
                 </div>
-                <h4 className="mb-3 mt-4 text-lg font-bold text-primary">Contatti</h4>
+                <h4 className="mb-3 mt-4 text-lg font-bold text-primary">{t("Contatti")}</h4>
                 <div className="grid grid-cols-1 gap-3">
                   {selectedMember.email && (
                     <div className="flex items-start gap-3">
@@ -898,7 +901,7 @@ export default function StructurePage() {
                     !(selectedMember as any).phone &&
                     !(selectedMember as any).linkedin &&
                     !(selectedMember as any).email2 && (
-                      <p className="italic text-gray-500">Nessun contatto disponibile</p>
+                      <p className="italic text-gray-500">{t("Nessun contatto disponibile")}</p>
                     )}
                 </div>
               </div>

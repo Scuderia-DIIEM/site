@@ -6,6 +6,7 @@ import teamMembersData from '@/data/team-members.json'
 import Modal from '@/components/UI/Modal'
 import MemberSkills from '@/components/UI/MemberSkills'
 import Button from '../UI/Button'
+import { useLanguage } from '@/lib/language'
 
 // Array dei membri del team dal JSON
 const teamMembers = Array.isArray(teamMembersData) ? teamMembersData : []
@@ -110,6 +111,7 @@ const projectTeamFilters: Array<{ id: ProjectTeam; label: string }> = [
 ]
 
 export default function Team() {
+  const { t } = useLanguage()
   const columnsPerRow = useColumnsPerRow()
   const [visibleRows, setVisibleRows] = useState(1) // Mostra inizialmente solo la prima riga
   const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null)
@@ -151,10 +153,10 @@ export default function Team() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-display">
-            Il Nostro Team
+            {t('Il Nostro Team')}
           </h2>
           <p className="text-lg text-gray-200 max-w-2xl mx-auto">
-            Conosci le persone che rendono possibile tutto questo
+            {t('Conosci le persone che rendono possibile tutto questo')}
           </p>
         </motion.div>
 
@@ -208,7 +210,7 @@ export default function Team() {
           </div>
         ) : (
           <div className="rounded-2xl border border-dashed border-white/20 bg-white/5 px-6 py-12 text-center text-white/70">
-            Nessun membro disponibile per questo filtro.
+            {t('Nessun membro disponibile per questo filtro.')}
           </div>
         )}
 
@@ -221,11 +223,11 @@ export default function Team() {
         >
             {hasMore && (
                 <Button variant="primary" onClick={handleShowMore}>
-                    Mostra altro
+                    {t('Mostra altro')}
                 </Button>
             )}
             <Button href="/team" variant="secondary" className='btn-dark-outline'>
-                Mostra tutti
+                {t('Mostra tutti')}
             </Button>
         </motion.div>
 

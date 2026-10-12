@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useLanguage } from '@/lib/language'
 
 const THINGSPEAK_READ_API_KEY = 'S9S7FDHCYFGVINSP'
 
@@ -33,6 +34,7 @@ function formatSensorValue(value: string | null | undefined, unit: string) {
 
 export default function Header() {
   const router = useRouter()
+  const { language, setLanguage, t } = useLanguage()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false)
@@ -73,6 +75,8 @@ export default function Header() {
   const toggleTheme = () => {
     setTheme((current) => (current === 'dark' ? 'light' : 'dark'))
   }
+
+  const toggleLanguage = () => setLanguage(language === 'it' ? 'en' : 'it')
 
   const loadCurrentUser = useCallback(async () => {
     if (authCheckInFlight.current) return
@@ -262,13 +266,13 @@ export default function Header() {
 
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'Dispositivi', href: '/#products' },
-    { label: 'Chi Siamo', href: '/#about' },
-    { label: 'Struttura', href: '/structure' },
-    { label: 'Progetti', href: isHome ? '#gallery' : '/projects' },
-    { label: 'Team', href: isHome ? '#team' : '/team' },
-    { label: 'Eventi', href: '/#racing' },
-    { label: 'Contatti', href: '/#contact' },
+    { label: t('Dispositivi'), href: '/#products' },
+    { label: t('Chi Siamo'), href: '/#about' },
+    { label: t('Struttura'), href: '/structure' },
+    { label: t('Progetti'), href: isHome ? '#gallery' : '/projects' },
+    { label: t('Team'), href: isHome ? '#team' : '/team' },
+    { label: t('Eventi'), href: '/#racing' },
+    { label: t('Contatti'), href: '/#contact' },
   ]
 
   return (
@@ -380,17 +384,17 @@ export default function Header() {
                       </p>
                       <div className="my-1 border-t border-white/10" />
                       <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/profile" role="menuitem">
-                        Modifica profilo
+                        {t('Modifica profilo')}
                       </Link>
                       <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/projects" role="menuitem">
-                        Articoli e progetti
+                        {t('Articoli e progetti')}
                       </Link>
                       <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/projects/new" role="menuitem">
-                        Aggiungi un articolo
+                        {t('Aggiungi un articolo')}
                       </Link>
                       {currentUser.role === 'admin' && (
                         <Link className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-accent" href="/admin/users" role="menuitem">
-                          Gestione utenti
+                          {t('Gestione utenti')}
                         </Link>
                       )}
                       <div className="my-1 border-t border-white/10" />
@@ -401,7 +405,7 @@ export default function Header() {
                         role="menuitem"
                         type="button"
                       >
-                        {isLoggingOut ? 'Uscita...' : 'Esci'}
+                        {isLoggingOut ? (language === 'en' ? 'Signing out...' : 'Uscita...') : t('Esci')}
                       </button>
                     </div>
                   )}
@@ -466,7 +470,7 @@ export default function Header() {
                         disabled={isLoggingIn}
                         type="submit"
                       >
-                        {isLoggingIn ? 'Accesso...' : 'Accedi'}
+                        {isLoggingIn ? t('Accesso...') : t('Accedi')}
                       </button>
                     </form>
                   )}
@@ -505,6 +509,18 @@ export default function Header() {
                 transition={{ type: 'spring', stiffness: 500, damping: 32 }}
                 aria-hidden="true"
               />
+            </motion.button>
+            <motion.button
+              type="button"
+              role="switch"
+              aria-checked={language === 'en'}
+              aria-label={language === 'it' ? t('Lingua inglese') : t('Lingua italiana')}
+              title={language === 'it' ? t('Lingua inglese') : t('Lingua italiana')}
+              onClick={toggleLanguage}
+              className="relative flex h-7 w-14 shrink-0 cursor-pointer items-center justify-between rounded-full border border-white/25 bg-white/15 px-1 text-[10px] font-bold text-white outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            >
+              <span className={`z-10 flex h-5 w-5 items-center justify-center rounded-full transition-colors ${language === 'it' ? 'bg-accent text-white' : 'text-white/70'}`}>IT</span>
+              <span className={`z-10 flex h-5 w-5 items-center justify-center rounded-full transition-colors ${language === 'en' ? 'bg-accent text-white' : 'text-white/70'}`}>EN</span>
             </motion.button>
             {currentUser && (
               <div
@@ -685,7 +701,7 @@ export default function Header() {
                       />
                       {loginError && <p className="text-xs text-red-200" role="alert">{loginError}</p>}
                       <button className="w-full cursor-pointer rounded-lg bg-secondary px-3 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60" disabled={isLoggingIn} type="submit">
-                        {isLoggingIn ? 'Accesso...' : 'Accedi'}
+                        {isLoggingIn ? t('Accesso...') : t('Accedi')}
                       </button>
                     </form>
                   )}

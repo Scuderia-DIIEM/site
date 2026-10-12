@@ -4,8 +4,10 @@ import Button from '../UI/Button'
 import ScrollIndicator from '../UI/ScrollIndicator'
 import WaterParticles from '../UI/WaterParticles'
 import MantaAnimation from '../UI/MantaAnimation'
+import { useLanguage } from '@/lib/language'
 
 export default function Hero() {
+    const { t } = useLanguage()
     return (
         <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#061b20]">
             {/* Animated background elements */}
@@ -67,7 +69,7 @@ export default function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.8 }}
                     >
-                        Innovazione ingegneristica | Ricerca e sviluppo
+                        {t('Innovazione ingegneristica | Ricerca e sviluppo')}
                     </motion.p>
 
                     <motion.div
@@ -77,10 +79,10 @@ export default function Hero() {
                         transition={{ delay: 0.6, duration: 0.8 }}
                     >
                         <Button href="#products" variant="primary">
-                            Scopri il Nostro Progetto
+                            {t('Scopri il Nostro Progetto')}
                         </Button>
                         <Button href="#contact" variant="secondary" className='btn-dark-outline'>
-                            Diventa Sponsor
+                            {t('Diventa Sponsor')}
                         </Button>
                     </motion.div>
 
@@ -90,4 +92,3 @@ export default function Hero() {
         </section>
     )
 }
-

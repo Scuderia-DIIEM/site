@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import Button from '../UI/Button'
+import { useLanguage } from '@/lib/language'
 
 
 const stats = [
@@ -15,6 +16,7 @@ const stats = [
 ]
 
 export default function About() {
+  const { t } = useLanguage()
   return (
     <section id="about" className="scroll-mt-10 py-20 bg-gradient-to-b from-primary via-deep-space to-primary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,10 +28,10 @@ export default function About() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-2 font-display">
-            Chi Siamo
+            {t('Chi Siamo')}
           </h2>
           <p className="mx-auto max-w-2xl text-sm text-gray-200 sm:text-lg">
-            La storia della Scuderia DIIEM e la nostra missione
+            {t('La storia della Scuderia DIIEM e la nostra missione')}
           </p>
         </motion.div>
 
@@ -50,7 +52,7 @@ export default function About() {
             </div>
             <Button href="/structure" variant="primary"
               className="mt-6">
-                  Scopri la nostra struttura
+                  {t('Scopri la nostra struttura')}
               </Button>
           </motion.div>
 
@@ -62,22 +64,21 @@ export default function About() {
             className="space-y-2 text-left"
           >
             <h3 className="text-3xl font-bold font-display text-accent">
-              La Nostra Storia
+              {t('La Nostra Storia')}
             </h3>
             <p className="text-lg text-gray-200 leading-relaxed">
-              La "SDR3 Robotic", scuderia del dipartimento DIIEM dell'Università Roma Tre, nasce dalla passione di un gruppo di studenti per l'ingegneria e il mondo marino.
-              Il nostro team vede collaborare giovani studenti  di ingegneria per la creazione di un R.O.V. sottomarino.
+              {t('La "SDR3 Robotic", scuderia del dipartimento DIIEM dell\'Università Roma Tre, nasce dalla passione di un gruppo di studenti per l\'ingegneria e il mondo marino. Il nostro team vede collaborare giovani studenti di ingegneria per la creazione di un R.O.V. sottomarino.')}
             </p>
             <p className="text-lg text-gray-200 leading-relaxed">
-              La nostra squadra è molto eterogenea, composta da studenti di ingegneria meccanica, elettronica e biomedica. 
+              {t('La nostra squadra è molto eterogenea, composta da studenti di ingegneria meccanica, elettronica e biomedica.')}
             </p>
              <p className="text-lg text-gray-200 leading-relaxed">
-              Ai fini della competizione abbiamo simulato una struttura aziendale, con un CEO, un CTO ed altri ruoli che si occupano di aspetti specifici del progetto, come la gestione dei social media, la ricerca di sponsor e la progettazione tecnica.
+              {t('Ai fini della competizione abbiamo simulato una struttura aziendale, con un CEO, un CTO ed altri ruoli che si occupano di aspetti specifici del progetto, come la gestione dei social media, la ricerca di sponsor e la progettazione tecnica.')}
             </p>
             <div className="pt-4">
-              <h4 className="text-xl font-bold mb-3 text-accent">La Nostra Missione</h4>
+              <h4 className="text-xl font-bold mb-3 text-accent">{t('La Nostra Missione')}</h4>
               <p className="text-gray-200">
-                L'obiettivo principale è di partecipare alla MATE ROV competition ma contemporaneamente siamo impegnati nella ricerca e nello sviluppo nell'ambito subacqueo, la creazione di dispositivi in grado di salvaguardare l'ambiente marino ed infine la crescita personale simulando per la prima volta nel mondo del lavoro.
+                {t('L\'obiettivo principale è di partecipare alla MATE ROV competition ma contemporaneamente siamo impegnati nella ricerca e nello sviluppo nell\'ambito subacqueo, la creazione di dispositivi in grado di salvaguardare l\'ambiente marino ed infine la crescita personale simulando per la prima volta nel mondo del lavoro.')}
               </p>
             </div>
           </motion.div>
@@ -104,7 +105,7 @@ export default function About() {
               <div className="text-3xl font-bold text-accent mb-2 font-display">
                 {stat.value}
               </div>
-              <div className="text-sm text-gray-300">{stat.label}</div>
+              <div className="text-sm text-gray-300">{t(stat.label)}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -112,4 +113,3 @@ export default function About() {
     </section>
   )
 }
-

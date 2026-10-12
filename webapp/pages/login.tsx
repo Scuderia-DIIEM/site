@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
+import { useLanguage } from "@/lib/language";
 
 interface LoginResponse {
   user?: { role: "admin" | "user" };
@@ -10,6 +11,7 @@ interface LoginResponse {
 }
 
 export default function LoginPage() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +32,7 @@ export default function LoginPage() {
       const result = (await response.json()) as LoginResponse;
 
       if (!response.ok) {
-        setError(result.error ?? "Accesso non riuscito.");
+        setError(result.error ?? t("Accesso non riuscito."));
         return;
       }
 
@@ -46,7 +48,7 @@ export default function LoginPage() {
         await router.push("/");
       }
     } catch {
-      setError("Servizio non disponibile. Riprova tra poco.");
+      setError(t("Servizio non disponibile. Riprova tra poco."));
     } finally {
       setIsSubmitting(false);
     }
@@ -61,20 +63,20 @@ export default function LoginPage() {
       <main className="min-h-screen bg-primary px-6 py-20 text-white">
         <div className="mx-auto max-w-md">
           <Link href="/" className="text-sm text-secondary hover:text-orange-300">
-            &larr; Torna al sito
+            &larr; {t("Torna al sito")}
           </Link>
           <section className="mt-8 rounded-2xl border border-secondary/25 bg-primary-variant/70 p-8 shadow-2xl shadow-black/20">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
-              Area riservata
+              {t("Area riservata")}
             </p>
-            <h1 className="mt-3 text-3xl font-bold">Accedi</h1>
+            <h1 className="mt-3 text-3xl font-bold">{t("Accedi")}</h1>
             <p className="mt-3 text-sm text-white/75">
-              Gli account sono creati dall&apos;amministratore. Non è possibile registrarsi.
+              {t("Gli account sono creati dall’amministratore. Non è possibile registrarsi.")}
             </p>
             <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
               <div>
                 <label className="mb-2 block text-sm font-medium" htmlFor="identifier">
-                  Email o nome utente
+                  {t("Email o nome utente")}
                 </label>
                 <input
                   autoComplete="username"
@@ -89,7 +91,7 @@ export default function LoginPage() {
               </div>
               <div>
                 <label className="mb-2 block text-sm font-medium" htmlFor="password">
-                  Password
+                  {t("Password")}
                 </label>
                 <input
                   autoComplete="current-password"

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useLanguage } from '@/lib/language'
 import { motion } from 'framer-motion'
 import Script from 'next/script'
 
@@ -24,6 +25,7 @@ const instagramPosts = [
 ]
 
 export default function News() {
+  const { t } = useLanguage()
   useEffect(() => {
     // Load Instagram embed script after it loads
     const loadInstagramEmbeds = () => {
@@ -53,10 +55,10 @@ export default function News() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-display">
-            Seguici su Instagram
+            {t('Seguici su Instagram')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-            Scopri le ultime novità e aggiornamenti dal nostro account Instagram
+            {t('Scopri le ultime novità e aggiornamenti dal nostro account Instagram')}
           </p>
         </motion.div>
 
@@ -86,4 +88,3 @@ export default function News() {
     </section>
   )
 }
-

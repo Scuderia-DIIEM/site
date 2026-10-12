@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import '../styles/globals.css'
+import { LanguageProvider } from '@/lib/language'
 
 export default function App({ Component, pageProps }: AppProps) {
     const router = useRouter()
@@ -34,6 +35,5 @@ export default function App({ Component, pageProps }: AppProps) {
         }
     }, [router.events])
 
-    return <Component {...pageProps} />
+    return <LanguageProvider><Component {...pageProps} /></LanguageProvider>
 }
-

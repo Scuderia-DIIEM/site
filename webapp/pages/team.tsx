@@ -8,6 +8,7 @@ import teamMembersData from '@/data/team-members.json'
 import veteransData from '@/data/veterans.json'
 import Modal from '@/components/UI/Modal'
 import MemberSkills from '@/components/UI/MemberSkills'
+import { useLanguage } from '@/lib/language'
 
 // Array dei membri del team e dei veterani dal JSON
 const teamMembers = Array.isArray(teamMembersData) ? teamMembersData : []
@@ -89,6 +90,7 @@ function TeamMemberCard({ member, index, onSelect }: TeamMemberCardProps) {
 }
 
 export default function TeamPage() {
+  const { t } = useLanguage()
   const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null)
   const [activeSection, setActiveSection] = useState<'current' | 'founders'>('current')
   const [selectedArea, setSelectedArea] = useState<TechnicalArea>('all')
@@ -109,7 +111,7 @@ export default function TeamPage() {
       })
     : activeMembers
 
-  const activeTitle = activeSection === 'current' ? 'Team Attuale' : 'Founders'
+  const activeTitle = activeSection === 'current' ? t('Team Attuale') : t('Founders')
 
   return (
     <>
@@ -132,7 +134,7 @@ export default function TeamPage() {
                 transition={{ duration: 0.6 }}
               >
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 font-display">
-                  Il Nostro Team
+                  {t('Il Nostro Team')}
                 </h1>
                 <p className="text-lg text-gray-100 max-w-2xl mx-auto">
                   Conosci le persone che rendono possibile tutto questo
@@ -159,7 +161,7 @@ export default function TeamPage() {
                         : 'toggle-button-inactive'
                     }`}
                   >
-                    Team Attuale
+                    {t('Team Attuale')}
                   </button>
 
                   <button
@@ -181,7 +183,7 @@ export default function TeamPage() {
                 </div>
 
                 {activeSection === 'current' && (
-                  <div className="max-w-full overflow-x-auto pb-2" aria-label="Filtri del team">
+                  <div className="max-w-full overflow-x-auto pb-2" aria-label={t('Filtri del team')}>
                     <div className="mx-auto flex w-max items-center gap-1.5">
                       {projectTeamFilters.map((filter) => (
                       <button
@@ -195,7 +197,7 @@ export default function TeamPage() {
                         }`}
                         aria-pressed={selectedTeam === filter.id}
                       >
-                        {filter.label}
+                        {t(filter.label)}
                       </button>
                     ))}
                       <span className="mx-0.5 h-4 w-px shrink-0 bg-gray-200" aria-hidden="true" />
@@ -211,7 +213,7 @@ export default function TeamPage() {
                         }`}
                         aria-pressed={selectedArea === filter.id}
                       >
-                        {filter.label}
+                        {t(filter.label)}
                       </button>
                     ))}
                     </div>
@@ -243,7 +245,7 @@ export default function TeamPage() {
                 ) : (
                   <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 px-6 py-12 text-center">
                     <p className="text-sm text-gray-500">
-                      Nessun membro disponibile per questo filtro.
+                      {t('Nessun membro disponibile per questo filtro.')}
                     </p>
                   </div>
                 )}
@@ -275,7 +277,7 @@ export default function TeamPage() {
                 </div>
                 <div className="mt-3">
                   {(selectedMember as any).yearsActive && (
-                    <p className="text-xs text-gray-500 mt-1">Periodo di attività: {(selectedMember as any).yearsActive}</p>
+                    <p className="text-xs text-gray-500 mt-1">{t('Periodo di attività:')} {(selectedMember as any).yearsActive}</p>
                   )}
                 </div>
               </div>
@@ -311,7 +313,7 @@ export default function TeamPage() {
                       skills={(selectedMember as { skills?: string[] }).skills}
                     />
                   </div>
-                  <h4 className="mt-4 text-lg font-bold text-primary mb-3">Contatti</h4>
+                  <h4 className="mt-4 text-lg font-bold text-primary mb-3">{t('Contatti')}</h4>
 
                   <div className="grid grid-cols-1 gap-3">
                     {/* Email */}
@@ -373,7 +375,7 @@ export default function TeamPage() {
                       !(selectedMember as any).phone &&
                       !(selectedMember as any).linkedin &&
                       !(selectedMember as any).email2 && (
-                        <p className="text-gray-500 italic">Nessun contatto disponibile</p>
+                        <p className="text-gray-500 italic">{t('Nessun contatto disponibile')}</p>
                       )}
                   </div>
                 </div>

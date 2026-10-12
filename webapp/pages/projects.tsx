@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { ProjectArticle } from '@/types'
 import { loadAllProjectArticles } from '@/lib/project-articles'
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/lib/language'
 
 interface ProjectsPageProps {
   projects: ProjectArticle[]
@@ -22,6 +23,7 @@ function formatDisplayDate(date: string): string {
 }
 
 export default function ProjectsPage({ projects }: ProjectsPageProps) {
+  const { t } = useLanguage()
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [searchTerm, setSearchTerm] = useState('')
   const [uploadedArticles, setUploadedArticles] = useState<UploadedArticle[]>([])
@@ -156,7 +158,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                   Progetti
                 </h1>
                 <p className="mx-auto max-w-2xl text-lg text-gray-100">
-                  Raccolta di articoli - Clicca un elemento per aprire il dettaglio.
+                  {t('Raccolta di articoli - Clicca un elemento per aprire il dettaglio.')}
                 </p>
               </motion.div>
 
@@ -168,11 +170,11 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
                 <label className="min-w-0 flex-1">
-                  <span className="sr-only">Cerca progetti</span>
+                  <span className="sr-only">{t('Cerca')}</span>
                   <input
                     value={searchTerm}
                     onChange={(event) => setSearchTerm(event.target.value)}
-                    placeholder="Cerca"
+                    placeholder={t('Cerca')}
                     className="w-full rounded-2xl border border-white/30 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-500 focus:border-accent focus:ring-2 focus:ring-accent/30"
                   />
                 </label>
@@ -187,7 +189,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                         : '!text-white/90 hover:!text-white'
                     }`}
                   >
-                    Pannelli
+                    {t('Pannelli')}
                   </button>
                   <button
                     type="button"
@@ -198,7 +200,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                         : '!text-white/90 hover:!text-white'
                     }`}
                   >
-                    Lista
+                    {t('Lista')}
                   </button>
                 </div>
                 <button
@@ -209,25 +211,25 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                     filtersOpen ? 'bg-accent text-white' : 'bg-white/15 text-white hover:bg-white/25'
                   }`}
                 >
-                  Filtri
+                  {t('Filtri')}
                 </button>
               </motion.div>
               {filtersOpen && (
                 <div className="mt-4 rounded-2xl bg-white p-4 text-slate-900 shadow-lg">
                   <div className="flex flex-wrap items-center gap-4">
                     <label className="text-sm font-semibold">
-                      Ordine
+                      {t('Ordine')}
                       <select
                         className="ml-2 rounded-lg border border-slate-300 px-3 py-2 font-normal"
                         value={sortOrder}
                         onChange={(event) => setSortOrder(event.target.value as 'asc' | 'desc')}
                       >
-                        <option value="desc">Dal più recente</option>
-                        <option value="asc">Dal meno recente</option>
+                        <option value="desc">{t('Dal più recente')}</option>
+                        <option value="asc">{t('Dal meno recente')}</option>
                       </select>
                     </label>
                     <label className="text-sm font-semibold">
-                      Visibilità
+                      {t('Visibilità')}
                       <select
                         className="ml-2 rounded-lg border border-slate-300 px-3 py-2 font-normal"
                         value={visibilityFilter}
@@ -235,9 +237,9 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                           setVisibilityFilter(event.target.value as 'all' | 'public' | 'private')
                         }
                       >
-                        <option value="all">Tutti</option>
-                        <option value="public">Pubblici</option>
-                        <option value="private">Privati</option>
+                        <option value="all">{t('Tutti')}</option>
+                        <option value="public">{t('Pubblici')}</option>
+                        <option value="private">{t('Privati')}</option>
                       </select>
                     </label>
                     {selectedTags.length > 0 && (
@@ -246,7 +248,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                         className="text-sm font-semibold text-accent underline"
                         onClick={() => setSelectedTags([])}
                       >
-                        Azzera tag
+                        {t('Azzera tag')}
                       </button>
                     )}
                   </div>
@@ -268,7 +270,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                       ))}
                     </div>
                   ) : (
-                    <p className="mt-3 text-sm text-slate-500">Non ci sono ancora tag disponibili.</p>
+                    <p className="mt-3 text-sm text-slate-500">{t('Non ci sono ancora tag disponibili.')}</p>
                   )}
                 </div>
               )}
@@ -346,7 +348,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                                       : 'is-private bg-amber-100 text-amber-900'
                                   }`}
                                 >
-                                  {isPublic ? 'Pubblico' : 'Privato'}
+                                  {isPublic ? t('Pubblico') : t('Privato')}
                                 </span>
                               </div>
                               {p.authors && p.authors.length > 0 && (
@@ -408,7 +410,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                                           : 'is-private bg-amber-100 text-amber-900'
                                       }`}
                                     >
-                                      {isPublic ? 'Pubblico' : 'Privato'}
+                                      {isPublic ? t('Pubblico') : t('Privato')}
                                     </span>
                                   </div>
                                   <p className="text-xs text-gray-400">{formatDisplayDate(p.date)}</p>

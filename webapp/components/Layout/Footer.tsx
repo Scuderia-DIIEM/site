@@ -2,20 +2,22 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { useLanguage } from '@/lib/language'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const { t } = useLanguage()
 
   const router = useRouter()
   const isHome = router.pathname === '/'
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'Dispositivi', href: '/#products' },
-    { label: 'Chi Siamo', href: '/#about' },
-    { label: 'Progetti', href: isHome ? '#gallery' : '/projects' },
-    { label: 'Team', href: isHome ? '#team' : '/team' },
-    { label: 'Eventi', href: '/#racing' },
-    { label: 'Contatti', href: '/#contact' }
+    { label: t('Dispositivi'), href: '/#products' },
+    { label: t('Chi Siamo'), href: '/#about' },
+    { label: t('Progetti'), href: isHome ? '#gallery' : '/projects' },
+    { label: t('Team'), href: isHome ? '#team' : '/team' },
+    { label: t('Eventi'), href: '/#racing' },
+    { label: t('Contatti'), href: '/#contact' }
   ]
 
   const socialLinks = [
@@ -101,7 +103,7 @@ export default function Footer() {
               Via Vito Volterra, 62, 00146 Roma RM
             </a>
               <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-400">Seguici su:</span>
+                <span className="text-sm text-gray-400">{t('Seguici su:')}</span>
                 {socialLinks.map((social) => (
                   <a
                     key={social.name}
@@ -129,7 +131,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Navigazione
+              {t('Navigazione')}
             </motion.h3>
 
             <motion.ul
@@ -161,7 +163,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.15 }}
             >
-              Contatti
+              {t('Contatti')}
             </motion.h3>
 
             <motion.div
@@ -211,4 +213,3 @@ export default function Footer() {
     </footer>
   )
 }
-

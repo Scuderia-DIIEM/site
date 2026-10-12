@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import ProductCard from '../UI/ProductCard'
+import { useLanguage } from '@/lib/language'
 
 const products = [
   {
@@ -34,6 +35,7 @@ const products = [
 ]
 
 export default function Products() {
+  const { t } = useLanguage()
   return (
     <section id="products" className="scroll-mt-20 bg-white py-10 sm:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,10 +47,10 @@ export default function Products() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="mb-3 text-3xl font-bold text-primary sm:text-4xl md:text-5xl font-display">
-            I Nostri Dispositivi
+            {t('I Nostri Dispositivi')}
           </h2>
           <p className="mx-auto max-w-2xl text-sm text-gray-600 sm:text-lg">
-            Tecnologie innovative in sviluppo per il futuro delle operazioni marine
+            {t('Tecnologie innovative in sviluppo per il futuro delle operazioni marine')}
           </p>
         </motion.div>
 
@@ -56,8 +58,8 @@ export default function Products() {
           {products.map((product, index) => (
             <ProductCard
               key={product.title}
-              title={product.subtitle ? `${product.title} - ${product.subtitle}` : product.title}
-              description={product.description}
+              title={product.subtitle ? `${product.title} - ${t(product.subtitle)}` : product.title}
+              description={t(product.description)}
               image={product.image}
               accentColor={product.accentColor}
               delay={index * 0.1}
@@ -68,4 +70,3 @@ export default function Products() {
     </section>
   )
 }
-

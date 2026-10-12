@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useLanguage } from "@/lib/language";
 
 interface AuthResponse {
   mustChangePassword?: boolean;
@@ -9,6 +10,7 @@ interface AuthResponse {
 }
 
 export default function ChangePasswordPage() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [mustChangePassword, setMustChangePassword] = useState<boolean | null>(null);
   const [currentPassword, setCurrentPassword] = useState("");
@@ -61,12 +63,12 @@ export default function ChangePasswordPage() {
       });
       const result = (await response.json()) as AuthResponse;
       if (!response.ok) {
-        setError(result.error ?? "Impossibile aggiornare la password.");
+        setError(result.error ?? t("Impossibile aggiornare la password."));
         return;
       }
       await router.push("/");
     } catch {
-      setError("Servizio non disponibile. Riprova tra poco.");
+      setError(t("Servizio non disponibile. Riprova tra poco."));
     } finally {
       setIsSubmitting(false);
     }
@@ -81,16 +83,16 @@ export default function ChangePasswordPage() {
       <main className="min-h-screen bg-primary px-6 py-20 text-white">
         <div className="mx-auto max-w-md">
           <Link href="/" className="text-sm text-secondary hover:text-orange-300">
-            &larr; Torna al sito
+            &larr; {t("Torna al sito")}
           </Link>
           <section className="mt-8 rounded-2xl border border-secondary/25 bg-primary-variant/70 p-8 shadow-2xl shadow-black/20">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
-              Sicurezza account
+              {t("Sicurezza account")}
             </p>
-            <h1 className="mt-3 text-3xl font-bold">Cambia password</h1>
+            <h1 className="mt-3 text-3xl font-bold">{t("Cambia password")}</h1>
             {mustChangePassword && (
               <p className="mt-3 text-sm text-white/75">
-                Per proteggere il tuo account, scegli una nuova password prima di continuare.
+                {t("Per proteggere il tuo account, scegli una nuova password prima di continuare.")}
               </p>
             )}
             {mustChangePassword !== null && (
@@ -98,7 +100,7 @@ export default function ChangePasswordPage() {
                 {!mustChangePassword && (
                   <div>
                     <label className="mb-2 block text-sm font-medium" htmlFor="current-password">
-                      Password attuale
+                      {t("Password attuale")}
                     </label>
                     <input
                       autoComplete="current-password"
@@ -113,7 +115,7 @@ export default function ChangePasswordPage() {
                 )}
                 <div>
                   <label className="mb-2 block text-sm font-medium" htmlFor="new-password">
-                    Nuova password
+                    {t("Nuova password")}
                   </label>
                   <input
                     autoComplete="new-password"
@@ -128,7 +130,7 @@ export default function ChangePasswordPage() {
                 </div>
                 <div>
                   <label className="mb-2 block text-sm font-medium" htmlFor="confirm-password">
-                    Conferma nuova password
+                    {t("Conferma nuova password")}
                   </label>
                   <input
                     autoComplete="new-password"
@@ -151,7 +153,7 @@ export default function ChangePasswordPage() {
                   disabled={isSubmitting}
                   type="submit"
                 >
-                  {isSubmitting ? "Salvataggio..." : "Aggiorna password"}
+                  {isSubmitting ? t("Salvataggio...") : t("Aggiorna password")}
                 </button>
               </form>
             )}

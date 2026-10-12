@@ -2,8 +2,10 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import AddToCalendarButton from '../UI/AddToCalendarButton'
+import { useLanguage } from '@/lib/language'
 
 export default function Racing() {
+  const { t } = useLanguage()
   const upcomingRace = {
     startDate: '2026-10-23',
     endDate: '2026-10-25',
@@ -24,10 +26,10 @@ export default function Racing() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-display">
-            Eventi
+            {t('Eventi')}
           </h2>
           <p className="text-lg text-gray-200 max-w-2xl mx-auto">
-            Il rov in azione dal vivo durante gli eventi a cui partecipiamo
+            {t('Il rov in azione dal vivo durante gli eventi a cui partecipiamo')}
           </p>
         </motion.div>
 
@@ -71,7 +73,7 @@ export default function Racing() {
                   transition={{ duration: 0.5 }}
                 >
                   <span className="inline-block bg-accent/90 text-white px-4 py-2 rounded-full text-lg font-semibold mb-4 backdrop-blur-sm">
-                    Prossimo Evento
+                    {t('Prossimo Evento')}
                   </span>
                   <h3 className="text-3xl md:text-4xl font-bold mb-4 font-display">
                     {upcomingRace.name}
@@ -167,4 +169,3 @@ export default function Racing() {
     </section>
   )
 }
-

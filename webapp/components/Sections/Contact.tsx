@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import Button from '../UI/Button'
+import { useLanguage } from '@/lib/language'
 
 export default function Contact() {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,13 +28,13 @@ export default function Contact() {
     })
 
     if (response.ok) {
-      alert('Messaggio inviato con successo!')
+      alert(t('Messaggio inviato con successo!'))
       setFormData({ name: '', email: '', subject: '', message: '' })
     } else {
-      alert('Errore durante l’invio del messaggio.')
+      alert(t('Errore durante l’invio del messaggio.'))
     }
   } catch (error) {
-    alert('Errore di connessione. Riprova più tardi.')
+    alert(t('Errore di connessione. Riprova più tardi.'))
   } finally {
     setIsSubmitting(false)
   }
@@ -57,11 +59,9 @@ export default function Contact() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-4 font-display">
-                Contattaci
+                {t('Contattaci')}
               </h2>
-              <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-                Siamo qui per rispondere alle tue domande e discutere opportunità di collaborazione
-              </p>
+              <p className="text-xl text-gray-200 max-w-2xl mx-auto">{t('Siamo qui per rispondere alle tue domande e discutere opportunità di collaborazione')}</p>
             </motion.div>
             {/* Contact Information */}
             <motion.div
@@ -73,13 +73,13 @@ export default function Contact() {
             >
               <div>
                 <h3 className="text-2xl font-bold mb-6 text-accent font-display">
-                  Informazioni di Contatto
+                  {t('Informazioni di Contatto')}
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
                     <div className="text-accent text-xl">📧</div>
                     <div>
-                      <div className="font-semibold mb-1">Email Generale</div>
+                      <div className="font-semibold mb-1">{t('Email Generale')}</div>
                       <a href="mailto:scuderia.diiem@uniroma3.it" className="text-gray-200 hover:text-accent transition-colors">
                         scuderia.diiem@uniroma3.it
                       </a>
@@ -88,7 +88,7 @@ export default function Contact() {
                   <div className="flex items-start space-x-4">
                     <div className="text-accent py-2 text-xl">🤝</div>
                     <div>
-                      <div className="font-semibold py-2 mb-1">Professore Coordinatore</div>
+                      <div className="font-semibold py-2 mb-1">{t('Professore Coordinatore')}</div>
                       <p className="text-gray-200">Prof. Nicola Pio Belfiore</p>
                       <a href="mailto:nicolapio.belfiore@uniroma3.it" className="text-gray-200 hover:text-accent transition-colors">
                         nicolapio.belfiore@uniroma3.it
@@ -100,7 +100,7 @@ export default function Contact() {
 
               <div>
                 <h3 className="text-2xl font-bold mb-6 text-accent font-display">
-                  Seguici
+                  {t('Seguici')}
                 </h3>
                 <div className="flex items-center space-x-4">
                   <a 
@@ -191,7 +191,7 @@ export default function Contact() {
                 required
                 className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
               >
-                <option value="" className="text-gray-800">Seleziona un oggetto</option>
+                <option value="" className="text-gray-800">{t('Seleziona un oggetto')}</option>
                 <option value="general" className="text-gray-800">Informazioni Generali</option>
                 <option value="sponsorship" className="text-gray-800">Sponsorizzazioni</option>
                 <option value="media" className="text-gray-800">Media/Stampa</option>
@@ -218,11 +218,10 @@ export default function Contact() {
               variant="primary"
               className="w-full"
             >
-              {isSubmitting ? 'Invio in corso...' : 'Invia Messaggio'}
+              {isSubmitting ? t('Invio in corso...') : t('Invia Messaggio')}
             </Button>
           </motion.form>
         </div>
     </section>
   )
 }
-
