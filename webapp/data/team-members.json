@@ -5,10 +5,11 @@
     "role": "Leadership",
     "team": "CEO",
     "skills": ["corso-sicurezza", "riccardo"],
-    "image": "/photos/onorati.jpeg",
+    "image": "/photos/onorati.png",
     "email": "ste.onorati1@stud.uniroma3.it",
+    "email2": "stefanoonorati3@gmail.com",
     "phone": "+39 123 456 7890",
-    "linkedin": "https://linkedin.com"
+    "linkedin": "https://www.linkedin.com/in/stefano-pio-onorati-0783aa2b6?utm_source=share_via&utm_content=profile&utm_medium=member_android"
   },
   {
     "id": 2,
@@ -17,8 +18,7 @@
     "team": "CTO",
     "skills": ["corso-sicurezza", "saldare", "core", "stampante-3d"],
     "image": "/photos/evangelisti.jpeg",
-    "email": "jac.evangelisti@stud.uniroma3.it",
-    "linkedin": "https://linkedin.com"
+    "email": "jac.evangelisti@stud.uniroma3.it"
   },
   {
     "id": 3,
@@ -27,8 +27,7 @@
     "team": "CMO",
     "skills": ["corso-sicurezza", "riccardo"],
     "image": "/photos/moro.jpeg",
-    "email": "ali.moro@stud.uniroma3.it",
-    "linkedin": "https://linkedin.com"
+    "email": "ali.moro@stud.uniroma3.it"
   },
   {
     "id": 4,
@@ -38,8 +37,7 @@
     "headOf": "team",
     "skills": ["corso-sicurezza", "saldare", "core"],
     "image": "/photos/agostinelli.jpeg",
-    "email": "mir.agostinelli@stud.uniroma3.it",
-    "linkedin": "https://linkedin.com"
+    "email": "mir.agostinelli@stud.uniroma3.it"
   },
   {
     "id": 5,
@@ -48,8 +46,7 @@
     "team": "On trial",
     "skills": ["corso-sicurezza", "stampante-3d", "manutenzione"],
     "image": "/photos/nisi.jpeg",
-    "email": "ric.nisi@stud.uniroma3.it",
-    "linkedin": "https://linkedin.com"
+    "email": "ric.nisi@stud.uniroma3.it"
   },
   {
     "id": 6,
@@ -59,8 +56,7 @@
     "headOf": "team",
     "skills": ["corso-sicurezza", "stampante-3d", "stampante-resina", "manutenzione"],
     "image": "/photos/febbi.jpeg",
-    "email": "mat.febbi@stud.uniroma3.it",
-    "linkedin": "https://linkedin.com"
+    "email": "mat.febbi@stud.uniroma3.it"
   },
   {
     "id": 7,
@@ -70,19 +66,17 @@
     "headOf": "team",
     "skills": ["corso-sicurezza"],
     "image": "/photos/massucci.jpeg",
-    "email": "luc.massucci@stud.uniroma3.it",
-    "linkedin": "https://linkedin.com"
+    "email": "luc.massucci@stud.uniroma3.it"
   },
   {
     "id": 8,
-    "name": "Umberto Tepedino",
+    "name": "Umberto Maria Tepedino",
     "headOf": "team",
     "role": "Meccanica",
     "team": "Ricerca e Sviluppo",
     "skills": ["corso-sicurezza", "stampante-3d", "saldare"],
     "image": "/photos/tepedino.jpeg",
-    "email": "umb.tepedino@stud.uniroma3.it",
-    "linkedin": "https://linkedin.com"
+    "email": "umb.tepedino@stud.uniroma3.it"
   },
   {
     "id": 9,
@@ -92,8 +86,7 @@
     "headOf": "role",
     "skills": ["corso-sicurezza", "core", "saldare"],
     "image": "/photos/pizzuti.jpeg",
-    "email": "gian.pizzuti@stud.uniroma3.it",
-    "linkedin": "https://linkedin.com"
+    "email": "gian.pizzuti@stud.uniroma3.it"
   },
   {
     "id": 10,
@@ -103,7 +96,7 @@
     "skills": ["corso-sicurezza"],
     "email": "fra.venanzi1@stud.uniroma3.it",
     "linkedin": "www.linkedin.com/in/francesco-venanzi-608a0a3b9",
-    "image": "/photos/avatar/01.png"
+    "image": "/photos/venanzi.png"
   },
   {
     "id": 11,
@@ -111,9 +104,10 @@
     "role": "Elettronica",
     "team": "ROV",
     "skills": ["corso-sicurezza"],
-    "image": "/photos/anselmi.jpeg",
     "email": "gab.anselmi@stud.uniroma3.it",
-    "linkedin": "https://www.linkedin.com/in/gabriele-anselmi-ab627434a?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+    "email2": "anselmigabriele279@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/gabriele-anselmi-ab627434a?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    "image": "/photos/anselmi.png"
   },
   {
     "id": 12,
@@ -222,7 +216,7 @@
     "team": "Ricerca e Sviluppo",
     "skills": ["corso-sicurezza"],
     "email": "ter.ferrocino@stud.uniroma3.it",
-    "image": "/photos/avatar/15.png"
+    "image": "/photos/ferrocino.png"
   },
   {
     "id": 25,
@@ -251,7 +245,7 @@
     "team": "ROV",
     "skills": ["corso-sicurezza","stampante-3d","core", "stampante-resina", "manutenzione", "saldare"],
     "email": "fed.iannaccone@stud.uniroma3.it",
-    "image": "/photos/avatar/23.png"
+    "image": "/photos/iannaccone.png"
   },
   {
     "id": 28,
@@ -281,20 +275,21 @@
   {
     "id": 31,
     "name": "Francesco Margagnoni",
-    "role": "Elettronica",
+    "role": ["Elettronica", "CAD"],
     "team": "ARM",
     "skills": ["corso-sicurezza", "saldare"],
     "email": "fra.margagnoni@stud.uniroma3.it",
-    "email2": "francescomargagnoni79@gmail.com",
-    "linkedin": "https://www.linkedin.com/in/francesco-margagnoni-419890392?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
-    "image": "/photos/margagnoni.jpeg"
+    "email2": "francescomargagnoni@outlook.it",
+    "linkedin": "https://www.linkedin.com/in/francesco-margagnoni-419890392",
+    "image": "/photos/margagnoni.png"
   },
   {
     "id": 32,
     "name": "Pierluigi Margagnoni",
     "team": "Marketing",
     "email": "pier.margagnoni@stud.uniroma3.it",
-    "image": "/photos/avatar/66.png"
+    "email2": "pierluigimargagnoni@gmail.com",
+    "image": "/photos/margagnoniJNR.png"
   },
   {
     "id": 33,
@@ -307,8 +302,9 @@
     "id": 34,
     "name": "Marco Navato",
     "role": "CAD",
+    "team": "Ground Station",
     "email": "mar.navato@stud.uniroma3.it",
-    "image": "/photos/avatar/73.png"
+    "image": "/photos/navato.png"
   },
   {
     "id": 35,
@@ -352,7 +348,7 @@
     "team": "Marketing",
     "skills": ["saldare"],
     "email": "cla.pierini@stud.uniroma3.it",
-    "image": "/photos/avatar/64.png"
+    "image": "/photos/pierini.png"
   },
   {
     "id": 40,
@@ -364,10 +360,11 @@
   {
     "id": 41,
     "name": "Alessandro Rainero",
-    "team": "Ricerca e Sviluppo",
-    "role": "Meccanica",
+    "team": "ROV",
+    "role": "Elettronica",
     "email": "ale.rainero@stud.uniroma3.it",
-    "image": "/photos/avatar/50.png"
+    "email2": "alessandrorainero01@gmail.com",
+    "image": "/photos/rainero.png"
   },
   {
     "id": 42,
@@ -389,7 +386,8 @@
     "team": "Marketing",
     "skills": ["saldare"],
     "email": "dav.scimenes@stud.uniroma3.it",
-    "image": "/photos/avatar/62.png"
+    "email2": "davide.scimenes@gmail.com",
+    "image": "/photos/scimenes.png"
   },
   {
     "id": 45,
