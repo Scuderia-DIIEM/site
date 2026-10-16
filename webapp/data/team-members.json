@@ -4,7 +4,7 @@
     "name": "Stefano Pio Onorati",
     "role": "Leadership",
     "team": "CEO",
-    "skills": ["corso-sicurezza", "riccardo"],
+    "skills": ["corso-sicurezza", "stampante-3d", "manutenzione"],
     "image": "/photos/onorati.png",
     "email": "ste.onorati1@stud.uniroma3.it",
     "email2": "stefanoonorati3@gmail.com",
@@ -181,7 +181,7 @@
   {
     "id": 20,
     "name": "Francesco Consalvi",
-    "team": "Informatica",
+    "role": "Informatica",
     "email": "fra.consalvi3@stud.uniroma3.it",
     "image": "/photos/avatar/49.png"
   },
@@ -222,7 +222,7 @@
     "id": 25,
     "name": "Chiara Grando",
     "role": ["Elettronica", "Informatica"],
-    "team": "ARM",
+    "team": ["Vice CTO  |  ", "ARM"],
     "skills": ["corso-sicurezza", "saldare"],
     "image": "/photos/grando.jpeg",
     "email": "chi.grando@stud.uniroma3.it",
@@ -294,7 +294,7 @@
   {
     "id": 33,
     "name": "Spartaco Miatto",
-    "team": "Informatica",
+    "role": "Informatica",
     "email": "spa.miatto@stud.uniroma3.it",
     "image": "/photos/avatar/75.png"
   },
@@ -369,14 +369,14 @@
   {
     "id": 42,
     "name": "Domenico Romano",
-    "team": "Informatica",
+    "role": "Informatica",
     "email": "dom.romano1@stud.uniroma3.it",
     "image": "/photos/avatar/66.png"
   },
   {
     "id": 43,
     "name": "Stefano Santella",
-    "team": "Informatica",
+    "role": "Informatica",
     "email": "ste.santella@stud.uniroma3.it",
     "image": "/photos/avatar/59.png"
   },
@@ -424,8 +424,15 @@
     "email": "luc.trevisan@stud.uniroma3.it",
     "image": "/photos/avatar/37.png"
   },
-  {
+   {
     "id": 49,
+    "name": "Alissa Volpe",
+    "role": "Informatica",
+    "email": "ali.volpe1@stud.uniroma3.it",
+    "image": "/photos/avatar/09.png"
+  },
+  {
+    "id": 50,
     "name": "Angelo Zelli",
     "role": "CAD",
     "team": "FLOAT",
