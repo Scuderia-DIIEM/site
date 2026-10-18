@@ -124,8 +124,11 @@ export default function Team() {
       const roles = (Array.isArray(member.role) ? member.role : [member.role]).filter(
         (role): role is string => typeof role === 'string'
       )
+      const teams = (Array.isArray(member.team) ? member.team : [member.team]).filter(
+        (team): team is string => typeof team === 'string'
+      )
       return (selectedArea === 'all' || roles.some((role) => role.toLowerCase() === selectedArea)) &&
-        (selectedTeam === 'all' || (member.team ?? '').toLowerCase() === project.toLowerCase())
+        (selectedTeam === 'all' || teams.some((team) => team.toLowerCase() === project.toLowerCase()))
     }
   )
 

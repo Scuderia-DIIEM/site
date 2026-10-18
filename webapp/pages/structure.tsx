@@ -339,13 +339,17 @@ function getNodeMembers(id: NodeId) {
     const roles = (Array.isArray(member.role) ? member.role : [member.role]).filter(
       (role): role is string => typeof role === "string",
     );
+    const teams = (Array.isArray(member.team) ? member.team : [member.team]).filter(
+      (team): team is string => typeof team === "string",
+    );
     return Boolean(
       (departmentTeam.length > 0 &&
-        member.team !== undefined &&
-        departmentTeam.some((team) => team.toLowerCase() === member.team?.toLowerCase())) ||
-      (technicalRoles.length > 0 && (roles.some((role) => technicalRoles.includes(role)) || (member.team !== undefined && technicalRoles.includes(member.team)))) ||
-      (projectTeams.length > 0 && member.team !== undefined && projectTeams.includes(member.team)) ||
-      (leadershipRoles.length > 0 && (roles.some((role) => leadershipRoles.includes(role)) || (member.team !== undefined && leadershipRoles.includes(member.team)))),
+        teams.some((memberTeam) =>
+          departmentTeam.some((team) => team.toLowerCase() === memberTeam.toLowerCase()),
+        )) ||
+      (technicalRoles.length > 0 && (roles.some((role) => technicalRoles.includes(role)) || teams.some((team) => technicalRoles.includes(team)))) ||
+      (projectTeams.length > 0 && teams.some((team) => projectTeams.includes(team))) ||
+      (leadershipRoles.length > 0 && (roles.some((role) => leadershipRoles.includes(role)) || teams.some((team) => leadershipRoles.includes(team)))),
     );
   });
 }
@@ -387,7 +391,10 @@ function NodeButton({
         "Research&Assembly": "special",
         "CAD&Design": "cad",
       };
-      return member.team !== undefined && teamHeadNodes[member.team] === id;
+      const teams = (Array.isArray(member.team) ? member.team : [member.team]).filter(
+        (team): team is string => typeof team === "string",
+      );
+      return teams.some((team) => teamHeadNodes[team] === id);
     }
 
     if (member.headOf === "role") {
