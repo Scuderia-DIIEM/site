@@ -2,8 +2,6 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Button from '../UI/Button'
 import ScrollIndicator from '../UI/ScrollIndicator'
-import WaterParticles from '../UI/WaterParticles'
-import MantaAnimation from '../UI/MantaAnimation'
 import { useLanguage } from '@/lib/language'
 
 export default function Hero() {
@@ -14,48 +12,34 @@ export default function Hero() {
             <div className="absolute inset-0 overflow-hidden">
                 <div
                     aria-hidden="true"
-                    className="absolute inset-0 bg-cover bg-center transition-[filter] duration-700 dark:brightness-[.62] dark:saturate-[.82]"
+                    className="absolute inset-0 z-0 bg-cover bg-center"
                     style={{ backgroundImage: "url('/imgs/home-ocean-depth.svg')" }}
                 />
-                <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#01253a]/10 via-[#031f35]/30 to-[#04182c]/55 dark:from-[#001323]/35 dark:via-[#001323]/55 dark:to-[#000b18]/75 transition-colors duration-700" />
-                {/* Water particle effects */}
-                <WaterParticles particleCount={50} />
-                <MantaAnimation />
-                <motion.div
-                    className="absolute top-20 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl"
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.5, 0.3],
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                />
-                <motion.div
-                    className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"
-                    animate={{
-                        scale: [1.2, 1, 1.2],
-                        opacity: [0.2, 0.4, 0.2],
-                    }}
-                    transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                />
+                <video
+                    aria-hidden="true"
+                    className="absolute inset-0 z-10 h-full w-full object-cover"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    poster="/imgs/home-ocean-depth.svg"
+                    preload="auto"
+                >
+                    <source src="/videohome.mp4" type="video/mp4" />
+                    <source src="/videohome.webm" type="video/webm" />
+                </video>
+                <div aria-hidden="true" className="absolute inset-0 z-20 bg-gradient-to-b from-[#01253a]/10 via-[#031f35]/30 to-[#04182c]/55 dark:from-[#001323]/35 dark:via-[#001323]/55 dark:to-[#000b18]/75 transition-colors duration-700" />
             </div>
 
             {/* Content */}
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
                     <motion.h1
-                        className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-display"
+                        className="text-5xl md:text-6xl lg:text-7xl font-bold text-white dark:text-white mb-6 font-display drop-shadow-[0_3px_8px_rgba(0,0,0,0.85)]"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.8 }}
@@ -64,7 +48,7 @@ export default function Hero() {
                     </motion.h1>
 
                     <motion.p
-                        className="text-xl md:text-2xl lg:text-3xl text-gray-200 mb-8 max-w-3xl mx-auto"
+                        className="text-xl md:text-2xl lg:text-3xl text-white dark:text-white mb-8 max-w-3xl mx-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.8 }}
@@ -89,6 +73,20 @@ export default function Hero() {
                     <ScrollIndicator delay={0.8} />
                 </motion.div>
             </div>
+
+            <a
+                href="https://uniroma3.it"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Università degli Studi Roma Tre"
+                className="absolute bottom-6 right-6 z-30 opacity-95 transition-opacity hover:opacity-100 sm:bottom-8 sm:right-8"
+            >
+                <img
+                    src="/imgs/RomaTre_marchio_bianco.png"
+                    alt="Università degli Studi Roma Tre"
+                    className="h-auto w-28 object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] sm:w-36"
+                />
+            </a>
         </section>
     )
 }
